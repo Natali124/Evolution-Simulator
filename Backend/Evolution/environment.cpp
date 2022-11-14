@@ -12,4 +12,4 @@ Environment::Environment(int width, int height) {
 }
 
 int Environment::get_width() {return width;};
-int Environment::get_heigth() {return heigth;};
+int Environment::get_height() {return height;};

@@ -52,8 +52,10 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../Evolution/main.cpp 
-OBJECTS       = main.o
+SOURCES       = ../Evolution/environment.cpp \
+		../Evolution/main.cpp 
+OBJECTS       = environment.o \
+		main.o
 DIST          = /Users/vincenzopolitelli/Qt/6.3.2/macos/mkspecs/features/spec_pre.prf \
 		/Users/vincenzopolitelli/Qt/6.3.2/macos/mkspecs/features/device_config.prf \
 		/Users/vincenzopolitelli/Qt/6.3.2/macos/mkspecs/common/unix.conf \
@@ -318,8 +320,10 @@ DIST          = /Users/vincenzopolitelli/Qt/6.3.2/macos/mkspecs/features/spec_pr
 		/Users/vincenzopolitelli/Qt/6.3.2/macos/mkspecs/features/yacc.prf \
 		/Users/vincenzopolitelli/Qt/6.3.2/macos/mkspecs/features/lex.prf \
 		../Evolution/classes.pro creature.hpp \
+		environment.h \
 		living_being.hpp \
-		plant.hpp ../Evolution/main.cpp
+		plant.hpp ../Evolution/environment.cpp \
+		../Evolution/main.cpp
 QMAKE_TARGET  = grading
 DESTDIR       = 
 TARGET        = grading
@@ -918,6 +922,9 @@ compiler_lex_clean:
 compiler_clean: 
 
 ####### Compile
+
+environment.o: ../Evolution/environment.cpp ../Evolution/environment.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o environment.o ../Evolution/environment.cpp
 
 main.o: ../Evolution/main.cpp ../Evolution/creature.hpp \
 		../Evolution/plant.hpp \
