@@ -11,11 +11,13 @@ QMAKE_CXXFLAGS_DEBUG += -O0
 
 HEADERS += \
     creature.hpp \
+    environment.h \
     living_being.hpp \
     plant.hpp
 
 SOURCES += \
         creature.cpp \
+        environment.cpp \
         living_being.cpp \
         main.cpp \
         plant.cpp
