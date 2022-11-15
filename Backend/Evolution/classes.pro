@@ -11,7 +11,7 @@ QMAKE_CXXFLAGS_DEBUG += -O0
 
 HEADERS += \
     creature.hpp \
-    environment.h \
+    environment.hpp \
     living_being.hpp \
     plant.hpp
 
