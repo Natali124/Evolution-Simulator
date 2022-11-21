@@ -49,8 +49,6 @@ private:
   double health;
 
   int age;
-  Coordinate position;
-  bool isdead;
 
 };
 

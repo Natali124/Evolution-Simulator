@@ -14,14 +14,16 @@ HEADERS += \
     creature.hpp \
     food.hpp \
     living_being.hpp \
-    plant.hpp
+    plant.hpp \
+    network.hpp
 
 SOURCES += \
         common.cpp \
         creature.cpp \
         living_being.cpp \
         main.cpp \
-        plant.cpp
+        plant.cpp \
+        hetwork.cpp
 
 TARGET = grading
 
