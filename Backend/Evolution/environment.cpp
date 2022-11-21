@@ -3,7 +3,7 @@
 Environment::Environment()
 {
     width = 30;
-    width = 30;
+    height = 30;
 }
 
 Environment::Environment(int width, int height) {
