@@ -26,63 +26,9 @@
         "-I",
         "C:\\Qt\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedMingwHeaders",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
-        "-I",
-        "C:\\Qt\\6.2.4\\mingw_64\\mkspecs\\win32-g++",
-        "-isystem",
-        "C:\\Qt\\Tools\\mingw1120_64\\lib\\gcc\\x86_64-w64-mingw32\\11.2.0\\include\\c++",
-        "-isystem",
-        "C:\\Qt\\Tools\\mingw1120_64\\lib\\gcc\\x86_64-w64-mingw32\\11.2.0\\include\\c++\\x86_64-w64-mingw32",
-        "-isystem",
-        "C:\\Qt\\Tools\\mingw1120_64\\lib\\gcc\\x86_64-w64-mingw32\\11.2.0\\include\\c++\\backward",
-        "-isystem",
-        "C:\\Qt\\Tools\\QtCreator\\bin\\clang\\lib\\clang\\14.0.3\\include",
-        "-isystem",
-        "C:\\Qt\\Tools\\mingw1120_64\\x86_64-w64-mingw32\\include",
-        "-fmessage-length=0",
-        "-fdiagnostics-show-note-include-stack",
-        "-fretain-comments-from-system-headers",
-        "-fmacro-backtrace-limit=0",
-        "-ferror-limit=1000",
-        "-x",
-        "c++",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution\\common.cpp"
-    ],
-    "directory": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
-    "file": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/Evolution/common.cpp"
-},
-{
-    "arguments": [
-        "clang",
-        "-Wno-documentation-unknown-command",
-        "-Wno-unknown-warning-option",
-        "-Wno-unknown-pragmas",
-        "-nostdinc",
-        "-nostdinc++",
-        "-g",
-        "-Wall",
-        "-Wextra",
-        "-Wextra",
-        "-fexceptions",
-        "-mthreads",
-        "-fsyntax-only",
-        "-m64",
-        "--target=x86_64-w64-mingw32",
-        "-std=gnu++17",
-        "-DUNICODE",
-        "-D_UNICODE",
-        "-DWIN32",
-        "-DMINGW_HAS_SECURE_API",
-        "-DQT_QML_DEBUG",
-        "-DQ_CREATOR_RUN",
-        "-I",
-        "C:\\Qt\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedMingwHeaders",
-        "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution",
-        "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
         "-I",
         "C:\\Qt\\6.2.4\\mingw_64\\mkspecs\\win32-g++",
         "-isystem",
@@ -102,10 +48,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution\\creature.cpp"
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution\\common.cpp"
     ],
-    "directory": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
-    "file": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/Evolution/creature.cpp"
+    "directory": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
+    "file": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/Evolution/common.cpp"
 },
 {
     "arguments": [
@@ -134,9 +80,9 @@
         "-I",
         "C:\\Qt\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedMingwHeaders",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
         "-I",
         "C:\\Qt\\6.2.4\\mingw_64\\mkspecs\\win32-g++",
         "-isystem",
@@ -156,10 +102,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution\\living_being.cpp"
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution\\creature.cpp"
     ],
-    "directory": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
-    "file": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/Evolution/living_being.cpp"
+    "directory": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
+    "file": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/Evolution/creature.cpp"
 },
 {
     "arguments": [
@@ -188,9 +134,9 @@
         "-I",
         "C:\\Qt\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedMingwHeaders",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
         "-I",
         "C:\\Qt\\6.2.4\\mingw_64\\mkspecs\\win32-g++",
         "-isystem",
@@ -210,10 +156,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution\\main.cpp"
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution\\living_being.cpp"
     ],
-    "directory": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
-    "file": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/Evolution/main.cpp"
+    "directory": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
+    "file": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/Evolution/living_being.cpp"
 },
 {
     "arguments": [
@@ -242,9 +188,9 @@
         "-I",
         "C:\\Qt\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedMingwHeaders",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
         "-I",
         "C:\\Qt\\6.2.4\\mingw_64\\mkspecs\\win32-g++",
         "-isystem",
@@ -264,10 +210,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution\\plant.cpp"
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution\\main.cpp"
     ],
-    "directory": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
-    "file": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/Evolution/plant.cpp"
+    "directory": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
+    "file": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/Evolution/main.cpp"
 },
 {
     "arguments": [
@@ -296,9 +242,9 @@
         "-I",
         "C:\\Qt\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedMingwHeaders",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
         "-I",
         "C:\\Qt\\6.2.4\\mingw_64\\mkspecs\\win32-g++",
         "-isystem",
@@ -317,11 +263,11 @@
         "-fmacro-backtrace-limit=0",
         "-ferror-limit=1000",
         "-x",
-        "c++-header",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution\\common.hpp"
+        "c++",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution\\plant.cpp"
     ],
-    "directory": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
-    "file": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/Evolution/common.hpp"
+    "directory": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
+    "file": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/Evolution/plant.cpp"
 },
 {
     "arguments": [
@@ -350,9 +296,9 @@
         "-I",
         "C:\\Qt\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedMingwHeaders",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
         "-I",
         "C:\\Qt\\6.2.4\\mingw_64\\mkspecs\\win32-g++",
         "-isystem",
@@ -372,10 +318,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++-header",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution\\creature.hpp"
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution\\common.hpp"
     ],
-    "directory": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
-    "file": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/Evolution/creature.hpp"
+    "directory": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
+    "file": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/Evolution/common.hpp"
 },
 {
     "arguments": [
@@ -404,9 +350,9 @@
         "-I",
         "C:\\Qt\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedMingwHeaders",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
         "-I",
         "C:\\Qt\\6.2.4\\mingw_64\\mkspecs\\win32-g++",
         "-isystem",
@@ -426,10 +372,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++-header",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution\\food.hpp"
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution\\creature.hpp"
     ],
-    "directory": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
-    "file": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/Evolution/food.hpp"
+    "directory": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
+    "file": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/Evolution/creature.hpp"
 },
 {
     "arguments": [
@@ -458,9 +404,9 @@
         "-I",
         "C:\\Qt\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedMingwHeaders",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
         "-I",
         "C:\\Qt\\6.2.4\\mingw_64\\mkspecs\\win32-g++",
         "-isystem",
@@ -480,10 +426,10 @@
         "-ferror-limit=1000",
         "-x",
         "c++-header",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution\\living_being.hpp"
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution\\food.hpp"
     ],
-    "directory": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
-    "file": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/Evolution/living_being.hpp"
+    "directory": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
+    "file": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/Evolution/food.hpp"
 },
 {
     "arguments": [
@@ -512,9 +458,9 @@
         "-I",
         "C:\\Qt\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedMingwHeaders",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution",
         "-I",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
         "-I",
         "C:\\Qt\\6.2.4\\mingw_64\\mkspecs\\win32-g++",
         "-isystem",
@@ -534,9 +480,63 @@
         "-ferror-limit=1000",
         "-x",
         "c++-header",
-        "C:\\Users\\titar\\Desktop\\Uni\\Year 2\\CSE201 - C++\\Evolution-Simulator\\Backend\\Evolution\\plant.hpp"
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution\\living_being.hpp"
     ],
-    "directory": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
-    "file": "C:/Users/titar/Desktop/Uni/Year 2/CSE201 - C++/Evolution-Simulator/Backend/Evolution/plant.hpp"
+    "directory": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
+    "file": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/Evolution/living_being.hpp"
+},
+{
+    "arguments": [
+        "clang",
+        "-Wno-documentation-unknown-command",
+        "-Wno-unknown-warning-option",
+        "-Wno-unknown-pragmas",
+        "-nostdinc",
+        "-nostdinc++",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wextra",
+        "-fexceptions",
+        "-mthreads",
+        "-fsyntax-only",
+        "-m64",
+        "--target=x86_64-w64-mingw32",
+        "-std=gnu++17",
+        "-DUNICODE",
+        "-D_UNICODE",
+        "-DWIN32",
+        "-DMINGW_HAS_SECURE_API",
+        "-DQT_QML_DEBUG",
+        "-DQ_CREATOR_RUN",
+        "-I",
+        "C:\\Qt\\Tools\\QtCreator\\share\\qtcreator\\cplusplus\\wrappedMingwHeaders",
+        "-I",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution",
+        "-I",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug",
+        "-I",
+        "C:\\Qt\\6.2.4\\mingw_64\\mkspecs\\win32-g++",
+        "-isystem",
+        "C:\\Qt\\Tools\\mingw1120_64\\lib\\gcc\\x86_64-w64-mingw32\\11.2.0\\include\\c++",
+        "-isystem",
+        "C:\\Qt\\Tools\\mingw1120_64\\lib\\gcc\\x86_64-w64-mingw32\\11.2.0\\include\\c++\\x86_64-w64-mingw32",
+        "-isystem",
+        "C:\\Qt\\Tools\\mingw1120_64\\lib\\gcc\\x86_64-w64-mingw32\\11.2.0\\include\\c++\\backward",
+        "-isystem",
+        "C:\\Qt\\Tools\\QtCreator\\bin\\clang\\lib\\clang\\14.0.3\\include",
+        "-isystem",
+        "C:\\Qt\\Tools\\mingw1120_64\\x86_64-w64-mingw32\\include",
+        "-fmessage-length=0",
+        "-fdiagnostics-show-note-include-stack",
+        "-fretain-comments-from-system-headers",
+        "-fmacro-backtrace-limit=0",
+        "-ferror-limit=1000",
+        "-x",
+        "c++-header",
+        "C:\\Users\\Garance\\Downloads\\Evolution-Simulator\\Backend\\Evolution\\plant.hpp"
+    ],
+    "directory": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/build-classes-Desktop_Qt_6_2_4_MinGW_64_bit-Debug/.qtc_clangd",
+    "file": "C:/Users/Garance/Downloads/Evolution-Simulator/Backend/Evolution/plant.hpp"
 }
 ]
