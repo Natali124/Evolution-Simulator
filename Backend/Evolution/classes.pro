@@ -13,12 +13,14 @@ HEADERS += \
     common.hpp \
     creature.hpp \
     food.hpp \
+    environment.hpp \
     living_being.hpp \
     plant.hpp
 
 SOURCES += \
         common.cpp \
         creature.cpp \
+        environment.cpp \
         living_being.cpp \
         main.cpp \
         plant.cpp
