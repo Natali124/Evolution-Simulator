@@ -10,6 +10,7 @@ QMAKE_CXXFLAGS_DEBUG += -O0
 
 
 HEADERS += \
+    Neural Network/network.hpp \
     common.hpp \
     creature.hpp \
     food.hpp \
@@ -18,12 +19,13 @@ HEADERS += \
     network.hpp
 
 SOURCES += \
+        Neural Network/network.cpp \
         common.cpp \
         creature.cpp \
         living_being.cpp \
         main.cpp \
         plant.cpp \
-        hetwork.cpp
+        network.cpp
 
 TARGET = grading
 
