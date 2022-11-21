@@ -33,7 +33,7 @@ public:
   void time_step(); // anything that happens when time passes (1 time unit)
   Food die(); // when creature dies, remove Creature and creates Food object at current position
 
-private:
+protected:
   // Physical attributes (fixed during lifetime)
   // double between 0 and 1double strength;
   double size;

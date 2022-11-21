@@ -13,9 +13,12 @@ public:
     Environment(int width, int height); // creates width x height grid
     int get_width();
     int get_height();
-private:
+    double get_time();
+
+protected:
     int width;
     int height;
+    double time;
 };
 
 #endif // ENVIRONMENT_H

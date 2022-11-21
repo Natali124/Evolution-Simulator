@@ -13,3 +13,4 @@ Environment::Environment(int width, int height) {
 
 int Environment::get_width() {return width;};
 int Environment::get_height() {return height;};
+double Environment::get_time() {return time;};
