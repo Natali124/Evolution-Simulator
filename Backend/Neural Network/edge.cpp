@@ -1,4 +1,7 @@
 #include "edge.hpp"
+#include <random>
+#include <ctime>
+#include <cstdlib>
 #pragma once
 
 Edge::Edge(){
@@ -17,7 +20,9 @@ Edge::Edge(double w, Neuron* start, Neuron* end):Edge(){
         end_neuron = end;
     }
 void Edge::randomize_weight(){
+        srand((int)time(0));
         double r = (double) rand() / RAND_MAX;
+        r = r*2 - 1;
         set_weight(r);
     }
 double Edge::get_weight(){

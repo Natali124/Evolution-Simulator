@@ -1,7 +1,4 @@
-#include <random>
-
 class Neuron;
-
 
 class Edge{
 public:
