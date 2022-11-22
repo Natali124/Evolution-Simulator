@@ -27,5 +27,5 @@ void Neuron::forward_propagate(){
 }
 
 double Neuron::f_activation(double x){
-    return 1/(pow(M_E, -x));
+    return 1/(pow(M_E, -x) + 1);
 }
