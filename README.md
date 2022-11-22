@@ -1,6 +1,13 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2636
-\cocoatextscaling0\cocoaplatform0{\fonttbl}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-}
+# EVOLUTION SIMULATOR
+
+The project aims to simulate evolution. 
+There are three types of beings: plants, preys and predators. 
+Preys and predators have neural networks that allow them to take decisions. 
+
+## Members
+
+## Teams
+
+### Backend
+
+### Frontend
