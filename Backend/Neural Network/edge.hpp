@@ -5,11 +5,12 @@ class Neuron;
 
 class Edge{
 public:
-    //Constructors
+    //Constructors & destructor
 
     Edge();
     Edge(double w);
     Edge(double w, Neuron* start, Neuron* end);
+    ~Edge(){};
 
     //Specific functions
 
