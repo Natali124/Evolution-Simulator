@@ -9,7 +9,6 @@
 #include <iostream>
 #include "common.hpp"
 #include "living_being.hpp"
-#include "food.hpp"
 
 class Creature : LivingBeing {
 public:
@@ -31,7 +30,6 @@ public:
   // being affected from environment
   void lose_health(double amount); // lose health amount
   void time_step(); // anything that happens when time passes (1 time unit)
-  Food die(); // when creature dies, remove Creature and creates Food object at current position
 
 protected:
   // Physical attributes (fixed during lifetime)
@@ -49,8 +47,6 @@ protected:
   double health;
 
   int age;
-  Coordinate position;
-  bool isdead;
 
 };
 
