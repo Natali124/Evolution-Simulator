@@ -23,6 +23,14 @@ set(PROJECT_SOURCES
         mainwindow.ui
         living_being.h living_being.cpp
         environment.h environment.cpp
+        Neural_Network/edge.cpp
+        Neural_Network/edge.hpp
+        Neural_Network/layer.cpp
+        Neural_Network/layer.hpp
+        Neural_Network/network.cpp
+        Neural_Network/network.hpp
+        Neural_Network/neuron.cpp
+        Neural_Network/neuron.hpp
         ${TS_FILES}
 )
 

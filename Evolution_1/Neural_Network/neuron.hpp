@@ -1,4 +1,5 @@
 #include <vector>
+#include "edge.hpp"
 
 class Neuron{
 public:

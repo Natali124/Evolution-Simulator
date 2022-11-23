@@ -21,6 +21,7 @@ protected:
   double food_value;
 };
 
+
 class Creature : LivingBeing {
 public:
   Creature(); // initiates random creature at random position
