@@ -21,8 +21,18 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
-        living_being.h living_being.cpp
-        environment.h environment.cpp
+        environment.h
+        environment.cpp
+        Living_Beings/living_being.h
+        Living_Beings/living_being.cpp
+        Living_Beings/creature.h
+        Living_Beings/creature.cpp
+        Living_Beings/plant.h
+        Living_Beings/plant.cpp
+        Living_Beings/prey.h
+        Living_Beings/prey.cpp
+        Living_Beings/predator.h
+        Living_Beings/predator.cpp
         Neural_Network/edge.cpp
         Neural_Network/edge.hpp
         Neural_Network/layer.cpp

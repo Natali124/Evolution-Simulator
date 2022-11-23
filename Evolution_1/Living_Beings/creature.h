@@ -1,8 +1,7 @@
 #ifndef CREATURE_H
 #define CREATURE_H
-#include "environment.h"
 #include "living_being.h"
-/*
+
 class Creature : LivingBeing {
 public:
   Creature(); // initiates random creature at random position
@@ -22,7 +21,7 @@ public:
 
   // being affected from environment
   void lose_health(double amount); // lose health amount
-  void time_step(); // anything that happens when time passes (1 time unit)
+  void time_step(); // anything that happens when time passes (1 time unit)*/
 
 protected:
   // Physical attributes (fixed during lifetime)
@@ -42,5 +41,5 @@ protected:
   int age;
 
 };
-*/
+
 #endif // CREATURE_H
