@@ -14,8 +14,6 @@ private:
     float width, height;
 };
 
-enum Direction {up = 0, right = 1, down = 2, left = 3};
-
 // class Coordinate copied from td6
 class Coordinate {
 public:

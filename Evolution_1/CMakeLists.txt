@@ -22,8 +22,6 @@ set(PROJECT_SOURCES
         mainwindow.h
         mainwindow.ui
         living_being.h living_being.cpp
-        creature.h creature.cpp
-        plant.h plant.cpp
         environment.h environment.cpp
         ${TS_FILES}
 )
