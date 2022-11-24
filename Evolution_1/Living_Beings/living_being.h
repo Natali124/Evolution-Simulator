@@ -5,7 +5,7 @@
 
 class LivingBeing{
 public:
-  LivingBeing();
+  LivingBeing(); // By default Coordinate(), and type = none,  and size = 0
   LivingBeing(Coordinate position, float size);
   bool alive;
   float size;

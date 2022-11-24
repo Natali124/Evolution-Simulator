@@ -2,4 +2,4 @@
 
 Predator::Predator(){
     type = predator;
-}
+};
