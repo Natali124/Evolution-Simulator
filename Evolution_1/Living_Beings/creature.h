@@ -2,9 +2,13 @@
 #define CREATURE_H
 #include "living_being.h"
 #include "Neural_Network/network.hpp"
+#include <iostream>
+#include <vector>
 
 class Creature : LivingBeing {
 public:
+    Creature();
+    Creature(float physical_strength,float energy, float eye_sight, float visibility, Network brain);
     float physical_strength;
     float energy;
     float eye_sight;
