@@ -1,6 +1,4 @@
 #include "plant.h"
 
-plant::plant()
-{
+int Plant::Type_LB {Type_LB = LivingBeing::Type_LB::Plant;};
 
-}
