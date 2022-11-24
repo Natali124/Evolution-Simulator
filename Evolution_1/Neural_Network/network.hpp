@@ -5,10 +5,15 @@
 
 class Network{ //network with 3 layers
 public:
-    void propagate();
-    void get_output();
+    Network();
+    ~Network();
+    vector <double> propagate(vector<double>input_vector);
+    void randomize_edges();
+    void add_layer(int n_nodes);
+    void add_layer(int i, auto f_activation, int n_nodes);
+    void remove_layer();
 private:
     Layer input_layer;
     Layer output_layer;
-    Layer hidden_layer;
+    vector <Layer> hidden_layers;
 };
