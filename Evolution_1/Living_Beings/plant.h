@@ -1,12 +1,14 @@
 #ifndef PLANT_H
 #define PLANT_H
+#include "living_being.h"
 
-
-class Plant
+class Plant : public LivingBeing
 {
 public:
-    float reproduction_rate();
-    int Type_LB;
+    Plant();
+    Plant(float reproduction_rate, Type_LB type);
+    float reproduction_rate;
+    Type_LB type;
     void reproduction();
 };
 

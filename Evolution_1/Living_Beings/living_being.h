@@ -14,10 +14,10 @@ public:
   float size;
   Coordinate position;
   enum Type_LB{
-      None = -1,
-      Predator = 0,
-      Prey = 1,
-      Plant = 2
+      none = -1,
+      predator = 0,
+      prey = 1,
+      plant = 2,
   };
 
   virtual void reproduction();
