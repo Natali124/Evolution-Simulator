@@ -4,7 +4,7 @@
 
 class Prey : public Creature{
 public:
-    Prey();
+    Prey(); // sets type = prey (see enum Type_LB in living_being.hpp)
     LivingBeing::Type_LB type;
 };
 
