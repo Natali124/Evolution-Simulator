@@ -10,8 +10,6 @@ Anja Matic
 @anjamatic02
 Arjun B
 @arjun_b03
-Artem
-@artiomzakharenko
 Atodiresei Matei
 @atodireseimatei
 Flavia Grasso
@@ -20,8 +18,6 @@ Garance Perrot
 @garanceperrot1
 laurentiu lazar
 @laurentiulazar3
-Leonard Theisler
-@leonardtheisler
 Lorenzo De Giovanni
 @lorenzodegiovanni4
 Mathilde Cros
@@ -32,8 +28,6 @@ Oskar Dąbkowski
 @oskardabkowski
 Pablo Bertaud-Velten
 @pablobertaudvelten
-Rita Saraiva
-@s205717
 Tita Rosemeyer
 @titarosemeyer
 Victor Mihaila
@@ -44,5 +38,21 @@ Vincenzo Politelli
 ## Teams
 
 ### Backend
+Anja Matic 
+Flavia Grasso
+Garance Perrot
+laurentiu lazar
+Lorenzo De Giovanni
+Mathilde Cros
+Natali Gogishvili
+Oskar Dąbkowski
+Pablo Bertaud-Velten
+Tita Rosemeyer
 
 ### Frontend
+Arjun B
+Atodiresei Matei
+laurentiu lazar
+Lorenzo De Giovanni
+Victor Mihaila
+Vincenzo Politelli
