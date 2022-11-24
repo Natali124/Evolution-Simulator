@@ -19,6 +19,7 @@ public:
 
     void remove_neuron(int index); // removes Neuron at given index
     void add_neuron(Neuron neuron);    // adds Neuron
+    int size();
     
     double f_activation(double x){ //default
     return 1/(pow(M_E, -x) + 1);
@@ -26,4 +27,5 @@ public:
 
 private:
     vector<Neuron> neurons;
-    Neuron bias_neuron; };
+    Neuron bias_neuron;
+};

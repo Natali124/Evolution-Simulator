@@ -15,6 +15,7 @@ public:
     void add_layer(int n_nodes);
     void add_layer(int i, auto f_activation, int n_nodes);
     void remove_layer();
+    void propagate();
 private:
     Layer input_layer;
     Layer output_layer;

@@ -9,19 +9,20 @@ using namespace std;
 
 //Overloading the [] operator, returns the i-th neuron
 Neuron Layer :: operator[](int i){
-    if(i >= nodes.size()){
+    if(i >= neurons.size()){
         throw std::out_of_range ("Index out of range");
         //cout << "Index out of range. Exiting";
         //exit(0);
         }
-    return nodes[i];}
+    return neurons[i];}
 
-void Layer :: remove_node(int index){
-    nodes.erase(nodes.begin() + index);} //Natali: fixed indexing issue here
-void Layer :: add_node(Neuron node){
-    nodes.push_back(node);
+void Layer :: remove_neuron(int index){
+    neurons.erase(neurons.begin() + index);} //Natali: fixed indexing issue here
+
+void Layer :: add_neuron(Neuron neuron){
+    neurons.push_back(neuron);
 }
 
 int Layer::size(){
-    return nodes.size();
+    return neurons.size();
 }
