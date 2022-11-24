@@ -11,7 +11,7 @@ public:
     float visibility;
     Network brain;
     void reproduction();
-    virtual vector<LivingBeing> get_close();
+    virtual std::vector<LivingBeing> get_close();
 };
 
 #endif // CREATURE_H

@@ -7,6 +7,6 @@ LivingBeing::LivingBeing(Coordinate position, float size) {
 }
 
 LivingBeing::LivingBeing(){
-    size = rand()%2; // random size between 0 and 1?
+    size = 0;
     position = Coordinate();
 }

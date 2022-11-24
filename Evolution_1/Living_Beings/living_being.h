@@ -14,6 +14,7 @@ public:
   float size;
   Coordinate position;
   enum Type_LB{
+      None = -1,
       Predator = 0,
       Prey = 1,
       Plant = 2
