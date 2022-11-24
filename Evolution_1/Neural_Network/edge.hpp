@@ -18,6 +18,7 @@ public:
     double get_weight();
     Neuron* get_start_neuron();
     Neuron* get_end_neuron();
+    bool get_is_active();
 
     //Setters
 
@@ -28,9 +29,8 @@ public:
 
 private:
     double weight;
-    double prev_weight;
     Neuron* start_neuron;
     Neuron* end_neuron;
-    bool is_active = true;         //Anja: We talked abt this attribute yesterday so I added it
+    bool is_active = true;
 
 };
