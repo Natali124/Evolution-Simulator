@@ -1,11 +1,11 @@
 #ifndef PREY_H
 #define PREY_H
+#include "creature.h"
 
-
-class prey
-{
+class Prey : public Creature{
 public:
-    prey();
+    Prey();
+    LivingBeing::Type_LB type;
 };
 
 #endif // PREY_H

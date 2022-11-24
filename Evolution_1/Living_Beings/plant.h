@@ -6,7 +6,7 @@ class Plant : public LivingBeing
 {
 public:
     Plant();
-    Plant(float reproduction_rate, Type_LB type);
+    Plant(float reproduction_rate);
     float reproduction_rate;
     Type_LB type;
     void reproduction();

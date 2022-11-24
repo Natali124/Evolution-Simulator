@@ -5,10 +5,7 @@
 
 class LivingBeing{
 public:
-  LivingBeing(); //random living being with random arguments
-  //on fait les meme constructor que pur creature class
-  // un pour random living w rand position, un pour tout les arguments etc
-  //et dans la class creature the constructor is inherited from living being
+  LivingBeing();
   LivingBeing(Coordinate position, float size);
   bool alive;
   float size;
@@ -19,7 +16,7 @@ public:
       prey = 1,
       plant = 2,
   };
-
+  Type_LB type;
   virtual void reproduction();
 };
 

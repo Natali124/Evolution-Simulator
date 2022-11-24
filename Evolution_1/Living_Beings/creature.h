@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 
-class Creature : LivingBeing {
+class Creature : public LivingBeing {
 public:
     Creature();
     Creature(float physical_strength,float energy, float eye_sight, float visibility, Network brain);
