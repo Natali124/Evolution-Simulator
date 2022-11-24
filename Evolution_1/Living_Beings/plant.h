@@ -2,10 +2,12 @@
 #define PLANT_H
 
 
-class plant
+class Plant
 {
 public:
-    plant();
+    float reproduction_rate();
+    int Type_LB;
+    void reproduction();
 };
 
 #endif // PLANT_H
