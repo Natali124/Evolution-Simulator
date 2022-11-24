@@ -1,3 +1,5 @@
+#pragma once
+
 class Neuron;
 
 class Edge{

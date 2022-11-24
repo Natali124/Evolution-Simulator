@@ -1,8 +1,6 @@
 #include "edge.hpp"
-#include "edge.cpp"
 #include "neuron.hpp"
 #include "layer.hpp"
-#include "layer.cpp"
 #include <vector>
 using namespace std;
 

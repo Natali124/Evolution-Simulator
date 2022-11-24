@@ -1,7 +1,5 @@
 #include "edge.hpp"
-#include "edge.cpp"
 #include "neuron.hpp"
-#include "neuron.cpp"
 #include "layer.hpp"
 
 #include <cmath>

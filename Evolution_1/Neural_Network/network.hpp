@@ -1,6 +1,5 @@
-class Layer{
-
-};
+#include "layer.hpp"
+#pragma once
 
 
 

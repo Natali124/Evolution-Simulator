@@ -2,7 +2,6 @@
 #include <random>
 #include <ctime>
 #include <cstdlib>
-#pragma once
 
 Edge::Edge(){
         weight = 0;
