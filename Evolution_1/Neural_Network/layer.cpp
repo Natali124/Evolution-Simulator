@@ -11,13 +11,11 @@ using namespace std;
 Neuron Layer :: operator[](int i){
     if(i >= neurons.size()){
         throw std::out_of_range ("Index out of range");
-        //cout << "Index out of range. Exiting";
-        //exit(0);
         }
     return neurons[i];}
 
 void Layer :: remove_neuron(int index){
-    neurons.erase(neurons.begin() + index);} //Natali: fixed indexing issue here
+    neurons.erase(neurons.begin() + index);}
 void Layer :: add_neuron(Neuron node){
     neurons.push_back(node);
 }
