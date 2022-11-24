@@ -24,10 +24,13 @@ public:
     void set_weight(double w); //also updates prev_weight
     void set_start(Neuron* n);
     void set_end(Neuron* n);
+    void set_activation(bool activation);
 
 private:
     double weight;
     double prev_weight;
     Neuron* start_neuron;
     Neuron* end_neuron;
+    bool is_active = true;         //Anja: We talked abt this attribute yesterday so I added it
+
 };

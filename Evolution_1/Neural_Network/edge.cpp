@@ -44,3 +44,6 @@ void Edge::set_start(Neuron* n){
 void Edge::set_end(Neuron* n){
         end_neuron = n;
     }
+
+void Edge::set_activation(bool activation){
+    is_active = activation;}

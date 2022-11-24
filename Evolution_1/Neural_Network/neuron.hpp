@@ -1,6 +1,10 @@
 #include <vector>
 #include "edge.hpp"
 
+using namespace std;
+
+class Edge;
+class Layer;
 
 class Neuron{
 public:
@@ -19,17 +23,20 @@ public:
 
     // Setters
     void set_values();
+    void set_next_edges(); // Did not implement this functions, was not sure how to do it
    
 
     //Other functions  
     void forward_propagate(); //updates neuron based on neurons of the previous layer
+    void add_edge(Edge edge, bool previous); // adds an edge. boolean previous indicates wether its in next_edges or previous_edges
+    void reomve_edge(Edge edge); // removes edge connecting neurn to other_neuron
+
 
 private:
     int neuron_id;
-   
     vector <Edge> previous_edges; //incomming edges
     vector <Edge> next_edges;  // output edges  
-    vector <double> inputs (0);
+    vector <double> inputs;
     double value;  
     Layer layer;
 
