@@ -14,37 +14,13 @@ private:
     float width, height;
 };
 
-// class Coordinate copied from td6
+
 class Coordinate {
 public:
-  Coordinate(double x_other, double y_other);
-  Coordinate();
-  Coordinate(const Coordinate &other);
-  ~Coordinate();
-
-  double get_x() const;
-  double get_y() const;
-  void set_x(const double x);
-  void set_y(const double y);
-  double get_distance(Coordinate other);
-
-  Coordinate operator+(const Coordinate& other);
-  Coordinate operator-();
-  Coordinate operator-(const Coordinate& other);
-
-  bool operator==(const Coordinate& other);
-  bool operator!=(const Coordinate& other);
-  bool operator>(const Coordinate& other);
-  bool operator<(const Coordinate& other);
-
-  static int get_num_instances();
-
-  friend std::ostream& operator<<(std::ostream& os, const Coordinate& c);
-
-private:
-  double x;
-  double y;
-  static int num_instances;
+    Coordinate(); //default(0,0)
+    Coordinate(float x,float y);
+    float x;
+    float y;
 };
 
 #endif // ENVIRONMENT_H
