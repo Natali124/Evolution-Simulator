@@ -1,5 +1,6 @@
 #include <vector>
 #include "edge.hpp"
+#pragma once
 
 using namespace std;
 

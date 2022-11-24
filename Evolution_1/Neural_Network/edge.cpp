@@ -2,14 +2,12 @@
 #include <random>
 #include <ctime>
 #include <cstdlib>
-#pragma once
 
 Edge::Edge(){
-        //Natali: option to do it with setter - for now let's keep it this way so that initiation of prev_weight is always set correctly
         weight = 0;
-        prev_weight = 0;
         start_neuron = nullptr;
         end_neuron = nullptr;
+        is_active = true;
     }
 Edge::Edge(double w):Edge(){
         weight = w;
@@ -34,8 +32,10 @@ Neuron* Edge::get_start_neuron(){
 Neuron* Edge::get_end_neuron(){
         return end_neuron;
     }
+bool Edge::get_is_active(){
+    return is_active;
+}
 void Edge::set_weight(double w){
-        prev_weight = weight;
         weight = w;
     }
 void Edge::set_start(Neuron* n){

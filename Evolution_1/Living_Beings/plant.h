@@ -5,8 +5,8 @@
 class Plant : public LivingBeing
 {
 public:
-    Plant();
-    Plant(float reproduction_rate, Type_LB type);
+    Plant(); //by default reproduction_rate = 0 and type = plant (see enum Type_LB in living_being.hpp)
+    Plant(float reproduction_rate);
     float reproduction_rate;
     Type_LB type;
     void reproduction();

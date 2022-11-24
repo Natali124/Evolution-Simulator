@@ -1,8 +1,6 @@
-
 #include "edge.hpp"
-#include "edge.cpp"
 #include "neuron.hpp"
-#include "neuron.cpp"
+#pragma once
 
 #include <cmath>
 #include <vector>
