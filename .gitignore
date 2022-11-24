@@ -54,3 +54,5 @@ compile_commands.json
 #Mac
 **/.DS_Store
 ./.DS_Store
+
+.vscode
