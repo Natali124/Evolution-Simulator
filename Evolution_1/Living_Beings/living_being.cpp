@@ -1,10 +1,12 @@
 #include "environment.h"
 #include "living_being.h"
 
-LivingBeing::LivingBeing(Coordinate position) {this->position = position;};
+LivingBeing::LivingBeing(Coordinate position, float size) {
+    this->size = size;
+    this->position = position;
+}
 
-Coordinate LivingBeing::get_position() {return position;};
-
-bool LivingBeing::get_is_dead() {return is_dead;};
-
-double LivingBeing::get_food_value() {return food_value;};
+LivingBeing::LivingBeing(){
+    size = rand()%2; // random size between 0 and 1?
+    position = Coordinate();
+}

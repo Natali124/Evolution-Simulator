@@ -9,16 +9,17 @@ public:
   //on fait les meme constructor que pur creature class
   // un pour random living w rand position, un pour tout les arguments etc
   //et dans la class creature the constructor is inherited from living being
-  LivingBeing(Coordinate position);
-  Coordinate get_position();
-  bool get_is_dead();
-  double size;
-  double get_food_value();
-
-protected:
+  LivingBeing(Coordinate position, float size);
+  bool alive;
+  float size;
   Coordinate position;
-  bool is_dead;
-  double food_value;
+  enum Type_LB{
+      Predator = 0,
+      Prey = 1,
+      Plant = 2
+  };
+
+  virtual void reproduction();
 };
 
 #endif // LIVING_BEING_H
