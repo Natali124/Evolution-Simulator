@@ -24,6 +24,7 @@ public:
     double f_activation(double x){ //default
     return 1/(pow(M_E, -x) + 1);
     }
+    int size();
 
 private:
     vector<Neuron> neurons;
