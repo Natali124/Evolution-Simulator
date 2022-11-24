@@ -11,8 +11,8 @@ class Neuron{
 public:
 
     // Constructors and destructur
-    Neuron(int neuron_id, vector<Edge> previous_edges, Layer layer); //constructor for hidden/output layer
-    Neuron(int neuron_id, vector<double> inputs, Layer layer); // constructor for input layer
+    Neuron(int neuron_id, vector<Edge> previous_edges, Layer* layer); //constructor for hidden/output layer
+    Neuron(int neuron_id, vector<double> inputs, Layer* layer); // constructor for input layer
     ~Neuron();
 
 
@@ -39,6 +39,6 @@ private:
     vector <Edge> next_edges;  // output edges  
     vector <double> inputs;
     double value;  
-    Layer layer;
+    Layer* layer;
 
 };

@@ -7,15 +7,15 @@ using namespace std;
 
 //Constructors
 
-Neuron::Neuron(int neuron_id, vector<Edge> previous_edges, Layer layer){
+Neuron::Neuron(int neuron_id, vector<Edge> previous_edges, Layer* layer){
         this->neuron_id = neuron_id;
         this ->previous_edges = previous_edges;
         this ->layer = layer;
-        inputs = vector(0);
+        inputs = vector<double>(0);
 
 }
 
-Neuron:: Neuron(int neuron_id, std::vector<double> inputs, Layer layer){
+Neuron:: Neuron(int neuron_id, std::vector<double> inputs, Layer* layer){
         this->neuron_id = neuron_id;
         this ->inputs = inputs;
         this ->layer = layer;
@@ -43,5 +43,5 @@ void Neuron::forward_propagate(){
     for (int i = 0; i < previous_edges.size(); i ++){
         sum += previous_edges[i].get_weight() * previous_edges[i].get_start_neuron()->value;
     }
-    value = layer.f_activation(sum);
+    value = (*layer).f_activation(sum);
 }

@@ -13,8 +13,9 @@ public:
     vector <double> propagate(vector<double>input_vector);
     void randomize_edges();
     void add_layer(int n_nodes);
-    void add_layer(int i, auto f_activation, int n_nodes);
+    void add_layer(int i, double (*f_activation)(double), int n_nodes);
     void remove_layer();
+    void propagate();
 private:
     Layer input_layer;
     Layer output_layer;
