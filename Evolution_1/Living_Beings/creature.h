@@ -5,9 +5,9 @@
 #include <iostream>
 #include <vector>
 
-class Creature : LivingBeing {
+class Creature : public LivingBeing {
 public:
-    Creature();
+    Creature(); // by default everything to 0 and calls Network()
     Creature(float physical_strength,float energy, float eye_sight, float visibility, Network brain);
     float physical_strength;
     float energy;

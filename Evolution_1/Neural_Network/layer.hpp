@@ -1,8 +1,6 @@
-
 #include "edge.hpp"
-#include "edge.cpp"
 #include "neuron.hpp"
-#include "neuron.cpp"
+#pragma once
 
 #include <cmath>
 #include <vector>
@@ -14,18 +12,18 @@ class Edge;
 class Layer{
 public:
     // Constructors
-    Layer(vector<Node> nodes);
+    Layer(vector<Neuron> neurons);
 
     //Other functions
     Neuron operator[](int i);
 
-    void remove_node(int index); // removes node at given index 
-    void add_node(Node node);    // adds node
+    void remove_neuron(int index); // removes Neuron at given index
+    void add_neuron(Neuron neuron);    // adds Neuron
     
     double f_activation(double x){ //default
     return 1/(pow(M_E, -x) + 1);
     }
 
 private:
-    vector<Node> nodes;
-    Node bias_node; };
+    vector<Neuron> neurons;
+    Neuron bias_neuron; };

@@ -1,6 +1,5 @@
 #include "predator.h"
 
-predator::predator()
-{
-
-}
+Predator::Predator(){
+    type = predator;
+};

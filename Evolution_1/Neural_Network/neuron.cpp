@@ -1,8 +1,6 @@
 #include "edge.hpp"
-#include "edge.cpp"
 #include "neuron.hpp"
 #include "layer.hpp"
-#include "layer.cpp"
 #include <vector>
 using namespace std;
 
@@ -17,7 +15,7 @@ Neuron::Neuron(int neuron_id, vector<Edge> previous_edges, Layer layer){
 
 }
 
-Neuron:: Neuron(int neuron_id, stdvector<double> inputs, Layer layer){
+Neuron:: Neuron(int neuron_id, std::vector<double> inputs, Layer layer){
         this->neuron_id = neuron_id;
         this ->inputs = inputs;
         this ->layer = layer;
@@ -33,7 +31,7 @@ vector<Edge> Neuron :: get_previous_edges(){
 vector<Edge> Neuron :: get_next_edges(){
     return next_edges;}
 
-void add_edge(Edge edge, bool previous){
+void Neuron::add_edge(Edge edge, bool previous){
     if(previous){
         previous_edges.push_back(edge);}
     else{
