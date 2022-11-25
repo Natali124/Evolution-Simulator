@@ -1,4 +1,5 @@
 #include "layer.hpp"
+#include <functional>
 #pragma once
 
 
@@ -16,6 +17,8 @@ public:
     void add_layer(int i, double (*f_activation)(double), int n_nodes);
     void remove_layer();
     void propagate();
+    void apply_on_all_edges(function<void(Edge&)> edge_function);
+    void apply_on_all_weights(function<double(double)> weight_function);
 private:
     Layer input_layer;
     Layer output_layer;

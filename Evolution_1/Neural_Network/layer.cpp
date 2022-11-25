@@ -25,10 +25,17 @@ Neuron Layer :: operator[](int i){
 
 
 // Manipulation
+vector<double> Layer::get_values(){
+  // Returns values of Neurons in Layer as vector of doubles
+  vector<double> v = vector<double>(0);
+  for(auto & neuron : neurons){
+      v.push_back(neuron.get_value());
+    }
+  return v;
+}
 void Layer::set_values(vector<double> v){
   // sets values of each neuron of layer
   // to corresponding value in input vector
-
   if(v.size() != neurons.size()){
       throw; // if size doesn't match, throw exception
   } else {

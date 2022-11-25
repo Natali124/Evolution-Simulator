@@ -18,8 +18,10 @@ public:
 
     // Getters and Setters, Manipulation
     void set_values (vector <double> v);
-    void remove_neuron(int index); // removes Neuron at given index
-    void add_neuron(Neuron neuron);// adds Neuron to end of array
+    vector<double> get_values();
+    vector<Neuron> get_neurons(){return neurons;};
+    void remove_neuron(int index);  // removes Neuron at given index
+    void add_neuron(Neuron neuron); // adds Neuron to end of array
     int size();
     
     //Other functions
