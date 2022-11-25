@@ -2,6 +2,15 @@
 #define LIVING_BEING_H
 
 #include "environment.h"
+#include <iostream>
+#include <vector>
+
+
+
+//Variable we may change, but should be constant:
+
+const double Vision_ray_width = 0.02;
+
 
 class LivingBeing{
 public:
@@ -17,6 +26,15 @@ public:
       plant = 2,
   };
   Type_LB type;
+
+
+  // n >=0 correspond to the number of ray we will use to get the vision.
+  // for now, vision is only in front
+  std::vector<short> See(int n, double d);
+  short See(int n, int i, double d); // auxilary function for See(int)
+
+
+
   virtual void reproduction();
 };
 
