@@ -62,14 +62,14 @@ void Layer::fully_connect(Layer* prev_layer){
       // Connect to bias neuron of previous layer
       Neuron prev_neuron = prev_layer->bias_neuron;
       Edge edge = Edge(&prev_neuron, &current_neuron);
-      prev_neuron.add_edge(edge,true);
-      current_neuron.add_edge(edge,false);
+      prev_neuron.add_edge(&edge,true);
+      current_neuron.add_edge(&edge,false);
 
       // Connect to all neurons of previous layer
       for(auto & prev_neuron : prev_layer->neurons){
           Edge edge = Edge(&prev_neuron, &current_neuron);
-          prev_neuron.add_edge(edge,true);
-          current_neuron.add_edge(edge,false);
+          prev_neuron.add_edge(&edge,true);
+          current_neuron.add_edge(&edge,false);
         }
     }
 }

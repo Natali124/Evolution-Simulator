@@ -27,14 +27,14 @@ void Network::apply_on_all_edges(function<void(Edge&)> edge_function){
     for(auto & layer : hidden_layers){
         for(auto & neuron : layer.get_neurons()){
             for(auto & edge : neuron.get_previous_edges()){
-              edge_function(edge);
+              edge_function(*edge);
             }
         }
     }
     // apply to all edges going to ouput_layer
     for(auto & neuron : output_layer.get_neurons()){
         for(auto & edge : neuron.get_previous_edges()){
-            edge_function(edge);
+            edge_function(*edge);
           }
       }
 }
