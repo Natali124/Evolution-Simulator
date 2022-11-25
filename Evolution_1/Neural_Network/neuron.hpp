@@ -11,6 +11,7 @@ class Neuron{
 public:
 
     // Constructors and destructur
+    Neuron();
     Neuron(int neuron_id, vector<Edge> previous_edges, Layer* layer); //constructor for hidden/output layer
     Neuron(int neuron_id, vector<double> inputs, Layer* layer); // constructor for input layer
     ~Neuron();
@@ -23,14 +24,14 @@ public:
     vector <Edge> get_next_edges();
 
     // Setters
-    void set_values();
-    void set_next_edges(); // Did not implement this functions, was not sure how to do it
-   
+    void set_value(double value);
+    void set_next_edges(vector<Edge> edges);// Did not implement this functions, was not sure how to do it
+    void set_previous_edges(vector<Edge> edges);
 
     //Other functions  
     void forward_propagate(); //updates neuron based on neurons of the previous layer
     void add_edge(Edge edge, bool previous); // adds an edge. boolean previous indicates wether its in next_edges or previous_edges
-    void reomve_edge(Edge edge); // removes edge connecting neurn to other_neuron
+    void remove_edge(Edge edge); // removes edge connecting neurn to other_neuron
 
 
 private:
@@ -39,6 +40,6 @@ private:
     vector <Edge> next_edges;  // output edges  
     vector <double> inputs;
     double value;  
-    Layer* layer;
+    Layer* parent_layer;
 
 };

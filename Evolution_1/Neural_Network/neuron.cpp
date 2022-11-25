@@ -6,19 +6,24 @@ using namespace std;
 
 
 //Constructors
+Neuron::Neuron(){
+   previous_edges = vector<Edge>(0);
+   next_edges = vector<Edge>(0);
+   parent_layer = NULL;
+}
 
-Neuron::Neuron(int neuron_id, vector<Edge> previous_edges, Layer* layer){
+Neuron::Neuron(int neuron_id, vector<Edge> previous_edges, Layer* parent_layer){
         this->neuron_id = neuron_id;
         this ->previous_edges = previous_edges;
-        this ->layer = layer;
+        this ->parent_layer = parent_layer;
         inputs = vector<double>(0);
 
 }
 
-Neuron:: Neuron(int neuron_id, std::vector<double> inputs, Layer* layer){
+Neuron:: Neuron(int neuron_id, std::vector<double> inputs, Layer* parent_layer){
         this->neuron_id = neuron_id;
         this ->inputs = inputs;
-        this ->layer = layer;
+        this ->parent_layer = parent_layer;
         }
 
 
@@ -43,5 +48,5 @@ void Neuron::forward_propagate(){
     for (int i = 0; i < previous_edges.size(); i ++){
         sum += previous_edges[i].get_weight() * previous_edges[i].get_start_neuron()->value;
     }
-    value = (*layer).f_activation(sum);
+    value = (*parent_layer).f_activation(sum);
 }
