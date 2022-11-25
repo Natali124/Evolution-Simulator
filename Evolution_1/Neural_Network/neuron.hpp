@@ -12,8 +12,8 @@ public:
 
     // Constructors and destructur
     Neuron();
-    Neuron(int neuron_id, vector<Edge*> previous_edges, Layer layer); //constructor for hidden/output layer
-    Neuron(int neuron_id, Layer layer); // constructor for input layer
+    Neuron(int neuron_id, vector<Edge*> previous_edges, Layer* parent_layer); //constructor for hidden/output layer
+    Neuron(int neuron_id, Layer* parent_layer); // constructor for input layer
     ~Neuron();
 
 
@@ -23,8 +23,9 @@ public:
     vector <Edge*> get_next_edges();
 
     // Setters
-    void set_values();
-    void set_next_edges(); // Did not implement this functions, was not sure how to do it
+    void set_value(double value);
+    void set_next_edges(vector<Edge> edges);// Did not implement this functions, was not sure how to do it
+    void set_previous_edges(vector<Edge> edges);
    
     //Other functions  
     void forward_propagate(); //updates neuron based on neurons of the previous layer
@@ -37,6 +38,6 @@ private:
     vector <Edge*> previous_edges; //incomming edges
     vector <Edge*> next_edges;  // output edges  
     double value;  
-    Layer* layer;
+    Layer* parent_layer;
 
 };

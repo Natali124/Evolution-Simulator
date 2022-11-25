@@ -12,10 +12,13 @@ Edge::Edge(){
 Edge::Edge(double w):Edge(){
         weight = w;
     }
-Edge::Edge(double w, Neuron* start, Neuron* end):Edge(){
-        weight = w;
+Edge::Edge(Neuron* start, Neuron* end):Edge(){
         start_neuron = start;
         end_neuron = end;
+        randomize_weight();
+    }
+Edge::Edge(double w, Neuron* start, Neuron* end):Edge(start,end){
+         weight = w;
     }
 void Edge::randomize_weight(){
         srand((int)time(0));
@@ -38,10 +41,10 @@ bool Edge::get_is_active(){
 void Edge::set_weight(double w){
         weight = w;
     }
-void Edge::set_start(Neuron* n){
+void Edge::set_start_neuron(Neuron* n){
         start_neuron = n;
     }
-void Edge::set_end(Neuron* n){
+void Edge::set_end_neuron(Neuron* n){
         end_neuron = n;
     }
 

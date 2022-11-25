@@ -8,6 +8,7 @@ public:
 
     Edge();
     Edge(double w);
+    Edge(Neuron* start, Neuron* end);
     Edge(double w, Neuron* start, Neuron* end);
     ~Edge(){};
 
@@ -24,9 +25,9 @@ public:
 
     //Setters
 
-    void set_weight(double w); //also updates prev_weight
-    void set_start(Neuron* n);
-    void set_end(Neuron* n);
+    void set_weight(double w);
+    void set_start_neuron(Neuron* n);
+    void set_end_neuron(Neuron* n);
     void set_activation(bool activation);
 
 private:
