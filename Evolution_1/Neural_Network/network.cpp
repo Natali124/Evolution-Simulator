@@ -43,3 +43,7 @@ void Network::apply_on_all_weights(function<double(double)> weight_function){
   // applies a function on all weights of the network
   apply_on_all_edges([weight_function](Edge& e) { e.set_weight(weight_function(e.get_weight())); });
 }
+
+// functions added for compilation reasons (Vincenzo)
+Network::Network(){};
+Network::~Network(){};

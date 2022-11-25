@@ -2,22 +2,23 @@
 #define LIVING_BEING_H
 
 #include "environment.h"
+#include "Neural_Network/network.hpp"
 
 class LivingBeing{
 public:
-  LivingBeing(); // By default Coordinate(), and type = none,  and size = 0
-  LivingBeing(Coordinate position, float size);
+  LivingBeing(); // initializes a living being with alive = true;
   bool alive;
-  float size;
-  Coordinate position;
-  enum Type_LB{
-      none = -1,
-      predator = 0,
-      prey = 1,
-      plant = 2,
-  };
-  Type_LB type;
   virtual void reproduction();
 };
 
-#endif // LIVING_BEING_H
+#endif
+
+//Previous definition of the class
+// LIVING_BEING_H
+//Coordinate position;
+/*enum Type_LB{
+    none = -1,
+    predator = 0,
+    prey = 1,
+    plant = 2,
+};*/

@@ -1,11 +1,16 @@
 #include "plant.h"
 #include "living_being.h"
 
+Plant::Plant(){
+    std::map<Enum_parameters, float> parameters;
+    for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
+        float val = (float)rand()/(float)RAND_MAX;
+        parameters.insert(std::pair<Enum_parameters, float>(param, val));
+    }
+}
 
-Plant::Plant() {
-    reproduction_rate = 0;
-    type = plant;}
+Plant::Plant(std::map<Enum_parameters, float> parameters) {
+    this->parameters = parameters;
+}
 
-Plant::Plant(float reproduction_rate) {
-    this-> reproduction_rate = reproduction_rate;
-    type = plant; }
+void Plant::reproduction(){};
