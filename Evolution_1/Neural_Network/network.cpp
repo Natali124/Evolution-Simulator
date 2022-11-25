@@ -3,6 +3,7 @@
 #include <functional>
 using namespace std;
 
+
 vector <double> Network::propagate(vector<double>v){
     // returns output vector for given input vector
     // going through the neural network
