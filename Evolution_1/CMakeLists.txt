@@ -41,6 +41,13 @@ set(PROJECT_SOURCES
         Neural_Network/network.hpp
         Neural_Network/neuron.cpp
         Neural_Network/neuron.hpp
+        Frontend/mouse.h
+        Frontend/mouse.cpp
+        Frontend/Windows/creatureDisplay.h
+        Frontend/Windows/creatureDisplay.cpp
+        Frontend/Windows/mainMenu.h
+        Frontend/Windows/mainMenu.cpp
+        Frontend/mainMenuResources.qrc
         ${TS_FILES}
 )
 
