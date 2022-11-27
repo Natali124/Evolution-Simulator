@@ -5,6 +5,27 @@
 #include <cmath>
 
 
+
+Other::Square::Square(): Square(0, 0, 1, 1){
+}
+Other::Square::Square(qreal X, qreal Y, qreal W, qreal H): x(X), y(Y), w(W), h(H){
+}
+QRectF Other::Square::boundingRect() const{
+    return QRectF(this->x, this->y, this->w, this->h);
+}
+
+//we don't want it to appear
+void Other::Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+}
+
+void Other::Square::set_shape(){
+    QPainterPath path;
+    path.addRect(this->boundingRect());
+}
+
+
+
+
 LivingBeing::LivingBeing(Coordinate position, float size) {
     type = none;
     this->size = size;
@@ -16,6 +37,16 @@ LivingBeing::LivingBeing(){
     size = 0;
     position = Coordinate();
 }
+
+
+
+float LivingBeing::get_x(){
+    return this->position.x;
+}
+float LivingBeing::get_y(){
+    return this->position.y;
+}
+
 
 
 void LivingBeing::set_bounding_rect(qreal x, qreal y, qreal width, qreal height) { //top left corner at x,y
@@ -43,30 +74,36 @@ void LivingBeing::set_shape() {   // for now preys and predators are circles, pl
 }
 
 
-std::vector<short> LivingBeing::See(int n, double d){
-    std::vector<short> v; //Here we'll get all the output, It will be of size n
+std::vector<int> LivingBeing::See(int n){
+    std::vector<int> v; //Here we'll get all the output, It will be of size n
 
     for (int i=0; i<n; i++){
-        v.push_back(this->See(n, i, d));
+        v.push_back(this->See(n, i));
     }
     return v;
 }
 
-short LivingBeing::See(int n, int i, double d){
-    // return a distance score with 256 meaning really close and 0 meaning nothing seen
+int LivingBeing::See(int n, int i){
+    // return a distance score with 0 meaning really close and 256 meaning nothing seen (see only the closest object)
 
-    //start: x, y ; size = d/(2**k); teta = ((i+1)*pi)/(n+2), this will allow us to get the vision ray at good positions.
-    short r=0;
-    for (int k=0; k<8; k++){
-        double size = d/(pow(2, k));
-        if(need_function /*Something in the ray of size d and width Vision_ray_width, can't implement it now*/){
-            //r==0=>nothing has been seen
-            if (!r){
-                r+=1;
-            }
-            // We use binary search to get the distance of the first seen object
-            r+=pow(2, 8-k-1);
+    //start: x, y; teta = ((i+1)*pi)/(n+2), this will allow us to get the vision ray at good positions.
+    int r=0;
+    double teta = ((i+1)*3.14)/(n+2);
+
+
+    //lenght is vision
+    QGraphicsLineItem*  Ray = new QGraphicsLineItem(this->get_x(), this->get_y(), this->get_x() + this->vision * cos(teta), this->get_y() + this->vision * cos(teta));
+    QList<QGraphicsItem*> list = Ray->collidingItems();
+
+    foreach(QGraphicsItem* i , list)
+    {
+        int* R = new int(pow(pow(i->x(), 2) + pow(i->y(), 2), 0.5));
+        if (*R <r){
+            r = *R;
         }
+        delete R;
     }
-    return r;
+    delete Ray;
+
+    return 1-r;
 }
