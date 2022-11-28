@@ -26,17 +26,17 @@ void LivingBeing::set_shape() {   // for now preys and predators are circles, pl
     QPainterPath path;
     if (this->type == 0) { // if the LB is a predator
         this->set_bounding_rect(10, 10, 6, 6); // values just for testing purposes, to be changed
-        path.addEllipse((this->bounding_rect));
+        path.addEllipse(this->bounding_rect);
     }
 
     if (this->type == 1) { // if the LB is a prey
         this->set_bounding_rect(10, 10, 3, 3); // values just for testing purposes, to be changed
-        path.addEllipse((this->bounding_rect));
+        path.addEllipse(this->bounding_rect);
     }
 
     else if (this->type == 2) { // if the LB is a plant
         this->set_bounding_rect(10, 10, 2, 2); //values just for testing purposes, to be changed
-        path.addRect(10, 10, 2, 2);
+        path.addRect(this->bounding_rect);
     }
 
     this->shape = path;
