@@ -34,7 +34,7 @@ public:
 
 
 private:
-    static int neuron_counter;
+    static int neuron_counter; //Number of existing neurons. Increases everytime a neuron is intialized, decreases when a neuron is destroyed
     vector <Edge*> previous_edges; //incomming edges
     vector <Edge*> next_edges;  // output edges  
     double value;  

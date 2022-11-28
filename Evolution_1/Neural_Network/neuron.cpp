@@ -10,23 +10,29 @@ Neuron::Neuron(){
     previous_edges = vector<Edge*>(0);
     next_edges = vector<Edge*>(0);
     parent_layer =nullptr;
+    neuron_counter += 1;
 
 }
 
-Neuron::Neuron(int neuron_id, vector<Edge*> previous_edges, Layer* parent_layer){
-        this->neuron_id = neuron_id;
+Neuron::Neuron(vector<Edge*> previous_edges, Layer* parent_layer){
+    
         this ->previous_edges = previous_edges;
         this ->parent_layer = parent_layer;
+        neuron_counter += 1;
 
 }
 
-Neuron:: Neuron(int neuron_id, Layer* parent_layer){
-        this->neuron_id = neuron_id;
+Neuron:: Neuron(Layer* parent_layer){        
         this ->parent_layer = parent_layer;
         previous_edges = vector<Edge*>(0);
+        neuron_counter += 1;        
         }
 
 
+
+Neuron:: ~Neuron(){
+    neuron_counter-=1;
+};
 //Getters
 vector<Edge*> Neuron :: get_previous_edges(){
     return previous_edges;}
@@ -49,5 +55,5 @@ void Neuron::forward_propagate(){
         sum += (*previous_edges[i]).get_weight() * (*previous_edges[i]).get_start_neuron()->value;
     }
 
-    value = (*parent_layer).f_activation(sum);
+    value = parent_layer->f_activation(sum);
 }

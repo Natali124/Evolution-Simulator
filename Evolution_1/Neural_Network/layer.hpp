@@ -14,8 +14,8 @@ public:
     // Constructors
     Layer();
     Layer(vector<Neuron*> neurons);
-     Layer(int n_neurons);
-     Layer(int n_neurons, double (*f_activation)(double)); //after enum is done
+    Layer(int n_neurons);
+    Layer(int n_neurons, double (*f_activation)(double)); //after enum is done
     ~Layer();
 
     // Getters and Setters, Manipulation

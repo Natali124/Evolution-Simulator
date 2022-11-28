@@ -12,9 +12,7 @@ Layer::Layer(){
   *bias_neuron = Neuron();
   neurons = vector<Neuron*>(0);
 }
-<<<<<<< HEAD
 Layer::Layer(vector<Neuron*> neurons):Layer(){
-=======
 Layer::Layer(int n_neurons):Layer(){
   vector<Neuron> v(0);
   for (int i = 0; i < n_neurons; i++){
@@ -23,7 +21,6 @@ Layer::Layer(int n_neurons):Layer(){
   neurons = v;
 }
 Layer::Layer(vector<Neuron> neurons):Layer(){
->>>>>>> b3aafe9af2c3c4ecb2086f4b2df52a3a4ce0d56a
   this->neurons = neurons;
 }
 
@@ -84,3 +81,6 @@ void Layer::fully_connect(Layer* prev_layer){
         }
     }
 }
+
+
+
