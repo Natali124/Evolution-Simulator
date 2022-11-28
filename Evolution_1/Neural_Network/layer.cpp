@@ -12,6 +12,13 @@ Layer::Layer(){
   bias_neuron = Neuron();
   neurons = vector<Neuron>(0);
 }
+Layer::Layer(int n_neurons):Layer(){
+  vector<Neuron> v(0);
+  for (int i = 0; i < n_neurons; i++){
+    v.push_back(Neuron());
+  }
+  neurons = v;
+}
 Layer::Layer(vector<Neuron> neurons):Layer(){
   this->neurons = neurons;
 }
