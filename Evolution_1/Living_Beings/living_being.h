@@ -33,6 +33,7 @@ public:
   LivingBeing(); // By default Coordinate(), and type = none,  and size = 0
   LivingBeing(Coordinate position, float size);
   bool alive;
+  float size;
   QRectF bounding_rect; // the rectangle in which one will draw the shape() of the LB, might need to be a const
   QPainterPath shape; // the shape inside bounding_rect(), might need to be a const
   void set_bounding_rect(qreal x, qreal y, qreal width, qreal height); // bounding_rect will be initialized with top-left corner in x,y
@@ -53,14 +54,6 @@ public:
   Type_LB type;
 
 
-  // n >=0 correspond to the number of ray we will use to get the vision.
-  // for now, vision is only in front
-  std::vector<int> See(int n);
-  int See(int n, int i); // auxilary function for See(int)
-
-
-  float size;
-  float vision; //distance at which the living being can see
 
 
   virtual void reproduction();
