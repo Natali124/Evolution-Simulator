@@ -8,9 +8,24 @@
 
 
 
-//Variable we may change, but should be constant:
+//This namespace will be used in order to have some more object to use:
+namespace Other {
+    //We"ll use this class to detect what's in front of what, as an example it could be used to attack, eat, etc...
+    class Square: public QGraphicsItem{
+    public:
+        // base values: 0, 0, 1, 1
+        Square();
+        Square(qreal X, qreal Y, qreal W, qreal H);
+        QRectF boundingRect() const;
+        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+        void set_shape();
+        qreal x;
+        qreal y;
+        qreal w;
+        qreal h;
+    };
 
-const double Vision_ray_width = 0.02;
+}
 
 
 class LivingBeing : public QGraphicsItem { //
@@ -18,14 +33,17 @@ public:
   LivingBeing(); // By default Coordinate(), and type = none,  and size = 0
   LivingBeing(Coordinate position, float size);
   bool alive;
-  float size;
   QRectF bounding_rect; // the rectangle in which one will draw the shape() of the LB, might need to be a const
   QPainterPath shape; // the shape inside bounding_rect(), might need to be a const
   void set_bounding_rect(qreal x, qreal y, qreal width, qreal height); // bounding_rect will be initialized with top-left corner in x,y
   void set_shape(); // sets the shape of the LB, everything is inside the bounding_rect
 
 
+
   Coordinate position;
+  float get_x();
+  float get_y();
+
   enum Type_LB{
       none = -1,
       predator = 0,
@@ -37,9 +55,12 @@ public:
 
   // n >=0 correspond to the number of ray we will use to get the vision.
   // for now, vision is only in front
-  std::vector<short> See(int n, double d);
-  short See(int n, int i, double d); // auxilary function for See(int)
+  std::vector<int> See(int n);
+  int See(int n, int i); // auxilary function for See(int)
 
+
+  float size;
+  float vision; //distance at which the living being can see
 
 
   virtual void reproduction();
