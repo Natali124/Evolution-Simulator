@@ -14,6 +14,8 @@ public:
     // Constructors
     Layer();
     Layer(vector<Neuron*> neurons);
+     Layer(int n_neurons);
+     Layer(int n_neurons, double (*f_activation)(double)); //after enum is done
     ~Layer();
 
     // Getters and Setters, Manipulation
@@ -27,11 +29,19 @@ public:
     //Other functions
     Neuron* operator[](int i); // implement [] access operator for Layer
     void fully_connect(Layer* prev_layer); //fully connects Layer to previous layer, randomized weights
-    double f_activation(double x){ //default
-    return 1/(pow(M_E, -x) + 1);
-    }
+    double f_activation(double x){ return 1/(pow(M_E, -x) + 1); }//default
 
 private:
     vector<Neuron*> neurons;
     Neuron* bias_neuron;
 };
+
+
+
+// Enumerate variable for activation functions 
+
+double Sigmoid(double x);
+double ReLu(double x);
+
+enum functions{Sigmoid, ReLu}; 
+ 
