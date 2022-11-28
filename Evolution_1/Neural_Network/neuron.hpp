@@ -12,8 +12,8 @@ public:
 
     // Constructors and destructur
     Neuron();
-    Neuron(int neuron_id, vector<Edge*> previous_edges, Layer* parent_layer); //constructor for hidden/output layer
-    Neuron(int neuron_id, Layer* parent_layer); // constructor for input layer
+    Neuron( vector<Edge*> previous_edges, Layer* parent_layer); //constructor for hidden/output layer
+    Neuron( Layer* parent_layer); // constructor for input layer
     ~Neuron();
 
 
@@ -34,7 +34,7 @@ public:
 
 
 private:
-    int neuron_id;
+    static int neuron_counter;
     vector <Edge*> previous_edges; //incomming edges
     vector <Edge*> next_edges;  // output edges  
     double value;  
