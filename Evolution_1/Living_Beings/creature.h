@@ -25,6 +25,11 @@ public:
     // function to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
     virtual std::vector<LivingBeing> get_close();
 
+    //we take as input a vector that's given by the neural network, this vector contains floats
+    //for given parameters (sleep, eat, attack, move, sleeptime, eatspeed, move_rotate, move_distance)
+    // this function takes one decision depending on the biggest parameter between the sleep, eat, attack, move actions
+    void decision(vector<float>input_vector);
+
     // DATA MEMBERS
     Network brain;
     std::map<Enum_parameters, float> parameters;
