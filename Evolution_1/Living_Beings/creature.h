@@ -9,7 +9,7 @@
 
 class Creature : public LivingBeing {
 public:
-    enum Enum_parameters{ physical_strength, energy, eye_sight, last };
+    enum Enum_parameters{ physical_strength, energy, eye_sight, visibility, last};
     // the 'last' parameter is  just there in order to make iteration easier, it has no actual purpuse
     // see https://stackoverflow.com/questions/261963/how-can-i-iterate-over-an-enum
 
@@ -27,7 +27,21 @@ public:
 
     // DATA MEMBERS
     Network brain;
+
+
     std::map<Enum_parameters, float> parameters;
+
+
+    void set_energy(float e);
+    float get_energy();
+    void set_physical_strength(float ps);
+    float get_physical_strength();
+    void set_eye_sight(float es);
+    float get_eye_sight();
+    void set_visibility(float v);
+    float get_visibility();
+
+
 };
 
 #endif // CREATURE_H

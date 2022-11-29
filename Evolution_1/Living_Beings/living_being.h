@@ -32,7 +32,8 @@ namespace Other {
 
 class LivingBeing : public QGraphicsItem { //
 public:
-  LivingBeing(); // initializes a living being with alive = true;
+  LivingBeing(); // initializes a living being with alive = true
+  LivingBeing(Coordinate position, float size);
   bool alive;
     
     
@@ -66,7 +67,7 @@ public:
   float size;
   float vision; //distance at which the living being can see
   virtual void reproduction();
-
+};
 
 
 #endif
