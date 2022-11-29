@@ -21,9 +21,13 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain) {
 void Creature::reproduction() {};
 std::vector<LivingBeing> Creature::get_close() {};
 
-/*
-Creature::Creature() {physical_strength=0;energy=0;eye_sight=0;visibility=0;brain = Network();}
-Creature::Creature(float physical_strength,float energy, float eye_sight, float visibility, Network brain) {
-this-> physical_strength = physical_strength,
-this-> energy=energy,this->eye_sight= eye_sight,this-> visibility=visibility,this-> brain=brain; };
-*/
+
+void Creature::sleep(float &sleep_time) {
+    is_sleeping = true;
+    while (sleep_time > 0) {
+        playstep();
+        sleep_time-=1;
+    }
+    parameters[Creature::energy] += sleep_time;
+    is_sleeping = false;
+}

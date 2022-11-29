@@ -9,12 +9,12 @@
 
 class Creature : public LivingBeing {
 public:
-    enum Enum_parameters{ physical_strength, energy, eye_sight, last };
+    enum Enum_parameters{ physical_strength, energy, eye_sight, visibility, last };
     // the 'last' parameter is  just there in order to make iteration easier, it has no actual purpuse
     // see https://stackoverflow.com/questions/261963/how-can-i-iterate-over-an-enum
 
     // CONSTRUCTOR
-    // default constructor that creates a creates a creatur with ranom parameters
+    // default constructor that creates a creates a creature with random parameters
     // and a default brain
     Creature();
     // non-default constructor that takes a std::map<Enum_parameters, float> and a Network
@@ -25,9 +25,20 @@ public:
     // function to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
     virtual std::vector<LivingBeing> get_close();
 
+    //to be implemented(garance)
+    void playstep();//playstep for one unit of time
+    void eat(LivingBeing &l, float speed);
+    void sleep(float &sleep_time);
+    bool is_sleeping;
+    void move(float rotation, float distance);
+    void attack(Creature &c);
+
     // DATA MEMBERS
     Network brain;
     std::map<Enum_parameters, float> parameters;
+
+
+
 };
 
 #endif // CREATURE_H

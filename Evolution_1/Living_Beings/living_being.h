@@ -67,7 +67,7 @@ public:
   float vision; //distance at which the living being can see
   virtual void reproduction();
 
-
+};
 
 #endif
 
