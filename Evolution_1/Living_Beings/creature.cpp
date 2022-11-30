@@ -2,6 +2,10 @@
 #include "creature.h"
 #include "Living_Beings/living_being.h"
 #include "Neural_Network/network.hpp"
+#include <iostream>
+#include <vector>
+#include <map>
+
 
 Creature::Creature() {
     std::map<Enum_parameters, float> parameters;
@@ -18,20 +22,14 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain) {
     this->brain = brain;
 }
 
-//input_vector : (sleep, eat, attack, move, sleeptime, eatspeed, move_rotate, move_distance)
-void Creature::decision(vector<float>input_vector){
-    float action = *max_element(input_vector.begin(), input_vector.begin()+4);
-    int j = 0;
-    for (vector<float>::iterator i=input_vector.begin(); i!=input_vector.begin()+4; i++){
-        if (action==*i){
-        break;
-        }
-    j++;
-    }
-    if(j==0){
-        //sleep(sleeptime);
-    }
-}
+
+float Creature::get_physical_strength() {return parameters[physical_strength];};
+float Creature::get_energy() {return parameters[energy];};
+float Creature::get_visibility() {return parameters[visibility];};
+float Creature::get_eye_sight() {return parameters[eye_sight];};
+//for set functions I have to check if I have to create a new map on the heap and delete the previous one(garance)
+
+
 
 
 void Creature::reproduction() {};

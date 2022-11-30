@@ -22,18 +22,27 @@ public:
 
     // MEMBER FUNCTIONS
     void reproduction();
-    // function to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
+    // functions to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
     virtual std::vector<LivingBeing> get_close();
 
-    //to be implemented(garance)
     void playstep();//playstep for one unit of time
     void eat(LivingBeing &l, float speed);
     void sleep(float &sleep_time);
-    bool is_sleeping;
     void move(float rotation, float distance);
     void attack(Creature &c);
 
+    float get_physical_strength();
+    void set_physical_strength(float physical_strength_other);
+    float get_energy();
+    void set_energy(float energy);
+    float get_eye_sight();
+    void set_eye_sight(float eye_sight);
+    float get_visibility();
+    void set_visibility(float visibility);
+
+
     // DATA MEMBERS
+    bool is_sleeping;
     Network brain;
     std::map<Enum_parameters, float> parameters;
 
