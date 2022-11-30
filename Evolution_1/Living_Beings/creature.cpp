@@ -18,6 +18,22 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain) {
     this->brain = brain;
 }
 
+//input_vector : (sleep, eat, attack, move, sleeptime, eatspeed, move_rotate, move_distance)
+void Creature::decision(vector<float>input_vector){
+    float action = *max_element(input_vector.begin(), input_vector.begin()+4);
+    int j = 0;
+    for (vector<float>::iterator i=input_vector.begin(); i!=input_vector.begin()+4; i++){
+        if (action==*i){
+        break;
+        }
+    j++;
+    }
+    if(j==0){
+        //sleep(sleeptime);
+    }
+}
+
+
 void Creature::reproduction() {};
 std::vector<LivingBeing> Creature::get_close() {};
 
