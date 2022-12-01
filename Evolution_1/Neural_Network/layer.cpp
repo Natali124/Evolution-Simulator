@@ -77,7 +77,9 @@ void Layer :: add_neuron(Neuron* node){
 int Layer::size(){
     return neurons.size();
 }
-
+void Layer :: set_activation_function(act_function func){
+  f_activation_name = func;
+}
 
 
 void Layer::fully_connect(Layer* prev_layer){
@@ -99,6 +101,5 @@ void Layer::fully_connect(Layer* prev_layer){
         }
     }
 }
-
 
 
