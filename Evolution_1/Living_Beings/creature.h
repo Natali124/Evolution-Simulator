@@ -31,7 +31,16 @@ public:
     void move(float rotation, float distance);
     void attack(Creature &c);
 
-    float get_parameter(Enum_parameters p);
+    float get_physical_strength();
+    float get_energy();
+    float get_eye_sight();
+    float get_visibility();
+    void set_physical_strength(float ps);
+    void set_energy(float e);
+    void set_eye_sight(float es);
+    void set_visibility(float v);
+
+
 
 
     // DATA MEMBERS

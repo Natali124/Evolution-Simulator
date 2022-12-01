@@ -22,21 +22,17 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain) {
     this->brain = brain;
 }
 
-
-float Creature::get_parameter(Enum_parameters p) {return parameters[p];};
-//for set functions I have to check if I have to create a new map on the heap and delete the previous one(garance)
-
+float Creature::get_physical_strength() {return parameters[Creature::physical_strength];};
+float Creature::get_energy() {return parameters[Creature::energy];};
+float Creature::get_eye_sight() {return parameters[Creature::eye_sight];};
+float Creature::get_visibility() {return parameters[Creature::visibility];};
+void Creature::set_physical_strength(float ps){parameters[Creature::physical_strength] = ps;};
+void Creature::set_energy(float e) {parameters[Creature::energy] = e;};
+void Creature::set_eye_sight(float es) {parameters[Creature::eye_sight] = es;};
+void Creature::set_visibility(float v) {parameters[Creature::visibility] =v;};
 
 void Creature::reproduction() {};
 std::vector<LivingBeing> Creature::get_close() {};
 
 
-void Creature::sleep(float &sleep_time) {
-    is_sleeping = true;
-    while (sleep_time > 0) {
-        playstep();
-        sleep_time-=1;
-    }
-    parameters[Creature::energy] += sleep_time;
-    is_sleeping = false;
-}
+
