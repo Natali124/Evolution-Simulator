@@ -86,3 +86,5 @@ void LivingBeing::reproduction(){};
 
 float LivingBeing::get_size(){};
 void LivingBeing::set_size(float s){};
+float LivingBeing::get_hp(){};
+void LivingBeing::set_hp(float h){};

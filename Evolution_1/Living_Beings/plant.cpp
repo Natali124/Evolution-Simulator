@@ -15,6 +15,9 @@ Plant::Plant(){
 Plant::Plant(std::map<Enum_parameters, float> parameters) {
     this->parameters = parameters;
     this->base_parameters = parameters; //we save "dna"
+
+
+    this->set_hp(this->get_Max_hp());
 }
 
 
@@ -32,6 +35,10 @@ void Plant::set_reproduction_rate(float rr){this->parameters[reproduction_rate] 
 float Plant::get_reproduction_rate(){return this->parameters[reproduction_rate];}
 void Plant::set_size(float s){this->parameters[size] = s;}
 float Plant::get_size(){return this->parameters[size];}
+void Plant::set_Max_hp(float ms){this->parameters[Max_hp] = ms;}
+float Plant::get_Max_hp(){return this->parameters[Max_hp];}
+void Plant::set_hp(float ms){this->hp = ms;}
+float Plant::get_hp(){return this->hp;}
 
 
 

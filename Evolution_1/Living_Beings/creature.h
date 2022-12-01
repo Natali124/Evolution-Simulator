@@ -24,6 +24,7 @@ namespace Other {
 
 
     // This function is returning an array of T2 that are casted from a list of type T1 from which we don't take elements that can't be casted
+    // I though I would need it but it seems that not... I'll erase if I really don need it, Ruben
     template <typename T1, typename T2> std::vector<T2*> cast_array(const std::vector<T1>& L1){
         std::vector<T2*> L2;
         for(typename std::vector<T1>::iterator i = L1.begin(); i!=L1.end(); i++)
@@ -46,7 +47,7 @@ public:
 
 
     // positive double, positive double, positive double, [0, 1], Bool, Bool, positive double, positive double
-    enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, max_hp, size, last};
+    enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, Max_hp, size, last};
 
     // for bool values they ll eaither be 0 or not (thus a smooth conversion, normally)
 
@@ -96,9 +97,9 @@ public:
     float get_Max_energy();
     bool get_eat_creature();
     bool get_eat_plants();
-    void set_Max_hp(float me);
+    void set_Max_hp(float mh);
     float get_Max_hp();
-    void set_hp(float me);
+    void set_hp(float h);
     float get_hp();
     void set_size(float s);
     float get_size();

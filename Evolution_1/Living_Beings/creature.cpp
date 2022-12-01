@@ -46,6 +46,9 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain) {
     this->base_parameters = parameters; //we save "dna"
     this->brain = brain;
 
+    this->set_energy(this->get_Max_energy());
+    this->set_hp(this->get_Max_hp());
+
 }
 
 void Creature::reproduction() {};
@@ -74,7 +77,6 @@ std::vector<LivingBeing*> Creature::get_close(){
 void Creature::attack(){
     //we'll first split between creatures and plants:
     std::vector<LivingBeing*> Close = this->get_close();
-
 }
 
 
@@ -95,6 +97,10 @@ bool Creature::get_eat_creature(){return this->parameters[eat_creature];}
 bool Creature::get_eat_plants(){return this->parameters[eat_plants];}
 void Creature::set_size(float s){this->parameters[size] = s;}
 float Creature::get_size(){return this->parameters[size];}
+void Creature::set_hp(float s){this->hp = s;}
+float Creature::get_hp(){return this->hp;}
+void Creature::set_Max_hp(float mh){this->parameters[Max_hp] = mh;}
+float Creature::get_Max_hp(){return this->parameters[Max_hp];}
 
 
 
@@ -165,6 +171,10 @@ void Creature::eat(LivingBeing &l, float eat_time){
     set_energy(gain + current_energy);
 
 }
+
+
+
+
 const float _dtheta = M_PI/18; //base value of the change of rotation - to set maximal rotation range to 10 degrees
 const float _ddistance = 2; //base value of the change of the distance - maximal value of move is 2
 const float _ener_rotcoeff = 0.05; //base value for energy consumption while rotating

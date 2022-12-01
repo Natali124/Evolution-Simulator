@@ -51,6 +51,8 @@ public:
   //common attributes to plants and creatures
   virtual float get_size();
   virtual void set_size(float s);
+  virtual float get_hp();
+  virtual void set_hp(float h);
 };
 
 
