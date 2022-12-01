@@ -1,11 +1,9 @@
+#ifndef MENU_H
+#define MENU_H
 
-#ifndef MAINMENU_H
-#define MAINMENU_H
-
-#include "creatureDisplay.h"
+#include "environment.h"
 #include <QMainWindow>
 
-//main window for displaying the game
 class MainMenu : public QMainWindow{
     public:
         MainMenu(QWidget *parent = nullptr);
@@ -24,9 +22,4 @@ class MainMenu : public QMainWindow{
         void setBackgroundImage(QString filePath);
 };
 
-#endif // MAINMENU_H
-
-
-
-
-
+#endif // MENU_H

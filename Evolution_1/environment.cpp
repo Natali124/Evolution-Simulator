@@ -44,7 +44,18 @@ void CreatureDisplay::remove_object(LivingBeing* being){
 }
 
 void CreatureDisplay::remove_object(Barrier* barrier){
-    _scene.removeItem(object);
+    _scene.removeItem(barrier);
+}
+
+void CreatureDisplay::addRandomDot() {
+    int maxX = width();
+    int maxY = height();
+    int x = std::rand() % maxX;
+    int y = std::rand() % maxY;
+
+    LivingBeing *being = new LivingBeing;
+    being->setPos(x, y);
+    _scene.addItem(being);
 }
 
 
