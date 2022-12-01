@@ -41,21 +41,13 @@ public:
   Type_LB type;
 
 
-  // n >=0 correspond to the number of ray we will use to get the vision.
-  // for now, vision is only in front
-  std::vector<int> See(int n);
-  int See(int n, int i); // auxilary function for See(int)
+
 
 
   float size; //between 0 and 1;
 
-  float get_size();
-  void set_size(float size);
-  float vision; //distance at which the living being can see
-  virtual void reproduction();
   //common attributes to plants and creatures
   virtual void is_eaten(LivingBeing &c);
-  float vision; //distance at which the living being can see
   virtual void reproduction();
 
   //This is the function we'll be using when we need to make an object take damages (because it's been attacked)

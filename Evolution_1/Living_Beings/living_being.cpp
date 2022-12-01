@@ -49,39 +49,9 @@ void LivingBeing::set_shape() {   // for now preys and predators are circles, pl
 }
 
 
-std::vector<int> LivingBeing::See(int n){
-    std::vector<int> v; //Here we'll get all the output, It will be of size n
-
-    for (int i=0; i<n; i++){
-        v.push_back(this->See(n, i));
-    }
-    return v;
-}
-
-int LivingBeing::See(int n, int i){
-    // return a distance score with 0 meaning really close and 256 meaning nothing seen (see only the closest object)
-
-    //start: x, y; teta = ((i+1)*pi)/(n+2), this will allow us to get the vision ray at good positions.
-    int r=0;
-    double teta = ((i+1)*3.14)/(n+2);
 
 
-    //lenght is vision
-    QGraphicsLineItem*  Ray = new QGraphicsLineItem(this->get_x(), this->get_y(), this->get_x() + this->vision * cos(teta), this->get_y() + this->vision * cos(teta));
-    QList<QGraphicsItem*> list = Ray->collidingItems();
 
-    foreach(QGraphicsItem* i , list)
-    {
-        int* R = new int(pow(pow(i->x(), 2) + pow(i->y(), 2), 0.5));
-        if (*R <r){
-            r = *R;
-        }
-        delete R;
-    }
-    delete Ray;
-
-    return 1-r;
-}
 void LivingBeing::reproduction(){};
 void LivingBeing::is_eaten(LivingBeing &c){};
 void LivingBeing::take_dmg(float dmg){};
