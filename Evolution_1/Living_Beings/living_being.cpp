@@ -6,3 +6,10 @@ LivingBeing::LivingBeing() {
 }
 
 void LivingBeing::reproduction(){};
+
+void LivingBeing::advance(int step){
+
+    if (!step) { return; };
+
+    //play_step(); //Ruben's group function
+}

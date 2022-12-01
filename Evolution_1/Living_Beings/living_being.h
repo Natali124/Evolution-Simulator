@@ -9,6 +9,7 @@ public:
   LivingBeing(); // initializes a living being with alive = true;
   bool alive;
   virtual void reproduction();
+  virtual void advance(int);
 };
 
 #endif
