@@ -70,6 +70,7 @@ public:
 
     void eat(LivingBeing &l, float speed);
     void move(float rotation, float distance);
+    void take_dmg(float dmg);
     void attack(); // attack will only be an action, we'll be able to attack even if there isn't anything in front
 
     float get_parameter(Enum_parameters p);

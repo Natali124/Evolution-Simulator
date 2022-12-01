@@ -43,6 +43,10 @@ float Plant::get_hp(){return this->hp;}
 
 
 
+void Plant::take_dmg(float dmg){
+    this->set_hp(this->get_hp() - dmg);
+}
+
 
 float Plant::get_alpha(Creature &c) {
     float ps = size;

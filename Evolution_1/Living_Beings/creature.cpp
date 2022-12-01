@@ -74,6 +74,10 @@ std::vector<LivingBeing*> Creature::get_close(){
     return v;
 }
 
+void Creature::take_dmg(float dmg){
+    this->set_hp(this->get_hp()-dmg);
+}
+
 void Creature::attack(){
     //we'll first split between creatures and plants:
     std::vector<LivingBeing*> Close = this->get_close();

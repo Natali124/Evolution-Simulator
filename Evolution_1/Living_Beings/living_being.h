@@ -48,6 +48,9 @@ public:
 
   float vision; //distance at which the living being can see
   virtual void reproduction();
+
+  //This is the function we'll be using when we need to make an object take damages (because it's been attacked)
+  virtual void take_dmg(float dmg);
   //common attributes to plants and creatures
   virtual float get_size();
   virtual void set_size(float s);
