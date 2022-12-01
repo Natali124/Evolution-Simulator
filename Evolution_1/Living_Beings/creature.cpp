@@ -74,7 +74,19 @@ std::vector<LivingBeing*> Creature::get_close(){
 void Creature::attack(){
     //we'll first split between creatures and plants:
     std::vector<LivingBeing*> Close = this->get_close();
-
+    //we can introduce vectors with creatures and plants
+    std::vector<LivingBeing*> Creatures;
+    std::vector<LivingBeing*> Plants; //when it comes to type of those two vectors
+    //for now they will be liv beings, not creatures and plants
+    for(vector<LivingBeing*>::iterator i = Close.begin(); i != Close.end(); i++){
+        if(dynamic_cast<Creature*>(*i) != nullptr){
+            Creatures.push_back(*i);
+        }
+//        if(dynamic_cast<Plants*>(*i) != nullptr){
+//            Creatures.push_back(*i);
+//        }
+        //for now I'm going to leave it as plants are not included in a file
+    }
 }
 
 
@@ -165,17 +177,23 @@ void Creature::eat(LivingBeing &l, float eat_time){
     set_energy(gain + current_energy);
 
 }
+
+
+
 const float _dtheta = M_PI/18; //base value of the change of rotation - to set maximal rotation range to 10 degrees
 const float _ddistance = 2; //base value of the change of the distance - maximal value of move is 2
 const float _ener_rotcoeff = 0.05; //base value for energy consumption while rotating
 const float _ener_movecoeff = 0.5; //base value for energy consumption while moving
+const float _sizecoeff = 0.1; //base value for energy punishment connected with the size;
 //move function first moves the creature by the distance with respect to angle getrotation from qtgraphicsitem
 //then changes the rotation (so rotation applies only for next movements)
 void Creature::move(float rotation, float distance){
     setX(distance * cos(this->rotation() * _dtheta));
     setY(distance * sin(this->rotation() * _dtheta));
     setRotation(this->rotation() + rotation);
+    float s = this->size;
     float current_energy = get_energy();
-    current_energy -= (_ener_rotcoeff * rotation + _ener_movecoeff * distance);
+    current_energy -= (_ener_rotcoeff * rotation + _ener_movecoeff * distance) * _sizecoeff * s * s; //change of energy depends on rotation, distance travelled and size squared to punish too big animals
     set_energy(current_energy);
 }
+
