@@ -13,16 +13,34 @@ Layer::Layer(){
   neurons = vector<Neuron*>(0);
 }
 Layer::Layer(vector<Neuron*> neurons):Layer(){
+
 Layer::Layer(int n_neurons):Layer(){
-  vector<Neuron> v(0);
+  vector<*Neuron> v(0);
   for (int i = 0; i < n_neurons; i++){
-    v.push_back(Neuron());
+    v.push_back(*Neuron());
   }
   neurons = v;
 }
 Layer::Layer(vector<Neuron> neurons):Layer(){
   this->neurons = neurons;
+}}
+
+Layer::Layer(int n_neurons, act_function act_func):Layer(){
+    vector<Neuron*> v(0);
+    for (int i = 0; i < n_neurons; i++){
+    Neuron* new_neuron;
+    *new_neuron = Neuron();
+    v.push_back(new_neuron);}
+    neurons = v;
+    if(act_func = Sigmoid){
+      double f_activation(double x) = Sigmoid_func(x);
+      }
+    if(act_func = ReLu){
+      double f_activation(double x)= ReLu_func(x);
+      }
 }
+       
+
 
 //Overloading the [] operator, returns the i-th neuron
 Neuron* Layer :: operator[](int i){
