@@ -159,7 +159,7 @@ void Creature::eat(LivingBeing &l, float eat_time){
     float alpha;
     if(get_eat_creature() && get_eat_plants()){alpha = 0.8;}
     else{alpha=1;}
-    float gain = alpha*eat_time*l.size;
+    float gain = alpha*eat_time*l.get_size();
     float current_energy = get_energy();
     set_energy(gain + current_energy);
 

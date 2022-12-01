@@ -83,3 +83,6 @@ int LivingBeing::See(int n, int i){
     return 1-r;
 }
 void LivingBeing::reproduction(){};
+
+float LivingBeing::get_size(){};
+void LivingBeing::set_size(float s){};
