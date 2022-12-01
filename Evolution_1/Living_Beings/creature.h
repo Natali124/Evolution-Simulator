@@ -37,6 +37,9 @@ public:
     void sleep_step();//sleeps for one step : += energy and -= sleep_time
     void playstep();
 
+    void digest(LivingBeing &food, float eat_time);
+    void digest_step();
+
     // DATA MEMBERS
     Network brain;
     std::map<Enum_parameters, float> parameters;
@@ -58,14 +61,19 @@ public:
     float get_Max_hp();
     void set_hp(float me);
     float get_hp();
+    int get_digest_time();
+    void set_digest_time(int time);
+    vector<float> get_food_attributes();
+    void set_food_attributes(LivingBeing &f);
 
 
 protected:
     float energy;
     float hp;
     vector<float>input_vector;//outputed by the NN , to take as input in decision
-protected:
     float sleep_time;
+    int digest_time;
+    vector<float> food_attributes; // food attributes of what the creature is currently digesting
 
 };
 

@@ -101,3 +101,4 @@ int LivingBeing::See(int n, int i){
     return 1-r;
 }
 void LivingBeing::reproduction(){};
+void LivingBeing::is_eaten(LivingBeing &c){};

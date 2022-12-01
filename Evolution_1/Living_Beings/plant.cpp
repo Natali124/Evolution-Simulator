@@ -24,6 +24,45 @@ Plant::Plant(float reproduction_rate) {
     type = plant; }
 */
 
+void Plant::is_eaten(Creature &c) {
+    float alpha = get_alpha(c);
+    if (type_plant == 0) { // carbs
+        c.set_energy(c.get_energy() + alpha);
+        c.set_physical_strength(c.get_physical_strength() - alpha);}
+
+    else if (type_plant == 1) { //protein
+            c.set_physical_strength(c.get_physical_strength() + alpha);
+            c.set_energy(c.get_energy() - alpha);}
+
+    else if (type_plant == 2) { //slimming_effects
+        c.set_eye_sight(c.get_eye_sight() + alpha);
+        c.set_visibility(c.get_visibility() - alpha);}
+
+    else if (type_plant == 3) { //allergenic_effect
+        c.set_visibility(c.get_visibility() + alpha);
+        c.set_eye_sight(c.get_eye_sight() - alpha);}
+
+    else if (type_plant == 4) { // allergenic_protein
+        c.set_physical_strength(c.get_physical_strength() + 2*alpha);
+        c.set_energy(c.get_energy() - alpha);
+        c.set_eye_sight(c.get_eye_sight() - alpha);}
+
+    else if (type_plant == 5) { //allergenic_carbs
+        c.set_energy(c.get_energy() + 2*alpha);
+        c.set_physical_strength(c.get_physical_strength() - alpha);
+        c.set_eye_sight(c.get_eye_sight() - alpha);}
+
+    else if (type_plant == 6) { //slimming_protein
+        c.set_physical_strength(c.get_physical_strength() + 2*alpha);
+        c.set_energy(c.get_energy() - alpha);
+        c.set_visibility(c.get_visibility() - alpha);}
+
+    else if (type_plant == 7) { //slimming_carbs
+        c.set_energy(c.get_energy() + 2*alpha);
+        c.set_physical_strength(c.get_physical_strength() - alpha);
+        c.set_visibility(c.get_visibility() - alpha);}
+}
+
 
 float Plant::get_alpha(Creature &c) {
     float ps = size;

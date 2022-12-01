@@ -39,7 +39,7 @@ public:
     // the less the plant will have an effect on the creature's body.
     // not in coding language: alpha = 1 - (1/ dif(c_size , plant_size))
     // ++ or -- means + or - 2*alpha
-
+    void is_eaten(Creature &c);
 //to update using the future get and set functions for c.parameters
     float get_alpha(Creature &c);
     void carbs(Creature &c);   // + energy , - strength (c becomes heavier)

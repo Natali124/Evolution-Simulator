@@ -43,6 +43,10 @@ void Creature::set_Max_energy(float me){this->parameters[Max_energy] = me;}
 float Creature::get_Max_energy(){return this->parameters[Max_energy];}
 bool Creature::get_eat_creature(){return this->parameters[eat_creature];}
 bool Creature::get_eat_plants(){return this->parameters[eat_plants];}
+int Creature::get_digest_time(){return this->digest_time;}
+void Creature::set_digest_time(int time){this->digest_time = time;}
+vector<float> Creature::get_food_attributes() {return this->food_attributes;}
+ //void Creature::set_food(LivingBeing &f){this->food = f;}
 
 
 
@@ -73,11 +77,15 @@ void Creature::decision(vector<float>input_vector){
 
 
 void Creature::playstep() {
-    if (sleep_time != 0) {
+    if (sleep_time) {
         sleep_step();
     }
-    else if (sleep_time == 0) {
+    else if(digest_time){
+        digest_step();
+    }
+    else {
         decision(input_vector);
+
     }
 };
 
@@ -86,7 +94,7 @@ void Creature::sleep(float delta_t) {
 }
 
 void Creature::sleep_step() {
-    float e = get_energy() -1;
+    float e = get_energy() +1;
     set_energy(e);
     sleep_time-=1;
 }
@@ -111,5 +119,38 @@ void Creature::eat(LivingBeing &l, float eat_time){
     float gain = alpha*eat_time*l.size;
     float current_energy = get_energy();
     set_energy(gain + current_energy);
+    digest(l, eat_time);
 
 }
+
+
+void Creature::digest(LivingBeing &food, float eat_time){
+    // when food is digested, it will also create negative "side-effects" such as increase your visibility,
+    // it will also make your size sightly bigger
+    // it will also make your physical strength lower for a few turns
+    food_attributes.push_back(food.get_size());
+
+    if (food.type == 0 || food.type == 1) { // a creature being eaten
+        digest_time = ceil(eat_time * 10);} // 10 has been chosen at random, may be arbitrarily changed later if necessary
+
+    else if (food.type == 2) { // a plant being eaten
+        digest_time = ceil(eat_time * 6); // 6 is arbitrary too here
+        food.is_eaten(*this); //implements all that can happen when a creature eats a plant
+    }
+
+};
+void Creature::digest_step(){
+    if (digest_time == 1) {
+    }
+    else {
+        digest_time -= 1;
+        if (get_visibility()*1.1*food_attributes[0] <= 1) {
+            set_visibility(get_visibility()*1.1*food_attributes[0]);}
+        else { set_visibility(1);}}
+
+        if (get_physical_strength()*0.95*food_attributes[0] <= 1) {
+            set_visibility(get_physical_strength()*0.95*food_attributes[0]);
+        }
+        else {set_physical_strength(1);}
+};
+
