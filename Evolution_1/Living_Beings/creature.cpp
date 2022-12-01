@@ -31,18 +31,18 @@ std::vector<LivingBeing> Creature::get_close() {};
 
 void Creature::playstep() {
     if (sleep_time != 0) {
-        sleep();
+        sleep_step();
     }
     else if (sleep_time == 0) {
         decision();
     }
 };
 
-void Creature::sleep_init(float delta_t) {
+void Creature::sleep(float delta_t) {
     sleep_time = delta_t;
 }
 
-void Creature::sleep() {
+void Creature::sleep_step() {
     float e = get_energy() -1;
     set_energy(e);
     sleep_time-=1;
