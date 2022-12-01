@@ -10,7 +10,8 @@
 class Creature : public LivingBeing {
 public:
 
-    enum Enum_parameters{ physical_strength, energy, eye_sight, visibility, last};
+    // positive double, positive double, positive double, [0, 1], Bool, Bool, double,
+    enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, max_hp, last};
 
     // the 'last' parameter is  just there in order to make iteration easier, it has no actual purpuse
     // see https://stackoverflow.com/questions/261963/how-can-i-iterate-over-an-enum
@@ -27,7 +28,8 @@ public:
     // functions to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
     virtual std::vector<LivingBeing> get_close();
     void eat(LivingBeing &l, float speed);
-    void sleep(float &sleep_time);
+    void sleep_init(float delta_t);//called by decision to decide to sleep for a time delta_t
+    void sleep();//sleeps for one step : += energy and -= sleep_time
     void move(float rotation, float distance);
     void attack(Creature &c);
     LivingBeing& find_food();
@@ -37,10 +39,9 @@ public:
 
 
     // DATA MEMBERS
-    bool is_sleeping;
     Network brain;
     std::map<Enum_parameters, float> parameters;
-
+    std::map<Enum_parameters, float> base_parameters; //Those are the parameters we use for reproduction
 
     void set_energy(float e);
     float get_energy();
@@ -50,8 +51,22 @@ public:
     float get_eye_sight();
     void set_visibility(float v);
     float get_visibility();
+    void set_Max_energy(float me);
+    float get_Max_energy();
+    bool get_eat_creature();
+    bool get_eat_plants();
+    void set_Max_hp(float me);
+    float get_Max_hp();
+    void set_hp(float me);
+    float get_hp();
 
 
+protected:
+    float energy;
+    float hp;
+
+protected:
+    float sleep_time;
 
 };
 

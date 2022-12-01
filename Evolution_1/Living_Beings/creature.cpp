@@ -20,45 +20,49 @@ Creature::Creature() {
 
 Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain) {
     this->parameters = parameters;
+    this->base_parameters = parameters; //we save "dna"
     this->brain = brain;
+
 }
-
-
-float Creature::get_parameter(Enum_parameters p) {return parameters[p];};
-//for set functions I have to check if I have to create a new map on the heap and delete the previous one(garance)
-
 
 void Creature::reproduction() {};
 std::vector<LivingBeing> Creature::get_close() {};
 
 
+void Creature::playstep() {
+    if (sleep_time != 0) {
+        sleep();
+    }
+    else if (sleep_time == 0) {
+        decision();
+    }
+};
 
-void Creature::set_energy(float e){
-    this->parameters[energy] = e;
-}
-float Creature::get_energy(){
-    return this->parameters[energy];
-
-}
-void Creature::set_physical_strength(float ps){
-    this->parameters[physical_strength] = ps;
-}
-float Creature::get_physical_strength(){
-    return this->parameters[physical_strength];
-}
-void Creature::set_eye_sight(float es){
-    this->parameters[eye_sight] = es;
-}
-float Creature::get_eye_sight(){
-    return  this->parameters[eye_sight];
-}
-void Creature::set_visibility(float v){
-    this->parameters[visibility] = v;
-}
-float Creature::get_visibility(){
-    return this->parameters[visibility];
+void Creature::sleep_init(float delta_t) {
+    sleep_time = delta_t;
 }
 
+void Creature::sleep() {
+    float e = get_energy() -1;
+    set_energy(e);
+    sleep_time-=1;
+}
+
+
+
+
+void Creature::set_energy(float e){this->energy = e;}
+float Creature::get_energy(){return this->energy;}
+void Creature::set_physical_strength(float ps){this->parameters[physical_strength] = ps;}
+float Creature::get_physical_strength(){return this->parameters[physical_strength];}
+void Creature::set_eye_sight(float es){this->parameters[eye_sight] = es;}
+float Creature::get_eye_sight(){return  this->parameters[eye_sight];}
+void Creature::set_visibility(float v){this->parameters[visibility] = v;}
+float Creature::get_visibility(){return this->parameters[visibility];}
+void Creature::set_Max_energy(float me){this->parameters[Max_energy] = me;}
+float Creature::get_Max_energy(){return this->parameters[Max_energy];}
+bool Creature::get_eat_creature(){return this->parameters[eat_creature];}
+bool Creature::get_eat_plants(){return this->parameters[eat_plants];}
 
 
 
@@ -102,3 +106,4 @@ void Creature::eat(LivingBeing &l, float eat_time){
     // so total gain is alpha*l.size*eattime
 
 }
+

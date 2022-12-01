@@ -21,6 +21,7 @@ public:
 
     // DATA MEMBERS
     std::map<Enum_parameters, float> parameters;
+    std::map<Enum_parameters, float> base_parameters; //Those are the parameters we use for reproduction
 
     enum Type_Plant{
     Carbs = 0, Protein = 1 , Slimming = 2 , Allergenic = 3 , Allergenic_Protein = 4 , Allergenic_Carbs = 5 ,
