@@ -4,17 +4,6 @@
 #include <QGraphicsItem>
 #include <cmath>
 
-
-
-
-
-
-
-void playstep(){
-
-};
-
-
 float LivingBeing::get_size() {return size;};
 void LivingBeing::set_size(float size) {this->size = size;};
 
@@ -76,7 +65,7 @@ int LivingBeing::See(int n, int i){
 
     //start: x, y; teta = ((i+1)*pi)/(n+2), this will allow us to get the vision ray at good positions.
     int r=0;
-    double teta = ((i+1)*3.14)/(n+2) + this->rotation();
+    double teta = ((i+1)*3.14)/(n+2);
 
 
     //lenght is vision
@@ -86,7 +75,7 @@ int LivingBeing::See(int n, int i){
     foreach(QGraphicsItem* i , list)
     {
         int* R = new int(pow(pow(i->x(), 2) + pow(i->y(), 2), 0.5));
-        if (*R && *R <r){
+        if (*R <r){
             r = *R;
         }
         delete R;

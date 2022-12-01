@@ -36,6 +36,7 @@ float Plant::get_alpha(Creature &c) {
 void Plant::carbs(Creature &c) {
     if (type_plant == 0) {
         float alpha = get_alpha(c);
+
         c.set_energy(c.get_energy() + alpha);
         c.set_physical_strength(c.get_physical_strength() - alpha);
     };
@@ -47,15 +48,18 @@ void Plant::protein(Creature &c){
     if (type_plant == 1) {
         float alpha = get_alpha(c);
 
+
         c.set_physical_strength(c.get_physical_strength() + alpha);
         c.set_energy(c.get_energy() - alpha);
     };
+
 
 };
 
 void Plant::slimming_effect(Creature &c){
     if (type_plant == 2) {
     float alpha = get_alpha(c);
+
 
     c.set_eye_sight(c.get_eye_sight() + alpha);
     c.set_visibility(c.get_visibility() - alpha);
@@ -66,6 +70,7 @@ void Plant::slimming_effect(Creature &c){
 void Plant::allergenic_effect(Creature &c){
     if (type_plant == 3) {
     float alpha = get_alpha(c);
+
 
     c.set_visibility(c.get_visibility() + alpha);
     c.set_eye_sight(c.get_eye_sight() - alpha);
@@ -89,6 +94,7 @@ void Plant::allergenic_carbs(Creature &c){
     if (type_plant == 5) {
     float alpha = get_alpha(c);
 
+
     c.set_energy(c.get_energy() + 2*alpha);
     c.set_physical_strength(c.get_physical_strength() - alpha);
     c.set_eye_sight(c.get_eye_sight() - alpha);
@@ -100,6 +106,7 @@ void Plant::slimming_protein(Creature &c) {
     if (type_plant == 6) {
     float alpha = get_alpha(c);
 
+
     c.set_physical_strength(c.get_physical_strength() + 2*alpha);
     c.set_energy(c.get_energy() - alpha);
     c.set_visibility(c.get_visibility() - alpha);
@@ -110,6 +117,7 @@ void Plant::slimming_protein(Creature &c) {
 void Plant::slimming_carbs(Creature &c) {
     if (type_plant == 7) {
         float alpha = get_alpha(c);
+
 
         c.set_energy(c.get_energy() + 2*alpha);
         c.set_physical_strength(c.get_physical_strength() - alpha);

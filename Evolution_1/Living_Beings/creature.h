@@ -49,18 +49,19 @@ public:
     // functions to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
     virtual std::vector<LivingBeing*> get_close();
     void eat(LivingBeing &l, float speed);
-    void sleep(float &sleep_time);
     void move(float rotation, float distance);
     void attack(); // attack will only be an action, we'll be able to attack even if there isn't anything in front
 
     float get_parameter(Enum_parameters p);
-
+    LivingBeing& find_food();
+    void decision(vector<float>input_vector); //takes as input vector given by the nn,
+                                              //for given parameters (see .cpp) and takes a decision given the biggest one
+    void sleep(float delta_t);//called by decision to decide to sleep for a time delta_t
+    void sleep_step();//sleeps for one step : += energy and -= sleep_time
+    void playstep();
 
     // DATA MEMBERS
-    bool is_sleeping;
     Network brain;
-
-
     std::map<Enum_parameters, float> parameters;
     std::map<Enum_parameters, float> base_parameters; //Those are the parameters we use for reproduction
 
@@ -85,8 +86,9 @@ public:
 protected:
     float energy;
     float hp;
-
-
+    vector<float>input_vector;//outputed by the NN , to take as input in decision
+protected:
+    float sleep_time;
 
 };
 

@@ -6,6 +6,7 @@
 #include <vector>
 #include <map>
 
+using namespace std;
 
 Other::Square::Square(): Square(0, 0, 0, 1, 1){
 }
@@ -45,11 +46,6 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain) {
 
 }
 
-
-float Creature::get_parameter(Enum_parameters p) {return parameters[p];};
-//for set functions I have to check if I have to create a new map on the heap and delete the previous one(garance)
-
-
 void Creature::reproduction() {};
 
 
@@ -80,6 +76,7 @@ void Creature::attack(){
 
 
 
+
 void Creature::set_energy(float e){this->energy = e;}
 float Creature::get_energy(){return this->energy;}
 void Creature::set_physical_strength(float ps){this->parameters[physical_strength] = ps;}
@@ -101,3 +98,64 @@ Creature::Creature(float physical_strength,float energy, float eye_sight, float 
 this-> physical_strength = physical_strength,
 this-> energy=energy,this->eye_sight= eye_sight,this-> visibility=visibility,this-> brain=brain; };
 */
+
+//input_vector : (sleep, eat, attack, move, sleep_time, eat_time, move_rotate, move_distance)
+void Creature::decision(vector<float>input_vector){
+    float action = *max_element(input_vector.begin(), input_vector.begin()+4);
+    int j = 0;
+    for (vector<float>::iterator i=input_vector.begin(); i!=input_vector.begin()+4; i++){
+        if (action==*i) {break;}
+        j++;
+        }
+    if(j){
+        sleep(*(input_vector.begin()+4)); //sleep for sleep_time
+    }
+    if(j==1){
+        LivingBeing& food = find_food();
+        eat(food, *(input_vector.begin()+5));
+    }
+
+}
+
+
+void Creature::playstep() {
+    if (sleep_time != 0) {
+        sleep_step();
+    }
+    else if (sleep_time == 0) {
+        decision(input_vector);
+    }
+};
+
+void Creature::sleep(float delta_t) {
+    sleep_time = delta_t;
+}
+
+void Creature::sleep_step() {
+    float e = get_energy() -1;
+    set_energy(e);
+    sleep_time-=1;
+}
+
+
+LivingBeing& Creature::find_food(){
+    // this function is gonna return the closest dead living being (that you can eat), or no living being
+
+    // use ruben's get_close that returns a list of the living beings in front of you
+    // for each living, check if dead and if edible
+};
+
+void Creature::eat(LivingBeing &l, float eat_time){
+    // what do you gain when eating?
+    //--> gonna depend from what you can eat, (if you eat only animals or plants, set an alpha = 1, if you eat both, set alpha=0.8)
+    //-->from the size of the creature l.size
+    //--> and depends from the speed eatime (between 0 and 1 --> the faster you eat, the less you gain)
+    // so total gain is alpha*l.size*eattime
+    float alpha;
+    if(get_eat_creature() && get_eat_plants()){alpha = 0.8;}
+    else{alpha=1;}
+    float gain = alpha*eat_time*l.size;
+    float current_energy = get_energy();
+    set_energy(gain + current_energy);
+
+}
