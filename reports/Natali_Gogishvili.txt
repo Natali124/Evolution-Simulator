@@ -1,0 +1,2 @@
+Worked on Edge class in neural networks, fixed issue with #include directives in files of neural networks folder, wrote f_activation function in layer, propagate function in neuron, propagate function in network. Worked on cleaning up github repository.
+Next week, I am going to work more on neural network class and write test cases for testing neural network functions.

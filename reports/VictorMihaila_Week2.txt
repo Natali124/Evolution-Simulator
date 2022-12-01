@@ -1,0 +1,4 @@
+Week 2:
+This week I researched the different elements necessary for building a C++ GUI and I implemented menu with a toolbar and some buttons for simple tasks such as closing a window or 
+displaying a message to get familiar with these elements.
+Next week I plan to start working on the GUI of the project.   

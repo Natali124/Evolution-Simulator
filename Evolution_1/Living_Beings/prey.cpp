@@ -1,5 +1,4 @@
 #include "prey.h"
 
-Prey::Prey(){
-    type = prey;
-}
+Prey::Prey(){ };
+

@@ -12,19 +12,26 @@ class Edge;
 class Layer{
 public:
     // Constructors
-    Layer(vector<Neuron> nodes);
+    Layer();
+    Layer(vector<Neuron> neurons);
+    ~Layer();
 
-    //Other functions
-    Neuron operator[](int i);
-
-    void remove_node(int index); // removes node at given index 
-    void add_node(Neuron node);    // adds node
+    // Getters and Setters, Manipulation
+    void set_values (vector <double> v);
+    vector<double> get_values();
+    vector<Neuron> get_neurons(){return neurons;};
+    void remove_neuron(int index);  // removes Neuron at given index
+    void add_neuron(Neuron neuron); // adds Neuron to end of array
     int size();
     
+    //Other functions
+    Neuron operator[](int i); // implement [] access operator for Layer
+    void fully_connect(Layer* prev_layer); //fully connects Layer to previous layer, randomized weights
     double f_activation(double x){ //default
     return 1/(pow(M_E, -x) + 1);
     }
 
 private:
-    vector<Neuron> nodes;
-    Neuron bias_node; };
+    vector<Neuron> neurons;
+    Neuron bias_neuron;
+};

@@ -4,7 +4,8 @@
 #include <QGraphicsItem>
 #include <cmath>
 
-
+float LivingBeing::get_size() {return size;};
+void LivingBeing::set_size(float size) {this->size = size;};
 
 Other::Square::Square(): Square(0, 0, 1, 1){
 }
@@ -24,16 +25,8 @@ void Other::Square::set_shape(){
 }
 
 
-
-
-LivingBeing::LivingBeing(Coordinate position, float size) {
-    type = none;
-    this->size = size;
-    this->position = position;
-}
-
 LivingBeing::LivingBeing(){
-    type = none;
+    alive = true;
     size = 0;
     position = Coordinate();
 }
@@ -76,3 +69,20 @@ void LivingBeing::set_shape() {   // for now preys and predators are circles, pl
 
 
 
+    //lenght is vision
+    QGraphicsLineItem*  Ray = new QGraphicsLineItem(this->get_x(), this->get_y(), this->get_x() + this->vision * cos(teta), this->get_y() + this->vision * cos(teta));
+    QList<QGraphicsItem*> list = Ray->collidingItems();
+
+    foreach(QGraphicsItem* i , list)
+    {
+        int* R = new int(pow(pow(i->x(), 2) + pow(i->y(), 2), 0.5));
+        if (*R <r){
+            r = *R;
+        }
+        delete R;
+    }
+    delete Ray;
+
+    return 1-r;
+}
+void LivingBeing::reproduction(){};

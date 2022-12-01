@@ -1,0 +1,7 @@
+This week, me and Lorenzo worked on familiarizing ourselves with QT GUI that we will use to develop the frontend of the project.
+We worked on understanding the class QPushButton that will be used for making the initial start button, as well as buttons that add plants, 
+predators and prey to the environment. We implemented a simple, large start button that, when clicked, dissapears and makes 3 buttons (for 
+adding predators, prey and plants) appear on the window, as well as counters that appear next to them (To allow user to decide number of predators,
+prey or plants to add). We added a background by adding an image to a widget dedicated to being a background.
+Next week, I will be focusing on layering the widgets, such that the background appears behind all other widgets, as well as connecting counter to 
+buttons.
