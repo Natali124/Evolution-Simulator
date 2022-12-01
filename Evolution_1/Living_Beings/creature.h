@@ -28,15 +28,14 @@ public:
     // functions to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
     virtual std::vector<LivingBeing> get_close();
     void eat(LivingBeing &l, float speed);
-    void sleep(float delta_t);//called by decision to decide to sleep for a time delta_t
-    void sleep_step();//sleeps for one step : += energy and -= sleep_time
     void move(float rotation, float distance);
     void attack(Creature &c);
     LivingBeing& find_food();
     void decision(vector<float>input_vector); //takes as input vector given by the nn,
                                               //for given parameters (see .cpp) and takes a decision given the biggest one
-    float get_parameter(Enum_parameters p);
-
+    void sleep(float delta_t);//called by decision to decide to sleep for a time delta_t
+    void sleep_step();//sleeps for one step : += energy and -= sleep_time
+    void playstep();
 
     // DATA MEMBERS
     Network brain;
@@ -64,7 +63,7 @@ public:
 protected:
     float energy;
     float hp;
-
+    vector<float>input_vector;//outputed by the NN , to take as input in decision
 protected:
     float sleep_time;
 

@@ -29,26 +29,6 @@ void Creature::reproduction() {};
 std::vector<LivingBeing> Creature::get_close() {};
 
 
-void Creature::playstep() {
-    if (sleep_time != 0) {
-        sleep_step();
-    }
-    else if (sleep_time == 0) {
-        decision();
-    }
-};
-
-void Creature::sleep(float delta_t) {
-    sleep_time = delta_t;
-}
-
-void Creature::sleep_step() {
-    float e = get_energy() -1;
-    set_energy(e);
-    sleep_time-=1;
-}
-
-
 
 
 void Creature::set_energy(float e){this->energy = e;}
@@ -91,12 +71,33 @@ void Creature::decision(vector<float>input_vector){
 
 }
 
+
+void Creature::playstep() {
+    if (sleep_time != 0) {
+        sleep_step();
+    }
+    else if (sleep_time == 0) {
+        decision(input_vector);
+    }
+};
+
+void Creature::sleep(float delta_t) {
+    sleep_time = delta_t;
+}
+
+void Creature::sleep_step() {
+    float e = get_energy() -1;
+    set_energy(e);
+    sleep_time-=1;
+}
+
+
 LivingBeing& Creature::find_food(){
     // this function is gonna return the closest dead living being (that you can eat), or no living being
 
     // use ruben's get_close that returns a list of the living beings in front of you
     // for each living, check if dead and if edible
-}
+};
 
 void Creature::eat(LivingBeing &l, float eat_time){
     // what do you gain when eating?
