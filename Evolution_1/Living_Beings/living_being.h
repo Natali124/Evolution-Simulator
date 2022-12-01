@@ -32,7 +32,8 @@ namespace Other {
 
 class LivingBeing : public QGraphicsItem { //
 public:
-  LivingBeing(); // initializes a living being with alive = true;
+  LivingBeing(); // initializes a living being with alive = true
+  LivingBeing(Coordinate position, float size);
   bool alive;
     
     
@@ -61,7 +62,7 @@ public:
   // for now, vision is only in front
   std::vector<int> See(int n);
   int See(int n, int i); // auxilary function for See(int)
-
+  void playstep();
 
   float size;
 
@@ -71,6 +72,7 @@ public:
   virtual void reproduction();
 
 };
+
 
 #endif
 
