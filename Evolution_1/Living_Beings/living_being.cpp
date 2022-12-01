@@ -4,14 +4,12 @@
 #include <QGraphicsItem>
 #include <cmath>
 
-float LivingBeing::get_size() {return size;};
-void LivingBeing::set_size(float size) {this->size = size;};
+
 
 
 
 LivingBeing::LivingBeing(){
     alive = true;
-    size = 0;
     position = Coordinate();
 }
 

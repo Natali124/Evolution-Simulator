@@ -9,7 +9,7 @@ class Plant : public LivingBeing
 public:
     // the enum_parameters is the enumeration that lists the parameters
     // (we overwrite if for the different creatures)
-    enum Enum_parameters{reproduction_rate, last};
+    enum Enum_parameters{reproduction_rate, size, last};
     // the 'last' parameter is  just there in order to make iteration easier, it has no actual purpuse
     // see https://stackoverflow.com/questions/261963/how-can-i-iterate-over-an-enum
 
@@ -19,9 +19,15 @@ public:
     // this constructor take a std::map<Enum_parameters, float> and creates a creature with such parameters.
     Plant(std::map<Enum_parameters, float> parameters);
 
+
     // DATA MEMBERS
     std::map<Enum_parameters, float> parameters;
     std::map<Enum_parameters, float> base_parameters; //Those are the parameters we use for reproduction
+
+    float get_reproduction_rate();
+    void set_reproduction_rate(float rr);
+    float get_size();
+    void set_size(float s);
 
     enum Type_Plant{
     Carbs = 0, Protein = 1 , Slimming = 2 , Allergenic = 3 , Allergenic_Protein = 4 , Allergenic_Carbs = 5 ,

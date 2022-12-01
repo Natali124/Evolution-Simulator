@@ -29,8 +29,8 @@ namespace Other {
 class Creature : public LivingBeing {
 public:
 
-    // positive double, positive double, positive double, [0, 1], Bool, Bool, double,
-    enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, max_hp, last};
+    // positive double, positive double, positive double, [0, 1], Bool, Bool, positive double, positive double
+    enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, max_hp, size, last};
     // for bool values they ll eaither be 0 or not (thus a smooth conversion, normally)
 
 
@@ -81,6 +81,8 @@ public:
     float get_Max_hp();
     void set_hp(float me);
     float get_hp();
+    void set_size(float s);
+    float get_size();
 
 
 protected:

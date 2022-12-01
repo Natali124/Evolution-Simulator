@@ -89,6 +89,8 @@ void Creature::set_Max_energy(float me){this->parameters[Max_energy] = me;}
 float Creature::get_Max_energy(){return this->parameters[Max_energy];}
 bool Creature::get_eat_creature(){return this->parameters[eat_creature];}
 bool Creature::get_eat_plants(){return this->parameters[eat_plants];}
+void Creature::set_size(float s){this->parameters[size] = s;}
+float Creature::get_size(){return this->parameters[size];}
 
 
 
