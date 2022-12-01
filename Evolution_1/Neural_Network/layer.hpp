@@ -15,7 +15,7 @@ public:
     Layer();
     Layer(vector<Neuron*> neurons);
     Layer(int n_neurons);
-    Layer(int n_neurons, double (*f_activation)(double)); //after enum is done
+    Layer(int n_neurons, (*f_activation)(double)); //after enum is done
     ~Layer();
 
     // Getters and Setters, Manipulation
@@ -26,22 +26,27 @@ public:
     void add_neuron(Neuron* neuron); // adds Neuron to end of array
     int size();
     
+    void set_activation_function(act_function func); // Set the activation function
+
+    
     //Other functions
     Neuron* operator[](int i); // implement [] access operator for Layer
     void fully_connect(Layer* prev_layer); //fully connects Layer to previous layer, randomized weights
-    double f_activation(double x){ return 1/(pow(M_E, -x) + 1); }//default
 
+    
 private:
     vector<Neuron*> neurons;
     Neuron* bias_neuron;
+    double function(double) activation_function = Sigmoid; //Activation function, default set to Sigmoid
 };
-
 
 
 // Enumerate variable for activation functions 
 
-double Sigmoid(double x);
-double ReLu(double x);
+double Sigmoid(double x){ return 1/(pow(M_E, -x) + 1);};
+double ReLu(double x){return fmax(0, x);};
 
-enum functions{Sigmoid, ReLu}; 
+enum act_function{double function(double) Sigmoid,
+                  double function(double) ReLu}double function(double);
+
  

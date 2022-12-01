@@ -21,7 +21,7 @@ public:
     void apply_on_all_weights(function<double(double)> weight_function);
 
 private:
-    Layer input_layer;
-    Layer output_layer;
-    vector <Layer> hidden_layers;
+    Layer* input_layer;
+    Layer* output_layer;
+    vector <Layer*> hidden_layers;
 };
