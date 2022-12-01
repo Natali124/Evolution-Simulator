@@ -39,7 +39,7 @@ public:
     // see https://stackoverflow.com/questions/261963/how-can-i-iterate-over-an-enum
 
     // CONSTRUCTOR
-    // default constructor that creates a creates a creature with random parameters
+    // default constructor that creates a creature with random parameters
     // and a default brain
     Creature();
     // non-default constructor that takes a std::map<Enum_parameters, float> and a Network

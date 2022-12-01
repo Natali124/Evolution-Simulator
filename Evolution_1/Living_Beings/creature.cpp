@@ -3,6 +3,7 @@
 #include "Living_Beings/living_being.h"
 #include "Neural_Network/network.hpp"
 
+#include <cmath>
 #include <iostream>
 #include <vector>
 #include <map>
@@ -160,4 +161,17 @@ void Creature::eat(LivingBeing &l, float eat_time){
     set_energy(gain + current_energy);
 
 }
-
+const float _dtheta = M_PI/18; //base value of the change of rotation - to set maximal rotation range to 10 degrees
+const float _ddistance = 2; //base value of the change of the distance - maximal value of move is 2
+const float _ener_rotcoeff = 0.05; //base value for energy consumption while rotating
+const float _ener_movecoeff = 0.5; //base value for energy consumption while moving
+//move function first moves the creature by the distance with respect to angle getrotation from qtgraphicsitem
+//then changes the rotation (so rotation applies only for next movements)
+void Creature::move(float rotation, float distance){
+    setX(distance * cos(this->rotation() * _dtheta));
+    setY(distance * sin(this->rotation() * _dtheta));
+    setRotation(this->rotation() + rotation);
+    float current_energy = get_energy();
+    current_energy -= (_ener_rotcoeff * rotation + _ener_movecoeff * distance);
+    set_energy(current_energy);
+}
