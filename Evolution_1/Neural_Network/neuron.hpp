@@ -30,7 +30,7 @@ public:
     //Other functions  
     void forward_propagate(); //updates neuron based on neurons of the previous layer
     void add_edge(Edge* edge, bool previous); // adds an edge. boolean previous indicates wether its in next_edges or previous_edges
-    void reomve_edge(Edge* edge); // removes edge connecting neurn to other_neuron
+    void remove_edge(Edge* edge); // removes edge connecting neurn to other_neuron
 
 
 private:
