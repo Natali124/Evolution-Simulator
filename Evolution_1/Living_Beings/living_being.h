@@ -10,24 +10,7 @@
 
 
 
-//This namespace will be used in order to have some more object to use:
-namespace Other {
-    //We"ll use this class to detect what's in front of what, as an example it could be used to attack, eat, etc...
-    class Square: public QGraphicsItem{
-    public:
-        // base values: 0, 0, 1, 1
-        Square();
-        Square(qreal X, qreal Y, qreal W, qreal H);
-        QRectF boundingRect() const;
-        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-        void set_shape();
-        qreal x;
-        qreal y;
-        qreal w;
-        qreal h;
-    };
 
-}
 
 
 class LivingBeing : public QGraphicsItem { //
@@ -63,6 +46,7 @@ public:
   std::vector<int> See(int n);
   int See(int n, int i); // auxilary function for See(int)
 
+
   float size; //between 0 and 1;
 
   float get_size();
@@ -71,6 +55,16 @@ public:
   virtual void reproduction();
   //common attributes to plants and creatures
   virtual void is_eaten(LivingBeing &c);
+  float vision; //distance at which the living being can see
+  virtual void reproduction();
+
+  //This is the function we'll be using when we need to make an object take damages (because it's been attacked)
+  virtual void take_dmg(float dmg);
+  //common attributes to plants and creatures
+  virtual float get_size();
+  virtual void set_size(float s);
+  virtual float get_hp();
+  virtual void set_hp(float h);
 };
 
 

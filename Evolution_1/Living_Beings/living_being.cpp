@@ -4,30 +4,12 @@
 #include <QGraphicsItem>
 #include <cmath>
 
-float LivingBeing::get_size() {return size;};
-void LivingBeing::set_size(float size) {this->size = size;};
 
-Other::Square::Square(): Square(0, 0, 1, 1){
-}
-Other::Square::Square(qreal X, qreal Y, qreal W, qreal H): x(X), y(Y), w(W), h(H){
-}
-QRectF Other::Square::boundingRect() const{
-    return QRectF(this->x, this->y, this->w, this->h);
-}
 
-//we don't want it to appear
-void Other::Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
-}
-
-void Other::Square::set_shape(){
-    QPainterPath path;
-    path.addRect(this->boundingRect());
-}
 
 
 LivingBeing::LivingBeing(){
     alive = true;
-    size = 0;
     position = Coordinate();
 }
 
@@ -102,3 +84,9 @@ int LivingBeing::See(int n, int i){
 }
 void LivingBeing::reproduction(){};
 void LivingBeing::is_eaten(LivingBeing &c){};
+void LivingBeing::take_dmg(float dmg){};
+
+float LivingBeing::get_size(){};
+void LivingBeing::set_size(float s){};
+float LivingBeing::get_hp(){};
+void LivingBeing::set_hp(float h){};

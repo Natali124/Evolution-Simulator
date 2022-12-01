@@ -2,11 +2,34 @@
 #include "creature.h"
 #include "Living_Beings/living_being.h"
 #include "Neural_Network/network.hpp"
+
+#include <cmath>
 #include <iostream>
 #include <vector>
 #include <map>
 
 using namespace std;
+
+Other::Square::Square(): Square(0, 0, 0, 1, 1){
+}
+Other::Square::Square(qreal X, qreal Y, qreal R, qreal W, qreal H): w(W), h(H){
+    setX(X); setY(Y), setRotation(R);
+}
+QRectF Other::Square::boundingRect() const{
+    return QRectF(this->x(), this->y(), this->w, this->h);
+}
+
+//we don't want it to appear
+void Other::Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+}
+
+void Other::Square::set_shape(){
+    QPainterPath path;
+    path.addRect(this->boundingRect());
+}
+
+
+
 
 Creature::Creature() {
     std::map<Enum_parameters, float> parameters;
@@ -23,10 +46,58 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain) {
     this->base_parameters = parameters; //we save "dna"
     this->brain = brain;
 
+    this->set_energy(this->get_Max_energy());
+    this->set_hp(this->get_Max_hp());
+
 }
 
 void Creature::reproduction() {};
-std::vector<LivingBeing> Creature::get_close() {};
+
+
+std::vector<LivingBeing*> Creature::get_close(){
+    std::vector<LivingBeing*> v;
+
+    //This will be used to get all objects in front
+    Other::Square *S = new Other::Square(this->x(), this->y(), this->rotation(), this->size, this->size);
+    QList<QGraphicsItem*> list = S->collidingItems();
+    foreach(QGraphicsItem* i , list)
+    {
+        LivingBeing *L = dynamic_cast<LivingBeing*>(i);
+        // if i was possible to cast && if they don't have the same coordinates
+        if ((L!=nullptr) && ((L->x() != this->x()) || (L->y() != this->y()))){
+            v.push_back(L);
+        }
+    }
+    delete S;
+
+
+    return v;
+}
+
+void Creature::take_dmg(float dmg){
+    this->set_hp(this->get_hp()-dmg);
+}
+
+void Creature::attack(){
+    //we'll first split between creatures and plants:
+    std::vector<LivingBeing*> Close = this->get_close();
+
+    //we can introduce vectors with creatures and plants
+    std::vector<LivingBeing*> Creatures;
+    std::vector<LivingBeing*> Plants; //when it comes to type of those two vectors
+    //for now they will be liv beings, not creatures and plants
+    for(vector<LivingBeing*>::iterator i = Close.begin(); i != Close.end(); i++){
+        if(dynamic_cast<Creature*>(*i) != nullptr){
+            Creatures.push_back(*i);
+        }
+//        if(dynamic_cast<Plants*>(*i) != nullptr){
+//            Creatures.push_back(*i);
+//        }
+        //for now I'm going to leave it as plants are not included in a file
+    }
+
+}
+
 
 
 
@@ -47,6 +118,12 @@ int Creature::get_digest_time(){return this->digest_time;}
 void Creature::set_digest_time(int time){this->digest_time = time;}
 vector<float> Creature::get_food_attributes() {return this->food_attributes;}
  //void Creature::set_food(LivingBeing &f){this->food = f;}
+void Creature::set_size(float s){this->parameters[size] = s;}
+float Creature::get_size(){return this->parameters[size];}
+void Creature::set_hp(float s){this->hp = s;}
+float Creature::get_hp(){return this->hp;}
+void Creature::set_Max_hp(float mh){this->parameters[Max_hp] = mh;}
+float Creature::get_Max_hp(){return this->parameters[Max_hp];}
 
 
 
@@ -116,7 +193,7 @@ void Creature::eat(LivingBeing &l, float eat_time){
     float alpha;
     if(get_eat_creature() && get_eat_plants()){alpha = 0.8;}
     else{alpha=1;}
-    float gain = alpha*eat_time*l.size;
+    float gain = alpha*eat_time*l.get_size();
     float current_energy = get_energy();
     set_energy(gain + current_energy);
     digest(l, eat_time);
@@ -153,4 +230,22 @@ void Creature::digest_step(){
         }
         else {set_physical_strength(1);}
 };
+
+
+const float _dtheta = M_PI/18; //base value of the change of rotation - to set maximal rotation range to 10 degrees
+const float _ddistance = 2; //base value of the change of the distance - maximal value of move is 2
+const float _ener_rotcoeff = 0.05; //base value for energy consumption while rotating
+const float _ener_movecoeff = 0.5; //base value for energy consumption while moving
+const float _sizecoeff = 0.1; //base value for energy punishment connected with the size;
+//move function first moves the creature by the distance with respect to angle getrotation from qtgraphicsitem
+//then changes the rotation (so rotation applies only for next movements)
+void Creature::move(float rotation, float distance){
+    setX(distance * cos(this->rotation() * _dtheta));
+    setY(distance * sin(this->rotation() * _dtheta));
+    setRotation(this->rotation() + rotation);
+    float s = this->size;
+    float current_energy = get_energy();
+    current_energy -= (_ener_rotcoeff * rotation + _ener_movecoeff * distance) * _sizecoeff * s * s; //change of energy depends on rotation, distance travelled and size squared to punish too big animals
+    set_energy(current_energy);
+}
 
