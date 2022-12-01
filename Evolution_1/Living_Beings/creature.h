@@ -22,6 +22,21 @@ namespace Other {
         qreal h;
     };
 
+
+    // This function is returning an array of T2 that are casted from a list of type T1 from which we don't take elements that can't be casted
+    template <typename T1, typename T2> std::vector<T2*> cast_array(const std::vector<T1>& L1){
+        std::vector<T2*> L2;
+        for(typename std::vector<T1>::iterator i = L1.begin(); i!=L1.end(); i++)
+        {
+            T2 e = dynamic_cast<T2*>(i);
+            // if i was possible to cast && if they don't have the same coordinates
+            if (!(e==nullptr)){
+                L2.push_back(e);
+            }
+        }
+        return L2;
+    }
+
 }
 
 

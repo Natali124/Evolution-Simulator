@@ -60,7 +60,7 @@ std::vector<LivingBeing*> Creature::get_close(){
     {
         LivingBeing *L = dynamic_cast<LivingBeing*>(i);
         // if i was possible to cast && if they don't have the same coordinates
-        if (L==nullptr && ((L->x() != this->x()) || (L->y() != this->y()))){
+        if ((L!=nullptr) && ((L->x() != this->x()) || (L->y() != this->y()))){
             v.push_back(L);
         }
     }
@@ -71,6 +71,8 @@ std::vector<LivingBeing*> Creature::get_close(){
 }
 
 void Creature::attack(){
+    //we'll first split between creatures and plants:
+    std::vector<LivingBeing*> Close = this->get_close();
 
 }
 
