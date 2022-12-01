@@ -27,61 +27,81 @@ float Plant::get_alpha(Creature &c) {
 void Plant::carbs(Creature &c) {
     if (type_plant == 0) {
         float alpha = get_alpha(c);
-        c.parameters[Creature::energy] += alpha;
-        c.parameters[Creature::physical_strength] -= alpha;};
+        float a = c.get_energy() +alpha;
+        c.set_energy(a);
+        float b = c.get_physical_strength() - alpha;
+        c.set_physical_strength(b);}
 };
 
 void Plant::protein(Creature &c){
     if (type_plant == 1) {
         float alpha = get_alpha(c);
-        c.parameters[Creature::physical_strength] += alpha;
-        c.parameters[Creature::energy] -= alpha;};
+        float a = c.get_energy() -alpha;
+        c.set_energy(a);
+        float b = c.get_physical_strength() + alpha;
+        c.set_physical_strength(b);}
 };
 
 void Plant::slimming_effect(Creature &c){
     if (type_plant == 2) {
     float alpha = get_alpha(c);
-    c.parameters[Creature::eye_sight] += alpha;
-    c.parameters[Creature::visibility] -= alpha;};
+    float a = c.get_eye_sight() +alpha;
+    c.set_eye_sight(a);
+    float b = c.get_visibility() - alpha;
+    c.set_visibility(b);}
 };
 
 void Plant::allergenic_effect(Creature &c){
     if (type_plant == 3) {
     float alpha = get_alpha(c);
-    c.parameters[Creature::visibility] += alpha;
-    c.parameters[Creature::eye_sight] -= alpha;};
+    float a = c.get_eye_sight() -alpha;
+    c.set_eye_sight(a);
+    float b = c.get_visibility() + alpha;
+    c.set_visibility(b);}
 };
 
 void Plant::allergenic_protein(Creature &c) {
     if (type_plant == 4) {
     float alpha = get_alpha(c);
-    c.parameters[Creature::physical_strength] += 2*alpha;
-    c.parameters[Creature::energy] -=alpha;
-    c.parameters[Creature::eye_sight] -= alpha;};
+    float a = c.get_energy() -alpha;
+    c.set_energy(a);
+    float b = c.get_physical_strength() + 2*alpha;
+    c.set_physical_strength(b);
+    float d = c.get_eye_sight() - alpha;
+    c.set_eye_sight(d);}
 };
 
 void Plant::allergenic_carbs(Creature &c){
     if (type_plant == 5) {
     float alpha = get_alpha(c);
-    c.parameters[Creature::energy] += 2*alpha;
-    c.parameters[Creature::physical_strength] -= alpha;
-    c.parameters[Creature::eye_sight] -= alpha;};
+    float a = c.get_energy() +2*alpha;
+    c.set_energy(a);
+    float b = c.get_physical_strength() - alpha;
+    c.set_physical_strength(b);
+    float d = c.get_eye_sight() - alpha;
+    c.set_eye_sight(d);}
 };
 
 void Plant::slimming_protein(Creature &c) {
     if (type_plant == 6) {
     float alpha = get_alpha(c);
-    c.parameters[Creature::physical_strength] += 2*alpha;
-    c.parameters[Creature::energy] -= alpha;
-    c.parameters[Creature::visibility] -= alpha;};
+    float a = c.get_energy() -alpha;
+    c.set_energy(a);
+    float b = c.get_physical_strength() + 2*alpha;
+    c.set_physical_strength(b);
+    float d = c.get_visibility() - alpha;
+    c.set_visibility(d);}
 };
 
 void Plant::slimming_carbs(Creature &c) {
     if (type_plant == 7) {
         float alpha = get_alpha(c);
-        c.parameters[Creature::energy] += 2*alpha;
-        c.parameters[Creature::physical_strength] -= alpha;
-        c.parameters[Creature::visibility] -= alpha;};
+        float a = c.get_energy() +2*alpha;
+        c.set_energy(a);
+        float b = c.get_physical_strength() - alpha;
+        c.set_physical_strength(b);
+        float d = c.get_visibility() - alpha;
+        c.set_visibility(d);}
 };
 
 void Plant::reproduction(){};
