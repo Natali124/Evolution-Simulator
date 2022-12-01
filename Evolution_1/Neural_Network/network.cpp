@@ -1,4 +1,5 @@
 #include "network.hpp"
+#include "layer.hpp"
 #include <vector>
 #include <functional>
 using namespace std;
@@ -15,7 +16,7 @@ vector <double> Network::propagate(vector<double>v){
         }
     }
     for (int i = 0; i < output_layer->size(); i++){
-        (*output_layer[i])->forward_propagate();
+        ((*output_layer)[i])->forward_propagate();
     }
     return output_layer->get_values();
 }
@@ -71,17 +72,16 @@ void Network::remove_layer(){
 
 void Network::add_layer(int n_nodes){
     //adds a hidden layer in the end of other hidden layers
-    Layer* new_layer;
-    *new_layer = Layer(n_nodes);
+    Layer new_layer = Layer(n_nodes);
     int n = hidden_layers.size();
-    hidden_layers.push_back( new_layer); // adds new layer to vector of hidden layers
-    new_layer->fully_connect(hidden_layers[n-1]);     // connects new layer to the last layer
+    hidden_layers.push_back( &new_layer); // adds new layer to vector of hidden layers
+    new_layer.fully_connect(hidden_layers[n-1]);     // connects new layer to the last layer
 }
 
 void Network::add_layer(int i, int n_nodes, act_function f_activation){
     //adds a hidden layer in position i, with activation function, and number of nodes.
-    Layer* new_layer; 
-    *new_layer = Layer(n_nodes, f_activation);
-    hidden_layers.insert(hidden_layers.begin() + i, new_layer);
-    new_layer->fully_connect(hidden_layers[i-1]);
+    Layer new_layer = Layer(n_nodes, f_activation);
+    hidden_layers.insert(hidden_layers.begin() + i, &new_layer);
+    new_layer.fully_connect(hidden_layers[i-1]);
+    new_layer.set_activation_function(f_activation);
 }
