@@ -4,6 +4,17 @@
 #include <QGraphicsItem>
 #include <cmath>
 
+
+
+
+
+
+
+void playstep( double delta_t){
+
+};
+
+
 float LivingBeing::get_size() {return size;};
 void LivingBeing::set_size(float size) {this->size = size;};
 

@@ -67,12 +67,3 @@ Creature::Creature(float physical_strength,float energy, float eye_sight, float 
 this-> physical_strength = physical_strength,
 this-> energy=energy,this->eye_sight= eye_sight,this-> visibility=visibility,this-> brain=brain; };
 */
-void Creature::sleep(float &sleep_time) {
-    is_sleeping = true;
-    while (sleep_time > 0) {
-        playstep();
-        sleep_time-=1;
-    }
-    parameters[Creature::energy] += sleep_time;
-    is_sleeping = false;
-}

@@ -26,8 +26,6 @@ public:
     void reproduction();
     // functions to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
     virtual std::vector<LivingBeing> get_close();
-
-    void playstep();//playstep for one unit of time
     void eat(LivingBeing &l, float speed);
     void sleep(float &sleep_time);
     void move(float rotation, float distance);

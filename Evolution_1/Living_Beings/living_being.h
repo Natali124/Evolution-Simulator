@@ -62,7 +62,7 @@ public:
   // for now, vision is only in front
   std::vector<int> See(int n);
   int See(int n, int i); // auxilary function for See(int)
-
+  void playstep( double delta_t);//playstep for one unit of time
 
   float size;
 
