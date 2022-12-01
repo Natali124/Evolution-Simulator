@@ -34,5 +34,22 @@ void Creature::set_visibility(float v) {parameters[Creature::visibility] =v;};
 void Creature::reproduction() {};
 std::vector<LivingBeing> Creature::get_close() {};
 
+void Creature::playstep() {
+    if (sleep_time != 0) {
+        sleep();
+    }
+    else if (sleep_time == 0) {
+        decision();
+    }
+};
 
+void Creature::sleep_init(float delta_t) {
+    sleep_time = delta_t;
+}
+
+void Creature::sleep() {
+    float e = get_energy() -1;
+    set_energy(e);
+    sleep_time-=1;
+}
 

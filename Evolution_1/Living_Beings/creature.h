@@ -27,9 +27,13 @@ public:
 
     void playstep();//playstep for one unit of time
     void eat(LivingBeing &l, float speed);
-    void sleep(float &sleep_time);
+    void sleep_init(float delta_t);//called by decision to decide to sleep for a time delta_t
+    void sleep();//sleeps for one step : += energy and -= sleep_time
     void move(float rotation, float distance);
     void attack(Creature &c);
+
+
+    void decision(); //to be implemented(not sure of the format)
 
     float get_physical_strength();
     float get_energy();
@@ -44,11 +48,11 @@ public:
 
 
     // DATA MEMBERS
-    bool is_sleeping;
     Network brain;
     std::map<Enum_parameters, float> parameters;
 
-
+protected:
+    float sleep_time;
 
 };
 
