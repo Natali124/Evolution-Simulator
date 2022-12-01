@@ -7,11 +7,32 @@
 #include <map>
 
 
+//This namespace will be used in order to have some more object to use:
+namespace Other {
+    //We"ll use this class to detect what's in front of what, as an example it could be used to attack, eat, etc...
+    class Square: public QGraphicsItem{
+    public:
+        // base values: 0, 0, 1, 1
+        Square();
+        Square(qreal X, qreal Y, qreal R, qreal W, qreal H);
+        QRectF boundingRect() const;
+        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+        void set_shape();
+        qreal w;
+        qreal h;
+    };
+
+}
+
+
+
 class Creature : public LivingBeing {
 public:
 
     // positive double, positive double, positive double, [0, 1], Bool, Bool, double,
     enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, max_hp, last};
+    // for bool values they ll eaither be 0 or not (thus a smooth conversion, normally)
+
 
     // the 'last' parameter is  just there in order to make iteration easier, it has no actual purpuse
     // see https://stackoverflow.com/questions/261963/how-can-i-iterate-over-an-enum
@@ -26,11 +47,11 @@ public:
     // MEMBER FUNCTIONS
     void reproduction();
     // functions to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
-    virtual std::vector<LivingBeing> get_close();
+    virtual std::vector<LivingBeing*> get_close();
     void eat(LivingBeing &l, float speed);
     void sleep(float &sleep_time);
     void move(float rotation, float distance);
-    void attack(Creature &c);
+    void attack(); // attack will only be an action, we'll be able to attack even if there isn't anything in front
 
     float get_parameter(Enum_parameters p);
 

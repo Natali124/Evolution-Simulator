@@ -7,6 +7,27 @@
 #include <map>
 
 
+Other::Square::Square(): Square(0, 0, 0, 1, 1){
+}
+Other::Square::Square(qreal X, qreal Y, qreal R, qreal W, qreal H): w(W), h(H){
+    setX(X); setY(Y), setRotation(R);
+}
+QRectF Other::Square::boundingRect() const{
+    return QRectF(this->x(), this->y(), this->w, this->h);
+}
+
+//we don't want it to appear
+void Other::Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+}
+
+void Other::Square::set_shape(){
+    QPainterPath path;
+    path.addRect(this->boundingRect());
+}
+
+
+
+
 Creature::Creature() {
     std::map<Enum_parameters, float> parameters;
     // in the iteration param refers to an int into Enum_parameters (which does not include the value last)
@@ -30,7 +51,32 @@ float Creature::get_parameter(Enum_parameters p) {return parameters[p];};
 
 
 void Creature::reproduction() {};
-std::vector<LivingBeing> Creature::get_close() {};
+
+
+std::vector<LivingBeing*> Creature::get_close(){
+    std::vector<LivingBeing*> v;
+
+    //This will be used to get all objects in front
+    Other::Square *S = new Other::Square(this->x(), this->y(), this->rotation(), this->size, this->size);
+    QList<QGraphicsItem*> list = S->collidingItems();
+    foreach(QGraphicsItem* i , list)
+    {
+        LivingBeing *L = dynamic_cast<LivingBeing*>(i);
+        // if i was possible to cast && if they don't have the same coordinates
+        if (L==nullptr && ((L->x() != this->x()) || (L->y() != this->y()))){
+            v.push_back(L);
+        }
+    }
+    delete S;
+
+
+    return v;
+}
+
+void Creature::attack(){
+
+}
+
 
 
 
