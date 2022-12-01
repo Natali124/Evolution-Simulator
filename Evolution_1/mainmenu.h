@@ -1,5 +1,5 @@
-#ifndef MENU_H
-#define MENU_H
+#ifndef MAINMENU_H
+#define MAINMENU_H
 
 #include "environment.h"
 #include <QMainWindow>
@@ -22,4 +22,4 @@ class MainMenu : public QMainWindow{
         void setBackgroundImage(QString filePath);
 };
 
-#endif // MENU_H
+#endif // MAINMENU_H

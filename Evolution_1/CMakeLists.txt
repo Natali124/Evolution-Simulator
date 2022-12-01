@@ -24,7 +24,7 @@ set(PROJECT_SOURCES
         environment.h
         environment.cpp
         barrier.h barrier.cpp
-        menu.h menu.cpp
+        mainmenu.h mainmenu.cpp
         Living_Beings/living_being.h
         Living_Beings/living_being.cpp
         Living_Beings/creature.h

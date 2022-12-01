@@ -1,4 +1,4 @@
-#include "menu.h"
+#include "mainmenu.h"
 #include "environment.h"
 #include "menu.h"
 #include <QFile>
