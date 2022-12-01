@@ -30,15 +30,15 @@ public:
     void sleep(float &sleep_time);
     void move(float rotation, float distance);
     void attack(Creature &c);
-
+    LivingBeing& find_food();
+    void decision(vector<float>input_vector); //takes as input vector given by the nn,
+                                              //for given parameters (see .cpp) and takes a decision given the biggest one
     float get_parameter(Enum_parameters p);
 
 
     // DATA MEMBERS
     bool is_sleeping;
     Network brain;
-
-
     std::map<Enum_parameters, float> parameters;
 
 

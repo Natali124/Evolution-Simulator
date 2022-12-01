@@ -6,6 +6,7 @@
 #include <vector>
 #include <map>
 
+using namespace std;
 
 Creature::Creature() {
     std::map<Enum_parameters, float> parameters;
@@ -67,3 +68,37 @@ Creature::Creature(float physical_strength,float energy, float eye_sight, float 
 this-> physical_strength = physical_strength,
 this-> energy=energy,this->eye_sight= eye_sight,this-> visibility=visibility,this-> brain=brain; };
 */
+
+//input_vector : (sleep, eat, attack, move, sleep_time, eat_time, move_rotate, move_distance)
+void Creature::decision(vector<float>input_vector){
+    float action = *max_element(input_vector.begin(), input_vector.begin()+4);
+    int j = 0;
+    for (vector<float>::iterator i=input_vector.begin(); i!=input_vector.begin()+4; i++){
+        if (action==*i) {break;}
+        j++;
+        }
+    if(j){
+        sleep(*(input_vector.begin()+4)); //sleep for sleep_time
+    }
+    if(j==1){
+        LivingBeing& food = find_food();
+        eat(food, *(input_vector.begin()+5));
+    }
+
+}
+
+LivingBeing& Creature::find_food(){
+    // this function is gonna return the closest dead living being (that you can eat), or no living being
+
+    // use ruben's get_close that returns a list of the living beings in front of you
+    // for each living, check if dead and if edible
+}
+
+void Creature::eat(LivingBeing &l, float eat_time){
+    // what do you gain when eating?
+    //--> gonna depend from what you can eat, (if you eat only animals or plants, set an alpha = 1, if you eat both, set alpha=0.8)
+    //-->from the size of the creature l.size
+    //--> and depends from the speed eatime (between 0 and 1 --> the faster you eat, the less you gain)
+    // so total gain is alpha*l.size*eattime
+
+}
