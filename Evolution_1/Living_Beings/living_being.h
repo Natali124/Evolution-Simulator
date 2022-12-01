@@ -10,24 +10,7 @@
 
 
 
-//This namespace will be used in order to have some more object to use:
-namespace Other {
-    //We"ll use this class to detect what's in front of what, as an example it could be used to attack, eat, etc...
-    class Square: public QGraphicsItem{
-    public:
-        // base values: 0, 0, 1, 1
-        Square();
-        Square(qreal X, qreal Y, qreal W, qreal H);
-        QRectF boundingRect() const;
-        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-        void set_shape();
-        qreal x;
-        qreal y;
-        qreal w;
-        qreal h;
-    };
 
-}
 
 
 class LivingBeing : public QGraphicsItem { //
