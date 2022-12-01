@@ -14,6 +14,7 @@ Plant::Plant(){
 
 Plant::Plant(std::map<Enum_parameters, float> parameters) {
     this->parameters = parameters;
+    this->base_parameters = parameters; //we save "dna"
 }
 
 

@@ -10,7 +10,8 @@
 class Creature : public LivingBeing {
 public:
 
-    enum Enum_parameters{ physical_strength, energy, eye_sight, visibility, last};
+    // positive double, positive double, positive double<=Max_energy, positive double, [0, 1], Bool, Bool,
+    enum Enum_parameters{ physical_strength, Max_energy, energy, eye_sight, visibility, eat_creature, eat_plants, last};
 
     // the 'last' parameter is  just there in order to make iteration easier, it has no actual purpuse
     // see https://stackoverflow.com/questions/261963/how-can-i-iterate-over-an-enum
@@ -40,7 +41,7 @@ public:
 
 
     std::map<Enum_parameters, float> parameters;
-
+    std::map<Enum_parameters, float> base_parameters; //Those are the parameters we use for reproduction
 
     void set_energy(float e);
     float get_energy();
@@ -50,6 +51,10 @@ public:
     float get_eye_sight();
     void set_visibility(float v);
     float get_visibility();
+    void set_Max_energy(float me);
+    float get_Max_energy();
+    bool get_eat_creature();
+    bool get_eat_plants();
 
 
 
