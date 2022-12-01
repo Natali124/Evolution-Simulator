@@ -25,6 +25,18 @@ Plant::Plant(float reproduction_rate) {
 */
 
 
+
+
+
+void Plant::set_reproduction_rate(float rr){this->parameters[reproduction_rate] = rr;}
+float Plant::get_reproduction_rate(){return this->parameters[reproduction_rate];}
+void Plant::set_size(float s){this->parameters[size] = s;}
+float Plant::get_size(){return this->parameters[size];}
+
+
+
+
+
 float Plant::get_alpha(Creature &c) {
     float ps = size;
     float cs = c.size;

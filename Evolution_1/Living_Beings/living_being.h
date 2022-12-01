@@ -46,13 +46,11 @@ public:
   std::vector<int> See(int n);
   int See(int n, int i); // auxilary function for See(int)
 
-  float size;
-
-  float get_size();
-  void set_size(float size);
   float vision; //distance at which the living being can see
   virtual void reproduction();
-
+  //common attributes to plants and creatures
+  virtual float get_size();
+  virtual void set_size(float s);
 };
 
 

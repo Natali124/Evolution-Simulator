@@ -61,7 +61,7 @@ std::vector<LivingBeing*> Creature::get_close(){
     {
         LivingBeing *L = dynamic_cast<LivingBeing*>(i);
         // if i was possible to cast && if they don't have the same coordinates
-        if (L==nullptr && ((L->x() != this->x()) || (L->y() != this->y()))){
+        if ((L!=nullptr) && ((L->x() != this->x()) || (L->y() != this->y()))){
             v.push_back(L);
         }
     }
@@ -72,6 +72,8 @@ std::vector<LivingBeing*> Creature::get_close(){
 }
 
 void Creature::attack(){
+    //we'll first split between creatures and plants:
+    std::vector<LivingBeing*> Close = this->get_close();
 
 }
 
@@ -91,6 +93,8 @@ void Creature::set_Max_energy(float me){this->parameters[Max_energy] = me;}
 float Creature::get_Max_energy(){return this->parameters[Max_energy];}
 bool Creature::get_eat_creature(){return this->parameters[eat_creature];}
 bool Creature::get_eat_plants(){return this->parameters[eat_plants];}
+void Creature::set_size(float s){this->parameters[size] = s;}
+float Creature::get_size(){return this->parameters[size];}
 
 
 
@@ -156,7 +160,7 @@ void Creature::eat(LivingBeing &l, float eat_time){
     float alpha;
     if(get_eat_creature() && get_eat_plants()){alpha = 0.8;}
     else{alpha=1;}
-    float gain = alpha*eat_time*l.size;
+    float gain = alpha*eat_time*l.get_size();
     float current_energy = get_energy();
     set_energy(gain + current_energy);
 
