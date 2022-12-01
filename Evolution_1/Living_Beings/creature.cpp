@@ -104,6 +104,11 @@ void Creature::eat(LivingBeing &l, float eat_time){
     //-->from the size of the creature l.size
     //--> and depends from the speed eatime (between 0 and 1 --> the faster you eat, the less you gain)
     // so total gain is alpha*l.size*eattime
+    float alpha;
+    if(get_eat_creature() && get_eat_plants()){alpha = 0.8;}
+    else{alpha=1;}
+    float gain = alpha*eat_time*l.size;
+    float current_energy = get_energy();
+    set_energy(gain + current_energy);
 
 }
-
