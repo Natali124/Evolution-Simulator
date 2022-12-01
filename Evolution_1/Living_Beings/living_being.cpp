@@ -10,7 +10,7 @@
 
 
 
-void playstep( double delta_t){
+void playstep(){
 
 };
 

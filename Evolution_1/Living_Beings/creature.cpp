@@ -21,6 +21,7 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain) {
     this->parameters = parameters;
     this->base_parameters = parameters; //we save "dna"
     this->brain = brain;
+
 }
 
 
@@ -33,8 +34,8 @@ std::vector<LivingBeing> Creature::get_close() {};
 
 
 
-void Creature::set_energy(float e){this->parameters[energy] = e;}
-float Creature::get_energy(){return this->parameters[energy];}
+void Creature::set_energy(float e){this->energy = e;}
+float Creature::get_energy(){return this->energy;}
 void Creature::set_physical_strength(float ps){this->parameters[physical_strength] = ps;}
 float Creature::get_physical_strength(){return this->parameters[physical_strength];}
 void Creature::set_eye_sight(float es){this->parameters[eye_sight] = es;}

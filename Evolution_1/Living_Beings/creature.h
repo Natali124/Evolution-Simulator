@@ -10,8 +10,8 @@
 class Creature : public LivingBeing {
 public:
 
-    // positive double, positive double, positive double<=Max_energy, positive double, [0, 1], Bool, Bool,
-    enum Enum_parameters{ physical_strength, Max_energy, energy, eye_sight, visibility, eat_creature, eat_plants, last};
+    // positive double, positive double, positive double, [0, 1], Bool, Bool, double,
+    enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, max_hp, last};
 
     // the 'last' parameter is  just there in order to make iteration easier, it has no actual purpuse
     // see https://stackoverflow.com/questions/261963/how-can-i-iterate-over-an-enum
@@ -55,6 +55,15 @@ public:
     float get_Max_energy();
     bool get_eat_creature();
     bool get_eat_plants();
+    void set_Max_hp(float me);
+    float get_Max_hp();
+    void set_hp(float me);
+    float get_hp();
+
+
+protected:
+    float energy;
+    float hp;
 
 
 
