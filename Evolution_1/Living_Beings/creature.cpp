@@ -2,6 +2,7 @@
 #include "creature.h"
 #include "Living_Beings/living_being.h"
 #include "Neural_Network/network.hpp"
+
 #include <iostream>
 #include <vector>
 #include <map>
@@ -161,3 +162,4 @@ void Creature::eat(LivingBeing &l, float eat_time){
     set_energy(gain + current_energy);
 
 }
+
