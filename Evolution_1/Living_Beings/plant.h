@@ -22,6 +22,13 @@ public:
     // DATA MEMBERS
     std::map<Enum_parameters, float> parameters;
 
+    enum Type_Plant{
+    Carbs = 0, Protein = 1 , Slimming = 2 , Allergenic = 3 , Allergenic_Protein = 4 , Allergenic_Carbs = 5 ,
+        Slimming_Protein = 6, Slimming_Carbs = 7,
+    };
+
+    Type_Plant type_plant;
+
     // MEMBER FUNCTIONS
     void reproduction();
 
@@ -32,13 +39,7 @@ public:
     // not in coding language: alpha = 1 - (1/ dif(c_size , plant_size))
     // ++ or -- means + or - 2*alpha
 
-    enum Type_Plant{
-    Carbs = 0, Protein = 1 , Slimming = 2 , Allergenic = 3 , Allergenic_Protein = 4 , Allergenic_Carbs = 5 ,
-        Slimming_Protein = 6, Slimming_Carbs = 7,
-    };
-
-    Type_Plant type_plant;
-
+//to update using the future get and set functions for c.parameters
     float get_alpha(Creature &c);
     void carbs(Creature &c);   // + energy , - strength (c becomes heavier)
     void protein(Creature &c); // + strength, - energy (hard to digest)

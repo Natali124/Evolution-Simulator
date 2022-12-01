@@ -65,8 +65,12 @@ public:
 
 
   float size;
+
+  float get_size();
+  void set_size(float size);
   float vision; //distance at which the living being can see
   virtual void reproduction();
+
 };
 
 

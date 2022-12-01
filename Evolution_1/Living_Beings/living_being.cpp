@@ -4,7 +4,8 @@
 #include <QGraphicsItem>
 #include <cmath>
 
-
+float LivingBeing::get_size() {return size;};
+void LivingBeing::set_size(float size) {this->size = size;};
 
 Other::Square::Square(): Square(0, 0, 1, 1){
 }
@@ -23,14 +24,6 @@ void Other::Square::set_shape(){
     path.addRect(this->boundingRect());
 }
 
-
-
-
-LivingBeing::LivingBeing(Coordinate position, float size) {
-    type = none;
-    this->size = size;
-    this->position = position;
-}
 
 LivingBeing::LivingBeing(){
     alive = true;
