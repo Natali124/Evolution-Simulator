@@ -1,22 +1,14 @@
 #ifndef LIVING_BEING_H
 #define LIVING_BEING_H
 
-#include <QGraphicsItem>
+#include "environment.h"
 #include "Neural_Network/network.hpp"
 
-class LivingBeing: public QGraphicsItem{
+class LivingBeing{
 public:
   LivingBeing(); // initializes a living being with alive = true;
   bool alive;
-  QColor color;
-
-  QRectF boundingRect() const;
-  QPainterPath shape() const;
-  virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-             QWidget *widget);
-
   virtual void reproduction();
-  virtual void advance(int);
 };
 
 #endif
