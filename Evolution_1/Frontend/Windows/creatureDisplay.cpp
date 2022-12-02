@@ -1,6 +1,6 @@
 #include "Frontend/mouse.h"
 #include "Frontend/Windows/creatureDisplay.h"
-
+/*
 CreatureDisplay::CreatureDisplay(QWidget *parent) : QGraphicsView(parent), _scene(){
     parentWindow = parent;
 
@@ -25,3 +25,4 @@ void CreatureDisplay::addRandomDot(){
     mouse->setPos(x, y);
     _scene.addItem(mouse);
 }
+*/
