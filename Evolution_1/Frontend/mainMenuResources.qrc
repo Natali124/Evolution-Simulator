@@ -2,5 +2,6 @@
     <qresource prefix="/backgrounds">
         <file>images/cheese.jpg</file>
         <file>images/cobblestone.jpg</file>
+        <file>images/gradient_1.jpg</file>
     </qresource>
 </RCC>

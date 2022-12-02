@@ -48,6 +48,7 @@ set(PROJECT_SOURCES
         Frontend/Windows/mainMenu.h
         Frontend/Windows/mainMenu.cpp
         Frontend/mainMenuResources.qrc
+        Frontend/resources.h
         ${TS_FILES}
 )
 

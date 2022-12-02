@@ -1,6 +1,5 @@
 #include "Frontend/Windows/mainMenu.h"
 #include <QApplication>
-#include <QGraphicsScene>
 #include <iostream>
 
 int main(int argc, char *argv[])

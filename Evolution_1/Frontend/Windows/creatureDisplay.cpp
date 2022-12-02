@@ -1,8 +1,9 @@
 #include "Frontend/mouse.h"
-#include <iostream>
 #include "Frontend/Windows/creatureDisplay.h"
 
 CreatureDisplay::CreatureDisplay(QWidget *parent) : QGraphicsView(parent), _scene(){
+    parentWindow = parent;
+
     QBrush brush(QPixmap(":/backgrounds/images/cobblestone.jpg"));
     _scene.setBackgroundBrush(brush);
 
