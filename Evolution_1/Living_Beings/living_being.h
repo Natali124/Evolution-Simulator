@@ -33,10 +33,7 @@ public:
   float get_y();
 
   enum Type_LB{
-      none = -1,
-      predator = 0,
-      prey = 1,
-      plant = 2,
+      none, plant, creature,
   };
   Type_LB type;
 
@@ -57,6 +54,9 @@ public:
   virtual void set_size(float s);
   virtual float get_hp();
   virtual void set_hp(float h);
+  bool get_alive();
+  void set_alive(bool b);
+
 };
 
 

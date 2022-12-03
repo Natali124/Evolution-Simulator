@@ -11,6 +11,7 @@
 LivingBeing::LivingBeing(){
     alive = true;
     position = Coordinate();
+    type = none;
 }
 
 
@@ -21,6 +22,10 @@ float LivingBeing::get_x(){
 float LivingBeing::get_y(){
     return this->position.y;
 }
+
+
+bool LivingBeing::get_alive() {return alive;};
+void LivingBeing::set_alive(bool b) {this->alive = b;};
 
 
 

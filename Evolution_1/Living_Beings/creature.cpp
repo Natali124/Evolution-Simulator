@@ -39,6 +39,7 @@ Creature::Creature() {
         parameters.insert(std::pair<Enum_parameters, float>(param, val));
     };
     // the brain is already constructed by the default constructor in the .h file.
+    type = creature;
 }
 
 Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain) {
@@ -48,6 +49,7 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain) {
 
     this->set_energy(this->get_Max_energy());
     this->set_hp(this->get_Max_hp());
+    type = creature;
 
 }
 
@@ -98,8 +100,20 @@ void Creature::attack(){
 
 }
 
+void Creature::die() {if (get_alive() && this->get_hp() == 0 ) {
+        set_alive(false);}
+                     };
 
-
+void::Creature::is_eaten(Creature &c) {
+    if (get_alive() == false) {
+        float alpha;
+        if(c.get_eat_creature() && c.get_eat_plants()){alpha = 0.8;}
+        else{alpha=1;}
+        float loss = alpha*c.get_size();
+        float current_energy = get_energy();
+        set_energy(current_energy - loss);
+    };
+};
 
 
 void Creature::set_energy(float e){this->energy = e;}
@@ -154,6 +168,9 @@ void Creature::decision(vector<float>input_vector){
 
 
 void Creature::playstep() {
+    die();   // actually dies only if it should (alive and hp=0)
+    if (get_alive()){
+
     if (sleep_time) {
         sleep_step();
     }
@@ -161,9 +178,9 @@ void Creature::playstep() {
         digest_step();
     }
     else {
-        decision(input_vector);
-
+        decision(input_vector);       
     }
+    ;}
 };
 
 void Creature::sleep(float delta_t) {

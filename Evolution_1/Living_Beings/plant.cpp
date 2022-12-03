@@ -9,6 +9,7 @@ Plant::Plant(){
         float val = (float)rand()/(float)RAND_MAX;
         parameters.insert(std::pair<Enum_parameters, float>(param, val));
     }
+    type = plant;
 }
 
 
@@ -18,6 +19,8 @@ Plant::Plant(std::map<Enum_parameters, float> parameters) {
 
 
     this->set_hp(this->get_Max_hp());
+
+    type = plant;
 }
 
 

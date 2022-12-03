@@ -72,6 +72,10 @@ public:
     void move(float rotation, float distance);
     void take_dmg(float dmg);
     void attack(); // attack will only be an action, we'll be able to attack even if there isn't anything in front
+    void die(); // changes the bool alive to false if necessary ( bool declared in LB)
+    void is_eaten(Creature &c); //contrary to plants, creatures HAVE TO BE DEAD in order to be eaten
+    // the stock of energy in the corpse decreases , reverse function of eat without the eat_time,
+    //the loss of energy depends on the size and the diet of the creature WHICH IS EATING
 
     float get_parameter(Enum_parameters p);
     LivingBeing& find_food();
@@ -79,7 +83,7 @@ public:
                                               //for given parameters (see .cpp) and takes a decision given the biggest one
     void sleep(float delta_t);//called by decision to decide to sleep for a time delta_t
     void sleep_step();//sleeps for one step : += energy and -= sleep_time
-    void playstep();
+    void playstep();//first tries to : die, sleep , digest, or takes a decison
 
     void digest(LivingBeing &food, float eat_time);
     void digest_step();
