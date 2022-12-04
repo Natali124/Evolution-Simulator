@@ -7,3 +7,6 @@
 
 \f0\fs26 \cf0 This week, Garance and I started implementing the several classes we needed for the Backend team. We worked in particular on the living being and the inherited classes (creatures and plant). Howerver, we did some reorganization of the project teams and we will work along with Ruben Pablo and Oscar on the living beings characteristics and behaviors.\
 For next week, Oscar and I will start looking at the \'93decision\'94 part of the living beings. We will work with the Neural Network\'92s output and help the living being take a decision (sleeping, eating, attacking or moving) based on some conditions we will decide on.}
+
+Week 2
+This week I worked on the implementation of the decision function, that given an input vector of parameters, runs a decision of either eat, move, sleep or attack. I also implemented the eat and find_food functions while other members of the subteam did the three remaining. 
