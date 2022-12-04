@@ -2,6 +2,7 @@
 #include "creature.h"
 #include "Living_Beings/living_being.h"
 #include "Neural_Network/network.hpp"
+#include "plant.h"
 
 #include <cmath>
 #include <iostream>
@@ -40,6 +41,7 @@ Creature::Creature() {
     };
     // the brain is already constructed by the default constructor in the .h file.
     type = creature;
+    found_food = false;
 }
 
 Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain) {
@@ -50,6 +52,7 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain) {
     this->set_energy(this->get_Max_energy());
     this->set_hp(this->get_Max_hp());
     type = creature;
+    found_food = false;
 
 }
 
@@ -100,7 +103,7 @@ void Creature::attack(){
 
 }
 
-void Creature::die() {if (get_alive() && this->get_hp() == 0 ) {
+void Creature::die() {if ((get_alive()) && (this->get_hp() == 0) ) {
         set_alive(false);}
                      };
 
@@ -138,7 +141,8 @@ void Creature::set_hp(float s){this->hp = s;}
 float Creature::get_hp(){return this->hp;}
 void Creature::set_Max_hp(float mh){this->parameters[Max_hp] = mh;}
 float Creature::get_Max_hp(){return this->parameters[Max_hp];}
-
+bool Creature::get_found_food() {return this->found_food;}
+void Creature::set_found_food(bool b) {this->found_food = b;}
 
 
 /*
@@ -160,8 +164,9 @@ void Creature::decision(vector<float>input_vector){
         sleep(*(input_vector.begin()+4)); //sleep for sleep_time
     }
     if(j==1){
-        LivingBeing& food = find_food();
-        eat(food, *(input_vector.begin()+5));
+        LivingBeing* food = find_food_ptr();
+        if (this->get_found_food()) {
+            eat((*food), *(input_vector.begin()+5));}
     }
 
 }
@@ -194,12 +199,24 @@ void Creature::sleep_step() {
 }
 
 
-LivingBeing& Creature::find_food(){
-    // this function is gonna return the closest dead living being (that you can eat), or no living being
+LivingBeing* Creature::find_food_ptr(){
+    // returns the first one ,check if edible (matches "this" creature's diet) and if dead for a creature
 
-    // use ruben's get_close that returns a list of the living beings in front of you
-    // for each living, check if dead and if edible
-};
+    std::vector<LivingBeing*> v = get_close();
+    for (std::vector<LivingBeing*>::iterator i=v.begin(); i!=v.end(); i++) {
+        Type_LB t = (*i)->type;
+        if ((t == plant) && (this->get_eat_plants())){
+            this->set_found_food(true);
+            return (*i); // the pointer to the plant
+        }
+        if ((t == creature) && ((*i)->get_alive()==false) && (this->get_eat_creature())) {
+            return (*i); //the pointer to the creature
+            this->set_found_food(true);
+        }
+    }
+    return nullptr;
+}
+
 
 void Creature::eat(LivingBeing &l, float eat_time){
     // what do you gain when eating?
@@ -214,6 +231,7 @@ void Creature::eat(LivingBeing &l, float eat_time){
     float current_energy = get_energy();
     set_energy(gain + current_energy);
     digest(l, eat_time);
+    this->set_found_food(false);
 
 }
 
@@ -225,7 +243,8 @@ void Creature::digest(LivingBeing &food, float eat_time){
     food_attributes.push_back(food.get_size());
 
     if (food.type == 0 || food.type == 1) { // a creature being eaten
-        digest_time = ceil(eat_time * 10);} // 10 has been chosen at random, may be arbitrarily changed later if necessary
+        digest_time = ceil(eat_time * 10); // 10 has been chosen at random, may be arbitrarily changed later if necessary
+        food.is_eaten(*this);}
 
     else if (food.type == 2) { // a plant being eaten
         digest_time = ceil(eat_time * 6); // 6 is arbitrary too here

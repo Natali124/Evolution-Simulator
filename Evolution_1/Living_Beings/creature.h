@@ -78,7 +78,8 @@ public:
     //the loss of energy depends on the size and the diet of the creature WHICH IS EATING
 
     float get_parameter(Enum_parameters p);
-    LivingBeing& find_food();
+    LivingBeing* find_food_ptr();   // returns a pointer to the first living being that you can eat (dead if creature), or no living being
+    //in decision we check if there is actually food (bool found_food) before eating
     void decision(vector<float>input_vector); //takes as input vector given by the nn,
                                               //for given parameters (see .cpp) and takes a decision given the biggest one
     void sleep(float delta_t);//called by decision to decide to sleep for a time delta_t
@@ -120,10 +121,12 @@ public:
     void set_food_attributes(LivingBeing &f);
     void set_size(float s);
     float get_size();
-
+    bool get_found_food();
+    void set_found_food(bool b);
 
 
 protected:
+    bool found_food;//false by default, set to true when found food (plant or creature) and then false again after food is eaten
     float energy;
     float hp;
     vector<float>input_vector;//outputed by the NN , to take as input in decision
