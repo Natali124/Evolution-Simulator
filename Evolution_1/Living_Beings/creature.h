@@ -78,7 +78,7 @@ public:
     //the loss of energy depends on the size and the diet of the creature WHICH IS EATING
 
     float get_parameter(Enum_parameters p);
-    LivingBeing& find_food();
+    LivingBeing* find_food();
     void decision(vector<float>input_vector); //takes as input vector given by the nn,
                                               //for given parameters (see .cpp) and takes a decision given the biggest one
     void sleep(float delta_t);//called by decision to decide to sleep for a time delta_t

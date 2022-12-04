@@ -156,7 +156,7 @@ void Creature::decision(vector<float>input_vector){
         if (action==*i) {break;}
         j++;
         }
-    if(j){
+    if(j==0){
         sleep(*(input_vector.begin()+4)); //sleep for sleep_time
     }
     if(j==1){
@@ -194,11 +194,20 @@ void Creature::sleep_step() {
 }
 
 
-LivingBeing& Creature::find_food(){
+LivingBeing* Creature::find_food(){
     // this function is gonna return the closest dead living being (that you can eat), or no living being
-
     // use ruben's get_close that returns a list of the living beings in front of you
     // for each living, check if dead and if edible
+    std::vector<LivingBeing*> close = get_close();
+    vector<LivingBeing*>::iterator i=close.begin();
+    while(i!=close.end()){
+        if((*i)->alive && ((*i)->type == plant && get_eat_plants()) || ((*i)->type==creature && get_eat_creature())){
+            return *i;
+        }
+        else{i++;}
+    }
+    return nullptr;
+
 };
 
 void Creature::eat(LivingBeing &l, float eat_time){
