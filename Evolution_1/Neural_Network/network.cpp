@@ -7,11 +7,13 @@ using namespace std;
 
 Network::Network(bool randomize){
     // default constructor with default input, output, and one hidden layer. Randomizes edges.
-    input_layer = Layer();
-    output_layer = Layer();
+    Layer inp_l = Layer();
+    input_layer = &inp_l;
+    Layer out_l = Layer();
+    output_layer = &out_l;
     Layer hid_layer = Layer();
-    vector<Layer> v;
-    v.push_back(hid_layer);
+    vector<Layer*> v;
+    v.push_back(&hid_layer);
     hidden_layers = v;
     if (randomize){ randomize_edges(); }
 }
@@ -22,23 +24,23 @@ Network::~Network(){
 
 //getters:
 Layer Network::get_input_layer(){
-    return input_layer;
+    return *input_layer;
 }
 Layer Network::get_output_layer(){
-    return output_layer;
+    return *output_layer;
 }
-vector <Layer> Network::get_hidden_layers(){
+vector <Layer*> Network::get_hidden_layers(){
     return hidden_layers;
 }
 
 //setters:
-void Network::set_input_layer(Layer input_layer){
+void Network::set_input_layer(Layer* input_layer){
     this->input_layer = input_layer;
 }
-void Network::set_output_layer(Layer output_layer){
+void Network::set_output_layer(Layer* output_layer){
     this->output_layer = output_layer;
 }
-void Network::set_hidden_layers(vector<Layer> hidden_layers){
+void Network::set_hidden_layers(vector<Layer*> hidden_layers){
     this->hidden_layers = hidden_layers;
 }
 
@@ -127,6 +129,7 @@ void Network::add_layer(int i, int n_nodes, act_function f_activation){
 Network Network::copy(){
     //copies the network so that children start with parents' networks
     //WARNING: I am not sure this implementation works correctly, we might need to add copy function to layers/nodes
+    //WARNING2: Since we work with pointers, it definitely doesn't work and we need to find some other mechanism
     Network new_network = Network();
     new_network.input_layer = this->input_layer;
     new_network.output_layer = this->output_layer;
