@@ -7,6 +7,8 @@ CreatureDisplay::CreatureDisplay(QWidget *parent) : QGraphicsView(parent), _scen
     QBrush brush(QPixmap(":/backgrounds/images/cobblestone.jpg"));
     _scene.setBackgroundBrush(brush);
 
+    _scene.setSceneRect(0, 0, 500, 500);
+
     setScene(&_scene);
 
     setRenderHint(QPainter::Antialiasing);
@@ -16,12 +18,23 @@ CreatureDisplay::CreatureDisplay(QWidget *parent) : QGraphicsView(parent), _scen
 }
 
 void CreatureDisplay::addRandomDot(){
-    int maxX = width();
-    int maxY = height();
+    int maxX = _scene.width();
+    int maxY = _scene.height();
     int x = std::rand() % maxX;
     int y = std::rand() % maxY;
 
     Mouse *mouse = new Mouse;
-    mouse->setPos(x, y);
+    mouse->setPos(maxX, maxY);
     _scene.addItem(mouse);
+}
+
+void CreatureDisplay::zoomToFit()
+{
+    fitInView(scene()->sceneRect(), Qt::KeepAspectRatio);
+}
+
+void CreatureDisplay::resizeEvent(QResizeEvent *evt)
+{
+    zoomToFit();
+    QGraphicsView::resizeEvent(evt); //call base implementation
 }

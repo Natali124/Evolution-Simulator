@@ -10,12 +10,9 @@
 
 MainMenu::MainMenu(QWidget *parent) : QMainWindow(parent), display(CreatureDisplay(this)){
     resize(720,440); //720p
-    display.resize(440, 440);
+    display.resize(500, 500);
+    display.zoomToFit();
     setWindowTitle("Evolution Simulator");
-
-    QRect rcontent = display.contentsRect();
-    display._scene.setSceneRect(0, 0, rcontent.width(), rcontent.height());
-
     init_layout();
 }
 
@@ -57,12 +54,12 @@ void MainMenu::init_layout(){
 //    mainLayout->addWidget(&display);
     display.setParent(rightLayout);
 
-    QSizePolicy p = display.sizePolicy();
-    p.setVerticalPolicy(QSizePolicy::Minimum);
-    p.setHorizontalPolicy(QSizePolicy::Minimum);
-    p.setHeightForWidth( true );
-    p.setHorizontalStretch(2);
-    display.setSizePolicy( p );
+//    QSizePolicy p = display.sizePolicy();
+////    p.setVerticalPolicy(QSizePolicy::Minimum);
+////    p.setHorizontalPolicy(QSizePolicy::Minimum);
+//    p.setHeightForWidth( true );
+//    p.setHorizontalStretch(2);
+//    display.setSizePolicy( p );
 
     central->setLayout(mainLayout);
 }
