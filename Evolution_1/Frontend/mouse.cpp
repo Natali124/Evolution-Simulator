@@ -27,6 +27,7 @@ Mouse::Mouse() : color(QRandomGenerator::global()->bounded(256),
                        QRandomGenerator::global()->bounded(256))
 {
     setRotation(QRandomGenerator::global()->bounded(360 * 16));
+    type=Type(rand()%3);
 }
 //! [0]
 
@@ -51,35 +52,97 @@ QPainterPath Mouse::shape() const
 //! [3]
 void Mouse::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    // Body
-    painter->setBrush(color);
-    painter->drawEllipse(-10, -20, 20, 40);
+    if(type==prey){
+        // Body
+        painter->setBrush(color);
+        painter->drawEllipse(-10, -20, 20, 40);
 
-    // Eyes
-    painter->setBrush(Qt::white);
-    painter->drawEllipse(-10, -17, 8, 8);
-    painter->drawEllipse(2, -17, 8, 8);
+        // Eyes
+        painter->setBrush(Qt::white);
+        painter->drawEllipse(-10, -17, 8, 8);
+        painter->drawEllipse(2, -17, 8, 8);
 
-    // Nose
-    painter->setBrush(Qt::black);
-    painter->drawEllipse(QRectF(-2, -22, 4, 4));
+        // Nose
+        painter->setBrush(Qt::black);
+        painter->drawEllipse(QRectF(-2, -22, 4, 4));
 
-    // Pupils
-    painter->drawEllipse(QRectF(-8.0 + mouseEyeDirection, -17, 4, 4));
-    painter->drawEllipse(QRectF(4.0 + mouseEyeDirection, -17, 4, 4));
+        // Pupils
+        painter->drawEllipse(QRectF(-8.0 + mouseEyeDirection, -17, 4, 4));
+        painter->drawEllipse(QRectF(4.0 + mouseEyeDirection, -17, 4, 4));
 
-    // Ears
-    painter->setBrush(scene()->collidingItems(this).isEmpty() ? Qt::darkYellow : Qt::red);
-    painter->drawEllipse(-17, -12, 16, 16);
-    painter->drawEllipse(1, -12, 16, 16);
+        // Ears
+        painter->setBrush(scene()->collidingItems(this).isEmpty() ? Qt::darkYellow : Qt::red);
+        painter->drawEllipse(-17, -12, 16, 16);
+        painter->drawEllipse(1, -12, 16, 16);
 
-    // Tail
-    QPainterPath path(QPointF(0, 20));
-    path.cubicTo(-5, 22, -5, 22, 0, 25);
-    path.cubicTo(5, 27, 5, 32, 0, 30);
-    path.cubicTo(-5, 32, -5, 42, 0, 35);
-    painter->setBrush(Qt::NoBrush);
-    painter->drawPath(path);
+        // Tail
+        QPainterPath path(QPointF(0, 20));
+        path.cubicTo(-5, 22, -5, 22, 0, 25);
+        path.cubicTo(5, 27, 5, 32, 0, 30);
+        path.cubicTo(-5, 32, -5, 42, 0, 35);
+        painter->setBrush(Qt::NoBrush);
+        painter->drawPath(path);
+    }
+    if(type==plant){
+        QPoint p1(90,90);
+        QPoint p2(115,115);
+        painter->setBrush(Qt::white);
+        painter->drawEllipse(QRect(p1,p2));
+        p1.setX(115);
+        p1.setY(115);
+        p2.setX(140);
+        p2.setY(140);
+        painter->drawEllipse(QRect(p1,p2));
+        p1.setX(90);
+        p1.setY(115);
+        p2.setX(115);
+        p2.setY(140);
+        painter->drawEllipse(QRect(p1,p2));
+        p1.setX(115);
+        p1.setY(90);
+        p2.setX(140);
+        p2.setY(115);
+        painter->drawEllipse(QRect(p1,p2));
+        p1.setX(100);
+        p1.setY(100);
+        p2.setX(130);
+        p2.setY(130);
+        painter->setBrush(Qt::yellow);
+        painter->drawEllipse(QRect(p1,p2));
+    }
+    if(type==predator){
+        QPoint p1(100,100);
+        QPoint p2(150,150);
+        painter->setBrush(Qt::gray);
+        painter->drawEllipse(QRect(p1,p2));
+        p1.setX(105);
+        p1.setY(105);
+        p2.setX(120);
+        p2.setY(120);
+        painter->setBrush(Qt::black);
+        painter->drawEllipse(QRect(p1,p2));
+        p1.setX(130);
+        p1.setY(105);
+        p2.setX(145);
+        p2.setY(120);
+        painter->drawEllipse(QRect(p1,p2));
+        p1.setX(115);
+        p1.setY(110);
+        p2.setX(120);
+        p2.setY(117);
+        painter->setBrush(Qt::white);
+        painter->drawEllipse(QRect(p1,p2));
+        p1.setX(140);
+        p1.setY(110);
+        p2.setX(145);
+        p2.setY(117);
+        painter->drawEllipse(QRect(p1,p2));
+        p1.setX(110);
+        p1.setY(130);
+        p2.setX(140);
+        p2.setY(140);
+        painter->drawEllipse(QRect(p1,p2));
+    }
 }
 //! [3]
 
