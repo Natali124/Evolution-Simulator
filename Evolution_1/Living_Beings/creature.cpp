@@ -242,11 +242,11 @@ void Creature::digest(LivingBeing &food, float eat_time){
     // it will also make your physical strength lower for a few turns
     food_attributes.push_back(food.get_size());
 
-    if (food.type == 0 || food.type == 1) { // a creature being eaten
+    if (food.type == creature) { // a creature being eaten
         digest_time = ceil(eat_time * 10); // 10 has been chosen at random, may be arbitrarily changed later if necessary
         food.is_eaten(*this);}
 
-    else if (food.type == 2) { // a plant being eaten
+    else if (food.type == plant) { // a plant being eaten
         digest_time = ceil(eat_time * 6); // 6 is arbitrary too here
         food.is_eaten(*this); //implements all that can happen when a creature eats a plant
     }
