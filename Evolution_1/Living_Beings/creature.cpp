@@ -269,20 +269,24 @@ void Creature::digest_step(){
 };
 
 
-std::vector<int> Creature::See(int n){
-    std::vector<int> v; //Here we'll get all the output, It will be of size n
+std::vector<float> Creature::See(int n){
+    std::vector<float> v; //Here we'll get all the output, It will be of size n
 
     for (int i=0; i<n; i++){
-        v.push_back(this->See(n, i));
+        std::vector<float> v2 = this->See(n, i);
+        for (std::vector<float>::iterator j=v2.begin(); j!=v2.end(); j++){
+            v.push_back(*j);
+        }
     }
     return v;
 }
 
-int Creature::See(int n, int i){
+std::vector<float> Creature::See(int n, int i){
     // return a distance score with 0 meaning really close and 256 meaning nothing seen (see only the closest object)
 
     //start: x, y; teta = ((i+1)*pi)/(n+2), this will allow us to get the vision ray at good positions.
-    int r=0;
+    std::vector<float> v;
+    float r=-1;
     double teta = ((i+1)*3.14)/(n+2);
 
 
@@ -290,17 +294,33 @@ int Creature::See(int n, int i){
     QGraphicsLineItem*  Ray = new QGraphicsLineItem(this->get_x(), this->get_y(), this->get_x() + this->get_eye_sight() * cos(teta), this->get_y() + this->get_eye_sight() * cos(teta));
     QList<QGraphicsItem*> list = Ray->collidingItems();
 
+    LivingBeing* last_seen;
     foreach(QGraphicsItem* i , list)
     {
-        int* R = new int(pow(pow(i->x(), 2) + pow(i->y(), 2), 0.5));
-        if (*R <r){
+        float* R = new float(pow(pow(i->x(), 2) + pow(i->y(), 2), 0.5));
+        if (r == -1 || *R <r){
             r = *R;
+            last_seen = dynamic_cast<LivingBeing*>(i);;
         }
         delete R;
     }
     delete Ray;
 
-    return 1-r;
+
+    //first is the distance
+    v.push_back(1-r);
+    //we'll then try a dynamic cast to know what we add after:
+    if (last_seen==nullptr){
+        v.push_back(-1);
+        v.push_back(-1);
+        return v;
+    }
+
+    //we then add size:
+    v.push_back(last_seen->get_size());
+    //we then add healthpoints:
+    v.push_back(last_seen->get_hp());
+    return v;
 }
 
 

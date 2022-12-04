@@ -96,8 +96,8 @@ public:
 
     // n >=0 correspond to the number of ray we will use to get the vision.
     // for now, vision is only in front
-    std::vector<int> See(int n);
-    int See(int n, int i); // auxilary function for See(int)
+    std::vector<float> See(int n);
+    std::vector<float> See(int n, int i); // auxilary function for See(int)
 
     void set_energy(float e);
     float get_energy();
