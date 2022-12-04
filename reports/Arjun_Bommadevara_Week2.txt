@@ -1,7 +1,5 @@
-This week, me and Lorenzo worked on familiarizing ourselves with QT GUI that we will use to develop the frontend of the project.
-We worked on understanding the class QPushButton that will be used for making the initial start button, as well as buttons that add plants, 
-predators and prey to the environment. We implemented a simple, large start button that, when clicked, dissapears and makes 3 buttons (for 
-adding predators, prey and plants) appear on the window, as well as counters that appear next to them (To allow user to decide number of predators,
-prey or plants to add). We added a background by adding an image to a widget dedicated to being a background.
-Next week, I will be focusing on layering the widgets, such that the background appears behind all other widgets, as well as connecting counter to 
-buttons.
+Week 1:
+Me and Lorenzo worked on familiarizing ourselves with QT GUI that we will use to develop the frontend of the project. We worked on understanding the class QPushButton that will be used for making the initial start button, as well as buttons that add plants, predators and prey to the environment. We implemented a simple, large start button that, when clicked, dissapears and makes 3 buttons (for adding predators, prey and plants) appear on the window, as well as counters that appear next to them (To allow user to decide number of predators, prey or plants to add). We added a background by adding an image to a widget dedicated to being a background. Next week, I will be focusing on layering the widgets, such that the background appears behind all other widgets, as well as connecting counter to  buttons.
+
+Week 2:
+We worked on redesigning the layout of the start screen, by separating them into 3 parts: One for adding the creatures (you can choose how many), one part representing all the creatures you have already added, and one part for altering the charecteristics of each creature. We managed to link the counter to each button, as well as making use of a QListWidget to add number of creatures that was on the counter (2nd part of the screen). This week, we will focus on background, by trying to make the screen visually pleasing, as well as incorporating the sliders for the characteristics of the creatures into the 3rd part of screen, working alongside Mathilde.
