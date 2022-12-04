@@ -37,7 +37,7 @@ private:
     int neuron_id;
     vector <Edge*> previous_edges; //incomming edges
     vector <Edge*> next_edges;  // output edges  
-    double value;  
+    double value;
     Layer* parent_layer;
 
 };

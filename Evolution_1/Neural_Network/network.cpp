@@ -4,6 +4,44 @@
 using namespace std;
 
 
+Network::Network(bool randomize){
+    // default constructor with default input, output, and one hidden layer. Randomizes edges.
+    input_layer = Layer();
+    output_layer = Layer();
+    Layer hid_layer = Layer();
+    vector<Layer> v;
+    v.push_back(hid_layer);
+    hidden_layers = v;
+    if (randomize){ randomize_edges(); }
+}
+
+Network::~Network(){
+    //does not do anything yet. Maybe we will want it to free memory in the future.
+}
+
+//getters:
+Layer Network::get_input_layer(){
+    return input_layer;
+}
+Layer Network::get_output_layer(){
+    return output_layer;
+}
+vector <Layer> Network::get_hidden_layers(){
+    return hidden_layers;
+}
+
+//setters:
+void Network::set_input_layer(Layer input_layer){
+    this->input_layer = input_layer;
+}
+void Network::set_output_layer(Layer output_layer){
+    this->output_layer = output_layer;
+}
+void Network::set_hidden_layers(vector<Layer> hidden_layers){
+    this->hidden_layers = hidden_layers;
+}
+
+
 vector <double> Network::propagate(vector<double>v){
     // returns output vector for given input vector
     // going through the neural network
@@ -77,4 +115,13 @@ void Network::add_layer(int n_nodes){
 void Network::add_layer(int i, int n_nodes, double (*f_activation)(double)){
     //adds a hidden layer in position i, with activation function, and number of nodes.
     hidden_layers.insert(hidden_layers.begin() + i, Layer(n_nodes, f_activation));
+}
+
+Network Network::copy(){
+    //copies the network so that children start with parents' networks
+    //WARNING: I am not sure this implementation works correctly, we might need to add copy function to layers/nodes
+    Network new_network = Network();
+    new_network.input_layer = this->input_layer;
+    new_network.output_layer = this->output_layer;
+    new_network.hidden_layers = this->hidden_layers;
 }
