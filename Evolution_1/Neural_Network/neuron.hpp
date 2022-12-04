@@ -12,8 +12,8 @@ public:
 
     // Constructors and destructur
     Neuron();
-    Neuron(int neuron_id, vector<Edge*> previous_edges, Layer* parent_layer); //constructor for hidden/output layer
-    Neuron(int neuron_id, Layer* parent_layer); // constructor for input layer
+    Neuron( vector<Edge*> previous_edges, Layer* parent_layer); //constructor for hidden/output layer
+    Neuron( Layer* parent_layer); // constructor for input layer
     ~Neuron();
 
 
@@ -30,11 +30,11 @@ public:
     //Other functions  
     void forward_propagate(); //updates neuron based on neurons of the previous layer
     void add_edge(Edge* edge, bool previous); // adds an edge. boolean previous indicates wether its in next_edges or previous_edges
-    void reomve_edge(Edge* edge); // removes edge connecting neurn to other_neuron
+    void remove_edge(Edge* edge); // removes edge connecting neurn to other_neuron
 
 
 private:
-    int neuron_id;
+    static int neuron_counter; //Number of existing neurons. Increases everytime a neuron is intialized, decreases when a neuron is destroyed
     vector <Edge*> previous_edges; //incomming edges
     vector <Edge*> next_edges;  // output edges  
     double value;

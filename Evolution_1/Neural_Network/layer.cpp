@@ -9,22 +9,41 @@ using namespace std;
 
 //Constructors
 Layer::Layer(){
-  bias_neuron = Neuron();
-  neurons = vector<Neuron>(0);
+  *bias_neuron = Neuron();
+  neurons = vector<Neuron*>(0);
 }
-Layer::Layer(int n_neurons):Layer(){
-  vector<Neuron> v(0);
-  for (int i = 0; i < n_neurons; i++){
-    v.push_back(Neuron());
-  }
-  neurons = v;
-}
-Layer::Layer(vector<Neuron> neurons):Layer(){
+Layer::Layer(vector<Neuron*> neurons):Layer(){
   this->neurons = neurons;
 }
 
+Layer::Layer(int n_neurons):Layer(){
+  vector<Neuron*> v(0);
+  for (int i = 0; i < n_neurons; i++){
+    Neuron n = Neuron();
+    v.push_back(&n);
+  }
+  neurons = v;
+}
+
+Layer::Layer(int n_neurons, act_function act_func):Layer(){
+    vector<Neuron*> v(0);
+    for (int i = 0; i < n_neurons; i++){
+      /** This is bad!
+      Neuron* new_neuron;
+      *new_neuron = Neuron();
+      v.push_back(new_neuron); **/
+
+      // This is good:
+      Neuron new_neuron = Neuron();
+      v.push_back(&new_neuron);
+     }
+    neurons = v;
+}
+
+
+
 //Overloading the [] operator, returns the i-th neuron
-Neuron Layer :: operator[](int i){
+Neuron* Layer :: operator[](int i){
     if(i >= neurons.size()){
         throw std::out_of_range ("Index out of range");
         }
@@ -36,7 +55,7 @@ vector<double> Layer::get_values(){
   // Returns values of Neurons in Layer as vector of doubles
   vector<double> v = vector<double>(0);
   for(auto & neuron : neurons){
-      v.push_back(neuron.get_value());
+      v.push_back(neuron->get_value());
     }
   return v;
 }
@@ -47,18 +66,20 @@ void Layer::set_values(vector<double> v){
       throw; // if size doesn't match, throw exception
   } else {
     for(int i=0; i< neurons.size(); i++){
-      neurons[i].set_value(v[i]);
+      neurons[i]->set_value(v[i]);
     }
   }
 }
 void Layer :: remove_neuron(int index){
     neurons.erase(neurons.begin() + index);}
-void Layer :: add_neuron(Neuron node){
+void Layer :: add_neuron(Neuron* node){
     neurons.push_back(node);}
 int Layer::size(){
     return neurons.size();
 }
-
+void Layer :: set_activation_function(act_function func){
+  f_activation_name = func;
+}
 
 
 void Layer::fully_connect(Layer* prev_layer){
@@ -67,16 +88,18 @@ void Layer::fully_connect(Layer* prev_layer){
   // randomized weights on all edges
   for(auto & current_neuron : neurons){
       // Connect to bias neuron of previous layer
-      Neuron prev_neuron = prev_layer->bias_neuron;
-      Edge edge = Edge(&prev_neuron, &current_neuron);
-      prev_neuron.add_edge(&edge,true);
-      current_neuron.add_edge(&edge,false);
+      Neuron* prev_neuron = prev_layer->bias_neuron;
+      Edge edge = Edge(&(*prev_neuron), &(*current_neuron));
+      prev_neuron->add_edge(&edge,true);
+      current_neuron->add_edge(&edge,false);
 
       // Connect to all neurons of previous layer
       for(auto & prev_neuron : prev_layer->neurons){
-          Edge edge = Edge(&prev_neuron, &current_neuron);
-          prev_neuron.add_edge(&edge,true);
-          current_neuron.add_edge(&edge,false);
+          Edge edge = Edge(&(*prev_neuron), &(*current_neuron));
+          prev_neuron->add_edge(&edge,true);
+          current_neuron->add_edge(&edge,false);
         }
     }
 }
+
+

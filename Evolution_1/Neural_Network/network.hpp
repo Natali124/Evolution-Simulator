@@ -26,12 +26,14 @@ public:
     void randomize_edges();
     void add_layer(int n_nodes);
     void add_layer(int i, int n_nodes, double (*f_activation)(double));
+    void add_layer(int i, int n_nodes, act_function f_activation);
     void remove_layer();
+    void propagate();
     void apply_on_all_edges(function<void(Edge&)> edge_function);
     void apply_on_all_weights(function<double(double)> weight_function);
     Network copy();
 private:
-    Layer input_layer;
-    Layer output_layer;
-    vector <Layer> hidden_layers;
+    Layer* input_layer;
+    Layer* output_layer;
+    vector <Layer*> hidden_layers;
 };
