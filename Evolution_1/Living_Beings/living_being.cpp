@@ -15,7 +15,6 @@ LivingBeing::LivingBeing(){
 }
 
 
-
 float LivingBeing::get_x(){
     return this->position.x;
 }
