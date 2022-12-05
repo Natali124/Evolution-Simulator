@@ -280,6 +280,7 @@ void Creature::digest_step(){
 };
 
 
+
 std::vector<float> Creature::See(int n){
     std::vector<float> v; //Here we'll get all the output, It will be of size n
 
