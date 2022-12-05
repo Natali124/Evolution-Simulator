@@ -293,7 +293,7 @@ std::vector<float> Creature::See(int n, int i){
 
 
     //lenght is vision
-    QGraphicsLineItem*  Ray = new QGraphicsLineItem(this->get_x(), this->get_y(), this->get_x() + this->get_eye_sight() * cos(teta), this->get_y() + this->get_eye_sight() * cos(teta));
+    QGraphicsLineItem*  Ray = new QGraphicsLineItem(this->x(), this->y(), this->x() + this->get_eye_sight() * cos(teta), this->y() + this->get_eye_sight() * cos(teta));
     QList<QGraphicsItem*> list = Ray->collidingItems();
 
     LivingBeing* last_seen;

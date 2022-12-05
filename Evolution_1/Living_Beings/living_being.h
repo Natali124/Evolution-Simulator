@@ -28,9 +28,6 @@ public:
 
 
 
-  Coordinate position;
-  float get_x();
-  float get_y();
 
   enum Type_LB{
       none, plant, creature,
