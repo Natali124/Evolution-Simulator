@@ -94,21 +94,18 @@ void Creature::take_dmg(float dmg){
 void Creature::attack(){
     //we'll first split between creatures and plants:
     std::vector<LivingBeing*> Close = this->get_close();
-
-    //we can introduce vectors with creatures and plants
-    std::vector<LivingBeing*> Creatures;
-    std::vector<LivingBeing*> Plants; //when it comes to type of those two vectors
-    //for now they will be liv beings, not creatures and plants
+    int len = Close.size();
+    const float alpha_victim = 0.5; //we have to decide what coeff to give
+    const float alpha_attacker = 0.05;
+    //float mean = 0;
+    float dmg = this->get_size()*this->get_physical_strength()*alpha_victim/len;
     for(vector<LivingBeing*>::iterator i = Close.begin(); i != Close.end(); i++){
-        if(dynamic_cast<Creature*>(*i) != nullptr){
-            Creatures.push_back(*i);
-        }
-//        if(dynamic_cast<Plants*>(*i) != nullptr){
-//            Creatures.push_back(*i);
-//        }
-        //for now I'm going to leave it as plants are not included in a file
+        (*i)->take_dmg(dmg);
+        //mean += (*i)->get_size()/len;
     }
-
+    this->set_energy(get_energy() - this->get_size()*alpha_attacker);
+    //we discussed the possibility of making the energy loss depend on the size of the other creatures
+    // we could make the attack depend on the avg size of the creatures
 }
 
 void Creature::die() {if ((get_alive()) && (this->get_hp() == 0) ) {
@@ -278,6 +275,7 @@ void Creature::digest_step(){
         }
         else {set_physical_strength(0);}
 };
+
 
 
 std::vector<float> Creature::See(int n){
