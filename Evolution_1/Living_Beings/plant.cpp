@@ -91,8 +91,8 @@ void Plant::take_dmg(float dmg){
 
 
 float Plant::get_alpha(Creature &c) {
-    float ps = size;
-    float cs = c.size;
+    float ps = get_size();
+    float cs = c.get_size();
     float d = ps - cs;
     float dif = abs(d);
     float alpha = 1 - (1/dif);
@@ -191,6 +191,12 @@ void Plant::slimming_carbs(Creature &c) {
 
 };
 
+
+void Plant::playstep() {
+    set_size(1.1*get_size());
+    set_hp(1.05*get_Max_hp());
+} //should add reproduction
+/*
 void Plant::reproduction(){
     std::map<Enum_parameters, float> param_new_plant;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
@@ -199,3 +205,4 @@ void Plant::reproduction(){
     }
     Plant* p = new Plant(param_new_plant);
 };
+*/
