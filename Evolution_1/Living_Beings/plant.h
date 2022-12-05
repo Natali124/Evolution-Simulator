@@ -9,7 +9,7 @@ class Plant : public LivingBeing
 public:
     // the enum_parameters is the enumeration that lists the parameters
     // (we overwrite if for the different creatures)
-    enum Enum_parameters{reproduction_rate, last};
+    enum Enum_parameters{reproduction_rate, size, Max_hp, last};
     // the 'last' parameter is  just there in order to make iteration easier, it has no actual purpuse
     // see https://stackoverflow.com/questions/261963/how-can-i-iterate-over-an-enum
 
@@ -19,8 +19,27 @@ public:
     // this constructor take a std::map<Enum_parameters, float> and creates a creature with such parameters.
     Plant(std::map<Enum_parameters, float> parameters);
 
+
     // DATA MEMBERS
     std::map<Enum_parameters, float> parameters;
+    std::map<Enum_parameters, float> base_parameters; //Those are the parameters we use for reproduction
+
+    void playstep(); //increases size and hp, should add reproduction
+    float get_reproduction_rate();
+    void set_reproduction_rate(float rr);
+    float get_size();
+    void set_size(float s);
+    float get_Max_hp();
+    void set_Max_hp(float hp);
+    float get_hp();
+    void set_hp(float hp);
+
+    enum Type_Plant{
+    Carbs = 0, Protein = 1 , Slimming = 2 , Allergenic = 3 , Allergenic_Protein = 4 , Allergenic_Carbs = 5 ,
+        Slimming_Protein = 6, Slimming_Carbs = 7,
+    };
+
+    Type_Plant type_plant;
 
     // MEMBER FUNCTIONS
     void reproduction();
@@ -31,14 +50,11 @@ public:
     // the less the plant will have an effect on the creature's body.
     // not in coding language: alpha = 1 - (1/ dif(c_size , plant_size))
     // ++ or -- means + or - 2*alpha
+    void is_eaten(Creature &c);
 
-    enum Type_Plant{
-    Carbs = 0, Protein = 1 , Slimming = 2 , Allergenic = 3 , Allergenic_Protein = 4 , Allergenic_Carbs = 5 ,
-        Slimming_Protein = 6, Slimming_Carbs = 7,
-    };
 
-    Type_Plant type_plant;
-
+    void take_dmg(float dmg);
+//to update using the future get and set functions for c.parameters
     float get_alpha(Creature &c);
     void carbs(Creature &c);   // + energy , - strength (c becomes heavier)
     void protein(Creature &c); // + strength, - energy (hard to digest)
@@ -48,6 +64,9 @@ public:
     void allergenic_carbs(Creature &c);// ++ energy, - strength and - eye_sight
     void slimming_protein(Creature &c);//++ strength , - energy and - visibility
     void slimming_carbs(Creature &c);// ++ energy, - strength and - visibility
+
+protected:
+    float hp;
 
 };
 
