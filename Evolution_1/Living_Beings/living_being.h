@@ -16,7 +16,6 @@
 class LivingBeing : public QGraphicsItem { //
 public:
   LivingBeing(); // initializes a living being with alive = true
-  LivingBeing(Coordinate position, float size);
   bool alive;
     
     
@@ -34,11 +33,6 @@ public:
   };
   Type_LB type;
 
-
-
-
-
-  float size; //between 0 and 1;
 
   //common attributes to plants and creatures
   virtual void is_eaten(LivingBeing &c);
