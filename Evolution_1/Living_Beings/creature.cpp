@@ -263,6 +263,7 @@ void Creature::digest(LivingBeing &food, float eat_time){
 };
 void Creature::digest_step(){
     if (digest_time == 1) {
+        digest_time = 0;
         set_visibility(0.5); //arbitrary value, to be changed if needed
         set_physical_strength(0.5); //arbitrary value, to be changed if needed
     }
