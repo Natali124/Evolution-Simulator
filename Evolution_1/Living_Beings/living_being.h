@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <QGraphicsItem>
+#include <random>
 
 
 
@@ -49,6 +50,14 @@ public:
   void set_alive(bool b);
 
 };
+
+
+float normal_distrib(float parameter, float variance){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::normal_distribution<float> d(parameter, variance);
+    return d(gen);
+}
 
 
 #endif

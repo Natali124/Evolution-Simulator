@@ -191,4 +191,11 @@ void Plant::slimming_carbs(Creature &c) {
 
 };
 
-void Plant::reproduction(){};
+void Plant::reproduction(){
+    std::map<Enum_parameters, float> param_new_plant;
+    for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
+        float val = normal_distrib(parameters[param]);
+        param_new_plant.insert(std::pair<Enum_parameters, float>(param, val));
+    }
+    Plant* p = new Plant(param_new_plant);
+};
