@@ -55,6 +55,8 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain): 
     found_food = false;
 }
 
+Creature::~Creature() {}
+
 
 void Creature::reproduction() {
     std::map<Enum_parameters, float> param_new_creature;
