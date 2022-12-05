@@ -16,7 +16,6 @@
 class LivingBeing : public QGraphicsItem { //
 public:
   LivingBeing(); // initializes a living being with alive = true
-  LivingBeing(Coordinate position, float size);
   bool alive;
     
     
@@ -26,11 +25,6 @@ public:
   void set_bounding_rect(qreal x, qreal y, qreal width, qreal height); // bounding_rect will be initialized with top-left corner in x,y
   void set_shape(); // sets the shape of the LB, everything is inside the bounding_rect
 
-
-
-  Coordinate position;
-  float get_x();
-  float get_y();
 
   enum Type_LB{
       none, plant, creature,
@@ -44,6 +38,7 @@ public:
   float size; //between 0 and 1;
 
   //common attributes to plants and creatures
+  virtual void playstep();
   virtual void is_eaten(LivingBeing &c);
   virtual void reproduction();
 

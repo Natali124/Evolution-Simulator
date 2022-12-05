@@ -15,12 +15,4 @@ private:
 };
 
 
-class Coordinate {
-public:
-    Coordinate(); //default(0,0)
-    Coordinate(float x,float y);
-    float x;
-    float y;
-};
-
 #endif // ENVIRONMENT_H

@@ -91,8 +91,8 @@ void Plant::take_dmg(float dmg){
 
 
 float Plant::get_alpha(Creature &c) {
-    float ps = size;
-    float cs = c.size;
+    float ps = get_size();
+    float cs = c.get_size();
     float d = ps - cs;
     float dif = abs(d);
     float alpha = 1 - (1/dif);
@@ -192,3 +192,8 @@ void Plant::slimming_carbs(Creature &c) {
 };
 
 void Plant::reproduction(){};
+
+void Plant::playstep() {
+    set_size(1.1*get_size());
+    set_hp(1.05*get_Max_hp());
+} //should add reproduction
