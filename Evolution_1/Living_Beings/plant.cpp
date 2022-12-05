@@ -28,6 +28,8 @@ Plant::Plant(std::map<Enum_parameters, float> parameters): Plant() {
     type = plant;
 }
 
+Plant::~Plant(){}
+
 
 /* No need normally since we have already a function with parameter, normally there is reproduction_rate in trhose parameters
 Plant::Plant(float reproduction_rate) {

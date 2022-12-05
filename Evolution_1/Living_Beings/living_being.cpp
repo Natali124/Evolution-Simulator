@@ -41,7 +41,7 @@ LivingBeing::LivingBeing(){
     alive = true;
     type = none;
 }
-
+LivingBeing::~LivingBeing(){}
 
 
 
