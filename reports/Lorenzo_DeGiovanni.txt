@@ -1,0 +1,11 @@
+Week 1
+After researching how to create clickable buttons.
+Me and Arjun were able to create a start button which disappears once clicked which leads to a screen with an additional three buttons, each next to a slider.
+These buttons represent the ability to add an extra plant, predator or prey into the simulation.
+The sliders enable the user to select the quantity of each variable that they want to implement.
+We also were able to understand how to implement a background picture, by attaching it to a widget.
+However, we still have not understood how to layer said picture, hence this is what I will be focusing on next week, as well as connecting the slider to the buttons.
+
+Week 2 
+We redesigned the layout of the buttons page, connecting the counters with the buttons
+and now when selecting the amount of predators, preys or plants to add into the simulation it opens a widget with the ability to scroll for each added variable

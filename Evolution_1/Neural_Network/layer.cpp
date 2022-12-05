@@ -102,4 +102,5 @@ void Layer::fully_connect(Layer* prev_layer){
     }
 }
 
-
+// Added for compilation reasons (Vincenzo)
+Layer::~Layer(){};

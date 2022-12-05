@@ -1,0 +1,8 @@
+Week 1:
+
+Worked on Edge class in neural networks, fixed issue with #include directives in files of neural networks folder, wrote f_activation function in layer, propagate function in neuron, propagate function in network. Worked on cleaning up github repository.
+Next week, I am going to work more on neural network class and write test cases for testing neural network functions.
+
+Week 2:
+
+Worked on Network class. Added/implemented functions, getters, setters, default constructor with randimized edges. Was trying to develop tests but had problems with it, will try again next week during the TD. I am not exactly sure what I will be working on next week as neural networks are done. I will either be helping out to other groups, start a new part, or work on packpropagation of neural networks.

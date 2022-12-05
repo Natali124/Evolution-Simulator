@@ -2,8 +2,6 @@
 #include <functional>
 #pragma once
 
-
-
 class Network{ //network with 3 layers
 
 

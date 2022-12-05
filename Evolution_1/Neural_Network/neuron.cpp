@@ -57,3 +57,10 @@ void Neuron::forward_propagate(){
 
     value = parent_layer->f_activation(sum);
 }
+
+// Function added for compilation reasons (Vincenzo)
+double Neuron::get_value(){return (double)0;};
+void Neuron::set_value(double value){};
+Neuron::~Neuron(){};
+
+
