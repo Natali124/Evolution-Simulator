@@ -32,7 +32,7 @@ void Other::Square::set_shape(){
 
 
 
-Creature::Creature() {
+Creature::Creature():LivingBeing() {
     std::map<Enum_parameters, float> parameters;
     // in the iteration param refers to an int into Enum_parameters (which does not include the value last)
     for (Enum_parameters param = (Enum_parameters)0 ; param != last; param=(Enum_parameters)(param+1)) {
@@ -44,7 +44,7 @@ Creature::Creature() {
     found_food = false;
 }
 
-Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain) {
+Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain): Creature() {
     this->parameters = parameters;
     this->base_parameters = parameters; //we save "dna"
     this->brain = brain;
