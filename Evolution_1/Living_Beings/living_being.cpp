@@ -47,7 +47,7 @@ void LivingBeing::set_shape() {   // for now preys and predators are circles, pl
 
 
 
-void LivingBeing::reproduction(){};
+LivingBeing* LivingBeing::reproduction(){};
 void LivingBeing::is_eaten(LivingBeing &c){};
 void LivingBeing::take_dmg(float dmg){};
 

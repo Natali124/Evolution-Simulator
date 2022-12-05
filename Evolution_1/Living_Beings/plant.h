@@ -32,7 +32,6 @@ public:
     void set_Max_hp(float hp);
     float get_hp();
     void set_hp(float hp);
-
     enum Type_Plant{
     Carbs = 0, Protein = 1 , Slimming = 2 , Allergenic = 3 , Allergenic_Protein = 4 , Allergenic_Carbs = 5 ,
         Slimming_Protein = 6, Slimming_Carbs = 7,
@@ -41,7 +40,7 @@ public:
     Type_Plant type_plant;
 
     // MEMBER FUNCTIONS
-    void reproduction();
+    LivingBeing* reproduction();
 
     //functions about a creature eating a plant:impact on physical_strength, energy, visibility and eye_sight.
     //variables are incremented/ decremented by a coefficient alpha which depends on the

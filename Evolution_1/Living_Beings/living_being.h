@@ -43,7 +43,7 @@ public:
 
   //common attributes to plants and creatures
   virtual void is_eaten(LivingBeing &c);
-  virtual void reproduction();
+  virtual LivingBeing* reproduction();
 
   //This is the function we'll be using when we need to make an object take damages (because it's been attacked)
   virtual void take_dmg(float dmg);
