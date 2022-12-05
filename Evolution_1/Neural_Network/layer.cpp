@@ -70,6 +70,11 @@ void Layer::set_values(vector<double> v){
     }
   }
 }
+
+vector<Neuron*> Layer::get_neurons(){
+  {return neurons;}
+}
+
 void Layer :: remove_neuron(int index){
     neurons.erase(neurons.begin() + index);}
 void Layer :: add_neuron(Neuron* node){
@@ -104,3 +109,14 @@ void Layer::fully_connect(Layer* prev_layer){
 
 // Added for compilation reasons (Vincenzo)
 Layer::~Layer(){};
+// define activation functions, same name as in enum act_function, but all lowercase
+double sigmoid(double x){return 1/(pow(M_E, -x) + 1);};
+double relu(double x){return fmax(0, x);};
+
+// map (=dictionary) to get specific function from enum
+map<act_function,function<double(double)>> get_f_activation_from_name = {{Sigmoid,&sigmoid},{ReLu,&relu}};
+
+
+double Layer::f_activation(double x){
+  return get_f_activation_from_name[f_activation_name](x);
+}
