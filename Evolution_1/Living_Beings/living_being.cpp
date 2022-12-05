@@ -10,8 +10,7 @@ void LivingBeing::reproduction(){};
 void LivingBeing::advance(int step){
 
     if (!step) { return; };
-
-    //play_step(); //Ruben's group function
+    play_step(); //Ruben's group function
 }
 
 QRectF LivingBeing::boundingRect() const
@@ -36,7 +35,22 @@ void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 }
 
 
+LivingBeing::LivingBeing(){
+    alive = true;
+    type = none;
+}
 
 
 
+bool LivingBeing::get_alive() {return alive;};
+void LivingBeing::set_alive(bool b) {this->alive = b;};
+
+
+
+void LivingBeing::is_eaten(LivingBeing &c){};
+void LivingBeing::take_dmg(float dmg){};
+float LivingBeing::get_size(){};
+void LivingBeing::set_size(float s){};
+float LivingBeing::get_hp(){};
+void LivingBeing::set_hp(float h){};
 
