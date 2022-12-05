@@ -15,6 +15,8 @@ Network::Network(bool randomize){
     vector<Layer*> v;
     v.push_back(&hid_layer);
     hidden_layers = v;
+    hid_layer.fully_connect(&inp_l);
+    out_l.fully_connect(&hid_layer);
     if (randomize){ randomize_edges(); }
 }
 
