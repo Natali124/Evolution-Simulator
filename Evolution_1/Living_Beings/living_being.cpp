@@ -10,16 +10,7 @@
 
 LivingBeing::LivingBeing(){
     alive = true;
-    position = Coordinate();
     type = none;
-}
-
-
-float LivingBeing::get_x(){
-    return this->position.x;
-}
-float LivingBeing::get_y(){
-    return this->position.y;
 }
 
 
