@@ -21,6 +21,9 @@ class MainMenu : public QMainWindow{
         CreatureDisplay display;
         void setBackgroundImage(QString filePath);
         void init_layout();
+
+        void stretchBackground();
+        void fitDisplay();
 };
 
 #endif // MAINMENU_H

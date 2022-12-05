@@ -9,11 +9,15 @@
 #include <QGroupBox>
 
 MainMenu::MainMenu(QWidget *parent) : QMainWindow(parent), display(CreatureDisplay(this)){
-    resize(720,440); //720p
-    display.resize(500, 500);
     display.zoomToFit();
     setWindowTitle("Evolution Simulator");
     init_layout();
+
+    // This order of events is necessary because the initial layout of all the elements will not be
+    // calculated properly if the window is not shown in the beggining.
+    show();
+    resize(720, 440);
+    setMinimumSize(720,440);
 }
 
 void MainMenu::setBackgroundImage(QString filePath){
@@ -23,54 +27,66 @@ void MainMenu::setBackgroundImage(QString filePath){
     palette.setBrush(QPalette::Window, bkgnd);
     setPalette(palette);
 }
+
 void MainMenu::init_layout(){
-    setMinimumSize(720,440);
 
-    auto leftLayout = new QGroupBox();
-    auto btn = new QPushButton(leftLayout);
-    btn->setText("Test");
+    //left half
+    auto leftGroupBox = new QGroupBox("Control Panel");
+    auto layout = new QVBoxLayout;
+    leftGroupBox->setLayout(layout);
+
+    auto btn = new QPushButton(leftGroupBox);
+    btn->setText("Test - Spawn 10 creatures");
     connect(btn, &QPushButton::clicked, this, &MainMenu::randomize_scene);
-
-    auto btn2 = new QPushButton(leftLayout);
-    auto btn3 = new QPushButton(leftLayout);
+    layout->addWidget(btn);
+    layout->addStretch();
 
     QSizePolicy spLeft(QSizePolicy::Preferred, QSizePolicy::Preferred);
     spLeft.setHorizontalStretch(1);
-    leftLayout->setSizePolicy(spLeft);
+    leftGroupBox->setSizePolicy(spLeft);
+    //-------------------------------------------------------------
 
-    auto central = new QWidget(this);
-    setCentralWidget(central);
-
-    auto rightLayout = new QGroupBox;
-
-    auto mainLayout = new QHBoxLayout;
-    mainLayout->addWidget(leftLayout);
+    //right half
+    auto rightGroupBox = new QGroupBox("Display");
+    rightGroupBox->setStyleSheet("border:1px solid rgb(0, 255, 0); ");
+    display.setParent(rightGroupBox);
 
     QSizePolicy spRight(QSizePolicy::Preferred, QSizePolicy::Preferred);
     spRight.setHorizontalStretch(2);
-    rightLayout->setSizePolicy(spRight);
+    rightGroupBox->setSizePolicy(spRight);
+    //-------------------------------------------------------------
 
-    mainLayout->addWidget(rightLayout);
-//    mainLayout->addWidget(&display);
-    display.setParent(rightLayout);
+    auto mainLayout = new QHBoxLayout;
+    mainLayout->addWidget(leftGroupBox);
+    mainLayout->addWidget(rightGroupBox);
 
-//    QSizePolicy p = display.sizePolicy();
-////    p.setVerticalPolicy(QSizePolicy::Minimum);
-////    p.setHorizontalPolicy(QSizePolicy::Minimum);
-//    p.setHeightForWidth( true );
-//    p.setHorizontalStretch(2);
-//    display.setSizePolicy( p );
-
+    //this is so that a layout works on a MainWindow
+    auto central = new QWidget(this);
+    setCentralWidget(central);
     central->setLayout(mainLayout);
 }
 
 void MainMenu::resizeEvent(QResizeEvent *evt)
 {
-    QPixmap bkgnd(BACKGROUND_IMAGE_LINK);
-    bkgnd = bkgnd.scaled(size(), Qt::IgnoreAspectRatio);
-    QPalette p = palette(); //copy current, not create new
-    p.setBrush(QPalette::Window, bkgnd);
-    setPalette(p);
+    stretchBackground();
+    fitDisplay();
 
     QMainWindow::resizeEvent(evt); //call base implementation
+}
+
+void MainMenu::stretchBackground(){
+    QPixmap bkgnd(BACKGROUND_IMAGE_LINK);
+    bkgnd = bkgnd.scaled(size(), Qt::IgnoreAspectRatio);
+    QPalette p = palette();
+    p.setBrush(QPalette::Window, bkgnd);
+    setPalette(p);
+}
+void MainMenu::fitDisplay(){
+    //make display square, center into the right groupbox
+    auto parent = display.parentWidget();
+    int sz = std::min(parent->width(), parent->height()) - 50;
+    display.resize(sz, sz);
+    int padx = ( parent->width() - sz ) / 2;
+    int pady = ( parent->height() - sz ) / 2;
+    display.move(padx, pady);
 }

@@ -8,7 +8,6 @@ class CreatureDisplay : public QGraphicsView{
 
         void addRandomDot();
         QGraphicsScene _scene;
-        int heightForWidth(int w) const {return w;}
         void zoomToFit();
 
         virtual void resizeEvent(QResizeEvent*);

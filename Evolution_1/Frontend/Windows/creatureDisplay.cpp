@@ -4,7 +4,7 @@
 CreatureDisplay::CreatureDisplay(QWidget *parent) : QGraphicsView(parent), _scene(){
     parentWindow = parent;
 
-    QBrush brush(QPixmap(":/backgrounds/images/cobblestone.jpg"));
+    QBrush brush(QPixmap(":/backgrounds/images/grass.jpg"));
     _scene.setBackgroundBrush(brush);
 
     _scene.setSceneRect(0, 0, 500, 500);
@@ -15,6 +15,9 @@ CreatureDisplay::CreatureDisplay(QWidget *parent) : QGraphicsView(parent), _scen
     setCacheMode(QGraphicsView::CacheBackground);
     setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     setDragMode(QGraphicsView::ScrollHandDrag);
+
+    auto policy = sizePolicy();
+    policy.setHeightForWidth(true);
 }
 
 void CreatureDisplay::addRandomDot(){
@@ -24,7 +27,7 @@ void CreatureDisplay::addRandomDot(){
     int y = std::rand() % maxY;
 
     Mouse *mouse = new Mouse;
-    mouse->setPos(maxX, maxY);
+    mouse->setPos(x, y);
     _scene.addItem(mouse);
 }
 

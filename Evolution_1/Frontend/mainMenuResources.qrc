@@ -3,5 +3,6 @@
         <file>images/cheese.jpg</file>
         <file>images/cobblestone.jpg</file>
         <file>images/gradient_1.jpg</file>
+        <file>images/grass.jpg</file>
     </qresource>
 </RCC>
