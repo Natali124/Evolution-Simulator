@@ -17,6 +17,7 @@
 class LivingBeing : public QGraphicsItem { //
 public:
   LivingBeing(); // initializes a living being with alive = true
+  ~LivingBeing();
   bool alive;
     
     

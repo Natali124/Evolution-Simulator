@@ -18,6 +18,7 @@ public:
     Plant();
     // this constructor take a std::map<Enum_parameters, float> and creates a creature with such parameters.
     Plant(std::map<Enum_parameters, float> parameters);
+    ~Plant();
 
 
     // DATA MEMBERS

@@ -53,8 +53,8 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain): 
     this->set_hp(this->get_Max_hp());
     type = creature;
     found_food = false;
-
 }
+
 
 void Creature::reproduction() {
     std::map<Enum_parameters, float> param_new_creature;
