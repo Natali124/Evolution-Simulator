@@ -9,7 +9,6 @@ class Layer;
 
 class Neuron{
 public:
-
     // Constructors and destructur
     Neuron();
     Neuron( vector<Edge*> previous_edges, Layer* parent_layer); //constructor for hidden/output layer

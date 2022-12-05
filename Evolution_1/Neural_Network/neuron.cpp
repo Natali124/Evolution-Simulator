@@ -4,6 +4,7 @@
 #include <vector>
 using namespace std;
 
+int Neuron::neuron_counter = 0;
 
 //Constructors
 Neuron::Neuron(){
