@@ -29,6 +29,7 @@ public:
 
 
 
+
   enum Type_LB{
       none, plant, creature,
   };
@@ -36,6 +37,7 @@ public:
 
 
   //common attributes to plants and creatures
+  virtual void playstep();
   virtual void is_eaten(LivingBeing &c);
   virtual void reproduction();
 

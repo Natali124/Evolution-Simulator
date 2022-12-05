@@ -24,6 +24,7 @@ public:
     std::map<Enum_parameters, float> parameters;
     std::map<Enum_parameters, float> base_parameters; //Those are the parameters we use for reproduction
 
+    void playstep(); //increases size and hp, should add reproduction
     float get_reproduction_rate();
     void set_reproduction_rate(float rr);
     float get_size();

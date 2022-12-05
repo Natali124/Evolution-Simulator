@@ -14,6 +14,6 @@ Environment::Environment(float height, float width) {
 float Environment::get_width() {return width;};
 float Environment::get_height() {return height;};
 
-// Definition of Coordinate functions
+
 
 
