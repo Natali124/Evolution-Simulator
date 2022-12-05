@@ -59,10 +59,10 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain): 
 void Creature::reproduction() {
     std::map<Enum_parameters, float> param_new_creature;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
-        float val = normal_distrib(parameters[param]);
+        float val = normal_distrib(parameters[param], 0.0025*parameters[param]); //We try with 5% Sd
         param_new_creature.insert(std::pair<Enum_parameters, float>(param, val));
     }
-    Creature* c = new Creature(param_new_creature);
+    Creature* c = new Creature(param_new_creature, this->brain);
     // I will add the brain as well
 };
 

@@ -7,10 +7,12 @@
 
 void LivingBeing::reproduction(){};
 
+void LivingBeing::playstep(){};
+
 void LivingBeing::advance(int step){
 
     if (!step) { return; };
-    play_step(); //Ruben's group function
+    playstep(); //Ruben's group function
 }
 
 QRectF LivingBeing::boundingRect() const
@@ -39,6 +41,7 @@ LivingBeing::LivingBeing(){
     alive = true;
     type = none;
 }
+
 
 
 

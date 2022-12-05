@@ -3,6 +3,11 @@
 #include "creature.h"
 #include<cmath>
 
+
+
+void Plant::reproduction() {}
+
+
 Plant::Plant():LivingBeing(){
     std::map<Enum_parameters, float> parameters;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
