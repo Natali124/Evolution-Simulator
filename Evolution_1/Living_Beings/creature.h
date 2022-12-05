@@ -61,6 +61,7 @@ public:
     Creature();
     // non-default constructor that takes a std::map<Enum_parameters, float> and a Network
     Creature(std::map<Enum_parameters, float>, Network);
+    ~Creature();
 
     // MEMBER FUNCTIONS
     void reproduction();
