@@ -1,72 +1,27 @@
 #ifndef LIVING_BEING_H
 #define LIVING_BEING_H
 
-#include "environment.h"
+#include <QGraphicsItem>
 #include "Neural_Network/network.hpp"
 #include <iostream>
 #include <vector>
 #include <QGraphicsItem>
 
 
-
-
-//This namespace will be used in order to have some more object to use:
-namespace Other {
-    //We"ll use this class to detect what's in front of what, as an example it could be used to attack, eat, etc...
-    class Square: public QGraphicsItem{
-    public:
-        // base values: 0, 0, 1, 1
-        Square();
-        Square(qreal X, qreal Y, qreal W, qreal H);
-        QRectF boundingRect() const;
-        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-        void set_shape();
-        qreal x;
-        qreal y;
-        qreal w;
-        qreal h;
-    };
-
-}
-
-
-class LivingBeing : public QGraphicsItem { //
+class LivingBeing: public QGraphicsItem{
 public:
   LivingBeing(); // initializes a living being with alive = true;
   bool alive;
-    
-    
+  QColor color;
 
-  QRectF bounding_rect; // the rectangle in which one will draw the shape() of the LB, might need to be a const
-  QPainterPath shape; // the shape inside bounding_rect(), might need to be a const
-  void set_bounding_rect(qreal x, qreal y, qreal width, qreal height); // bounding_rect will be initialized with top-left corner in x,y
-  void set_shape(); // sets the shape of the LB, everything is inside the bounding_rect
+  QRectF boundingRect() const;
+  QPainterPath shape() const;
+  virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+             QWidget *widget);
 
-
-
-  Coordinate position;
-  float get_x();
-  float get_y();
-
-  enum Type_LB{
-      none = -1,
-      predator = 0,
-      prey = 1,
-      plant = 2,
-  };
-  Type_LB type;
-
-
-  // n >=0 correspond to the number of ray we will use to get the vision.
-  // for now, vision is only in front
-  std::vector<int> See(int n);
-  int See(int n, int i); // auxilary function for See(int)
-
-
-  float size;
-  float vision; //distance at which the living being can see
   virtual void reproduction();
-
+  virtual void advance(int);
+};
 
 
 #endif

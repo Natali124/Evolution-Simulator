@@ -23,6 +23,8 @@ set(PROJECT_SOURCES
         mainwindow.ui
         environment.h
         environment.cpp
+        barrier.h barrier.cpp
+        mainmenu.h mainmenu.cpp
         Living_Beings/living_being.h
         Living_Beings/living_being.cpp
         Living_Beings/creature.h
@@ -41,6 +43,7 @@ set(PROJECT_SOURCES
         Neural_Network/network.hpp
         Neural_Network/neuron.cpp
         Neural_Network/neuron.hpp
+        Frontend/mainMenuResources.qrc
         ${TS_FILES}
 )
 
