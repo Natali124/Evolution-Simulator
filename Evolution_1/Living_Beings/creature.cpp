@@ -32,7 +32,7 @@ void Other::Square::set_shape(){
 
 
 
-Creature::Creature() {
+Creature::Creature():LivingBeing() {
     std::map<Enum_parameters, float> parameters;
     // in the iteration param refers to an int into Enum_parameters (which does not include the value last)
     for (Enum_parameters param = (Enum_parameters)0 ; param != last; param=(Enum_parameters)(param+1)) {
@@ -44,7 +44,7 @@ Creature::Creature() {
     found_food = false;
 }
 
-Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain) {
+Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain): Creature() {
     this->parameters = parameters;
     this->base_parameters = parameters; //we save "dna"
     this->brain = brain;
@@ -56,7 +56,15 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain) {
 
 }
 
-void Creature::reproduction() {};
+void Creature::reproduction() {
+    std::map<Enum_parameters, float> param_new_creature;
+    for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
+        float val = normal_distrib(parameters[param]);
+        param_new_creature.insert(std::pair<Enum_parameters, float>(param, val));
+    }
+    Creature* c = new Creature(param_new_creature);
+    // I will add the brain as well
+};
 
 
 std::vector<LivingBeing*> Creature::get_close(){
@@ -188,7 +196,7 @@ void Creature::playstep() {
         digest_step();
     }
     else {
-        decision(input_vector);       
+        decision(input_vector);
     }
     ;}
 };
@@ -255,6 +263,7 @@ void Creature::digest(LivingBeing &food, float eat_time){
 };
 void Creature::digest_step(){
     if (digest_time == 1) {
+        digest_time = 0;
         set_visibility(0.5); //arbitrary value, to be changed if needed
         set_physical_strength(0.5); //arbitrary value, to be changed if needed
     }
@@ -293,7 +302,7 @@ std::vector<float> Creature::See(int n, int i){
 
 
     //lenght is vision
-    QGraphicsLineItem*  Ray = new QGraphicsLineItem(this->get_x(), this->get_y(), this->get_x() + this->get_eye_sight() * cos(teta), this->get_y() + this->get_eye_sight() * cos(teta));
+    QGraphicsLineItem*  Ray = new QGraphicsLineItem(this->x(), this->y(), this->x() + this->get_eye_sight() * cos(teta), this->y() + this->get_eye_sight() * cos(teta));
     QList<QGraphicsItem*> list = Ray->collidingItems();
 
     LivingBeing* last_seen;

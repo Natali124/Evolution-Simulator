@@ -3,7 +3,7 @@
 #include "creature.h"
 #include<cmath>
 
-Plant::Plant(){
+Plant::Plant():LivingBeing(){
     std::map<Enum_parameters, float> parameters;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
         float val = (float)rand()/(float)RAND_MAX;
@@ -13,7 +13,7 @@ Plant::Plant(){
 }
 
 
-Plant::Plant(std::map<Enum_parameters, float> parameters) {
+Plant::Plant(std::map<Enum_parameters, float> parameters): Plant() {
     this->parameters = parameters;
     this->base_parameters = parameters; //we save "dna"
 
@@ -191,9 +191,18 @@ void Plant::slimming_carbs(Creature &c) {
 
 };
 
-void Plant::reproduction(){};
 
 void Plant::playstep() {
     set_size(1.1*get_size());
     set_hp(1.05*get_Max_hp());
 } //should add reproduction
+/*
+void Plant::reproduction(){
+    std::map<Enum_parameters, float> param_new_plant;
+    for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
+        float val = normal_distrib(parameters[param]);
+        param_new_plant.insert(std::pair<Enum_parameters, float>(param, val));
+    }
+    Plant* p = new Plant(param_new_plant);
+};
+*/

@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <QGraphicsItem>
+#include <random>
 
 
 
@@ -26,16 +27,14 @@ public:
   void set_shape(); // sets the shape of the LB, everything is inside the bounding_rect
 
 
+
+
+
   enum Type_LB{
       none, plant, creature,
   };
   Type_LB type;
 
-
-
-
-
-  float size; //between 0 and 1;
 
   //common attributes to plants and creatures
   virtual void playstep();
@@ -53,6 +52,14 @@ public:
   void set_alive(bool b);
 
 };
+
+
+float normal_distrib(float parameter, float variance){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::normal_distribution<float> d(parameter, variance);
+    return d(gen);
+}
 
 
 #endif
