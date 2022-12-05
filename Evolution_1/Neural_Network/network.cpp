@@ -138,6 +138,6 @@ Network Network::copy(){
     new_network.hidden_layers = this->hidden_layers;
 }
 
-// functions added for compilation reasons (Vincenzo)
-Network::Network(){};
-Network::~Network(){};
+
+
+
