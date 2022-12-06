@@ -5,8 +5,10 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include <QBoxLayout>
+#include <QtGui>
 
 MainMenu::MainMenu(QWidget *parent) : QMainWindow(parent), display(CreatureDisplay(this)){
+
     resize(720,440); //720p
     setWindowTitle("Main Menu");
     setBackgroundImage(":/backgrounds/images/forest.jpg");
@@ -44,6 +46,7 @@ MainMenu::MainMenu(QWidget *parent) : QMainWindow(parent), display(CreatureDispl
     display.setSizePolicy( p );
 
     central->setLayout(mainLayout);
+
 }
 
 void MainMenu::setBackgroundImage(QString filePath){
