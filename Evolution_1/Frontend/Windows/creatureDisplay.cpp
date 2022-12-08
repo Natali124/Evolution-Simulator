@@ -1,10 +1,13 @@
 #include "Frontend/mouse.h"
-#include <iostream>
 #include "Frontend/Windows/creatureDisplay.h"
-/*
+
 CreatureDisplay::CreatureDisplay(QWidget *parent) : QGraphicsView(parent), _scene(){
-    QBrush brush(QPixmap(":/backgrounds/images/cobblestone.jpg"));
+    parentWindow = parent;
+
+    QBrush brush(QPixmap(":/backgrounds/images/grass.jpg"));
     _scene.setBackgroundBrush(brush);
+
+    _scene.setSceneRect(0, 0, 500, 500);
 
     setScene(&_scene);
 
@@ -12,11 +15,14 @@ CreatureDisplay::CreatureDisplay(QWidget *parent) : QGraphicsView(parent), _scen
     setCacheMode(QGraphicsView::CacheBackground);
     setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     setDragMode(QGraphicsView::ScrollHandDrag);
+
+    auto policy = sizePolicy();
+    policy.setHeightForWidth(true);
 }
 
 void CreatureDisplay::addRandomDot(){
-    int maxX = width();
-    int maxY = height();
+    int maxX = _scene.width();
+    int maxY = _scene.height();
     int x = std::rand() % maxX;
     int y = std::rand() % maxY;
 
@@ -24,4 +30,14 @@ void CreatureDisplay::addRandomDot(){
     mouse->setPos(x, y);
     _scene.addItem(mouse);
 }
-*/
+
+void CreatureDisplay::zoomToFit()
+{
+    fitInView(scene()->sceneRect(), Qt::KeepAspectRatio);
+}
+
+void CreatureDisplay::resizeEvent(QResizeEvent *evt)
+{
+    zoomToFit();
+    QGraphicsView::resizeEvent(evt); //call base implementation
+}

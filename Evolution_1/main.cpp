@@ -1,7 +1,6 @@
 #include "environment.h"
 #include "mainmenu.h"
 #include <QApplication>
-#include <QGraphicsScene>
 #include <iostream>
 #include <QtGui>
 #include <math.h>

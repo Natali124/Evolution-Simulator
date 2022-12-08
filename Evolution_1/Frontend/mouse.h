@@ -12,7 +12,11 @@ class Mouse : public QGraphicsItem
 {
 public:
     Mouse();
-
+    enum Type{
+        plant,
+        prey,
+        predator
+    };
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -26,6 +30,7 @@ private:
     qreal speed = 0;
     qreal mouseEyeDirection = 0;
     QColor color;
+    Type type;
 };
 //! [0]
 

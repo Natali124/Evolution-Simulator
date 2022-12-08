@@ -1,7 +1,7 @@
 #ifndef LIVING_BEING_H
 #define LIVING_BEING_H
 
-#include <QGraphicsItem>
+#include "environment.h"
 #include "Neural_Network/network.hpp"
 #include <iostream>
 #include <vector>
@@ -46,7 +46,6 @@ public:
       return d(gen);
   }
   virtual void reproduction();
-  virtual void advance(int);
 };
 
 
