@@ -7,11 +7,15 @@
 
 void LivingBeing::reproduction(){};
 
-void LivingBeing::playstep(){};
+void LivingBeing::playstep(){
+    setRotation(rotation() + 7);
+}
 
 void LivingBeing::advance(int step){
 
-    if (!step) { return; };
+    if (!step)
+        return;
+
     playstep(); //Ruben's group function
 }
 
@@ -47,7 +51,6 @@ LivingBeing::~LivingBeing(){}
 
 bool LivingBeing::get_alive() {return alive;};
 void LivingBeing::set_alive(bool b) {this->alive = b;};
-
 
 
 void LivingBeing::is_eaten(LivingBeing &c){};

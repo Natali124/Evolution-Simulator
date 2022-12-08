@@ -4,6 +4,8 @@
 #include "environment.h"
 #include <QMainWindow>
 
+//int being_count = 10;
+
 class MainMenu : public QMainWindow{
     public:
         MainMenu(QWidget *parent = nullptr);
