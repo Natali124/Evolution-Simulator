@@ -16,20 +16,16 @@ Neuron::Neuron(){
 
 }
 
-Neuron::Neuron(vector<Edge*> previous_edges, Layer* parent_layer){
+Neuron::Neuron(vector<Edge*> previous_edges, Layer* parent_layer):Neuron(){
     
         this->previous_edges = previous_edges;
         this->parent_layer = parent_layer;
-        neuron_id = neuron_counter;
-        neuron_counter += 1;
 
 }
 
-Neuron:: Neuron(Layer* parent_layer){        
+Neuron:: Neuron(Layer* parent_layer):Neuron(){
         this ->parent_layer = parent_layer;
         previous_edges = vector<Edge*>(0);
-        neuron_id = neuron_counter;
-        neuron_counter += 1;        
         }
 
 
