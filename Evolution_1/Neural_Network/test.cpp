@@ -1,4 +1,4 @@
-#include "network.cpp"
+#include "network.hpp"
 
 int main(){
 

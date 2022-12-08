@@ -1,9 +1,6 @@
 #pragma once
-#include "neuron.hpp"
 
-
-// I removed trhis and imported the file instead but maybe it will cause some
-//class Neuron; 
+class Neuron; 
 
 class Edge{
 public:

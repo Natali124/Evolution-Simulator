@@ -1,4 +1,5 @@
 #include "edge.hpp"
+#include "neuron.hpp"
 #include <random>
 #include <ctime>
 #include <cstdlib>
