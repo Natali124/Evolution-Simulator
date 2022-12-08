@@ -81,16 +81,16 @@ void Plant::is_eaten(Creature &c) {
 
 
 
-void Plant::set_reproduction_rate(float rr){this->parameters[reproduction_rate] = rr;}
-float Plant::get_reproduction_rate(){return this->parameters[reproduction_rate];}
-void Plant::set_size(float s){this->parameters[size] = s;}
-float Plant::get_size(){return this->parameters[size];}
-void Plant::set_Max_hp(float ms){this->parameters[Max_hp] = ms;}
-float Plant::get_Max_hp(){return this->parameters[Max_hp];}
-void Plant::set_hp(float ms){this->hp = ms;}
-float Plant::get_hp(){return this->hp;}
-float Plant::get_Max_size() {return this->parameters[Max_size];}
-void Plant::set_Max_size(float s) {this->parameters[Max_size]=s;}
+void Plant::set_reproduction_rate(double rr){this->parameters[reproduction_rate] = rr;}
+double Plant::get_reproduction_rate(){return this->parameters[reproduction_rate];}
+void Plant::set_size(double s){this->parameters[size] = s;}
+double Plant::get_size(){return this->parameters[size];}
+void Plant::set_Max_hp(double ms){this->parameters[Max_hp] = ms;}
+double Plant::get_Max_hp(){return this->parameters[Max_hp];}
+void Plant::set_hp(double ms){this->hp = ms;}
+double Plant::get_hp(){return this->hp;}
+double Plant::get_Max_size() {return this->parameters[Max_size];}
+void Plant::set_Max_size(double s) {this->parameters[Max_size]=s;}
 
 
 
@@ -205,10 +205,10 @@ void Plant::slimming_carbs(Creature &c) {
 void Plant::playstep() {    // random values for increasing hp, random weight of growing coef for increasing size
     //changing size and upper bound it by max_size , same for hp
 
-    float growing_coef = get_Max_size()/get_size();
+    double growing_coef = get_Max_size()/get_size();
 
     if (get_size()< get_Max_size()) {
-        float new_size = get_size()+ 0.25 *growing_coef;
+        double new_size = get_size()+ 0.25 *growing_coef;
         set_size(new_size);}
     if (get_size()>get_Max_size()) {
         set_size(get_Max_size());

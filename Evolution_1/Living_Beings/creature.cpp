@@ -346,19 +346,21 @@ std::vector<double> Creature::See(int n, int i){
 }
 
 
-const double _dtheta = M_PI/18; //base value of the change of rotation - to set maximal rotation range to 10 degrees
-const double _ddistance = 2; //base value of the change of the distance - maximal value of move is 2
-const double _ener_rotcoeff = 0.05; //base value for energy consumption while rotating
-const double _ener_movecoeff = 0.5; //base value for energy consumption while moving
-const double _sizecoeff = 0.1; //base value for energy punishment connected with the size;
+const float _dtheta = 20; //base value of the change of rotation - to set maximal rotation range to 10 degrees
+const float _ddistance = 2; //base value of the change of the distance - maximal value of move is 2
+const float _ener_rotcoeff = 0.05; //base value for energy consumption while rotating
+const float _ener_movecoeff = 0.5; //base value for energy consumption while moving
+const float _sizecoeff = 0.1; //base value for energy punishment connected with the size;
 //move function first moves the creature by the distance with respect to angle getrotation from qtgraphicsitem
 //then changes the rotation (so rotation applies only for next movements)
 void Creature::move(double rotation, double distance){
-    setX(distance * cos(this->rotation() * _dtheta));
-    setY(distance * sin(this->rotation() * _dtheta));
-    setRotation(this->rotation() + rotation);
-    double s = this->size;
-    double current_energy = get_energy();
+    setRotation(this->rotation() + rotation * _dtheta);
+
+    setX(this->x() + (distance*_ddistance) * cos(this->rotation()*M_PI/180));
+    setY(this->y() + (distance*_ddistance) * sin(this->rotation()*M_PI/180));
+
+    float s = this->size;
+    float current_energy = get_energy();
     current_energy -= (_ener_rotcoeff * rotation + _ener_movecoeff * distance) * _sizecoeff * s * s; //change of energy depends on rotation, distance travelled and size squared to punish too big animals
     set_energy(current_energy);
 }

@@ -17,9 +17,9 @@ public:
     // the defaul constructor initialises parameters with some random values and initializes the size at 1 and hp at max_hp
     Plant();
 
-    // this constructor take a std::map<Enum_parameters, float> and creates a creature with such parameters,
+    // this constructor take a std::map<Enum_parameters, double> and creates a creature with such parameters,
     //initializes the size at 1 and hp at max_hp
-    Plant(std::map<Enum_parameters, float> parameters);
+    Plant(std::map<Enum_parameters, double> parameters);
 
     ~Plant();
 
@@ -30,16 +30,16 @@ public:
 
     void playstep(); //increases size and hp, should add reproduction
 
-    float get_reproduction_rate();
-    void set_reproduction_rate(float rr);
-    float get_size();
-    void set_size(float s);
-    float get_Max_hp();
-    void set_Max_hp(float hp);
-    float get_Max_size();
-    void set_Max_size(float s);
-    float get_hp();
-    void set_hp(float hp);
+    double get_reproduction_rate();
+    void set_reproduction_rate(double rr);
+    double get_size();
+    void set_size(double s);
+    double get_Max_hp();
+    void set_Max_hp(double hp);
+    double get_Max_size();
+    void set_Max_size(double s);
+    double get_hp();
+    void set_hp(double hp);
 
     enum Type_Plant{
     Carbs = 0, Protein = 1 , Slimming = 2 , Allergenic = 3 , Allergenic_Protein = 4 , Allergenic_Carbs = 5 ,
