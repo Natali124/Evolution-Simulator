@@ -3,7 +3,8 @@
 
 #include <iostream>
 #include <QGraphicsView>
-#include "Living_Beings/living_being.h"
+#include "Living_Beings/creature.h"
+#include "Living_Beings/plant.h"
 #include "barrier.h"
 
 class CreatureDisplay : public QGraphicsView{
