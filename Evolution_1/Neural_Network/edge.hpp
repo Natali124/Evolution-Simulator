@@ -1,6 +1,9 @@
 #pragma once
+#include "neuron.hpp"
 
-class Neuron;
+
+// I removed trhis and imported the file instead but maybe it will cause some
+//class Neuron; 
 
 class Edge{
 public:
@@ -21,6 +24,7 @@ public:
     double get_weight();
     Neuron* get_start_neuron();
     Neuron* get_end_neuron();
+    int get_next_neuron_id();
     bool get_is_active();
 
     //Setters

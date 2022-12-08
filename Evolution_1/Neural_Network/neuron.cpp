@@ -11,14 +11,16 @@ Neuron::Neuron(){
     previous_edges = vector<Edge*>(0);
     next_edges = vector<Edge*>(0);
     parent_layer =nullptr;
+    neuron_id = neuron_counter;
     neuron_counter += 1;
 
 }
 
 Neuron::Neuron(vector<Edge*> previous_edges, Layer* parent_layer){
     
-        this ->previous_edges = previous_edges;
-        this ->parent_layer = parent_layer;
+        this->previous_edges = previous_edges;
+        this->parent_layer = parent_layer;
+        neuron_id = neuron_counter;
         neuron_counter += 1;
 
 }
@@ -26,6 +28,7 @@ Neuron::Neuron(vector<Edge*> previous_edges, Layer* parent_layer){
 Neuron:: Neuron(Layer* parent_layer){        
         this ->parent_layer = parent_layer;
         previous_edges = vector<Edge*>(0);
+        neuron_id = neuron_counter;
         neuron_counter += 1;        
         }
 
@@ -41,6 +44,16 @@ vector<Edge*> Neuron :: get_previous_edges(){
 vector<Edge*> Neuron :: get_next_edges(){
     return next_edges;}
 
+vector<double> Neuron::get_next_weights(){
+    vector<double> weights;
+
+    for(Edge* edge: next_edges){
+        weights.push_back(edge->get_weight());}
+    return weights;}
+    
+
+int Neuron:: get_id(){
+    return neuron_id;}
 
 //Other functions
 void Neuron::add_edge(Edge* edge, bool previous){

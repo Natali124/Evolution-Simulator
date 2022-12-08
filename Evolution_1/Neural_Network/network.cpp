@@ -2,6 +2,7 @@
 #include "layer.hpp"
 #include <vector>
 #include <functional>
+#include <iostream>
 using namespace std;
 
 
@@ -137,6 +138,71 @@ Network Network::copy(){
     new_network.output_layer = this->output_layer;
     new_network.hidden_layers = this->hidden_layers;
 }
+
+void Network::print_adj_list(){
+
+    vector<Neuron*> neurons =  input_layer->get_neurons();
+    
+    cout << "Input layer \n";
+    cout << "[ ";
+    
+    for(Neuron* neuron: neurons){
+        vector<Edge*> crnt_edges = neuron->get_next_edges();
+        cout<<" [ ";
+        
+        for(Edge* edge: crnt_edges){
+            cout<<"[ " << edge->get_next_neuron_id() <<", ";}
+        
+        cout<<" ] \n";}
+    
+    int counter = 0;
+    for(Layer* crnt_layer: hidden_layers){
+        neurons = crnt_layer->get_neurons();
+
+        cout << "Hidden layer"<< counter<< "\n";
+        
+        for(Neuron* neuron: neurons){
+        vector<Edge*> crnt_edges = neuron->get_next_edges();
+        cout<<" [ ";  
+        for(Edge* edge: crnt_edges){
+            cout<<"[ " << edge->get_next_neuron_id() <<", ";}
+        
+        cout<<" ] \n";}
+        counter += 1;}
+
+        cout << " ]";
+        }
+
+void Network:: print_weights(){
+
+    vector<Neuron*> neurons =  input_layer->get_neurons();
+    
+    cout << "Input layer \n";
+    cout << "[ ";
+    
+    for(Neuron* neuron: neurons){
+        for(double weight: neuron->get_next_weights()){
+            cout << weight<< ", " ;
+        }
+    }
+    int counter = 0;
+    for(Layer* crnt_layer: hidden_layers){
+        neurons = crnt_layer->get_neurons();
+
+        cout << "Hidden layer"<< counter<< "\n";
+        cout << "[ ";
+        
+        for(Neuron* neuron: neurons){
+         for(double weight: neuron->get_next_weights()){
+            cout << weight<< ", " ;
+        }
+        
+        cout<<" ] \n";}
+        counter += 1;}
+
+        cout << " ]";
+        }
+
 
 
 

@@ -11,8 +11,8 @@ class Neuron{
 public:
     // Constructors and destructur
     Neuron();
-    Neuron( vector<Edge*> previous_edges, Layer* parent_layer); //constructor for hidden/output layer
-    Neuron( Layer* parent_layer); // constructor for input layer
+    Neuron(vector<Edge*> previous_edges, Layer* parent_layer); //constructor for hidden/output layer
+    Neuron(Layer* parent_layer); // constructor for input layer
     ~Neuron();
 
 
@@ -20,6 +20,8 @@ public:
     double get_value();
     vector <Edge*> get_previous_edges(); // returns previous edges 
     vector <Edge*> get_next_edges();
+    vector<double> get_next_weights();
+    int get_id(); 
 
     // Setters
     void set_value(double value);
@@ -34,6 +36,7 @@ public:
 
 private:
     static int neuron_counter; //Number of existing neurons. Increases everytime a neuron is intialized, decreases when a neuron is destroyed
+    int neuron_id; // ID or name of the neuron
     vector <Edge*> previous_edges; //incomming edges
     vector <Edge*> next_edges;  // output edges  
     double value;

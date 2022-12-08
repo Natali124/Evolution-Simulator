@@ -35,6 +35,10 @@ Neuron* Edge::get_start_neuron(){
 Neuron* Edge::get_end_neuron(){
         return end_neuron;
     }
+
+int Edge:: get_next_neuron_id(){
+    return end_neuron->get_id();
+}
 bool Edge::get_is_active(){
     return is_active;
 }
