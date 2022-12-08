@@ -1,13 +1,15 @@
 #include <random>
 #include "creature.h"
-#include "Living_Beings/living_being.h"
 #include "Neural_Network/network.hpp"
 #include "plant.h"
-
+#include "living_being.h"
 #include <cmath>
 #include <iostream>
 #include <vector>
 #include <map>
+#include <QGraphicsItem>
+
+
 
 using namespace std;
 
@@ -55,6 +57,8 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain): 
     found_food = false;
 }
 
+
+Creature::~Creature() {};
 
 void Creature::reproduction() {
     std::map<Enum_parameters, float> param_new_creature;
