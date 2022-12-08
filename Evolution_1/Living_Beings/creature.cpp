@@ -43,6 +43,7 @@ Creature::Creature():LivingBeing() {
     };
     // the brain is already constructed by the default constructor in the .h file.
     type = creature;
+    this->set_alive(true);
     found_food = false;
 }
 
@@ -195,20 +196,24 @@ void Creature::decision(vector<double>input_vector){
 void Creature::playstep() {
     die();   // actually dies only if it should (alive and hp=0)
     if (get_alive()){
-
         if (sleep_time) {
             sleep_step();
         }
         else if(digest_time){
             digest_step();
         }
+        /*
         else {
             std::vector<double> Input = this->See(9); //for now we'll word with 9 vision sticks
             std::vector<double> input_vector = brain.propagate(Input);
 
             decision(input_vector);
         }
+        */
     ;}
+    else{
+        move(-1, -1);
+    }
 };
 
 void Creature::sleep(double delta_t) {
@@ -272,21 +277,23 @@ void Creature::digest(LivingBeing &food, double eat_time){
 
 };
 void Creature::digest_step(){
-    if (digest_time == 1) {
-        digest_time = 0;
-        set_visibility(0.5); //arbitrary value, to be changed if needed
-        set_physical_strength(0.5); //arbitrary value, to be changed if needed
-    }
-    else {
-        digest_time -= 1;
-        if (get_visibility()*1.1*food_attributes[0] <= 1) {
-            set_visibility(get_visibility()*1.1*food_attributes[0]);}
-        else { set_visibility(1);}}
-
-        if (get_physical_strength()*0.95*food_attributes[0] >= 0) {
-            set_physical_strength(get_physical_strength()*0.95*food_attributes[0]);
+    if (food_attributes.size()){
+        if (digest_time == 1) {
+            digest_time = 0;
+            set_visibility(0.5); //arbitrary value, to be changed if needed
+            set_physical_strength(0.5); //arbitrary value, to be changed if needed
         }
-        else {set_physical_strength(0);}
+        else {
+            digest_time -= 1;
+            if (get_visibility()*1.1*food_attributes[0] <= 1) {
+                set_visibility(get_visibility()*1.1*food_attributes[0]);}
+            else { set_visibility(1);}}
+
+            if (get_physical_strength()*0.95*food_attributes[0] >= 0) {
+                set_physical_strength(get_physical_strength()*0.95*food_attributes[0]);
+            }
+            else {set_physical_strength(0);}
+     }
 };
 
 
@@ -309,14 +316,14 @@ std::vector<double> Creature::See(int n, int i){
     //start: x, y; teta = ((i+1)*pi)/(n+2), this will allow us to get the vision ray at good positions.
     std::vector<double> v;
     double r=-1;
-    double teta = ((i+1)*3.14)/(n+2);
+    double teta = ((i+1)*3.14)/(n+2) + this->rotation()*(3.14/180);
 
 
     //lenght is vision
-    QGraphicsLineItem*  Ray = new QGraphicsLineItem(this->x(), this->y(), this->x() + this->get_eye_sight() * cos(teta), this->y() + this->get_eye_sight() * cos(teta));
+    QGraphicsLineItem*  Ray = new QGraphicsLineItem(this->x(), this->y(), this->x() + this->get_eye_sight() * cos(teta), this->y() + this->get_eye_sight() * sin(teta));
     QList<QGraphicsItem*> list = Ray->collidingItems();
 
-    LivingBeing* last_seen;
+    LivingBeing* last_seen  = nullptr;
     foreach(QGraphicsItem* i , list)
     {
         double* R = new double(pow(pow(i->x(), 2) + pow(i->y(), 2), 0.5));
