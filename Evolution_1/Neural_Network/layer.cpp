@@ -9,10 +9,11 @@ using namespace std;
 
 //Constructors
 Layer::Layer(){
-  std::cout << "Creating Layer";
-  Neuron n = Neuron();
-  bias_neuron = &n;
+  std::cout << "Creating Layer"<<std::endl;
+  //Neuron* n = new Neuron(this);
+  bias_neuron = new Neuron(this);
   neurons = vector<Neuron*>(0);
+  f_activation_name = Sigmoid;
 }
 Layer::Layer(vector<Neuron*> neurons):Layer(){
   this->neurons = neurons;
@@ -21,32 +22,21 @@ Layer::Layer(vector<Neuron*> neurons):Layer(){
 Layer::Layer(int n_neurons):Layer(){
   vector<Neuron*> v(0);
   for (int i = 0; i < n_neurons; i++){
-    Neuron n = Neuron();
-    v.push_back(&n);
+    //Neuron* n = new Neuron(this);
+    v.push_back(new Neuron(this));
   }
   neurons = v;
 }
 
-Layer::Layer(int n_neurons, act_function act_func):Layer(){
-    vector<Neuron*> v(0);
-    for (int i = 0; i < n_neurons; i++){
-      /** This is bad!
-      Neuron* new_neuron;
-      *new_neuron = Neuron();
-      v.push_back(new_neuron); **/
-
-      // This is good:
-      Neuron new_neuron = Neuron();
-      v.push_back(&new_neuron);
-     }
-    neurons = v;
+Layer::Layer(int n_neurons, act_function act_func):Layer(n_neurons){
+    this->f_activation_name = act_func;
 }
 
 
 
 //Overloading the [] operator, returns the i-th neuron
 Neuron* Layer :: operator[](int i){
-    if(i >= neurons.size()){
+    if(i< 0 or i >= neurons.size()){
         throw std::out_of_range ("Index out of range");
         }
     return neurons[i];}
@@ -76,6 +66,9 @@ void Layer::set_values(vector<double> v){
 vector<Neuron*> Layer::get_neurons(){
   {return neurons;}
 }
+Neuron* Layer::get_bias_neuron(){
+  return bias_neuron;
+}
 
 void Layer :: remove_neuron(int index){
     neurons.erase(neurons.begin() + index);}
@@ -96,21 +89,27 @@ void Layer::fully_connect(Layer* prev_layer){
   for(auto & current_neuron : neurons){
       // Connect to bias neuron of previous layer
       Neuron* prev_neuron = prev_layer->bias_neuron;
-      Edge edge = Edge(&(*prev_neuron), &(*current_neuron));
-      prev_neuron->add_edge(&edge,true);
-      current_neuron->add_edge(&edge,false);
+      Edge* edge = new Edge(&(*prev_neuron), &(*current_neuron));
+      prev_neuron->add_edge(edge,false);
+      current_neuron->add_edge(edge,true);
 
       // Connect to all neurons of previous layer
       for(auto & prev_neuron : prev_layer->neurons){
-          Edge edge = Edge(&(*prev_neuron), &(*current_neuron));
-          prev_neuron->add_edge(&edge,true);
-          current_neuron->add_edge(&edge,false);
+          Edge* edge = new Edge(&(*prev_neuron), &(*current_neuron));
+          prev_neuron->add_edge(edge,false);
+          current_neuron->add_edge(edge,true);
         }
     }
 }
 
 // Added for compilation reasons (Vincenzo)
-Layer::~Layer(){};
+Layer::~Layer(){
+  delete bias_neuron;
+  for(auto &neuron : neurons){
+      delete neuron;
+    }
+};
+
 // define activation functions, same name as in enum act_function, but all lowercase
 double sigmoid(double x){return 1/(pow(M_E, -x) + 1);};
 double relu(double x){return fmax(0, x);};
