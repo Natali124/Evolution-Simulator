@@ -5,4 +5,10 @@
 \paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\f0\fs26 \cf0 This week I worked on implementation of the neutron class, creating the constructors, and methods, except for the method forward_propagate. Moreover, in the class layer I implemented the []-operator, along with the function add_neuron and in the class edge I added the attribute is_active and functions to a access it and set it. Next week I plan to continue working on the neural network .}
+Week 1
+
+This week I worked on implementation of the neutron class, creating the constructors, and methods, except for the method forward_propagate. Moreover, in the class layer I implemented the []-operator, along with the function add_neuron and in the class edge I added the attribute is_active and functions to a access it and set it. Next week I plan to continue working on the neural network
+
+Week 2
+
+This week I implemented an enumerate variable for the activation function in the networks class and changed the attributes that were before objects to pointers in the classes layer and network. Next week I plan to work on testing the neural network.

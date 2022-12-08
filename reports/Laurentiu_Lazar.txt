@@ -1,3 +1,7 @@
 Week 2:
 	This week I implemented a prototype for the Window that will visualise our evolution sim with some placeholder classes. While experimenting with the different objects in QTgraphics, I had an idea for an inheritance structure for our classes and pitched it to the team.
 	Next week I plan to further polish and improve the game visualiser window and maybe work on updating our existing classes so that they fit with the respective window.
+
+Week 3:
+	This week I started work on making the visualiser window responsive, so that it will have a visually pleasing layout in the end. I ran into some issues with git conflicts with vincenzo's work, but I think we figured it out.
+	Next week I plan to finally get rid of placeholder classes and integrate the frontend with the rest of the project. On top of that, I plan to visually improve the window further.

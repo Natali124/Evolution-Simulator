@@ -3,6 +3,10 @@
 #include "creature.h"
 #include<cmath>
 
+
+
+
+
 Plant::Plant():LivingBeing(){
     std::map<Enum_parameters, float> parameters;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
@@ -24,6 +28,7 @@ Plant::Plant(std::map<Enum_parameters, float> parameters): Plant() {
 }
 
 Plant::~Plant() {};
+
 
 /* No need normally since we have already a function with parameter, normally there is reproduction_rate in trhose parameters
 Plant::Plant(float reproduction_rate) {
@@ -192,18 +197,21 @@ void Plant::slimming_carbs(Creature &c) {
 
 };
 
-
 void Plant::playstep() {
     set_size(1.1*get_size());
     set_hp(1.05*get_Max_hp());
+    }
+LivingBeing* Plant::reproduction(){
+    return nullptr;
 } //should add reproduction
 /*
 void Plant::reproduction(){
     std::map<Enum_parameters, float> param_new_plant;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
-        float val = normal_distrib(parameters[param]);
+        float val = normal_distrib(parameters[param],0.1);
         param_new_plant.insert(std::pair<Enum_parameters, float>(param, val));
     }
-    Plant* p = new Plant(param_new_plant);
+    Plant p = Plant(param_new_plant);
+    return &p;
 };
 */

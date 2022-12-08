@@ -1,7 +1,7 @@
 #ifndef LIVING_BEING_H
 #define LIVING_BEING_H
 
-#include "environment.h"
+#include <QGraphicsItem>
 #include "Neural_Network/network.hpp"
 #include <iostream>
 #include <vector>
@@ -9,38 +9,26 @@
 #include <random>
 
 
-
-
-
-
-
-class LivingBeing : public QGraphicsItem { //
+class LivingBeing : public QGraphicsItem {
 public:
   LivingBeing(); // initializes a living being with alive = true
   ~LivingBeing();
   bool alive;
-    
-    
+  QColor color;
 
-  QRectF bounding_rect; // the rectangle in which one will draw the shape() of the LB, might need to be a const
-  QPainterPath shape; // the shape inside bounding_rect(), might need to be a const
-  void set_bounding_rect(qreal x, qreal y, qreal width, qreal height); // bounding_rect will be initialized with top-left corner in x,y
-  void set_shape(); // sets the shape of the LB, everything is inside the bounding_rect
-
-
-
-
-
+  QRectF boundingRect() const;
+  QPainterPath shape() const;
+  virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+             QWidget *widget);
   enum Type_LB{
       none, plant, creature,
   };
   Type_LB type;
 
-
   //common attributes to plants and creatures
   virtual void playstep();
   virtual void is_eaten(LivingBeing &c);
-  virtual void reproduction();
+  virtual LivingBeing* reproduction();
 
   //This is the function we'll be using when we need to make an object take damages (because it's been attacked)
   virtual void take_dmg(float dmg);
@@ -51,16 +39,15 @@ public:
   virtual void set_hp(float h);
   bool get_alive();
   void set_alive(bool b);
-
+    
+  float normal_distrib(float parameter, float variance){
+      std::random_device rd;
+      std::mt19937 gen(rd());
+      std::normal_distribution<float> d(parameter, variance);
+      return d(gen);
+  }
+  virtual void advance(int);
 };
-
-
-float normal_distrib(float parameter, float variance){
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::normal_distribution<float> d(parameter, variance);
-    return d(gen);
-}
 
 
 #endif

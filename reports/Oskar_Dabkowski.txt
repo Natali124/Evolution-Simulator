@@ -7,3 +7,7 @@
 
 \f0\fs26 \cf0 This week was mainly organizational for me. At first we had one idea or organising the project. I was responsible for putting schedule on trello with division of tasks between groups of 2-3 people each.  As I arrived on a TD, we (me, Pablo and Ruben) couldn't write code because of the fact that our part had many clashes with other parts of the project concerning couple of other groups. After a meeting the organisation was changed and I became a part of a group responsible for class of living beings in general.\
 During the weekend we had a meeting within a group, where we decided and discussed structure of our part of a project. We decided that me and Flavia during next week will be responsible for decisions on living being's actions after work done by neural network.}
+
+Changes for 28.11-4.12: I was responsible for programming the whole Creature::move function and partially for Creature::attack (I created the basis)
+We also had a meeting regarding organization and use of trello, we draw the conclusion that for now it would be hard to one person to take care of every other group to know exactly what is happening in every of them to distribute tasks and for now we do it within a group.
+Plans for next week: Finishing attack function and developing function moving creatures if they're too close to each other.

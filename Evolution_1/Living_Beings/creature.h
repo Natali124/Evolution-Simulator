@@ -64,7 +64,7 @@ public:
     ~Creature();
 
     // MEMBER FUNCTIONS
-    void reproduction();
+    LivingBeing* reproduction();
     // functions to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
 
     virtual std::vector<LivingBeing*> get_close();

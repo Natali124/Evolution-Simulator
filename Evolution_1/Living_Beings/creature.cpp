@@ -57,16 +57,22 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain): 
     found_food = false;
 }
 
+Creature::~Creature() {}
 
-Creature::~Creature() {};
 
-void Creature::reproduction() {
+
+LivingBeing* Creature::reproduction() {
+
     std::map<Enum_parameters, float> param_new_creature;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
-        float val = normal_distrib(parameters[param]);
+        float val = normal_distrib(parameters[param], 0.1); // 0.1 is arbitrary value
         param_new_creature.insert(std::pair<Enum_parameters, float>(param, val));
     }
-    Creature* c = new Creature(param_new_creature);
+    // I modified the return method to avoid those bugs it createdR
+    Creature* C= new Creature(param_new_creature, brain);
+    return C;
+
+
     // I will add the brain as well
 };
 
