@@ -18,9 +18,9 @@ class MainMenu : public QMainWindow{
             for(int i = 0; i < 10; i ++)
                 display.addRandomDot();
         }
+        CreatureDisplay display;
 
     private:
-        CreatureDisplay display;
         void setBackgroundImage(QString filePath);
 };
 

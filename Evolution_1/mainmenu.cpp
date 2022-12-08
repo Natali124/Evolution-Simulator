@@ -16,6 +16,8 @@ MainMenu::MainMenu(QWidget *parent) : QMainWindow(parent), display(CreatureDispl
     display.resize(440, 440);
 //    display.move(720-440, 0);
 
+
+
     QRect rcontent = display.contentsRect();
     display._scene.setSceneRect(0, 0, rcontent.width(), rcontent.height());
 
@@ -50,7 +52,6 @@ MainMenu::MainMenu(QWidget *parent) : QMainWindow(parent), display(CreatureDispl
     display.setSizePolicy( p );
 
     central->setLayout(mainLayout);
-
 }
 
 void MainMenu::setBackgroundImage(QString filePath){
