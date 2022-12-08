@@ -51,13 +51,3 @@ public:
 
 
 #endif
-
-//Previous definition of the class
-// LIVING_BEING_H
-//Coordinate position;
-/*enum Type_LB{
-    none = -1,
-    predator = 0,
-    prey = 1,
-    plant = 2,
-};*/

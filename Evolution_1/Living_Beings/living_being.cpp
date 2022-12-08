@@ -6,12 +6,15 @@
 
 
 
-void LivingBeing::playstep(){};
+void LivingBeing::playstep(){
+    setRotation(rotation() + 7);
+}
 
 void LivingBeing::advance(int step){
+    if (!step)
+        return;
 
-    if (!step) { return; };
-    this->playstep(); //Ruben's group function
+    playstep(); //Ruben's group function
 }
 
 QRectF LivingBeing::boundingRect() const

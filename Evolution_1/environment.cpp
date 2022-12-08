@@ -1,5 +1,6 @@
 #include "environment.h"
 #include "math.h"
+#include <QtGui>
 
 CreatureDisplay::CreatureDisplay(QWidget *parent) : QGraphicsView(parent), _scene(){
     QBrush brush(QPixmap(":/backgrounds/images/cobblestone.jpg"));
@@ -41,6 +42,5 @@ void CreatureDisplay::addRandomDot() {
     being->setPos(x, y);
     _scene.addItem(being);
 }
-
 
 
