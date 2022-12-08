@@ -40,5 +40,6 @@ int main(int argc, char *argv[])
     QTimer timer;
     QObject::connect(&timer, SIGNAL(timeout()), &scene, SLOT(advance()));
     timer.start(1000 / 33);
+
     return a.exec();
 }
