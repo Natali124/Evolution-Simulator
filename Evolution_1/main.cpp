@@ -7,7 +7,25 @@
 using namespace std;
 int main(int argc, char *argv[])
 {
-    Network n = Network();
+    Neuron n1 = Neuron();
+    Neuron n2 = Neuron();
+    Edge e = Edge(&n1,&n2);
+    Layer l1 = Layer(2);
+    Layer l2 = Layer(3);
+    Layer l3 = Layer(5);
+    l2.fully_connect(&l1);
+    l3.fully_connect(&l2);
+    for (auto& n : l2.get_neurons()) {
+        for(auto& e: n->get_previous_edges()){
+            e->print();
+          }
+      }
+    for (auto& n : l3.get_neurons()) {
+        for(auto& e: n->get_previous_edges()){
+            e->print();
+          }
+      }
+    Network n = Network(false);
     n.print_adj_list();
     return 0;
 }
