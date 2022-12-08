@@ -36,7 +36,7 @@ public:
 
 
 private:
-    Layer input_layer;
     Layer output_layer;
+    Layer input_layer;
     vector <Layer> hidden_layers;
 };

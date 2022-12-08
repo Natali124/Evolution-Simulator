@@ -8,14 +8,14 @@ using namespace std;
 
 Network::Network(bool randomize){
     // default constructor with default input, output, and one hidden layer. Randomizes edges.
-    input_layer = Layer();
-    output_layer = Layer();
-    Layer hid_layer = Layer();
+    input_layer =* new Layer(3);
+    output_layer =* new Layer(3);
+    Layer* hid_layer = new Layer(3);
     vector<Layer> v;
-    v.push_back(hid_layer);
+    v.push_back(*hid_layer);
     hidden_layers = v;
-    hid_layer.fully_connect(&input_layer);
-    output_layer.fully_connect(&output_layer);
+    hid_layer->fully_connect(&input_layer);
+    output_layer.fully_connect(hid_layer);
     if (randomize){ randomize_edges(); }
 }
 
@@ -150,12 +150,12 @@ void Network::print_adj_list(){
         cout<<" [ ";
         
         for(Edge* edge: crnt_edges){
-            cout<<"[ " << edge->get_next_neuron_id() <<", ";}
+            cout<<"[ " << edge->get_end_neuron_id() <<", ";}
         
         cout<<" ] \n";}
     
     int counter = 0;
-    for(Layer crnt_layer: hidden_layers){
+    for(Layer& crnt_layer: hidden_layers){
         neurons = crnt_layer.get_neurons();
 
         cout << "Hidden layer"<< counter<< "\n";
@@ -164,12 +164,14 @@ void Network::print_adj_list(){
         vector<Edge*> crnt_edges = neuron->get_next_edges();
         cout<<" [ ";  
         for(Edge* edge: crnt_edges){
-            cout<<"[ " << edge->get_next_neuron_id() <<", ";}
+            cout<<"[ " << edge->get_end_neuron_id() <<", ";}
         
         cout<<" ] \n";}
         counter += 1;}
 
         cout << " ]";
+
+     cout << "Done" << std::endl;
         }
 
 /*
