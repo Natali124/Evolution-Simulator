@@ -10,7 +10,7 @@
 Plant::Plant():LivingBeing(){
     std::map<Enum_parameters, double> parameters;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
-        double val = (double)rand()/(double)RAND_MAX;
+        double val = abs((double)rand()/(double)RAND_MAX);
         parameters.insert(std::pair<Enum_parameters, double>(param, val));
     }
     type = plant;
@@ -74,6 +74,11 @@ void Plant::is_eaten(Creature &c) {
         c.set_energy(c.get_energy() + 2*alpha);
         c.set_physical_strength(c.get_physical_strength() - alpha);
         c.set_visibility(c.get_visibility() - alpha);}
+
+    double size_coef = 0.25*(c.get_size()/get_size());
+    set_size(get_size() - size_coef );
+    double dmg_coef = 0.25*(c.get_hp()/get_hp());
+    take_dmg(dmg_coef);
 }
 
 
@@ -205,10 +210,10 @@ void Plant::slimming_carbs(Creature &c) {
 void Plant::playstep() {    // random values for increasing hp, random weight of growing coef for increasing size
     //changing size and upper bound it by max_size , same for hp
 
-    double growing_coef = get_Max_size()/get_size();
+    double growing_coef = 0.25 * get_Max_size()/get_size();
 
     if (get_size()< get_Max_size()) {
-        double new_size = get_size()+ 0.25 *growing_coef;
+        double new_size = get_size()+ growing_coef;
         set_size(new_size);}
     if (get_size()>get_Max_size()) {
         set_size(get_Max_size());
