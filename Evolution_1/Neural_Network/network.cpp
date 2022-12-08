@@ -8,14 +8,14 @@ using namespace std;
 
 Network::Network(bool randomize){
     // default constructor with default input, output, and one hidden layer. Randomizes edges.
-    input_layer =* new Layer(3);
-    output_layer =* new Layer(3);
-    Layer* hid_layer = new Layer(3);
+    input_layer = Layer(3);
+    output_layer = Layer(3);
+    Layer hid_layer = Layer(3);
     vector<Layer> v;
-    v.push_back(*hid_layer);
+    v.push_back(hid_layer);
     hidden_layers = v;
-    hid_layer->fully_connect(&input_layer);
-    output_layer.fully_connect(hid_layer);
+    hid_layer.fully_connect(&input_layer);
+    output_layer.fully_connect(&hid_layer);
     if (randomize){ randomize_edges(); }
 }
 
