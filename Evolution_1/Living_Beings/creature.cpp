@@ -44,6 +44,7 @@ Creature::Creature():LivingBeing() {
     this->set_energy(this->get_Max_energy());
     this->set_hp(this->get_Max_hp());
 
+
     // the brain is already constructed by the default constructor in the .h file.
     type = creature;
     this->set_alive(true);
@@ -206,7 +207,13 @@ void Creature::playstep() {
         }
 
         else {
+            move(0.1, 1);
+            //Creatures seems to not being able to see anything (for now)
             std::vector<double> Input = this->See(9); //for now we'll word with 9 vision sticks
+            if (Input[0]!=this->get_eye_sight()+1){
+                sleep(2);
+            }
+            move(0.1, 1);
             /* For now, create bugs due to the structure of brain
             std::vector<double> input_vector = brain.propagate(Input);
             decision(input_vector);
@@ -335,9 +342,13 @@ std::vector<double> Creature::See(int n, int i){
     }
     delete Ray;
 
+    //We rescall r for easier learning:
+    if (r ==-1){
+        r = this->get_eye_sight()+1;
+    }
 
     //first is the distance
-    v.push_back(1-r);
+    v.push_back(r);
     //we'll then try a dynamic cast to know what we add after:
     if (last_seen==nullptr){
         v.push_back(-1);
