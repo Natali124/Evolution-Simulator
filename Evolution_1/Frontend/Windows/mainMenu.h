@@ -4,6 +4,7 @@
 #include "creatureDisplay.h"
 #include <QMainWindow>
 
+
 //main window for displaying the game
 class MainMenu : public QMainWindow{
     public:
@@ -22,5 +23,6 @@ class MainMenu : public QMainWindow{
         CreatureDisplay display;
         void setBackgroundImage(QString filePath);
 };
+
 
 #endif // MAINMENU_H
