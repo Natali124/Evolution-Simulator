@@ -143,6 +143,10 @@ void Mouse::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
         p2.setY(15);
         painter->drawEllipse(QRect(p1,p2));
     }
+
+    painter->setBrush(Qt::NoBrush); //see bounding rect
+    painter->drawRect(boundingRect());
+    painter->drawEllipse(QRectF(-0.5,-0.5,1,1));
 }
 //! [3]
 
