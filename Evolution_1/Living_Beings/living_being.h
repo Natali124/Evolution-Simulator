@@ -46,6 +46,7 @@ public:
       return d(gen);
   }
   virtual void reproduction();
+  virtual void advance(int);
 };
 
 

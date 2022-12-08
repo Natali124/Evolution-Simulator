@@ -1,5 +1,5 @@
 #include "environment.h"
-#include "mainmenu.h"
+#include "Frontend/Windows/mainmenu.h"
 #include <QApplication>
 #include <iostream>
 #include <QtGui>
@@ -11,11 +11,11 @@ int main(int argc, char *argv[])
 
     srand(QTime(0,0,0).secsTo(QTime::currentTime()));
 
-    MainMenu menu;
-    menu.show();
+    MainMenu menu(new Environment());
+//    menu.show();
 
     QTimer timer;
-    QObject::connect(&timer, SIGNAL(timeout()), &menu.display._scene, SLOT(advance()));
+    QObject::connect(&timer, SIGNAL(timeout()), menu.environment, SLOT(advance()));
     timer.start(1000 / 33);
 
     return a.exec();

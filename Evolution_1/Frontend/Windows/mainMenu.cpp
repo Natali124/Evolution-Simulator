@@ -8,7 +8,9 @@
 #include <QWidget>
 #include <QGroupBox>
 
-MainMenu::MainMenu(QWidget *parent) : QMainWindow(parent), display(CreatureDisplay(this)){
+MainMenu::MainMenu(Environment *environment, QWidget *parent) : QMainWindow(parent), display(environment, this){
+    this->environment = environment;
+
     display.zoomToFit();
     setWindowTitle("Evolution Simulator");
     init_layout();

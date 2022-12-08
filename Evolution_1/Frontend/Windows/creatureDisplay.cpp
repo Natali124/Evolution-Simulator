@@ -1,15 +1,16 @@
 #include "Frontend/mouse.h"
 #include "Frontend/Windows/creatureDisplay.h"
+#include "Living_Beings/living_being.h"
 
-CreatureDisplay::CreatureDisplay(QWidget *parent) : QGraphicsView(parent), _scene(){
+CreatureDisplay::CreatureDisplay(Environment* env, QWidget *parent) : QGraphicsView(parent), environment(env){
     parentWindow = parent;
 
     QBrush brush(QPixmap(":/backgrounds/images/grass.jpg"));
-    _scene.setBackgroundBrush(brush);
+    environment->setBackgroundBrush(brush);
 
-    _scene.setSceneRect(0, 0, 500, 500);
+    environment->setSceneRect(0, 0, 500, 500);
 
-    setScene(&_scene);
+    setScene(environment);
 
     setRenderHint(QPainter::Antialiasing);
     setCacheMode(QGraphicsView::CacheBackground);
@@ -21,14 +22,15 @@ CreatureDisplay::CreatureDisplay(QWidget *parent) : QGraphicsView(parent), _scen
 }
 
 void CreatureDisplay::addRandomDot(){
-    int maxX = _scene.width();
-    int maxY = _scene.height();
+    int maxX = environment->width();
+    int maxY = environment->height();
     int x = std::rand() % maxX;
     int y = std::rand() % maxY;
 
-    Mouse *mouse = new Mouse;
-    mouse->setPos(x, y);
-    _scene.addItem(mouse);
+//    Mouse *mouse = new Mouse;
+    LivingBeing *being = new LivingBeing;
+    being->setPos(x, y);
+    environment->addItem(being);
 }
 
 void CreatureDisplay::zoomToFit()

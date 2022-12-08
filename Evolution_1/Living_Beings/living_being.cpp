@@ -1,5 +1,6 @@
 #include "environment.h"
 #include "living_being.h"
+#include "qpainter.h"
 
 #include <QGraphicsItem>
 #include <cmath>
