@@ -133,6 +133,24 @@ void::Creature::is_eaten(Creature &c) {
     };
 };
 
+//not done yet
+
+//void Creature::move_away(){
+//    //std::vector<LivingBeing*> Creature
+//    const double coeff = 0.3; //by how much are they moving away
+//    QList<QGraphicsItem*> list = this->collidingItems();
+//    foreach(QGraphicsItem* i , list)
+//    {
+//        LivingBeing *L = dynamic_cast<LivingBeing*>(i);
+//        if(typeid(Creature) == typeid(L)){
+//            double xdiff = this->x() - L->x();
+//            double ydiff = this->y() - L->y();
+//            this->setX(x() + xdiff * coeff);
+
+//        }
+//    }
+//}
+
 
 void Creature::set_energy(double e){this->energy = e;}
 double Creature::get_energy(){return this->energy;}
