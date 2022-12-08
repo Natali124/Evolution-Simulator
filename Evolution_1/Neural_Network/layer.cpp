@@ -10,8 +10,9 @@ using namespace std;
 //Constructors
 Layer::Layer(){
   std::cout << "Creating Layer";
-  //*bias_neuron = Neuron();
-  //neurons = vector<Neuron*>(0);
+  Neuron n = Neuron();
+  bias_neuron = &n;
+  neurons = vector<Neuron*>(0);
 }
 Layer::Layer(vector<Neuron*> neurons):Layer(){
   this->neurons = neurons;

@@ -10,13 +10,13 @@ Network::Network(bool randomize){
     // default constructor with default input, output, and one hidden layer. Randomizes edges.
     input_layer = Layer();
     output_layer = Layer();
-    //Layer hid_layer = Layer();
-    //vector<Layer*> v;
-    //v.push_back(&hid_layer);
-    //hidden_layers = v;
-    //hid_layer.fully_connect(&inp_l);
-    //out_l.fully_connect(&hid_layer);
-    //if (randomize){ randomize_edges(); }
+    Layer hid_layer = Layer();
+    vector<Layer> v;
+    v.push_back(hid_layer);
+    hidden_layers = v;
+    hid_layer.fully_connect(&input_layer);
+    output_layer.fully_connect(&output_layer);
+    if (randomize){ randomize_edges(); }
 }
 
 Network::~Network(){
