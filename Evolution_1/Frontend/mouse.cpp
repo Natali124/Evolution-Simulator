@@ -8,6 +8,7 @@
 #include <QRandomGenerator>
 #include <QStyleOption>
 #include <QtMath>
+#include <iostream>
 
 constexpr qreal Pi = M_PI;
 constexpr qreal TwoPi = 2 * M_PI;
@@ -26,7 +27,7 @@ Mouse::Mouse() : color(QRandomGenerator::global()->bounded(256),
                        QRandomGenerator::global()->bounded(256),
                        QRandomGenerator::global()->bounded(256))
 {
-    setRotation(QRandomGenerator::global()->bounded(360 * 16));
+//    setRotation(QRandomGenerator::global()->bounded(360 * 16));
     type=Type(rand()%3);
 }
 //! [0]
@@ -87,65 +88,72 @@ void Mouse::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
         QPoint p1(-25,-25);
         QPoint p2(0,0);
         painter->setBrush(Qt::white);
-        painter->drawEllipse(QRect(p1,p2));
+        painter->drawEllipse(QRectF(p1,p2));
         p1.setX(0);
         p1.setY(0);
         p2.setX(25);
         p2.setY(25);
-        painter->drawEllipse(QRect(p1,p2));
+        painter->drawEllipse(QRectF(p1,p2));
         p1.setX(-25);
         p1.setY(0);
         p2.setX(0);
         p2.setY(25);
-        painter->drawEllipse(QRect(p1,p2));
+        painter->drawEllipse(QRectF(p1,p2));
         p1.setX(0);
         p1.setY(-25);
         p2.setX(25);
         p2.setY(0);
-        painter->drawEllipse(QRect(p1,p2));
+        painter->drawEllipse(QRectF(p1,p2));
         p1.setX(-15);
         p1.setY(-15);
         p2.setX(15);
         p2.setY(15);
         painter->setBrush(Qt::yellow);
-        painter->drawEllipse(QRect(p1,p2));
+        painter->drawEllipse(QRectF(p1,p2));
     }
     if(type==predator){
         QPoint p1(-25,-25);
         QPoint p2(25,25);
         painter->setBrush(Qt::gray);
-        painter->drawEllipse(QRect(p1,p2));
+        painter->drawEllipse(QRectF(p1,p2));
         p1.setX(-20);
         p1.setY(-20);
         p2.setX(-5);
         p2.setY(-5);
         painter->setBrush(Qt::black);
-        painter->drawEllipse(QRect(p1,p2));
+        painter->drawEllipse(QRectF(p1,p2));
         p1.setX(5);
         p1.setY(-20);
         p2.setX(20);
         p2.setY(-5);
-        painter->drawEllipse(QRect(p1,p2));
+        painter->drawEllipse(QRectF(p1,p2));
         p1.setX(-10);
         p1.setY(-15);
         p2.setX(-5);
         p2.setY(-8);
         painter->setBrush(Qt::white);
-        painter->drawEllipse(QRect(p1,p2));
+        painter->drawEllipse(QRectF(p1,p2));
         p1.setX(15);
         p1.setY(-15);
         p2.setX(20);
         p2.setY(-8);
-        painter->drawEllipse(QRect(p1,p2));
+        painter->drawEllipse(QRectF(p1,p2));
         p1.setX(-15);
         p1.setY(5);
         p2.setX(15);
         p2.setY(15);
-        painter->drawEllipse(QRect(p1,p2));
+        painter->drawEllipse(QRectF(p1,p2));
     }
 
-    painter->setBrush(Qt::NoBrush); //see bounding rect
+    //see bounding rect
+    painter->setBrush(Qt::NoBrush);
+    painter->setPen(Qt::red);
     painter->drawRect(boundingRect());
+
+    //see center
+    painter->setPen(Qt::black);
+    painter->drawEllipse(QRectF(-1.5,-1.5,3,3));
+    painter->setPen(Qt::red);
     painter->drawEllipse(QRectF(-0.5,-0.5,1,1));
 }
 //! [3]
