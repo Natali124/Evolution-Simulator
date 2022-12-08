@@ -68,12 +68,13 @@ LivingBeing* Creature::reproduction() {
         double val = normal_distrib(parameters[param], 0.1); // 0.1 is arbitrary value
         param_new_creature.insert(std::pair<Enum_parameters, double>(param, val));
     }
-    // I modified the return method to avoid those bugs it createdR
+    Network new_brain = Network();
+    //Network new_brain = network(old brain);
+    // modify this function when we can create new networks with inputs
+    //new_brain.apply_on_all_edges(normal_distrib_random_edge);
+    new_brain.apply_on_all_weights(normal_distrib_random());
     Creature* C= new Creature(param_new_creature, brain);
     return C;
-
-
-    // I will add the brain as well
 };
 
 
@@ -158,6 +159,30 @@ void Creature::set_Max_hp(double mh){this->parameters[Max_hp] = mh;}
 double Creature::get_Max_hp(){return this->parameters[Max_hp];}
 bool Creature::get_found_food() {return this->found_food;}
 void Creature::set_found_food(bool b) {this->found_food = b;}
+
+void Creature::normal_distrib_random_edge(Edge& edge){
+    //takes an edge and has a 10% percent chance to modify the weight according to the normal distribuition.
+    double parameter = edge.get_weight();
+    double p = abs((double)rand()/(double)RAND_MAX);
+    if (p < 0.1){
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::normal_distribution<double> d(parameter, 0.1);
+        edge.set_weight(d(gen));
+    }
+}
+
+std::function<double(double)> Creature::normal_distrib_random(){ return [](double weight){
+    //takes an weight of an edge and has a 10% percent chance to modify the weight according to the normal distribuition.
+    double p = abs((double)rand()/(double)RAND_MAX);
+    if (p < 0.1){
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::normal_distribution<double> d(weight, 0.1);
+        weight = d(gen);
+    }
+    return weight;
+};}
 
 
 /*

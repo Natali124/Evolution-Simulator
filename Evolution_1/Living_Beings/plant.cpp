@@ -227,5 +227,11 @@ void Plant::playstep() {    // random values for increasing hp, random weight of
 
 
 LivingBeing* Plant::reproduction(){
-    return nullptr;
+    std::map<Enum_parameters, double> param_new_plant;
+    for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
+        double val = normal_distrib(parameters[param],0.1);
+        param_new_plant.insert(std::pair<Enum_parameters, float>(param, val));
+    }
+    Plant* p = new Plant(param_new_plant);
+    return p;
 }
