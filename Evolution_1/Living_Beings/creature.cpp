@@ -64,7 +64,11 @@ LivingBeing* Creature::reproduction() {
         float val = normal_distrib(parameters[param], 0.1); // 0.1 is arbitrary value
         param_new_creature.insert(std::pair<Enum_parameters, float>(param, val));
     }
-    return *Creature(param_new_creature);
+    // I modified the return method to avoid those bugs it createdR
+    Creature* C= new Creature(param_new_creature, brain);
+    return C;
+
+
     // I will add the brain as well
 };
 

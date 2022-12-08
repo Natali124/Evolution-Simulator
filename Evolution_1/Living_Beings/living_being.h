@@ -46,7 +46,6 @@ public:
       std::normal_distribution<float> d(parameter, variance);
       return d(gen);
   }
-  virtual void reproduction();
   virtual void advance(int);
 };
 

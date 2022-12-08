@@ -5,7 +5,6 @@
 
 
 
-void Plant::reproduction() {}
 
 
 Plant::Plant():LivingBeing(){
@@ -198,13 +197,12 @@ void Plant::slimming_carbs(Creature &c) {
 
 };
 
-
-LivingBeing* Plant::reproduction(){
-
-
 void Plant::playstep() {
     set_size(1.1*get_size());
     set_hp(1.05*get_Max_hp());
+    }
+LivingBeing* Plant::reproduction(){
+    return nullptr;
 } //should add reproduction
 /*
 void Plant::reproduction(){
