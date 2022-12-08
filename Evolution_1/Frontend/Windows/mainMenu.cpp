@@ -1,6 +1,7 @@
 #include "Frontend/resources.h"
 #include "creatureDisplay.h"
 #include "Frontend/Windows/mainMenu.h"
+#include "qtimer.h"
 #include <QFile>
 #include <QPushButton>
 #include <QMessageBox>
@@ -8,8 +9,10 @@
 #include <QWidget>
 #include <QGroupBox>
 
-MainMenu::MainMenu(Environment *environment, QWidget *parent) : QMainWindow(parent), display(environment, this){
-    this->environment = environment;
+MainMenu::MainMenu(Environment *environment, QWidget *parent) : QMainWindow(parent),
+                                                                display(environment, this),
+                                                                environment(environment),
+                                                                timer(EnvironmentTimer(environment)){
 
     display.zoomToFit();
     setWindowTitle("Evolution Simulator");
@@ -41,8 +44,18 @@ void MainMenu::init_layout(){
     btn->setText("Test - Spawn 10 creatures");
     connect(btn, &QPushButton::clicked, this, &MainMenu::randomize_scene);
     layout->addWidget(btn);
-    layout->addStretch();
 
+    auto btnStart = new QPushButton(leftGroupBox);
+    btnStart->setText("Start animation");
+    connect(btnStart, &QPushButton::clicked, &timer, &EnvironmentTimer::start);
+    layout->addWidget(btnStart);
+
+    auto btnStop = new QPushButton(leftGroupBox);
+    btnStop->setText("Stop animation");
+    connect(btnStop, &QPushButton::clicked, &timer, &EnvironmentTimer::stop);
+    layout->addWidget(btnStop);
+
+    layout->addStretch();
     QSizePolicy spLeft(QSizePolicy::Preferred, QSizePolicy::Preferred);
     spLeft.setHorizontalStretch(1);
     leftGroupBox->setSizePolicy(spLeft);
@@ -91,4 +104,26 @@ void MainMenu::fitDisplay(){
     int padx = ( parent->width() - sz ) / 2;
     int pady = ( parent->height() - sz ) / 2;
     display.move(padx, pady);
+}
+
+EnvironmentTimer::EnvironmentTimer(Environment *environment) : environment(environment)
+{
+    // create a timer
+    timer = new QTimer(this);
+
+    // setup signal and slot
+    connect(timer, SIGNAL(timeout()),
+          this, SLOT(MyTimerSlot()));
+}
+
+void EnvironmentTimer::MyTimerSlot()
+{
+    environment->advance();
+}
+void EnvironmentTimer::start(){
+    // milisec
+    timer->start(1000 / 33);
+}
+void EnvironmentTimer::stop(){
+    timer->stop();
 }

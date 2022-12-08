@@ -1,9 +1,10 @@
 #ifndef CREATUREDISPLAY_H
 #define CREATUREDISPLAY_H
+
 #include "environment.h"
 #include <QGraphicsView>
 
-//this is the placeholder class for the environment display
+//The physical 'window' that displays the given environment, and everything it contains
 class CreatureDisplay : public QGraphicsView{
     public:
         CreatureDisplay(Environment* environment, QWidget *parent = nullptr);

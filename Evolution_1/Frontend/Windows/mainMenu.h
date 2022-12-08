@@ -3,6 +3,25 @@
 
 #include "Frontend/Windows/creatureDisplay.h"
 #include <QMainWindow>
+#include <QTimer>
+
+//a class to control the passage of time in the environment
+class EnvironmentTimer : public QObject
+{
+    Q_OBJECT
+    public:
+        EnvironmentTimer(Environment*);
+        QTimer *timer;
+        void start();
+        void stop();
+
+    public slots:
+        void MyTimerSlot();
+
+    private:
+        Environment* environment;
+        float timeStep = 1000/33;
+};
 
 //main window for displaying the game
 class MainMenu : public QMainWindow{
@@ -17,6 +36,7 @@ class MainMenu : public QMainWindow{
         }
         virtual void resizeEvent(QResizeEvent*);
         Environment* environment;
+        EnvironmentTimer timer;
 
     private:
         CreatureDisplay display;
