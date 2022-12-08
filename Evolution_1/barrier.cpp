@@ -1,7 +1,8 @@
 #include "barrier.h"
 #include <QPainter>
+
 Barrier::Barrier(){
-    block = QRectF(0, 0, 1, 1); //rect with top left corner (0, 0) and (width, height) = (1, 1)
+    block = QRectF(0, 0, 50, 50); //rect with top left corner (0, 0) and (width, height) = (1, 1)
     color = QColor(128, 128, 128); //grey
 }
 

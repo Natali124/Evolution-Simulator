@@ -7,7 +7,7 @@ class Barrier: public QGraphicsItem
 {
 public:
     Barrier();
-    Barrier(QRectF block);
+    Barrier(QRectF block);  // constructs  a barrrier with a given block
 
     QRectF boundingRect() const;
     QPainterPath shape() const;
@@ -16,6 +16,10 @@ public:
 
     QRectF block;
     QColor color;
+
+private:
+    qreal width;
+    qreal height;
 };
 
 #endif // BARRIER_H

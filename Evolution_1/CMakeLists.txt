@@ -19,8 +19,6 @@ set(TS_FILES Evolution_1_en_GB.ts)
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
         environment.h
         environment.cpp
         barrier.h barrier.cpp
@@ -40,6 +38,7 @@ set(PROJECT_SOURCES
         Neural_Network/neuron.cpp
         Neural_Network/neuron.hpp
         Frontend/mainMenuResources.qrc
+        paintscene.h paintscene.cpp
         ${TS_FILES}
 )
 

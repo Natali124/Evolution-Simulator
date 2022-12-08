@@ -1,6 +1,7 @@
 #ifndef ENVIRONMENT_H
 #define ENVIRONMENT_H
 
+#include "paintscene.h"
 #include <iostream>
 #include <QGraphicsView>
 #include "Living_Beings/living_being.h"
@@ -15,7 +16,7 @@ class CreatureDisplay : public QGraphicsView{
         void remove_object(LivingBeing*);
         void remove_object(Barrier*);
         void addRandomDot();
-        QGraphicsScene _scene;
+        PaintScene _scene;
         int heightForWidth(int w) const {return w;}
 };
 
