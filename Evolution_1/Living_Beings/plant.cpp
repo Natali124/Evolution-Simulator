@@ -14,6 +14,8 @@ Plant::Plant():LivingBeing(){
         parameters.insert(std::pair<Enum_parameters, float>(param, val));
     }
     type = plant;
+    set_size(1);
+    this->set_hp(this->get_Max_hp());
 }
 
 
@@ -21,9 +23,8 @@ Plant::Plant(std::map<Enum_parameters, float> parameters): Plant() {
     this->parameters = parameters;
     this->base_parameters = parameters; //we save "dna"
 
-
     this->set_hp(this->get_Max_hp());
-
+    set_size(1);
     type = plant;
 }
 
@@ -87,6 +88,8 @@ void Plant::set_Max_hp(float ms){this->parameters[Max_hp] = ms;}
 float Plant::get_Max_hp(){return this->parameters[Max_hp];}
 void Plant::set_hp(float ms){this->hp = ms;}
 float Plant::get_hp(){return this->hp;}
+float Plant::get_Max_size() {return this->parameters[Max_size];}
+void Plant::set_Max_size(float s) {this->parameters[Max_size]=s;}
 
 
 
@@ -197,21 +200,25 @@ void Plant::slimming_carbs(Creature &c) {
 
 };
 
-void Plant::playstep() {
-    set_size(1.1*get_size());
-    set_hp(1.05*get_Max_hp());
-    }
+void Plant::playstep() {    // random values for increasing hp, random weight of growing coef for increasing size
+    //changing size and upper bound it by max_size , same for hp
+
+    float growing_coef = get_Max_size()/get_size();
+
+    if (get_size()< get_Max_size()) {
+        float new_size = get_size()+ 0.25 *growing_coef;
+        set_size(new_size);}
+    if (get_size()>get_Max_size()) {
+        set_size(get_Max_size());
+
+    if (get_hp()< get_Max_hp()){
+        set_hp(1.1*get_hp()); }
+    if (get_hp()>get_Max_hp()) {
+        set_hp(get_Max_hp()); }
+}
+};
+
+
 LivingBeing* Plant::reproduction(){
     return nullptr;
-} //should add reproduction
-/*
-void Plant::reproduction(){
-    std::map<Enum_parameters, float> param_new_plant;
-    for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
-        float val = normal_distrib(parameters[param],0.1);
-        param_new_plant.insert(std::pair<Enum_parameters, float>(param, val));
-    }
-    Plant p = Plant(param_new_plant);
-    return &p;
 };
-*/

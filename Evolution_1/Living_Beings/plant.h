@@ -9,14 +9,15 @@ class Plant : public LivingBeing
 public:
     // the enum_parameters is the enumeration that lists the parameters
     // (we overwrite if for the different creatures)
-    enum Enum_parameters{reproduction_rate, size, Max_hp, last};
+    enum Enum_parameters{reproduction_rate, size, Max_hp, Max_size, last};
     // the 'last' parameter is  just there in order to make iteration easier, it has no actual purpuse
     // see https://stackoverflow.com/questions/261963/how-can-i-iterate-over-an-enum
 
     // CONSTRUCTORS
-    // the defaul constructor initialises parameters with some random values
+    // the defaul constructor initialises parameters with some random values and initializes the size at 1 and hp at max_hp
     Plant();
-    // this constructor take a std::map<Enum_parameters, float> and creates a creature with such parameters.
+    // this constructor take a std::map<Enum_parameters, float> and creates a creature with such parameters,
+    //initializes the size at 1 and hp at max_hp
     Plant(std::map<Enum_parameters, float> parameters);
     ~Plant();
 
@@ -32,6 +33,8 @@ public:
     void set_size(float s);
     float get_Max_hp();
     void set_Max_hp(float hp);
+    float get_Max_size();
+    void set_Max_size(float s);
     float get_hp();
     void set_hp(float hp);
     enum Type_Plant{
