@@ -35,12 +35,15 @@ void Other::Square::set_shape(){
 
 
 Creature::Creature():LivingBeing() {
-    std::map<Enum_parameters, double> parameters;
     // in the iteration param refers to an int into Enum_parameters (which does not include the value last)
     for (Enum_parameters param = (Enum_parameters)0 ; param != last; param=(Enum_parameters)(param+1)) {
-        double val = abs((double)rand()/(double)(RAND_MAX)); // val is the random value that we will assign to val
-        parameters.insert(std::pair<Enum_parameters, double>(param, val));
+        double val = abs((double)rand()/(double)(RAND_MAX)*200); // val is the random value that we will assign to val
+        this->parameters.insert(std::pair<Enum_parameters, double>(param, val));
     };
+
+    this->set_energy(this->get_Max_energy());
+    this->set_hp(this->get_Max_hp());
+
     // the brain is already constructed by the default constructor in the .h file.
     type = creature;
     this->set_alive(true);
@@ -52,8 +55,7 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network brain):
     this->base_parameters = parameters; //we save "dna"
     this->brain = brain;
 
-    this->set_energy(this->get_Max_energy());
-    this->set_hp(this->get_Max_hp());
+
     type = creature;
     found_food = false;
 }
@@ -202,18 +204,16 @@ void Creature::playstep() {
         else if(digest_time){
             digest_step();
         }
-        /*
+
         else {
             std::vector<double> Input = this->See(9); //for now we'll word with 9 vision sticks
+            /* For now, create bugs due to the structure of brain
             std::vector<double> input_vector = brain.propagate(Input);
-
             decision(input_vector);
+            */
         }
-        */
+
     ;}
-    else{
-        move(-1, -1);
-    }
 };
 
 void Creature::sleep(double delta_t) {
