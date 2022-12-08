@@ -51,6 +51,20 @@ vector<double> Neuron::get_next_weights(){
 int Neuron:: get_id(){
     return neuron_id;}
 
+
+//Setters
+void Neuron::set_next_edges(vector<Edge*> edges){
+  next_edges = edges;
+}
+
+void Neuron::set_previous_edges(vector<Edge*> edges){
+  previous_edges = edges;
+}
+
+void Neuron::set_value(double value){
+  this->value = value;
+}
+
 //Other functions
 void Neuron::add_edge(Edge* edge, bool previous){
     if(previous){

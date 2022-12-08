@@ -25,8 +25,8 @@ public:
 
     // Setters
     void set_value(double value);
-    void set_next_edges(vector<Edge> edges);// Did not implement this functions, was not sure how to do it
-    void set_previous_edges(vector<Edge> edges);
+    void set_next_edges(vector<Edge*> edges);// Did not implement this functions, was not sure how to do it
+    void set_previous_edges(vector<Edge*> edges);
    
     //Other functions  
     void forward_propagate(); //updates neuron based on neurons of the previous layer
