@@ -40,7 +40,7 @@ public:
   bool get_alive();
   void set_alive(bool b);
     
-  double normal_distrib(double parameter, double variance){
+  double normal_distrib(double parameter, double variance){ //takes a value and randomly returns a value like the normal distribution does with a given variance.
       std::random_device rd;
       std::mt19937 gen(rd());
       std::normal_distribution<double> d(parameter, variance);
