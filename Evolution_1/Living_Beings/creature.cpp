@@ -38,7 +38,7 @@ Creature::Creature():LivingBeing() {
     std::map<Enum_parameters, double> parameters;
     // in the iteration param refers to an int into Enum_parameters (which does not include the value last)
     for (Enum_parameters param = (Enum_parameters)0 ; param != last; param=(Enum_parameters)(param+1)) {
-        double val = (double)rand()/(double)(RAND_MAX); // val is the random value that we will assign to val
+        double val = abs((double)rand()/(double)(RAND_MAX)); // val is the random value that we will assign to val
         parameters.insert(std::pair<Enum_parameters, double>(param, val));
     };
     // the brain is already constructed by the default constructor in the .h file.
