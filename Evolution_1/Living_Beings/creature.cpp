@@ -35,18 +35,18 @@ void Other::Square::set_shape(){
 
 
 Creature::Creature():LivingBeing() {
-    std::map<Enum_parameters, float> parameters;
+    std::map<Enum_parameters, double> parameters;
     // in the iteration param refers to an int into Enum_parameters (which does not include the value last)
     for (Enum_parameters param = (Enum_parameters)0 ; param != last; param=(Enum_parameters)(param+1)) {
-        float val = (float)rand()/(float)(RAND_MAX); // val is the random value that we will assign to val
-        parameters.insert(std::pair<Enum_parameters, float>(param, val));
+        double val = (double)rand()/(double)(RAND_MAX); // val is the random value that we will assign to val
+        parameters.insert(std::pair<Enum_parameters, double>(param, val));
     };
     // the brain is already constructed by the default constructor in the .h file.
     type = creature;
     found_food = false;
 }
 
-Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain): Creature() {
+Creature::Creature(std::map<Enum_parameters, double> parameters, Network brain): Creature() {
     this->parameters = parameters;
     this->base_parameters = parameters; //we save "dna"
     this->brain = brain;
@@ -63,10 +63,10 @@ Creature::~Creature() {}
 
 LivingBeing* Creature::reproduction() {
 
-    std::map<Enum_parameters, float> param_new_creature;
+    std::map<Enum_parameters, double> param_new_creature;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
-        float val = normal_distrib(parameters[param], 0.1); // 0.1 is arbitrary value
-        param_new_creature.insert(std::pair<Enum_parameters, float>(param, val));
+        double val = normal_distrib(parameters[param], 0.1); // 0.1 is arbitrary value
+        param_new_creature.insert(std::pair<Enum_parameters, double>(param, val));
     }
     // I modified the return method to avoid those bugs it createdR
     Creature* C= new Creature(param_new_creature, brain);
@@ -97,7 +97,7 @@ std::vector<LivingBeing*> Creature::get_close(){
     return v;
 }
 
-void Creature::take_dmg(float dmg){
+void Creature::take_dmg(double dmg){
     this->set_hp(this->get_hp()-dmg);
 }
 
@@ -105,10 +105,10 @@ void Creature::attack(){
     //we'll first split between creatures and plants:
     std::vector<LivingBeing*> Close = this->get_close();
     int len = Close.size();
-    const float alpha_victim = 0.5; //we have to decide what coeff to give
-    const float alpha_attacker = 0.05;
-    //float mean = 0;
-    float dmg = this->get_size()*this->get_physical_strength()*alpha_victim/len;
+    const double alpha_victim = 0.5; //we have to decide what coeff to give
+    const double alpha_attacker = 0.05;
+    //double mean = 0;
+    double dmg = this->get_size()*this->get_physical_strength()*alpha_victim/len;
     for(vector<LivingBeing*>::iterator i = Close.begin(); i != Close.end(); i++){
         (*i)->take_dmg(dmg);
         //mean += (*i)->get_size()/len;
@@ -124,54 +124,54 @@ void Creature::die() {if ((get_alive()) && (this->get_hp() == 0) ) {
 
 void::Creature::is_eaten(Creature &c) {
     if (get_alive() == false) {
-        float alpha;
+        double alpha;
         if(c.get_eat_creature() && c.get_eat_plants()){alpha = 0.8;}
         else{alpha=1;}
-        float loss = alpha*c.get_size();
-        float current_energy = get_energy();
+        double loss = alpha*c.get_size();
+        double current_energy = get_energy();
         set_energy(current_energy - loss);
     };
 };
 
 
-void Creature::set_energy(float e){this->energy = e;}
-float Creature::get_energy(){return this->energy;}
-void Creature::set_physical_strength(float ps){this->parameters[physical_strength] = ps;}
-float Creature::get_physical_strength(){return this->parameters[physical_strength];}
-void Creature::set_eye_sight(float es){this->parameters[eye_sight] = es;}
-float Creature::get_eye_sight(){return  this->parameters[eye_sight];}
-void Creature::set_visibility(float v){this->parameters[visibility] = v;}
-float Creature::get_visibility(){return this->parameters[visibility];}
-void Creature::set_Max_energy(float me){this->parameters[Max_energy] = me;}
-float Creature::get_Max_energy(){return this->parameters[Max_energy];}
+void Creature::set_energy(double e){this->energy = e;}
+double Creature::get_energy(){return this->energy;}
+void Creature::set_physical_strength(double ps){this->parameters[physical_strength] = ps;}
+double Creature::get_physical_strength(){return this->parameters[physical_strength];}
+void Creature::set_eye_sight(double es){this->parameters[eye_sight] = es;}
+double Creature::get_eye_sight(){return  this->parameters[eye_sight];}
+void Creature::set_visibility(double v){this->parameters[visibility] = v;}
+double Creature::get_visibility(){return this->parameters[visibility];}
+void Creature::set_Max_energy(double me){this->parameters[Max_energy] = me;}
+double Creature::get_Max_energy(){return this->parameters[Max_energy];}
 bool Creature::get_eat_creature(){return this->parameters[eat_creature];}
 bool Creature::get_eat_plants(){return this->parameters[eat_plants];}
 int Creature::get_digest_time(){return this->digest_time;}
 void Creature::set_digest_time(int time){this->digest_time = time;}
-vector<float> Creature::get_food_attributes() {return this->food_attributes;}
+vector<double> Creature::get_food_attributes() {return this->food_attributes;}
  //void Creature::set_food(LivingBeing &f){this->food = f;}
-void Creature::set_size(float s){this->parameters[size] = s;}
-float Creature::get_size(){return this->parameters[size];}
-void Creature::set_hp(float s){this->hp = s;}
-float Creature::get_hp(){return this->hp;}
-void Creature::set_Max_hp(float mh){this->parameters[Max_hp] = mh;}
-float Creature::get_Max_hp(){return this->parameters[Max_hp];}
+void Creature::set_size(double s){this->parameters[size] = s;}
+double Creature::get_size(){return this->parameters[size];}
+void Creature::set_hp(double s){this->hp = s;}
+double Creature::get_hp(){return this->hp;}
+void Creature::set_Max_hp(double mh){this->parameters[Max_hp] = mh;}
+double Creature::get_Max_hp(){return this->parameters[Max_hp];}
 bool Creature::get_found_food() {return this->found_food;}
 void Creature::set_found_food(bool b) {this->found_food = b;}
 
 
 /*
 Creature::Creature() {physical_strength=0;energy=0;eye_sight=0;visibility=0;brain = Network();}
-Creature::Creature(float physical_strength,float energy, float eye_sight, float visibility, Network brain) {
+Creature::Creature(double physical_strength,double energy, double eye_sight, double visibility, Network brain) {
 this-> physical_strength = physical_strength,
 this-> energy=energy,this->eye_sight= eye_sight,this-> visibility=visibility,this-> brain=brain; };
 */
 
 //input_vector : (sleep, eat, attack, move, sleep_time, eat_time, move_rotate, move_distance)
-void Creature::decision(vector<float>input_vector){
-    float action = *max_element(input_vector.begin(), input_vector.begin()+4);
+void Creature::decision(vector<double>input_vector){
+    double action = *max_element(input_vector.begin(), input_vector.begin()+4);
     int j = 0;
-    for (vector<float>::iterator i=input_vector.begin(); i!=input_vector.begin()+4; i++){
+    for (vector<double>::iterator i=input_vector.begin(); i!=input_vector.begin()+4; i++){
         if (action==*i) {break;}
         j++;
         }
@@ -184,8 +184,8 @@ void Creature::decision(vector<float>input_vector){
             eat((*food), *(input_vector.begin()+5));}
     }
     if(j==2){
-        float rotation = *(input_vector.begin()+6);
-        float distance = *(input_vector.begin()+7);
+        double rotation = *(input_vector.begin()+6);
+        double distance = *(input_vector.begin()+7);
         move(rotation, distance);
     }
 
@@ -196,24 +196,27 @@ void Creature::playstep() {
     die();   // actually dies only if it should (alive and hp=0)
     if (get_alive()){
 
-    if (sleep_time) {
-        sleep_step();
-    }
-    else if(digest_time){
-        digest_step();
-    }
-    else {
-        decision(input_vector);
-    }
+        if (sleep_time) {
+            sleep_step();
+        }
+        else if(digest_time){
+            digest_step();
+        }
+        else {
+            std::vector<double> Input = this->See(9); //for now we'll word with 9 vision sticks
+            std::vector<double> input_vector = brain.propagate(Input);
+
+            decision(input_vector);
+        }
     ;}
 };
 
-void Creature::sleep(float delta_t) {
+void Creature::sleep(double delta_t) {
     sleep_time = delta_t;
 }
 
 void Creature::sleep_step() {
-    float e = get_energy() +1;
+    double e = get_energy() +1;
     set_energy(e);
     sleep_time-=1;
 }
@@ -237,14 +240,14 @@ LivingBeing* Creature::find_food(){
 
 
 
-void Creature::eat(LivingBeing &l, float eat_time){
+void Creature::eat(LivingBeing &l, double eat_time){
     // this function first determines the initial gains of eating, then digests: depending on the type of the lb eaten
     // initial gains depend from what you can eat, the size of the creature, and the eattime(faster you eat, less you gain)
-    float alpha;
+    double alpha;
     if(get_eat_creature() && get_eat_plants()){alpha = 0.8;}
     else{alpha=1;}
-    float gain = alpha*eat_time*l.get_size();
-    float current_energy = get_energy();
+    double gain = alpha*eat_time*l.get_size();
+    double current_energy = get_energy();
     set_energy(gain + current_energy);
     digest(l, eat_time);
     this->set_found_food(false);
@@ -252,7 +255,7 @@ void Creature::eat(LivingBeing &l, float eat_time){
 }
 
 
-void Creature::digest(LivingBeing &food, float eat_time){
+void Creature::digest(LivingBeing &food, double eat_time){
     // when food is digested, it will also create negative "side-effects" such as increase your visibility,
     // it will also make your size sightly bigger
     // it will also make your physical strength lower for a few turns
@@ -288,24 +291,24 @@ void Creature::digest_step(){
 
 
 
-std::vector<float> Creature::See(int n){
-    std::vector<float> v; //Here we'll get all the output, It will be of size n
+std::vector<double> Creature::See(int n){
+    std::vector<double> v; //Here we'll get all the output, It will be of size n
 
     for (int i=0; i<n; i++){
-        std::vector<float> v2 = this->See(n, i);
-        for (std::vector<float>::iterator j=v2.begin(); j!=v2.end(); j++){
+        std::vector<double> v2 = this->See(n, i);
+        for (std::vector<double>::iterator j=v2.begin(); j!=v2.end(); j++){
             v.push_back(*j);
         }
     }
     return v;
 }
 
-std::vector<float> Creature::See(int n, int i){
+std::vector<double> Creature::See(int n, int i){
     // return a distance score with 0 meaning really close and 256 meaning nothing seen (see only the closest object)
 
     //start: x, y; teta = ((i+1)*pi)/(n+2), this will allow us to get the vision ray at good positions.
-    std::vector<float> v;
-    float r=-1;
+    std::vector<double> v;
+    double r=-1;
     double teta = ((i+1)*3.14)/(n+2);
 
 
@@ -316,7 +319,7 @@ std::vector<float> Creature::See(int n, int i){
     LivingBeing* last_seen;
     foreach(QGraphicsItem* i , list)
     {
-        float* R = new float(pow(pow(i->x(), 2) + pow(i->y(), 2), 0.5));
+        double* R = new double(pow(pow(i->x(), 2) + pow(i->y(), 2), 0.5));
         if (r == -1 || *R <r){
             r = *R;
             last_seen = dynamic_cast<LivingBeing*>(i);;
@@ -343,19 +346,19 @@ std::vector<float> Creature::See(int n, int i){
 }
 
 
-const float _dtheta = M_PI/18; //base value of the change of rotation - to set maximal rotation range to 10 degrees
-const float _ddistance = 2; //base value of the change of the distance - maximal value of move is 2
-const float _ener_rotcoeff = 0.05; //base value for energy consumption while rotating
-const float _ener_movecoeff = 0.5; //base value for energy consumption while moving
-const float _sizecoeff = 0.1; //base value for energy punishment connected with the size;
+const double _dtheta = M_PI/18; //base value of the change of rotation - to set maximal rotation range to 10 degrees
+const double _ddistance = 2; //base value of the change of the distance - maximal value of move is 2
+const double _ener_rotcoeff = 0.05; //base value for energy consumption while rotating
+const double _ener_movecoeff = 0.5; //base value for energy consumption while moving
+const double _sizecoeff = 0.1; //base value for energy punishment connected with the size;
 //move function first moves the creature by the distance with respect to angle getrotation from qtgraphicsitem
 //then changes the rotation (so rotation applies only for next movements)
-void Creature::move(float rotation, float distance){
+void Creature::move(double rotation, double distance){
     setX(distance * cos(this->rotation() * _dtheta));
     setY(distance * sin(this->rotation() * _dtheta));
     setRotation(this->rotation() + rotation);
-    float s = this->size;
-    float current_energy = get_energy();
+    double s = this->size;
+    double current_energy = get_energy();
     current_energy -= (_ener_rotcoeff * rotation + _ener_movecoeff * distance) * _sizecoeff * s * s; //change of energy depends on rotation, distance travelled and size squared to punish too big animals
     set_energy(current_energy);
 }

@@ -11,7 +11,7 @@ void LivingBeing::playstep(){};
 void LivingBeing::advance(int step){
 
     if (!step) { return; };
-    playstep(); //Ruben's group function
+    this->playstep(); //Ruben's group function
 }
 
 QRectF LivingBeing::boundingRect() const
@@ -57,9 +57,9 @@ void LivingBeing::set_alive(bool b) {this->alive = b;};
 LivingBeing* LivingBeing::reproduction(){};
 
 void LivingBeing::is_eaten(LivingBeing &c){};
-void LivingBeing::take_dmg(float dmg){};
-float LivingBeing::get_size(){};
-void LivingBeing::set_size(float s){};
-float LivingBeing::get_hp(){};
-void LivingBeing::set_hp(float h){};
+void LivingBeing::take_dmg(double dmg){};
+double LivingBeing::get_size(){};
+void LivingBeing::set_size(double s){};
+double LivingBeing::get_hp(){};
+void LivingBeing::set_hp(double h){};
 
