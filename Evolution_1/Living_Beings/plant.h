@@ -16,24 +16,24 @@ public:
     // CONSTRUCTORS
     // the defaul constructor initialises parameters with some random values
     Plant();
-    // this constructor take a std::map<Enum_parameters, float> and creates a creature with such parameters.
-    Plant(std::map<Enum_parameters, float> parameters);
+    // this constructor take a std::map<Enum_parameters, double> and creates a creature with such parameters.
+    Plant(std::map<Enum_parameters, double> parameters);
     ~Plant();
 
 
     // DATA MEMBERS
-    std::map<Enum_parameters, float> parameters;
-    std::map<Enum_parameters, float> base_parameters; //Those are the parameters we use for reproduction
+    std::map<Enum_parameters, double> parameters;
+    std::map<Enum_parameters, double> base_parameters; //Those are the parameters we use for reproduction
 
     void playstep(); //increases size and hp, should add reproduction
-    float get_reproduction_rate();
-    void set_reproduction_rate(float rr);
-    float get_size();
-    void set_size(float s);
-    float get_Max_hp();
-    void set_Max_hp(float hp);
-    float get_hp();
-    void set_hp(float hp);
+    double get_reproduction_rate();
+    void set_reproduction_rate(double rr);
+    double get_size();
+    void set_size(double s);
+    double get_Max_hp();
+    void set_Max_hp(double hp);
+    double get_hp();
+    void set_hp(double hp);
     enum Type_Plant{
     Carbs = 0, Protein = 1 , Slimming = 2 , Allergenic = 3 , Allergenic_Protein = 4 , Allergenic_Carbs = 5 ,
         Slimming_Protein = 6, Slimming_Carbs = 7,
@@ -53,9 +53,9 @@ public:
     void is_eaten(Creature &c);
 
 
-    void take_dmg(float dmg);
+    void take_dmg(double dmg);
 //to update using the future get and set functions for c.parameters
-    float get_alpha(Creature &c);
+    double get_alpha(Creature &c);
     void carbs(Creature &c);   // + energy , - strength (c becomes heavier)
     void protein(Creature &c); // + strength, - energy (hard to digest)
     void slimming_effect(Creature &c);// + eye_sight, - visibility (c becomes slimmer,easier to move the head)
@@ -66,7 +66,7 @@ public:
     void slimming_carbs(Creature &c);// ++ energy, - strength and - visibility
 
 protected:
-    float hp;
+    double hp;
 
 };
 

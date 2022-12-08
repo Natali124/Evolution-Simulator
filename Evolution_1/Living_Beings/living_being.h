@@ -31,19 +31,19 @@ public:
   virtual LivingBeing* reproduction();
 
   //This is the function we'll be using when we need to make an object take damages (because it's been attacked)
-  virtual void take_dmg(float dmg);
+  virtual void take_dmg(double dmg);
   //common attributes to plants and creatures
-  virtual float get_size();
-  virtual void set_size(float s);
-  virtual float get_hp();
-  virtual void set_hp(float h);
+  virtual double get_size();
+  virtual void set_size(double s);
+  virtual double get_hp();
+  virtual void set_hp(double h);
   bool get_alive();
   void set_alive(bool b);
     
-  float normal_distrib(float parameter, float variance){
+  double normal_distrib(double parameter, double variance){
       std::random_device rd;
       std::mt19937 gen(rd());
-      std::normal_distribution<float> d(parameter, variance);
+      std::normal_distribution<double> d(parameter, variance);
       return d(gen);
   }
   virtual void advance(int);
