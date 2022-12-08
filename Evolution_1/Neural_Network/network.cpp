@@ -8,14 +8,14 @@ using namespace std;
 
 Network::Network(bool randomize){
     // default constructor with default input, output, and one hidden layer. Randomizes edges.
-    input_layer = Layer(3);
-    output_layer = Layer(3);
-    Layer hid_layer = Layer(3);
-    vector<Layer> v;
+    input_layer = new Layer(3);
+    Layer* hid_layer = new Layer(3);
+    output_layer = new Layer(3);
+    vector<Layer*> v;
     v.push_back(hid_layer);
     hidden_layers = v;
-    hid_layer.fully_connect(&input_layer);
-    output_layer.fully_connect(&hid_layer);
+    hid_layer->fully_connect(input_layer);
+    output_layer->fully_connect(hid_layer);
     if (randomize){ randomize_edges(); }
 }
 
@@ -24,24 +24,24 @@ Network::~Network(){
 }
 
 //getters:
-Layer Network::get_input_layer(){
+Layer* Network::get_input_layer(){
     return input_layer;
 }
-Layer Network::get_output_layer(){
+Layer* Network::get_output_layer(){
     return output_layer;
 }
-vector <Layer> Network::get_hidden_layers(){
+vector <Layer*> Network::get_hidden_layers(){
     return hidden_layers;
 }
 
 //setters:
-void Network::set_input_layer(Layer input_layer){
+void Network::set_input_layer(Layer* input_layer){
     this->input_layer = input_layer;
 }
-void Network::set_output_layer(Layer output_layer){
+void Network::set_output_layer(Layer* output_layer){
     this->output_layer = output_layer;
 }
-void Network::set_hidden_layers(vector<Layer> hidden_layers){
+void Network::set_hidden_layers(vector<Layer*> hidden_layers){
     this->hidden_layers = hidden_layers;
 }
 
@@ -50,16 +50,16 @@ vector <double> Network::propagate(vector<double>v){
     // returns output vector for given input vector
     // going through the neural network
 
-    input_layer.set_values(v);
+    input_layer->set_values(v);
     for (int i = 0; i < hidden_layers.size(); i++){
-        for (int j = 0; j < hidden_layers[i].size(); j++){
-            (hidden_layers[i])[j]->forward_propagate();
+        for (int j = 0; j < hidden_layers[i]->size(); j++){
+            (*(hidden_layers[i]))[j]->forward_propagate();
         }
     }
-    for (int i = 0; i < output_layer.size(); i++){
-        ((output_layer)[i])->forward_propagate();
+    for (int i = 0; i < output_layer->size(); i++){
+        ((*output_layer)[i])->forward_propagate();
     }
-    return output_layer.get_values();
+    return (*output_layer).get_values();
 }
 
 void Network::randomize_edges(){
@@ -67,14 +67,14 @@ void Network::randomize_edges(){
 
     // apply to all edges going to any hidden_layer
     for(auto & layer : hidden_layers){
-        for(auto & neuron : layer.get_neurons()){
+        for(auto & neuron : layer->get_neurons()){
             for(auto & edge : neuron->get_previous_edges()){
               edge->randomize_weight();
             }
         }
     }
     // apply to all edges going to ouput_layer
-    for(auto & neuron : output_layer.get_neurons()){
+    for(auto & neuron : output_layer->get_neurons()){
         for(auto & edge : neuron->get_previous_edges()){
             edge->randomize_weight();
           }
@@ -87,14 +87,14 @@ void Network::apply_on_all_edges(function<void(Edge&)> edge_function){
 
     // apply to all edges going to any hidden_layer
     for(auto & layer : hidden_layers){
-        for(auto & neuron : layer.get_neurons()){
+        for(auto & neuron : layer->get_neurons()){
             for(auto & edge : neuron->get_previous_edges()){
               edge_function(*edge);
             }
         }
     }
     // apply to all edges going to ouput_layer
-    for(auto & neuron : output_layer.get_neurons()){
+    for(auto & neuron : output_layer->get_neurons()){
         for(auto & edge : neuron->get_previous_edges()){
             edge_function(*edge);
           }
@@ -113,18 +113,19 @@ void Network::remove_layer(){
 
 void Network::add_layer(int n_nodes){
     //adds a hidden layer in the end of other hidden layers
-    Layer new_layer = Layer(n_nodes);
+    Layer* new_layer = new Layer(n_nodes);
     int n = hidden_layers.size();
     hidden_layers.push_back( new_layer); // adds new layer to vector of hidden layers
-    new_layer.fully_connect(&hidden_layers[n-1]);     // connects new layer to the last layer
+    new_layer->fully_connect(hidden_layers[n-1]);     // connects new layer to the last layer
+
 }
 
 void Network::add_layer(int i, int n_nodes, act_function f_activation){
     //adds a hidden layer in position i, with activation function, and number of nodes.
-    Layer new_layer = Layer(n_nodes, f_activation);
+    Layer* new_layer = new Layer(n_nodes, f_activation);
     hidden_layers.insert(hidden_layers.begin() + i, new_layer);
-    new_layer.fully_connect(&hidden_layers[i-1]);
-    new_layer.set_activation_function(f_activation);
+    new_layer->fully_connect(hidden_layers[i-1]);
+    new_layer->set_activation_function(f_activation);
 }
 
 Network Network::copy(){
@@ -140,12 +141,12 @@ Network Network::copy(){
 
 void Network::print_adj_list(){
 
-    vector<Neuron*> neurons =  input_layer.get_neurons();
+    vector<Neuron*> neurons =  input_layer->get_neurons();
     
     cout << "Input layer \n";
     cout << "[ ";
     
-    for(Neuron* neuron: neurons){
+    for(auto& neuron: neurons){
         vector<Edge*> crnt_edges = neuron->get_next_edges();
         cout<<" [ ";
         
@@ -155,8 +156,8 @@ void Network::print_adj_list(){
         cout<<" ] \n";}
     
     int counter = 0;
-    for(Layer& crnt_layer: hidden_layers){
-        neurons = crnt_layer.get_neurons();
+    for(auto& crnt_layer: hidden_layers){
+        neurons = crnt_layer->get_neurons();
 
         cout << "Hidden layer"<< counter<< "\n";
         

@@ -10,14 +10,14 @@ public:
     Network(bool randomize = true);
     ~Network();
     //getters:
-    Layer get_input_layer();
-    Layer get_output_layer();
-    vector <Layer> get_hidden_layers();
+    Layer* get_input_layer();
+    Layer* get_output_layer();
+    vector <Layer*> get_hidden_layers();
 
     //setters:
-    void set_input_layer(Layer input_layer);
-    void set_output_layer(Layer output_layer);
-    void set_hidden_layers(vector<Layer> hidden_layers);
+    void set_input_layer(Layer* input_layer);
+    void set_output_layer(Layer* output_layer);
+    void set_hidden_layers(vector<Layer*> hidden_layers);
 
     //functions:
     vector <double> propagate(vector<double>input_vector);
@@ -36,7 +36,7 @@ public:
 
 
 private:
-    Layer output_layer;
-    Layer input_layer;
-    vector <Layer> hidden_layers;
+    Layer* output_layer;
+    Layer* input_layer;
+    vector <Layer*> hidden_layers;
 };
