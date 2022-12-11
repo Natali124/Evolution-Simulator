@@ -297,13 +297,24 @@ LivingBeing* Creature::find_food(){
 
 void Creature::eat(LivingBeing &l, double eat_time){
     // this function first determines the initial gains of eating, then digests: depending on the type of the lb eaten
-    // initial gains depend from what you can eat, the size of the creature, and the eattime(faster you eat, less you gain)
-    double alpha;
-    if(get_eat_creature() && get_eat_plants()){alpha = 0.8;}
-    else{alpha=1;}
-    double gain = alpha*eat_time*l.get_size();
-    double current_energy = get_energy();
-    set_energy(gain + current_energy);
+    // initial gains depend from what you can eat, the size of the creature, and the eat_time(faster you eat, less you gain)
+    //
+    //
+    // small modification : if l is a plant, then we already modify the attributes of *this creature in l.is_eaten(*this)
+    // called in digest(l, eat_time),(the modifications to *this depend on the characteristics of the plant)
+    //and we also do damage to the plant itself.
+    //
+    // if l is a creature then we modify the attributes of *this in eat(l,eat_time) below and we do damage to l in l.is_eaten(*this)
+    //which is called in digest(l, eat_time)
+
+    if (l.type == creature) {
+        double alpha;
+        if(get_eat_creature() && get_eat_plants()){alpha = 0.8;}
+        else{alpha=1;}
+        double gain = alpha*eat_time*l.get_size();
+        double current_energy = get_energy();
+        set_energy(gain + current_energy);}
+
     digest(l, eat_time);
     this->set_found_food(false);
 
