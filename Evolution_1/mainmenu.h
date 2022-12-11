@@ -2,6 +2,7 @@
 #define MAINMENU_H
 
 #include "environment.h"
+#include <QWidget>
 #include <QMainWindow>
 
 //int being_count = 10;

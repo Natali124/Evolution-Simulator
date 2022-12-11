@@ -9,8 +9,9 @@
 
 MainMenu::MainMenu(QWidget *parent) : QMainWindow(parent), display(CreatureDisplay(this)){
 
+    QMainWindow::setMouseTracking(true);
     resize(720,440); //720p
-    setWindowTitle("Main Menu");
+    setWindowTitle("Evolution");
     setBackgroundImage(":/backgrounds/images/forest.jpg");
 
     display.resize(440, 440);

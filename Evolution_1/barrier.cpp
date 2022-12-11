@@ -8,6 +8,13 @@ Barrier::Barrier(){
 
 Barrier::Barrier(QRectF block){
     this->block = block;
+    color = QColor(128, 128, 128); //grey
+}
+
+Barrier::Barrier(QPointF topPos, QPointF bottomPos){
+    this->block.setTopLeft(topPos);
+    this->block.setBottomRight(bottomPos);
+    color = QColor(128, 128, 128); //grey
 }
 
 QRectF Barrier::boundingRect() const {
@@ -25,3 +32,34 @@ void Barrier::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->setBrush(color);
     painter->drawRect(block);
 }
+
+MouseBarrier::MouseBarrier(QObject *parent) : QGraphicsScene(parent)
+{
+
+}
+
+MouseBarrier::~MouseBarrier()
+{
+
+}
+
+void MouseBarrier::mousePressEvent(QGraphicsSceneMouseEvent *event){
+    topPos = event->pos();
+}
+
+void MouseBarrier::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
+}
+
+void MouseBarrier::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
+    bottomPos = event->pos();
+    Barrier* barrier = new Barrier;
+    barrier->block.setTopLeft(topPos);
+    barrier->block.setBottomRight(bottomPos);
+    this->addItem(barrier);
+    //this->removeItem(prevBar);
+    //if (prevBar != NULL) {delete prevBar;};
+}
+
+
+
+

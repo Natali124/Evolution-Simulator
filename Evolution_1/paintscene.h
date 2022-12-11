@@ -16,7 +16,9 @@ class PaintScene : public QGraphicsScene
        QPointF     previousPoint;      // The coordinates of the previous point
 
    private:
-       void mousePressEvent(QGraphicsSceneMouseEvent * event);
+       void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+       void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
+       void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
 };
 
