@@ -31,21 +31,19 @@ void CreatureDisplay::addRandomDot(){
     int y = std::rand() % maxY;
 
 //    Mouse *mouse = new Mouse;
-    /*
-    randomly initializing living beings
+
+//    randomly initializing living beings
+    LivingBeing *being;
+
     int t=rand()%2;
     if(t==0){
-        Creature *being = new Creature;
-        being->setPos(x, y);
-        environment->addItem(being);
+        being = new Creature;
+    } else if(t==1){
+        being = new Plant;
+    } else { //for now this isn't possible
+        being = new LivingBeing;
     }
-    else{
-        Plant *being = new Plant;
-        being->setPos(x, y);
-        environment->addItem(being);
-    }*/
 
-    LivingBeing *being = new LivingBeing;
     being->setPos(x, y);
     environment->addItem(being);
 }

@@ -12,10 +12,15 @@ void LivingBeing::playstep(){
     setRotation(rotation() + 7);
 }
 
-void LivingBeing::advance(int step){
+void LivingBeing::advance(int phase){
 
-    if (!step)
+    if (!phase)
         return;
+
+    // skip the playstep function for now as it crashes the program
+    setRotation(rotation() + 7);
+    return;
+    //-----------------------------
 
     playstep(); //Ruben's group function
 }
@@ -45,7 +50,6 @@ void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 LivingBeing::LivingBeing(){
     alive = true;
     type = none;
-    type=Type_LB(rand()%3);
 }
 LivingBeing::~LivingBeing(){}
 
