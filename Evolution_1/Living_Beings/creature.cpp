@@ -128,6 +128,9 @@ void Creature::die() {if ((get_alive()) && (this->get_hp() == 0) ) {
                      };
 
 void::Creature::is_eaten(Creature &c) {
+
+    //damage to the victim:
+
     if (get_alive() == false) {
         double alpha;
         if(c.get_eat_creature() && c.get_eat_plants()){alpha = 0.8;}
@@ -242,6 +245,12 @@ void Creature::decision(vector<double>input_vector){
 void Creature::playstep() {
     die();   // actually dies only if it should (alive and hp=0)
     if (get_alive()){
+        //bouding energy and hp to the max bcse in case of modifications in the previous playstep
+        if (get_energy()>get_Max_energy()) {
+            set_energy(get_Max_energy());}
+        if (get_hp()>get_Max_hp()) {
+            set_hp(get_Max_hp());}
+
         if (sleep_time) {
             sleep_step();
         }
@@ -307,7 +316,12 @@ void Creature::eat(LivingBeing &l, double eat_time){
     // if l is a creature then we modify the attributes of *this in eat(l,eat_time) below and we do damage to l in l.is_eaten(*this)
     //which is called in digest(l, eat_time)
 
+
+
     if (l.type == creature) {
+
+        //modifying the eater's attributes:
+
         double alpha;
         if(get_eat_creature() && get_eat_plants()){alpha = 0.8;}
         else{alpha=1;}

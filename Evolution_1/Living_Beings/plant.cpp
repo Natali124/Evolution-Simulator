@@ -38,6 +38,10 @@ Plant::Plant(double reproduction_rate) {
 */
 
 void Plant::is_eaten(Creature &c) {
+
+    //modifying the eater's attributes:
+
+
     double alpha = get_alpha(c);
     if (type_plant == 0) { // carbs
         c.set_energy(c.get_energy() + alpha);
@@ -74,6 +78,9 @@ void Plant::is_eaten(Creature &c) {
         c.set_energy(c.get_energy() + 2*alpha);
         c.set_physical_strength(c.get_physical_strength() - alpha);
         c.set_visibility(c.get_visibility() - alpha);}
+
+
+    //damage to the plant:
 
     double size_coef = 0.25*(c.get_size()/get_size());
     set_size(get_size() - size_coef );
