@@ -59,9 +59,9 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain): 
 Creature::~Creature() {}
 
 void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
-    if(!eat_creature){
+    if(!get_eat_creature()){
         // Body
-        painter->setBrush(color);
+        painter->setBrush(QColor(std::min((int)get_Max_energy(), (int)255), 0, 0, 255)); //for now make it redder the more energy it can have
         painter->drawEllipse(-10, -20, 20, 40);
 
         // Eyes

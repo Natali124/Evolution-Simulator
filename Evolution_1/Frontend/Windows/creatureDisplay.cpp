@@ -1,9 +1,8 @@
-#include "Frontend/mouse.h"
 #include "Frontend/Windows/creatureDisplay.h"
 #include "Living_Beings/creature.h"
 #include "Living_Beings/living_being.h"
-
 #include <Living_Beings/plant.h>
+#include <QRandomGenerator>
 
 CreatureDisplay::CreatureDisplay(Environment* env, QWidget *parent) : QGraphicsView(parent), environment(env){
     parentWindow = parent;
@@ -35,12 +34,18 @@ void CreatureDisplay::addRandomDot(){
 //    randomly initializing living beings
     LivingBeing *being;
 
-    int t=rand()%2;
+    int t=rand()%3;
     if(t==0){
-        being = new Creature;
+        Creature* aux = new Creature;
+        aux->set_Max_energy( QRandomGenerator::global()->bounded(256) );
+        being = aux;
     } else if(t==1){
+        Creature* aux = new Creature;
+        aux->parameters[Creature::eat_creature] = 1; // I don't see any better way to set a creature to be a predator for now, but this is for debugging anyways, not permanent
+        being = aux;
+    } else if(t==2){ //for now this isn't possible
         being = new Plant;
-    } else { //for now this isn't possible
+    } else {
         being = new LivingBeing;
     }
 
