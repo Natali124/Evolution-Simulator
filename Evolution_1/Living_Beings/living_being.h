@@ -33,11 +33,11 @@ public:
   //This is the function we'll be using when we need to make an object take damages (because it's been attacked)
   virtual void take_dmg(double dmg);
   //common attributes to plants and creatures
-  virtual double get_size();
+  virtual double get_size() const;
   virtual void set_size(double s);
-  virtual double get_hp();
+  virtual double get_hp() const;
   virtual void set_hp(double h);
-  bool get_alive();
+  bool get_alive() const;
   void set_alive(bool b);
     
   double normal_distrib(double parameter, double variance){ //takes a value and randomly returns a value like the normal distribution does with a given variance.

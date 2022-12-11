@@ -32,13 +32,13 @@ public:
 
     double get_reproduction_rate();
     void set_reproduction_rate(double rr);
-    double get_size();
+    double get_size() const;
     void set_size(double s);
-    double get_Max_hp();
+    double get_Max_hp() const;
     void set_Max_hp(double hp);
-    double get_Max_size();
+    double get_Max_size() const;
     void set_Max_size(double s);
-    double get_hp();
+    double get_hp() const;
     void set_hp(double hp);
 
     enum Type_Plant{

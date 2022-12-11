@@ -36,8 +36,14 @@ void CreatureDisplay::addRandomDot() {
     int maxY = height();
     int x = std::rand() % maxX;
     int y = std::rand() % maxY;
-
-    Creature *being = new Creature;
+    int i = rand();
+    LivingBeing *being;
+    if (i<RAND_MAX/2){
+        being = new Creature;
+    }
+    else{
+        being = new Plant;
+    }
     being->setPos(x, y);
     _scene.addItem(being);
 }

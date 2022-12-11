@@ -100,25 +100,27 @@ public:
     std::map<Enum_parameters, double> parameters;
     std::map<Enum_parameters, double> base_parameters; //Those are the parameters we use for reproduction
 
+
+    //Vision is simulated using multiple rays which will start from the creature trying to see an go on multiple dircetion.
     // n >=0 correspond to the number of ray we will use to get the vision.
-    // for now, vision is only in front
+    //The see function will return a vector of size 3*n containing the distance, the size and hp of the first living_being (only distance for non_living beings) that ta ray collide with.
     std::vector<double> See(int n);
-    std::vector<double> See(int n, int i); // auxilary function for See(int)
+    std::vector<double> See(int n, int i); // Auxilary function for See(int)
 
     void set_energy(double e);
-    double get_energy();
+    double get_energy() const;
     void set_physical_strength(double ps);
-    double get_physical_strength();
+    double get_physical_strength() const;
     void set_eye_sight(double es);
-    double get_eye_sight();
+    double get_eye_sight() const;
     void set_visibility(double v);
-    double get_visibility();
+    double get_visibility() const;
     void set_Max_energy(double me);
-    double get_Max_energy();
+    double get_Max_energy() const;
     bool get_eat_creature();
     bool get_eat_plants();
     void set_Max_hp(double mh);
-    double get_Max_hp();
+    double get_Max_hp() const;
     void set_hp(double h);
     double get_hp();
     int get_digest_time();
@@ -126,7 +128,7 @@ public:
     vector<double> get_food_attributes();
     void set_food_attributes(LivingBeing &f);
     void set_size(double s);
-    double get_size();
+    double get_size() const;
     bool get_found_food();
     void set_found_food(bool b);
     int get_counter_no_sleep();
@@ -143,8 +145,8 @@ protected:
     double energy;
     double hp;
     vector<double>input_vector;//outputed by the NN , to take as input in decision
-    double sleep_time;
-    int digest_time;
+    double sleep_time=0;
+    int digest_time=0;
     vector<double> food_attributes; // food attributes of what the creature is currently digesting
     int counter_no_sleep;  //useful for check_if_lack function called in playstep()
     int counter_no_eat;    //initialized at 0

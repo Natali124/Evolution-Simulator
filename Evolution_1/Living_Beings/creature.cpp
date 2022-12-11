@@ -35,9 +35,11 @@ void Other::Square::set_shape(){
 
 
 Creature::Creature():LivingBeing() {
+    //we need a way to differenciate animals and plants
+    color = QColorConstants::DarkGray;
     // in the iteration param refers to an int into Enum_parameters (which does not include the value last)
     for (Enum_parameters param = (Enum_parameters)0 ; param != last; param=(Enum_parameters)(param+1)) {
-        double val = abs((double)rand()/(double)(RAND_MAX)*200); // val is the random value that we will assign to val
+        double val = abs(1+(double)rand()/(double)(RAND_MAX)*200); // val is the random value that we will assign to val
         this->parameters.insert(std::pair<Enum_parameters, double>(param, val));
     };
 
@@ -57,12 +59,6 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network brain):
     this->parameters = parameters;
     this->base_parameters = parameters; //we save "dna"
     this->brain = brain;
-
-
-    type = creature;
-    found_food = false;
-    counter_no_eat=0;
-    counter_no_sleep=0;
 }
 
 Creature::~Creature() {}
@@ -165,15 +161,15 @@ void::Creature::is_eaten(Creature &c) {
 
 
 void Creature::set_energy(double e){this->energy = e;}
-double Creature::get_energy(){return this->energy;}
+double Creature::get_energy() const{return this->energy;}
 void Creature::set_physical_strength(double ps){this->parameters[physical_strength] = ps;}
-double Creature::get_physical_strength(){return this->parameters[physical_strength];}
+double Creature::get_physical_strength() const{return this->parameters.at(physical_strength);}
 void Creature::set_eye_sight(double es){this->parameters[eye_sight] = es;}
-double Creature::get_eye_sight(){return  this->parameters[eye_sight];}
+double Creature::get_eye_sight() const{return  this->parameters.at(eye_sight);}
 void Creature::set_visibility(double v){this->parameters[visibility] = v;}
-double Creature::get_visibility(){return this->parameters[visibility];}
+double Creature::get_visibility() const{return this->parameters.at(visibility);}
 void Creature::set_Max_energy(double me){this->parameters[Max_energy] = me;}
-double Creature::get_Max_energy(){return this->parameters[Max_energy];}
+double Creature::get_Max_energy() const{return this->parameters.at(Max_energy);}
 bool Creature::get_eat_creature(){return this->parameters[eat_creature];}
 bool Creature::get_eat_plants(){return this->parameters[eat_plants];}
 int Creature::get_digest_time(){return this->digest_time;}
@@ -181,11 +177,11 @@ void Creature::set_digest_time(int time){this->digest_time = time;}
 vector<double> Creature::get_food_attributes() {return this->food_attributes;}
  //void Creature::set_food(LivingBeing &f){this->food = f;}
 void Creature::set_size(double s){this->parameters[size] = s;}
-double Creature::get_size(){return this->parameters[size];}
+double Creature::get_size() const{return this->parameters.at(size);}
 void Creature::set_hp(double s){this->hp = s;}
 double Creature::get_hp(){return this->hp;}
 void Creature::set_Max_hp(double mh){this->parameters[Max_hp] = mh;}
-double Creature::get_Max_hp(){return this->parameters[Max_hp];}
+double Creature::get_Max_hp() const{return this->parameters.at(Max_hp);}
 bool Creature::get_found_food() {return this->found_food;}
 void Creature::set_found_food(bool b) {this->found_food = b;}
 int Creature::get_counter_no_sleep() {return this->counter_no_sleep;}
@@ -265,19 +261,13 @@ void Creature::playstep() {
         bound_energy_hp();
 
         if (sleep_time) {
+
             sleep_step();
         }
         else if(digest_time){
             digest_step();
         }
         else {
-            move(0.1, 1);
-            //Creatures seems to not being able to see anything (for now)
-            std::vector<double> Input = this->See(9); //for now we'll word with 9 vision sticks
-            if (Input[0]!=this->get_eye_sight()+1){
-                sleep(2);
-            }
-            move(0.1, 1);
             /* For now, create bugs due to the structure of brain
             std::vector<double> input_vector = brain.propagate(Input);
             decision(input_vector);
@@ -381,6 +371,8 @@ void Creature::digest(LivingBeing &food, double eat_time){
     }
 
 };
+
+
 void Creature::digest_step(){
     set_counter_no_eat(0);
     set_counter_no_sleep(get_counter_no_sleep()+1);  //does not sleep but gets the benefits of eating
@@ -406,7 +398,8 @@ void Creature::digest_step(){
 };
 
 
-
+//Vision is simulated using multiple rays which will start from the creature trying to see an go on multiple dircetion.
+//The see function will return a vector of size 3*n containing the distance, the size and hp of the first living_being (only distance for non_living beings) that ta ray collide with.
 std::vector<double> Creature::See(int n){
     std::vector<double> v; //Here we'll get all the output, It will be of size n
 
@@ -419,6 +412,7 @@ std::vector<double> Creature::See(int n){
     return v;
 }
 
+//This is an auxiliar function of the See(int) function
 std::vector<double> Creature::See(int n, int i){
     // return a distance score with 0 meaning really close and 256 meaning nothing seen (see only the closest object)
 

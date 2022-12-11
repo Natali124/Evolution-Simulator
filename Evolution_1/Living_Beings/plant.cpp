@@ -8,13 +8,13 @@
 
 
 Plant::Plant():LivingBeing(){
-    std::map<Enum_parameters, double> parameters;
+    //we need a way to differenciate animals and plants
+    color = QColorConstants::DarkGreen;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
-        double val = abs((double)rand()/(double)RAND_MAX);
-        parameters.insert(std::pair<Enum_parameters, double>(param, val));
+        double val = abs((double)rand()/(double)RAND_MAX * 200);
+        this->parameters.insert(std::pair<Enum_parameters, double>(param, val));
     }
     type = plant;
-    set_size(1);
     this->set_hp(this->get_Max_hp());
 }
 
@@ -22,10 +22,6 @@ Plant::Plant():LivingBeing(){
 Plant::Plant(std::map<Enum_parameters, double> parameters): Plant() {
     this->parameters = parameters;
     this->base_parameters = parameters; //we save "dna"
-
-    this->set_hp(this->get_Max_hp());
-    set_size(1);
-    type = plant;
 }
 
 Plant::~Plant() {};
@@ -96,12 +92,12 @@ void Plant::is_eaten(Creature &c) {
 void Plant::set_reproduction_rate(double rr){this->parameters[reproduction_rate] = rr;}
 double Plant::get_reproduction_rate(){return this->parameters[reproduction_rate];}
 void Plant::set_size(double s){this->parameters[size] = s;}
-double Plant::get_size(){return this->parameters[size];}
+double Plant::get_size() const {return this->parameters.at(size);}
 void Plant::set_Max_hp(double ms){this->parameters[Max_hp] = ms;}
-double Plant::get_Max_hp(){return this->parameters[Max_hp];}
+double Plant::get_Max_hp() const{return this->parameters.at(Max_hp);}
 void Plant::set_hp(double ms){this->hp = ms;}
-double Plant::get_hp(){return this->hp;}
-double Plant::get_Max_size() {return this->parameters[Max_size];}
+double Plant::get_hp() const{return this->hp;}
+double Plant::get_Max_size() const{return this->parameters.at(Max_size);}
 void Plant::set_Max_size(double s) {this->parameters[Max_size]=s;}
 
 

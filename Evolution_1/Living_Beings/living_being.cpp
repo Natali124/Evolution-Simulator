@@ -27,7 +27,8 @@ QRectF LivingBeing::boundingRect() const
 QPainterPath LivingBeing::shape() const
 {
     QPainterPath path;
-    path.addRect(-10, -20, 20, 40);
+    //I divided by 200 since random the random constructor gives a size between 0 and 200, this might be temprorary values;
+    path.addRect(-10*get_size()/200, -20*get_size()/200, 20*get_size()/200, 40*get_size()/200);
     return path;
 }
 
@@ -35,7 +36,8 @@ QPainterPath LivingBeing::shape() const
 void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                         QWidget *widget) {
     painter->setBrush(color);
-    painter->drawEllipse(-10, -20, 20, 40);
+    //I divided by 200 since random the random constructor gives a size between 0 and 200, this might be temprorary values;
+    painter->drawEllipse(-10*get_size()/200, -20*get_size()/200, 20*get_size()/200, 40*get_size()/200);
 }
 
 
@@ -47,7 +49,7 @@ LivingBeing::LivingBeing(){
 
 LivingBeing::~LivingBeing() {};
 
-bool LivingBeing::get_alive() {return alive;};
+bool LivingBeing::get_alive() const {return alive;};
 void LivingBeing::set_alive(bool b) {this->alive = b;};
 
 
@@ -61,8 +63,8 @@ LivingBeing* LivingBeing::reproduction(){};
 
 void LivingBeing::is_eaten(LivingBeing &c){};
 void LivingBeing::take_dmg(double dmg){};
-double LivingBeing::get_size(){};
+double LivingBeing::get_size() const{};
 void LivingBeing::set_size(double s){};
-double LivingBeing::get_hp(){};
+double LivingBeing::get_hp() const{};
 void LivingBeing::set_hp(double h){};
 
