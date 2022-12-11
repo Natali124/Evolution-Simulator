@@ -72,6 +72,36 @@ void Neuron::add_edge(Edge* edge, bool previous){
     else{
         next_edges.push_back(edge);}}
 
+void  Neuron:: remove_edge(int index, bool previous){
+    if(previous){
+        Edge* to_erase = previous_edges[index]; //edge to be erased
+        Neuron* prev_neuron = to_erase->get_start_neuron();
+        prev_neuron->remove_edge(to_erase, false);
+        previous_edges.erase(previous_edges.begin() + index);}
+    else{
+        Edge* to_erase = next_edges[index]; //edge to be erased
+        Neuron* prev_neuron = to_erase->get_end_neuron();
+        prev_neuron->remove_edge(to_erase, true);
+        next_edges.erase(next_edges.begin() + index);}
+    }
+
+void Neuron::remove_edge(Edge* edge, bool previous){
+
+    if(previous){
+        int n = previous_edges.size();
+        for(int i = 0; i < n; i ++){
+            if(previous_edges[i] == edge){
+                 previous_edges.erase(previous_edges.begin() + i);
+                 break;}}}
+    else{
+        int n = next_edges.size();
+        for(int i = 0; i < n; i ++){
+            if(next_edges[i] == edge){
+                 next_edges.erase(next_edges.begin() + i);
+                 break;}}}
+}
+
+
 
 void Neuron::forward_propagate(){
     double sum = 0;
@@ -84,7 +114,7 @@ void Neuron::forward_propagate(){
 
 // Function added for compilation reasons (Vincenzo)
 double Neuron::get_value(){return (double)0;};
-void Neuron::set_value(double value){};
+//void Neuron::set_value(double value){};
 
 
 

@@ -115,8 +115,11 @@ void Network::add_layer(int n_nodes){
     //adds a hidden layer in the end of other hidden layers
     Layer* new_layer = new Layer(n_nodes);
     int n = hidden_layers.size();
-    hidden_layers.push_back( new_layer); // adds new layer to vector of hidden layers
+
+    hidden_layers[n-1]->disconnect(false);   //disconnect last layer to next layer
     new_layer->fully_connect(hidden_layers[n-1]);     // connects new layer to the last layer
+    output_layer->fully_connect(new_layer);
+    hidden_layers.push_back(new_layer); // adds new layer to vector of hidden layers
 
 }
 
@@ -124,8 +127,20 @@ void Network::add_layer(int i, int n_nodes, act_function f_activation){
     //adds a hidden layer in position i, with activation function, and number of nodes.
     Layer* new_layer = new Layer(n_nodes, f_activation);
     hidden_layers.insert(hidden_layers.begin() + i, new_layer);
-    new_layer->fully_connect(hidden_layers[i-1]);
+
+    //dissconnet layer at position i-1 or input layer to layer at position i and connect to new layer
+    if(i == 0){
+      input_layer->disconnect(false);
+      new_layer->fully_connect(input_layer);}
+    else{
+    hidden_layers[i-1]->disconnect(false);
+    new_layer->fully_connect(hidden_layers[i-1]);}
+
+    //connect layer at position i to the new layer
+    hidden_layers[i+1]->fully_connect(new_layer);
+
     new_layer->set_activation_function(f_activation);
+
 }
 
 Network Network::copy(){
@@ -144,67 +159,56 @@ void Network::print_adj_list(){
     vector<Neuron*> neurons =  input_layer->get_neurons();
     
     cout << "Input layer \n";
-    cout << "[ ";
-    
+
     for(auto& neuron: neurons){
-        vector<Edge*> crnt_edges = neuron->get_next_edges();
-        cout<<" [ ";
-        
+        vector<Edge*> crnt_edges = neuron->get_next_edges();    
         for(Edge* edge: crnt_edges){
-            cout<<"[ " << edge->get_end_neuron_id() <<", ";}
-        
-        cout<<" ] \n";}
-    
-    int counter = 0;
-    for(auto& crnt_layer: hidden_layers){
-        neurons = crnt_layer->get_neurons();
-
-        cout << "Hidden layer"<< counter<< "\n";
-        
-        for(Neuron* neuron: neurons){
-        vector<Edge*> crnt_edges = neuron->get_next_edges();
-        cout<<" [ ";  
-        for(Edge* edge: crnt_edges){
-            cout<<"[ " << edge->get_end_neuron_id() <<", ";}
-        
-        cout<<" ] \n";}
-        counter += 1;}
-
-        cout << " ]";
-
-     cout << "Done" << std::endl;
-        }
-
-/*
-void Network:: print_weights(){
-
-    vector<Neuron> neurons =  input_layer.get_neurons();
-    
-    cout << "Input layer \n";
-    cout << "[ ";
-    
-    for(Neuron neuron: neurons){
-        for(double weight: neuron.get_next_weights()){
-            cout << weight<< ", " ;
-        }
+            cout<<edge->get_end_neuron_id() << " ";}
+        cout<<"\n";
     }
-    int counter = 0;
+
+    
+    int counter = 1;
     for(Layer* crnt_layer: hidden_layers){
         neurons = crnt_layer->get_neurons();
 
-        cout << "Hidden layer"<< counter<< "\n";
-        cout << "[ ";
+        cout << "Hidden layer "<< counter<< "\n";
+        
+        for(Neuron* neuron: neurons){
+            vector<Edge*> crnt_edges = neuron->get_next_edges();
+            for(Edge* edge: crnt_edges){
+                cout<< edge->get_end_neuron_id() <<" ";}
+            cout<<" \n";}
+        counter += 1;}
+     cout << "Done" << std::endl;}
+
+
+void Network:: print_weights(){
+
+    vector<Neuron*> neurons =  input_layer->get_neurons();
+    
+    cout << "Input layer \n";
+
+    
+    for(Neuron* neuron: neurons){
+        for(double weight: neuron->get_next_weights()){
+            cout << weight<< " " ;
+        }
+         cout << '\n';
+    }
+    cout << '\n';
+    int counter = 1;
+    for(Layer* crnt_layer: hidden_layers){
+        neurons = crnt_layer->get_neurons();
+
+        cout << "Hidden layer "<< counter<< "\n";
         
         for(Neuron* neuron: neurons){
          for(double weight: neuron->get_next_weights()){
-            cout << weight<< ", " ;
+            cout << weight<< " " ;
         }
         
-        cout<<" ] \n";}
-        counter += 1;}
-
-        cout << " ]";
-        }
+        cout<<" \n";}
+        counter += 1;}}
 
 
-*/

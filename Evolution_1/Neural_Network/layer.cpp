@@ -102,6 +102,25 @@ void Layer::fully_connect(Layer* prev_layer){
     }
 }
 
+void Layer::disconnect(bool previous){
+    if(previous){
+        for(Neuron* neuron: neurons){
+            for(Edge* edge: neuron->get_previous_edges()){
+                Neuron* prev_neuron = edge->get_start_neuron();
+                neuron->remove_edge(edge, true);
+                prev_neuron->remove_edge(edge, false);
+            }
+            neuron->set_previous_edges(vector<Edge*>(0));
+            }}
+    else{
+        for(Neuron* neuron: neurons){
+            for(Edge* edge: neuron->get_next_edges()){
+                Neuron* prev_neuron = edge->get_end_neuron();
+                neuron->remove_edge(edge, false);
+                prev_neuron->remove_edge(edge, true);
+            }
+            neuron->set_next_edges(vector<Edge*>(0));}}}
+
 // Added for compilation reasons (Vincenzo)
 Layer::~Layer(){
   delete bias_neuron;
