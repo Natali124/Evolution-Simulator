@@ -14,7 +14,6 @@ MainMenu::MainMenu(Environment *environment, QWidget *parent) : QMainWindow(pare
                                                                 environment(environment),
                                                                 timer(EnvironmentTimer(environment)){
 
-    display.zoomToFit();
     setWindowTitle("Evolution Simulator");
     init_layout();
 
@@ -112,8 +111,7 @@ EnvironmentTimer::EnvironmentTimer(Environment *environment) : environment(envir
     timer = new QTimer(this);
 
     // setup signal and slot
-    connect(timer, SIGNAL(timeout()),
-          this, SLOT(MyTimerSlot()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(MyTimerSlot()));
 }
 
 void EnvironmentTimer::MyTimerSlot()
@@ -121,7 +119,7 @@ void EnvironmentTimer::MyTimerSlot()
     environment->advance();
 }
 void EnvironmentTimer::start(){
-    // milisec
+    // milisec - 33fps
     timer->start(1000 / 33);
 }
 void EnvironmentTimer::stop(){
