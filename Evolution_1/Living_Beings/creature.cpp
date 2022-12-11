@@ -49,6 +49,8 @@ Creature::Creature():LivingBeing() {
     type = creature;
     this->set_alive(true);
     found_food = false;
+    counter_no_eat=0;
+    counter_no_sleep=0;
 }
 
 Creature::Creature(std::map<Enum_parameters, double> parameters, Network brain): Creature() {
@@ -59,6 +61,8 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network brain):
 
     type = creature;
     found_food = false;
+    counter_no_eat=0;
+    counter_no_sleep=0;
 }
 
 Creature::~Creature() {}
@@ -184,6 +188,18 @@ void Creature::set_Max_hp(double mh){this->parameters[Max_hp] = mh;}
 double Creature::get_Max_hp(){return this->parameters[Max_hp];}
 bool Creature::get_found_food() {return this->found_food;}
 void Creature::set_found_food(bool b) {this->found_food = b;}
+int Creature::get_counter_no_sleep() {return this->counter_no_sleep;}
+int Creature::get_counter_no_eat() {return this->counter_no_eat;}
+void Creature::set_counter_no_eat(int i) {this->counter_no_eat = i;}
+void Creature::set_counter_no_sleep(int j){this->counter_no_sleep = j;}
+
+
+void Creature::bound_energy_hp() {
+    if (get_energy()>get_Max_energy()) {
+        set_energy(get_Max_energy());}
+    if (get_hp()>get_Max_hp()) {
+        set_hp(get_Max_hp());}
+}
 
 void Creature::normal_distrib_random_edge(Edge& edge){
     //takes an edge and has a 10% percent chance to modify the weight according to the normal distribuition.
@@ -246,10 +262,7 @@ void Creature::playstep() {
     die();   // actually dies only if it should (alive and hp=0)
     if (get_alive()){
         //bouding energy and hp to the max bcse in case of modifications in the previous playstep
-        if (get_energy()>get_Max_energy()) {
-            set_energy(get_Max_energy());}
-        if (get_hp()>get_Max_hp()) {
-            set_hp(get_Max_hp());}
+        bound_energy_hp();
 
         if (sleep_time) {
             sleep_step();
@@ -257,7 +270,6 @@ void Creature::playstep() {
         else if(digest_time){
             digest_step();
         }
-
         else {
             move(0.1, 1);
             //Creatures seems to not being able to see anything (for now)
@@ -270,16 +282,34 @@ void Creature::playstep() {
             std::vector<double> input_vector = brain.propagate(Input);
             decision(input_vector);
             */
+            set_counter_no_sleep(get_counter_no_sleep()+1);  //neither eat/digest or sleep
+            set_counter_no_eat(get_counter_no_eat()+1);
         }
+
+        check_if_lack(); //lack of sleep is more damageable bcse more important to sleep than to eat, Harvard study :)
 
     ;}
 };
+
+
+void Creature::check_if_lack() {
+    if (get_counter_no_eat()==24) {
+        set_physical_strength(0.95*get_physical_strength());
+        set_energy(0.95*get_energy());
+    }
+    if (get_counter_no_sleep()==24) {
+        set_physical_strength(0.90*get_physical_strength());
+        set_energy(0.90*get_energy());
+    }
+}
 
 void Creature::sleep(double delta_t) {
     sleep_time = delta_t;
 }
 
 void Creature::sleep_step() {
+    set_counter_no_sleep(0);
+    set_counter_no_eat(get_counter_no_eat()+1);
     double e = get_energy() +1;
     set_energy(e);
     sleep_time-=1;
@@ -316,7 +346,7 @@ void Creature::eat(LivingBeing &l, double eat_time){
     // if l is a creature then we modify the attributes of *this in eat(l,eat_time) below and we do damage to l in l.is_eaten(*this)
     //which is called in digest(l, eat_time)
 
-
+    set_counter_no_eat(0);
 
     if (l.type == creature) {
 
@@ -352,6 +382,10 @@ void Creature::digest(LivingBeing &food, double eat_time){
 
 };
 void Creature::digest_step(){
+    set_counter_no_eat(0);
+    set_counter_no_sleep(get_counter_no_sleep()+1);  //does not sleep but gets the benefits of eating
+                                                    //so no need to increase counter_no_eat
+
     if (food_attributes.size()){
         if (digest_time == 1) {
             digest_time = 0;

@@ -91,6 +91,9 @@ public:
 
     void digest(LivingBeing &food, double eat_time);
     void digest_step();
+    void bound_energy_hp();   //called in playstep
+    void check_if_lack(); //called in playstep , checks if does not sleep or eat or digest for 24 steps
+    //and if so, decreases energy and phys strength
 
     // DATA MEMBERS
     Network brain;
@@ -126,6 +129,10 @@ public:
     double get_size();
     bool get_found_food();
     void set_found_food(bool b);
+    int get_counter_no_sleep();
+    int get_counter_no_eat();
+    void set_counter_no_eat(int i);
+    void set_counter_no_sleep(int j);
 
     void normal_distrib_random_edge(Edge& edge);
     std::function<double(double)>normal_distrib_random();
@@ -139,6 +146,9 @@ protected:
     double sleep_time;
     int digest_time;
     vector<double> food_attributes; // food attributes of what the creature is currently digesting
+    int counter_no_sleep;  //useful for check_if_lack function called in playstep()
+    int counter_no_eat;    //initialized at 0
+    //if necessary, counters are increased in playstep or digest-step or sleep_step and set to 0 in sleep_step or eat or digest_step
 
 };
 
