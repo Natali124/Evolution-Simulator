@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
 
     ui->simBut->setVisible(false);
@@ -27,6 +28,70 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->creature_list->setVisible(false);
 
+    ui->Title->setVisible(false);
+
+    ui->P_strength_n->setVisible(false);
+    ui->P_strength_s->setVisible(false);
+    ui->P_strength_t->setVisible(false);
+
+    ui->eat_creature->setVisible(false);
+    ui->eat_plant->setVisible(false);
+    ui->eat_t->setVisible(false);
+
+    ui->eye_sight_n->setVisible(false);
+    ui->eye_sight_s->setVisible(false);
+    ui->eye_sight_t->setVisible(false);
+
+    ui->max_energy_n->setVisible(false);
+    ui->max_energy_s->setVisible(false);
+    ui->max_energy_t->setVisible(false);
+
+    ui->size_n->setVisible(false);
+    ui->size_s->setVisible(false);
+    ui->size_t->setVisible(false);
+
+    ui->max_health_n->setVisible(false);
+    ui->max_health_s->setVisible(false);
+    ui->max_health_t->setVisible(false);
+
+    ui->visibility_n->setVisible(false);
+    ui->visibility_s->setVisible(false);
+    ui->visibility_t->setVisible(false);
+
+    ui->button_rdm->setVisible(false);
+
+//    // I set it visible for now so I can't test a few things
+//    ui->Title->setVisible(true);
+
+//    ui->P_strength_n->setVisible(true);
+//    ui->P_strength_s->setVisible(true);
+//    ui->P_strength_t->setVisible(true);
+
+//    ui->eat_creature->setVisible(true);
+//    ui->eat_plant->setVisible(true);
+//    ui->eat_t->setVisible(true);
+
+//    ui->eye_sight_n->setVisible(true);
+//    ui->eye_sight_s->setVisible(true);
+//    ui->eye_sight_t->setVisible(true);
+
+//    ui->max_energy_n->setVisible(true);
+//    ui->max_energy_s->setVisible(true);
+//    ui->max_energy_t->setVisible(true);
+
+//    ui->size_n->setVisible(true);
+//    ui->size_s->setVisible(true);
+//    ui->size_t->setVisible(true);
+
+//    ui->max_health_n->setVisible(true);
+//    ui->max_health_s->setVisible(true);
+//    ui->max_health_t->setVisible(true);
+
+//    ui->visibility_n->setVisible(true);
+//    ui->visibility_s->setVisible(true);
+//    ui->visibility_t->setVisible(true);
+
+//    ui->button_rdm->setVisible(true);
 
 }
 
@@ -99,4 +164,28 @@ void MainWindow::on_button_plant_clicked()
 
 }
 
+void MainWindow::on_button_rdm_clicked()
+{
+    ui->eat_creature->setCheckState(Qt::Unchecked);
+    ui->eat_plant->setCheckState(Qt::Unchecked);
 
+    ui->P_strength_n->setValue(arc4random() % 101);
+    ui->eye_sight_n->setValue(arc4random() % 101);
+    ui->max_energy_n->setValue(arc4random() % 101);
+    ui->size_n->setValue(arc4random() % 101);
+    ui->max_health_n->setValue(arc4random() % 101);
+    ui->visibility_n->setValue(arc4random() % 101);
+
+    int val = arc4random() % 3;
+    if (val == 0) {
+        ui->eat_creature->setCheckState(Qt::Checked);
+    }
+    else if (val == 1) {
+        ui->eat_creature->setCheckState(Qt::Checked);
+        ui->eat_plant->setCheckState(Qt::Checked);
+    }
+    else if (val == 2) {
+        ui->eat_plant->setCheckState(Qt::Checked);
+    }
+
+}

@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QApplication>
+#include <cstdlib>
+#include <QGraphicsScene>
+#include <iostream>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,6 +27,8 @@ private slots:
     void on_button_prey_clicked();
 
     void on_button_plant_clicked();
+
+    void on_button_rdm_clicked();
 
 
 
