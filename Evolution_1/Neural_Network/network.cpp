@@ -20,7 +20,12 @@ Network::Network(bool randomize){
 }
 
 Network::~Network(){
-    //does not do anything yet. Maybe we will want it to free memory in the future.
+    // Deletes all layers
+    delete input_layer;
+    delete output_layer;
+    for(auto& layer:hidden_layers){
+        delete layer;
+      }
 }
 
 //getters:

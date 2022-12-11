@@ -30,7 +30,7 @@ void Edge::randomize_weight(){
     }
 
 void Edge::print(){
-  std::cout << start_neuron->get_id() << " ---" << 0 << "--- " << end_neuron->get_id() << std::endl;
+  std::cout << start_neuron->get_id() << " ---" << weight << "--- " << end_neuron->get_id() << std::endl;
 }
 
 double Edge::get_weight(){

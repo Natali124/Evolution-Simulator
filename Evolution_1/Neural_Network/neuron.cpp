@@ -10,7 +10,7 @@ int Neuron::neuron_counter = 0;
 Neuron::Neuron(){
     previous_edges = vector<Edge*>(0);
     next_edges = vector<Edge*>(0);
-    parent_layer =nullptr;
+    parent_layer = nullptr;
     neuron_id = neuron_counter;
     neuron_counter += 1;
 
@@ -29,9 +29,19 @@ Neuron:: Neuron(Layer* parent_layer):Neuron(){
         }
 
 
-
+// Destructors
 Neuron:: ~Neuron(){
-    neuron_counter-=1;
+    //neuron_counter-=1;
+
+    // Deletes all edges associated to neuron
+    for (Edge* e : previous_edges) {
+        e->get_start_neuron()->remove_edge(e,false);
+        delete e;
+      }
+    for (Edge* e : next_edges) {
+        e->get_end_neuron()->remove_edge(e,true);
+        delete e;
+      }
 };
 //Getters
 vector<Edge*> Neuron :: get_previous_edges(){

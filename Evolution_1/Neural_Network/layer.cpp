@@ -71,7 +71,10 @@ Neuron* Layer::get_bias_neuron(){
 }
 
 void Layer :: remove_neuron(int index){
-    neurons.erase(neurons.begin() + index);}
+    Neuron* neur = neurons.at(index);
+    neurons.erase(neurons.begin() + index);
+    delete neur;
+}
 void Layer :: add_neuron(Neuron* node){
     neurons.push_back(node);}
 int Layer::size(){
