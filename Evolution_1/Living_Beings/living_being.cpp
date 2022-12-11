@@ -45,6 +45,7 @@ void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 LivingBeing::LivingBeing(){
     alive = true;
     type = none;
+    type=Type_LB(rand()%3);
 }
 LivingBeing::~LivingBeing(){}
 

@@ -88,28 +88,28 @@ void Mouse::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
         QPoint p1(-25,-25);
         QPoint p2(0,0);
         painter->setBrush(Qt::white);
-        painter->drawEllipse(QRectF(p1,p2));
+        painter->drawEllipse(QRectF(-25,-25,0,0));
         p1.setX(0);
         p1.setY(0);
         p2.setX(25);
         p2.setY(25);
-        painter->drawEllipse(QRectF(p1,p2));
+        painter->drawEllipse(QRectF(0,0,25,25));
         p1.setX(-25);
         p1.setY(0);
         p2.setX(0);
         p2.setY(25);
-        painter->drawEllipse(QRectF(p1,p2));
+        painter->drawEllipse(QRectF(-25,0,0,25));
         p1.setX(0);
         p1.setY(-25);
         p2.setX(25);
         p2.setY(0);
-        painter->drawEllipse(QRectF(p1,p2));
+        painter->drawEllipse(QRectF(0,-25,25,0));
         p1.setX(-15);
         p1.setY(-15);
         p2.setX(15);
         p2.setY(15);
         painter->setBrush(Qt::yellow);
-        painter->drawEllipse(QRectF(p1,p2));
+        painter->drawEllipse(QRectF(-15,-15,15,15));
     }
     if(type==predator){
         QPoint p1(-25,-25);

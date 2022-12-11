@@ -1,6 +1,7 @@
 #include "plant.h"
 #include "living_being.h"
 #include "creature.h"
+#include "qpainter.h"
 #include<cmath>
 
 
@@ -77,8 +78,15 @@ void Plant::is_eaten(Creature &c) {
 }
 
 
-
-
+void Plant::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
+    painter->setBrush(Qt::white);
+    painter->drawEllipse(QRectF(-25,-25,25,25));
+    painter->drawEllipse(QRectF(0,0,25,25));
+    painter->drawEllipse(QRectF(-25,0,25,25));
+    painter->drawEllipse(QRectF(0,-25,25,25));
+    painter->setBrush(Qt::yellow);
+    painter->drawEllipse(QRectF(-15,-15,30,30));
+}
 
 void Plant::set_reproduction_rate(float rr){this->parameters[reproduction_rate] = rr;}
 float Plant::get_reproduction_rate(){return this->parameters[reproduction_rate];}

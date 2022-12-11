@@ -64,6 +64,7 @@ public:
     ~Creature();
 
     // MEMBER FUNCTIONS
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     void reproduction();
     // functions to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
 

@@ -3,6 +3,7 @@
 #include "Living_Beings/living_being.h"
 #include "Neural_Network/network.hpp"
 #include "plant.h"
+#include "qpainter.h"
 
 #include <cmath>
 #include <iostream>
@@ -57,6 +58,50 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain): 
 
 Creature::~Creature() {}
 
+void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
+    if(!eat_creature){
+        // Body
+        painter->setBrush(color);
+        painter->drawEllipse(-10, -20, 20, 40);
+
+        // Eyes
+        painter->setBrush(Qt::white);
+        painter->drawEllipse(-10, -17, 8, 8);
+        painter->drawEllipse(2, -17, 8, 8);
+
+        // Nose
+        painter->setBrush(Qt::black);
+        painter->drawEllipse(QRectF(-2, -22, 4, 4));
+
+        // Pupils
+        painter->drawEllipse(QRectF(-8.0, -17, 4, 4));
+        painter->drawEllipse(QRectF(4.0, -17, 4, 4));
+
+        // Ears
+        painter->setBrush(scene()->collidingItems(this).isEmpty() ? Qt::darkYellow : Qt::red);
+        painter->drawEllipse(-17, -12, 16, 16);
+        painter->drawEllipse(1, -12, 16, 16);
+
+        // Tail
+        QPainterPath path(QPointF(0, 20));
+        path.cubicTo(-5, 22, -5, 22, 0, 25);
+        path.cubicTo(5, 27, 5, 32, 0, 30);
+        path.cubicTo(-5, 32, -5, 42, 0, 35);
+        painter->setBrush(Qt::NoBrush);
+        painter->drawPath(path);
+}
+    else{
+        painter->setBrush(Qt::gray);
+        painter->drawEllipse(QRectF(-25,-25,50,50));
+        painter->setBrush(Qt::black);
+        painter->drawEllipse(QRectF(-20,-20,15,15));
+        painter->drawEllipse(QRectF(5,-20,15,15));
+        painter->setBrush(Qt::white);
+        painter->drawEllipse(QRectF(-10,-15,5,7));
+        painter->drawEllipse(QRectF(15,-15,5,7));
+        painter->drawEllipse(QRectF(-15,5,30,10));
+    }
+}
 
 void Creature::reproduction() {
     std::map<Enum_parameters, float> param_new_creature;

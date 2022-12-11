@@ -1,6 +1,9 @@
 #include "Frontend/mouse.h"
 #include "Frontend/Windows/creatureDisplay.h"
+#include "Living_Beings/creature.h"
 #include "Living_Beings/living_being.h"
+
+#include <Living_Beings/plant.h>
 
 CreatureDisplay::CreatureDisplay(Environment* env, QWidget *parent) : QGraphicsView(parent), environment(env){
     parentWindow = parent;
@@ -28,6 +31,20 @@ void CreatureDisplay::addRandomDot(){
     int y = std::rand() % maxY;
 
 //    Mouse *mouse = new Mouse;
+    /*
+    randomly initializing living beings
+    int t=rand()%2;
+    if(t==0){
+        Creature *being = new Creature;
+        being->setPos(x, y);
+        environment->addItem(being);
+    }
+    else{
+        Plant *being = new Plant;
+        being->setPos(x, y);
+        environment->addItem(being);
+    }*/
+
     LivingBeing *being = new LivingBeing;
     being->setPos(x, y);
     environment->addItem(being);
