@@ -54,6 +54,7 @@ Creature::Creature():LivingBeing() {
     found_food = false;
     counter_no_eat=0;
     counter_no_sleep=0;
+    //this->brain = Network(see_ray*3 + 8, 8, 2, see_ray*3+8);
 }
 
 Creature::Creature(std::map<Enum_parameters, double> parameters, Network brain): Creature() {

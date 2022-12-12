@@ -141,6 +141,7 @@ public:
 
 
 protected:
+    int see_ray = 3;
     bool found_food;//false by default, set to true when found food (plant or creature) and then false again after food is eaten
     double energy;
     double hp;
