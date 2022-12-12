@@ -21,6 +21,5 @@ int main(int argc, char *argv[])
     vector<double> in = {0,1,2,3};
     vector<double> v = nn2->propagate(in);
 
-    //nn2->print_adj_list();
     return 0;
 }
