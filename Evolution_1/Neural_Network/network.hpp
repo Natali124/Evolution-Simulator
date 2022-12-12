@@ -8,6 +8,7 @@ class Network{ //network with 3 layers
 // can you do a default constructor please? Cause I need one for Creature class (Garance)
 public:
     Network(bool randomize = true);
+    //Network(int n_input; int )
     ~Network();
     //getters:
     Layer* get_input_layer();
