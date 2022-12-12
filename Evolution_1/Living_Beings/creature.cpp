@@ -149,12 +149,19 @@ void::Creature::is_eaten(Creature &c) {
 //    QList<QGraphicsItem*> list = this->collidingItems();
 //    foreach(QGraphicsItem* i , list)
 //    {
-//        LivingBeing *L = dynamic_cast<LivingBeing*>(i);
-//        if(typeid(Creature) == typeid(L)){
-//            double xdiff = this->x() - L->x();
-//            double ydiff = this->y() - L->y();
-//            this->setX(x() + xdiff * coeff);
+//        Creature *L = dynamic_cast<Creature*>(i);
+//        if(L != nullptr){
+//            double w1 = this->boundingRect().width();
+//            double w2 = i->boundingRect().width();
+//            double h1 = this->boundingRect().height();
+//            double h2 = i->boundingRect().height();
+//            double r1 = sqrt((w1/2) * (w1/2) + (h1/2) * (h1/2));
+//            double r2 = sqrt((w2/2) * (w2/2) + (h2/2) * (h2/2));
 
+//            this->setX(this->x() + xdiff * coeff);
+//            this->setY(this->y() + ydiff * coeff);
+//            i->setX(i->x() - xdiff * coeff);
+//            i->setY(i->y() - xdiff * coeff);
 //        }
 //    }
 //}
