@@ -20,6 +20,9 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
 
+    QWidget *statswindow = new QWidget;
+    statswindow->setWindowTitle("Statistics of the simulation");
+    //
     srand(QTime(0,0,0).secsTo(QTime::currentTime()));
 
     MainMenu menu;
