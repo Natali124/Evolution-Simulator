@@ -22,9 +22,10 @@ Edge::Edge(Neuron* start, Neuron* end):Edge(){
 Edge::Edge(double w, Neuron* start, Neuron* end):Edge(start,end){
          weight = w;
     }
+
 void Edge::randomize_weight(){
-        srand((int)time(0));
-        double r = (double) rand() / RAND_MAX;
+        //srand((time(NULL)));
+        double r = (double) arc4random()/(pow(2, 32)-1);
         r = r*2 - 1;
         set_weight(r);
     }

@@ -39,7 +39,9 @@ int main(int argc, char *argv[])
 
     n.print_adj_list();
     n.print_weights();
-
+    Edge ed = Edge();
+    ed.randomize_weight();
+    cout<<ed.get_weight();
 
     return 0;
 }
