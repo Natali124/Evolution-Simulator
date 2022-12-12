@@ -1,10 +1,8 @@
 #ifndef STATS_WINDOW_H
 #define STATS_WINDOW_H
 #include <QMainWindow>
-//#include <QAbstractSeries>
+#include <QAbstractSeries>
 #include <QtCharts>
-using namespace QtCharts;
-
 
 
 
