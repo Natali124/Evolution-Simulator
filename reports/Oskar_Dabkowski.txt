@@ -11,3 +11,5 @@ During the weekend we had a meeting within a group, where we decided and discuss
 Changes for 28.11-4.12: I was responsible for programming the whole Creature::move function and partially for Creature::attack (I created the basis)
 We also had a meeting regarding organization and use of trello, we draw the conclusion that for now it would be hard to one person to take care of every other group to know exactly what is happening in every of them to distribute tasks and for now we do it within a group.
 Plans for next week: Finishing attack function and developing function moving creatures if they're too close to each other.
+
+Changes for 5.12-11.12: Me and Flavia are doing minor changes to the class creature, we finished a funciton attack and started a function move_away which is supposed to push away from each other animals which are touching with each other. Plan for this week is to finish this function and help other groups if needed as tasks for our subgroup are almost finished
