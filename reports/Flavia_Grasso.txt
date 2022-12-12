@@ -10,3 +10,6 @@ For next week, Oscar and I will start looking at the \'93decision\'94 part of th
 
 Week 2
 This week I worked on the implementation of the decision function, that given an input vector of parameters, runs a decision of either eat, move, sleep or attack. I also implemented the eat and find_food functions while other members of the subteam did the three remaining. 
+
+Week 3
+After finalizing the attack function with oscar I did some research on the functioning of QGraphicsItem Class that I will pursue next week, to fix any bugs we may have with visualizing the living beings and implement the move_away function with Oscar. 
