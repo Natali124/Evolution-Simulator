@@ -283,11 +283,11 @@ void Creature::playstep() {
 
 
 void Creature::check_if_lack() {
-    if (get_counter_no_eat()==24) {
+    if (get_counter_no_eat()==2400) {
         set_physical_strength(0.95*get_physical_strength());
         set_energy(0.95*get_energy());
     }
-    if (get_counter_no_sleep()==24) {
+    if (get_counter_no_sleep()==2400) {
         set_physical_strength(0.90*get_physical_strength());
         set_energy(0.90*get_energy());
     }
@@ -295,10 +295,12 @@ void Creature::check_if_lack() {
 
 void Creature::sleep(double delta_t) {
     sleep_time = delta_t;
+    set_counter_no_sleep(0);
+    set_physical_strength(1.09*get_physical_strength()); //regains almost all its energy and ps lost due to lack of sleep (lost 10%)
+    set_energy(1.09*get_energy());
 }
 
 void Creature::sleep_step() {
-    set_counter_no_sleep(0);
     set_counter_no_eat(get_counter_no_eat()+1);
     double e = get_energy() +1;
     set_energy(e);
@@ -337,6 +339,8 @@ void Creature::eat(LivingBeing &l, double eat_time){
     //which is called in digest(l, eat_time)
 
     set_counter_no_eat(0);
+    set_physical_strength(1.04*get_physical_strength());
+    set_energy(1.04*get_energy()); //regains almost all its energy and ps lost due to lack of eating/digesting (lost 5%)
 
     if (l.type == creature) {
 
@@ -369,12 +373,12 @@ void Creature::digest(LivingBeing &food, double eat_time){
         digest_time = ceil(eat_time * 6); // 6 is arbitrary too here
         food.is_eaten(*this); //implements all that can happen when a creature eats a plant
     }
+    set_counter_no_eat(0);
 
 };
 
 
 void Creature::digest_step(){
-    set_counter_no_eat(0);
     set_counter_no_sleep(get_counter_no_sleep()+1);  //does not sleep but gets the benefits of eating
                                                     //so no need to increase counter_no_eat
 
