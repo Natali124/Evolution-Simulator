@@ -17,9 +17,9 @@
    <widget class="QPushButton" name="startBut">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>260</y>
-      <width>150</width>
+      <x>300</x>
+      <y>200</y>
+      <width>149</width>
       <height>75</height>
      </rect>
     </property>
@@ -158,196 +158,222 @@
      <string>SIMULATE</string>
     </property>
    </widget>
-   <widget class="QWidget" name="gridLayoutWidget">
+   <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>10</y>
-      <width>411</width>
-      <height>371</height>
+      <x>470</x>
+      <y>0</y>
+      <width>521</width>
+      <height>401</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="4" column="1">
-      <widget class="QSpinBox" name="max_energy_n">
-       <property name="maximum">
-        <number>100</number>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
-      <widget class="QSlider" name="max_energy_s">
-       <property name="maximum">
-        <number>100</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QSpinBox" name="eye_sight_n">
-       <property name="maximum">
-        <number>100</number>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="0">
-      <widget class="QLabel" name="max_health_t">
-       <property name="text">
-        <string>Max Health</string>
-       </property>
-      </widget>
-     </item>
-     <item row="12" column="2">
-      <widget class="QSlider" name="size_s">
-       <property name="maximum">
-        <number>100</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="max_energy_t">
-       <property name="text">
-        <string>Max Energy</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QSpinBox" name="P_strength_n">
-       <property name="maximum">
-        <number>100</number>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="eye_sight_t">
-       <property name="text">
-        <string>Eye Sight</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="2">
-      <widget class="QSlider" name="visibility_s">
-       <property name="maximum">
-        <number>100</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="12" column="0">
-      <widget class="QLabel" name="size_t">
-       <property name="text">
-        <string>Size</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="P_strength_t">
-       <property name="text">
-        <string>Physical Strength</string>
-       </property>
-      </widget>
-     </item>
-     <item row="14" column="0">
-      <widget class="QLabel" name="eat_t">
-       <property name="text">
-        <string>Diet</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="0">
-      <widget class="QLabel" name="visibility_t">
-       <property name="text">
-        <string>Visibility</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="1">
-      <widget class="QSpinBox" name="visibility_n">
-       <property name="maximum">
-        <number>100</number>
-       </property>
-      </widget>
-     </item>
-     <item row="15" column="0" colspan="3">
-      <widget class="QPushButton" name="button_rdm">
-       <property name="text">
-        <string>Random</string>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="1">
-      <widget class="QSpinBox" name="max_health_n">
-       <property name="maximum">
-        <number>100</number>
-       </property>
-      </widget>
-     </item>
-     <item row="14" column="2">
-      <widget class="QCheckBox" name="eat_creature">
-       <property name="text">
-        <string>Creature</string>
-       </property>
-      </widget>
-     </item>
-     <item row="12" column="1">
-      <widget class="QSpinBox" name="size_n">
-       <property name="maximum">
-        <number>100</number>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="2">
-      <widget class="QSlider" name="eye_sight_s">
-       <property name="maximum">
-        <number>100</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="14" column="1">
-      <widget class="QCheckBox" name="eat_plant">
-       <property name="text">
-        <string>Plants</string>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="2">
-      <widget class="QSlider" name="max_health_s">
-       <property name="maximum">
-        <number>100</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0" colspan="3">
-      <widget class="QLabel" name="Title">
-       <property name="text">
-        <string>Choose its properties' parameters:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
-      <widget class="QSlider" name="P_strength_s">
-       <property name="maximum">
-        <number>100</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <property name="title">
+     <string>Choose its properties' parameters:</string>
+    </property>
+    <widget class="QWidget" name="gridLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>501</width>
+       <height>371</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="5" column="0">
+       <widget class="QLabel" name="eye_sight_t">
+        <property name="text">
+         <string>Eye Sight</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2">
+       <widget class="QSlider" name="eye_sight_s">
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0">
+       <widget class="QLabel" name="max_health_t">
+        <property name="text">
+         <string>Max Health</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QSpinBox" name="max_energy_n">
+        <property name="maximum">
+         <number>100</number>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="2">
+       <widget class="QCheckBox" name="eat_creature">
+        <property name="text">
+         <string>Creature</string>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="0">
+       <widget class="QLabel" name="size_t">
+        <property name="text">
+         <string>Size</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QSlider" name="P_strength_s">
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="max_energy_t">
+        <property name="text">
+         <string>Max Energy</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="2">
+       <widget class="QSlider" name="visibility_s">
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="visibility_t">
+        <property name="text">
+         <string>Visibility</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QSpinBox" name="visibility_n">
+        <property name="maximum">
+         <number>100</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="P_strength_t">
+        <property name="text">
+         <string>Physical Strength</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="2">
+       <widget class="QSlider" name="max_health_s">
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="1">
+       <widget class="QSpinBox" name="size_n">
+        <property name="maximum">
+         <number>100</number>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="0">
+       <widget class="QLabel" name="eat_t">
+        <property name="text">
+         <string>Diet</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="1">
+       <widget class="QSpinBox" name="max_health_n">
+        <property name="maximum">
+         <number>100</number>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="1">
+       <widget class="QCheckBox" name="eat_plant">
+        <property name="text">
+         <string>Plants</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="P_strength_n">
+        <property name="maximum">
+         <number>100</number>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QSpinBox" name="eye_sight_n">
+        <property name="maximum">
+         <number>100</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QSlider" name="max_energy_s">
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="2">
+       <widget class="QSlider" name="size_s">
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="14" column="1" colspan="2">
+       <widget class="QPushButton" name="button_rdm">
+        <property name="text">
+         <string>Random</string>
+        </property>
+       </widget>
+      </item>
+      <item row="14" column="0">
+       <widget class="QPushButton" name="button_reset">
+        <property name="text">
+         <string>Reset</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="button_delete_all">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>180</y>
+      <width>161</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete All</string>
+    </property>
    </widget>
    <zorder>creature_list</zorder>
    <zorder>startBut</zorder>
@@ -361,7 +387,8 @@
    <zorder>line_2</zorder>
    <zorder>line_3</zorder>
    <zorder>simBut</zorder>
-   <zorder>gridLayoutWidget</zorder>
+   <zorder>groupBox</zorder>
+   <zorder>button_delete_all</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -566,6 +593,38 @@
     <hint type="destinationlabel">
      <x>770</x>
      <y>283</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>creature_list</sender>
+   <signal>itemClicked(QListWidgetItem*)</signal>
+   <receiver>groupBox</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>335</x>
+     <y>221</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>730</x>
+     <y>222</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>creature_list</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>groupBox</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>335</x>
+     <y>221</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>730</x>
+     <y>222</y>
     </hint>
    </hints>
   </connection>

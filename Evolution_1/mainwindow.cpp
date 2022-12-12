@@ -1,9 +1,10 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 int num_pred = 0;
 int num_prey = 0;
 int num_plant = 0;
+int active_creature;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->button_prey->setVisible(false);
     ui->button_pred->setVisible(false);
     ui->button_plant->setVisible(false);
+    ui->button_delete_all->setVisible(false);
 
     ui->count_pred->setVisible(false);
     ui->count_prey->setVisible(false);
@@ -28,70 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->creature_list->setVisible(false);
 
-//    ui->Title->setVisible(false);
-
-//    ui->P_strength_n->setVisible(false);
-//    ui->P_strength_s->setVisible(false);
-//    ui->P_strength_t->setVisible(false);
-
-//    ui->eat_creature->setVisible(false);
-//    ui->eat_plant->setVisible(false);
-//    ui->eat_t->setVisible(false);
-
-//    ui->eye_sight_n->setVisible(false);
-//    ui->eye_sight_s->setVisible(false);
-//    ui->eye_sight_t->setVisible(false);
-
-//    ui->max_energy_n->setVisible(false);
-//    ui->max_energy_s->setVisible(false);
-//    ui->max_energy_t->setVisible(false);
-
-//    ui->size_n->setVisible(false);
-//    ui->size_s->setVisible(false);
-//    ui->size_t->setVisible(false);
-
-//    ui->max_health_n->setVisible(false);
-//    ui->max_health_s->setVisible(false);
-//    ui->max_health_t->setVisible(false);
-
-//    ui->visibility_n->setVisible(false);
-//    ui->visibility_s->setVisible(false);
-//    ui->visibility_t->setVisible(false);
-
-//    ui->button_rdm->setVisible(false);
-
-    // I set it visible for now so I can't test a few things
-    ui->Title->setVisible(true);
-
-    ui->P_strength_n->setVisible(true);
-    ui->P_strength_s->setVisible(true);
-    ui->P_strength_t->setVisible(true);
-
-    ui->eat_creature->setVisible(true);
-    ui->eat_plant->setVisible(true);
-    ui->eat_t->setVisible(true);
-
-    ui->eye_sight_n->setVisible(true);
-    ui->eye_sight_s->setVisible(true);
-    ui->eye_sight_t->setVisible(true);
-
-    ui->max_energy_n->setVisible(true);
-    ui->max_energy_s->setVisible(true);
-    ui->max_energy_t->setVisible(true);
-
-    ui->size_n->setVisible(true);
-    ui->size_s->setVisible(true);
-    ui->size_t->setVisible(true);
-
-    ui->max_health_n->setVisible(true);
-    ui->max_health_s->setVisible(true);
-    ui->max_health_t->setVisible(true);
-
-    ui->visibility_n->setVisible(true);
-    ui->visibility_s->setVisible(true);
-    ui->visibility_t->setVisible(true);
-
-    ui->button_rdm->setVisible(true);
+    ui->groupBox->setVisible(false);
 
 }
 
@@ -118,6 +57,7 @@ void MainWindow::on_startBut_clicked()
     ui->line_2->setVisible(true);
     ui->line_3->setVisible(true);
     ui->creature_list->setVisible(true);
+    ui->button_delete_all->setVisible(true);
 }
 
 
@@ -127,14 +67,11 @@ void MainWindow::on_button_pred_clicked()
     int val = ui->count_pred->value();
     qDebug() << "Predators:" << val;
 
-
-
     for (int i = num_pred; i < num_pred+val; i++) {
         ui->creature_list->addItem("Predator " + QString::number(i+1));
     }
 
     num_pred += val;
-
 }
 
 
@@ -161,8 +98,17 @@ void MainWindow::on_button_plant_clicked()
     }
 
     num_plant += val;
-
 }
+
+
+void MainWindow::on_button_delete_all_clicked()
+{
+    ui->creature_list->clear();
+    num_pred = 0;
+    num_plant = 0;
+    num_prey = 0;
+}
+
 
 void MainWindow::on_button_rdm_clicked()
 {
@@ -187,5 +133,17 @@ void MainWindow::on_button_rdm_clicked()
     else if (val == 2) {
         ui->eat_plant->setCheckState(Qt::Checked);
     }
-
 }
+
+void MainWindow::on_button_reset_clicked()
+{
+    ui->eat_creature->setCheckState(Qt::Unchecked);
+    ui->eat_plant->setCheckState(Qt::Unchecked);
+    ui->P_strength_n->setValue(0);
+    ui->eye_sight_n->setValue(0);
+    ui->max_energy_n->setValue(0);
+    ui->size_n->setValue(0);
+    ui->max_health_n->setValue(0);
+    ui->visibility_n->setValue(0);
+}
+

@@ -30,7 +30,9 @@ private slots:
 
     void on_button_rdm_clicked();
 
+    void on_button_delete_all_clicked();
 
+    void on_button_reset_clicked();
 
 private:
     Ui::MainWindow *ui;
