@@ -13,26 +13,14 @@ int main(int argc, char *argv[])
 {
 
     Network* nn = new Network(false);
-    Network n = *nn;
-    n.print_adj_list();
-    n.print_weights();
+    Network* nn2 = new Network(4,3,1,2);
+    nn2->print_weights();
+    nn2->randomize_edges();
 
-    n.add_layer(4);
-    Layer* layer = n.get_hidden_layers()[1];
-    for (auto& n : layer->get_neurons()) {
-        for(auto& e: n->get_previous_edges()){
-            e->print();
-          }
-      }
-    n.randomize_edges();
-    for (auto& n : layer->get_neurons()) {
-        for(auto& e: n->get_previous_edges()){
-            e->print();
-          }
-      }
+    nn2->print_weights();
+    vector<double> in = {0,1,2,3};
+    vector<double> v = nn2->propagate(in);
 
-    //n.print_adj_list();
-    //n.print_weights();
-    delete nn;
+    //nn2->print_adj_list();
     return 0;
 }
