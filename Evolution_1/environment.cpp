@@ -45,6 +45,7 @@ void CreatureDisplay::addRandomDot() {
         being = new Plant;
     }
     being->setPos(x, y);
+    being->set_scene(&_scene);
     _scene.addItem(being);
 }
 

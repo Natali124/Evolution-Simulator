@@ -2,11 +2,12 @@
 #define LIVING_BEING_H
 
 #include <QGraphicsItem>
+#include <QGraphicsScene>
 #include "Neural_Network/network.hpp"
 #include <iostream>
 #include <vector>
-#include <QGraphicsItem>
 #include <random>
+
 
 
 class LivingBeing : public QGraphicsItem {
@@ -39,6 +40,8 @@ public:
   virtual void set_hp(double h);
   bool get_alive() const;
   void set_alive(bool b);
+  void set_scene(QGraphicsScene *s);
+  QGraphicsScene* get_scene() const;
     
   double normal_distrib(double parameter, double variance){ //takes a value and randomly returns a value like the normal distribution does with a given variance.
       std::random_device rd;
@@ -47,6 +50,9 @@ public:
       return d(gen);
   }
   virtual void advance(int);
+
+protected:
+  QGraphicsScene *scene;
 };
 
 

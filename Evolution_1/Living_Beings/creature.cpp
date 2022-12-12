@@ -8,6 +8,7 @@
 #include <vector>
 #include <map>
 #include <QGraphicsItem>
+#include <QGraphicsItem>
 
 
 
@@ -268,6 +269,9 @@ void Creature::playstep() {
             digest_step();
         }
         else {
+
+            vector<double> Input = See(9);
+            cout<< Input[0] << ", "<< get_eye_sight()<< endl;
             /* For now, create bugs due to the structure of brain
             std::vector<double> input_vector = brain.propagate(Input);
             decision(input_vector);
@@ -423,8 +427,9 @@ std::vector<double> Creature::See(int n, int i){
 
 
     //lenght is vision
-    QGraphicsLineItem*  Ray = new QGraphicsLineItem(this->x(), this->y(), this->x() + this->get_eye_sight() * cos(teta), this->y() + this->get_eye_sight() * sin(teta));
-    QList<QGraphicsItem*> list = Ray->collidingItems();
+    QGraphicsLineItem*  Ray = new QGraphicsLineItem(0, 0, this->get_eye_sight() * cos(teta), this->get_eye_sight() * sin(teta));
+
+    QList<QGraphicsItem*> list = get_scene()->collidingItems(Ray);
 
     LivingBeing* last_seen  = nullptr;
     foreach(QGraphicsItem* i , list)
