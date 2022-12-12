@@ -13,9 +13,9 @@ int main(int argc, char *argv[])
 {
 
     Network* nn = new Network(false);
-    Network n = *nn;
-    n.print_adj_list();
-    n.print_weights();
+    Network* nn2 = new Network(4,3,1,2);
+    nn2->print_weights();
+    nn2->randomize_edges();
 
     n.add_layer(4);
     Layer* layer = n.get_hidden_layers()[1];

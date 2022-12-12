@@ -18,7 +18,23 @@ Network::Network(bool randomize){
     output_layer->fully_connect(hid_layer);
     if (randomize){ randomize_edges(); }
 }
-
+Network::Network(int n_input, int n_output, int n_hidden_layers, int n_neurons_in_hidden){
+    // Constructor with number of input, output, hidden layers, neurons in hidden_layers
+    input_layer = new Layer(n_input);
+    vector<Layer*> v = vector<Layer*>(0);
+    for(int i = 0; i<n_hidden_layers; i++){
+        v.push_back(new Layer(n_neurons_in_hidden));
+        if (i==0){
+            v[i]->fully_connect(input_layer);
+          } else {
+            v[i]->fully_connect(v[i-1]);
+          }
+      }
+    hidden_layers = v;
+    output_layer = new Layer(n_output);
+    output_layer->fully_connect(v[v.size()-1]);
+    randomize_edges();
+}
 Network::~Network(){
     // Deletes all layers
     delete input_layer;
@@ -166,6 +182,7 @@ void Network::print_adj_list(){
     cout << "Input layer \n";
 
     for(auto& neuron: neurons){
+        cout << neuron->get_id() << ": ";
         vector<Edge*> crnt_edges = neuron->get_next_edges();    
         for(Edge* edge: crnt_edges){
             cout<<edge->get_end_neuron_id() << " ";}
@@ -180,6 +197,8 @@ void Network::print_adj_list(){
         cout << "Hidden layer "<< counter<< "\n";
         
         for(Neuron* neuron: neurons){
+
+            cout << neuron->get_id() << ": ";
             vector<Edge*> crnt_edges = neuron->get_next_edges();
             for(Edge* edge: crnt_edges){
                 cout<< edge->get_end_neuron_id() <<" ";}
@@ -192,30 +211,17 @@ void Network::print_adj_list(){
 
 void Network:: print_weights(){
 
-    vector<Neuron*> neurons =  input_layer->get_neurons();
-    
+
     cout << "Input layer \n";
 
-    
-    for(Neuron* neuron: neurons){
-        for(double weight: neuron->get_next_weights()){
-            cout << weight<< " " ;
-        }
-         cout << '\n';
-    }
+    input_layer->print_edges();
     cout << '\n';
     int counter = 1;
     for(Layer* crnt_layer: hidden_layers){
-        neurons = crnt_layer->get_neurons();
 
         cout << "Hidden layer "<< counter<< "\n";
-        
-        for(Neuron* neuron: neurons){
-         for(double weight: neuron->get_next_weights()){
-            cout << weight<< " " ;
-        }
-        
-        cout<<" \n";}
+
+        crnt_layer->print_edges();
         counter += 1;}}
 
 void Network:: print_values(){
