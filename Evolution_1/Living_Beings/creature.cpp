@@ -271,7 +271,6 @@ void Creature::playstep() {
         else {
 
             vector<double> Input = See(9);
-            cout<< Input[0] << ", "<< get_eye_sight()<< endl;
             /* For now, create bugs due to the structure of brain
             std::vector<double> input_vector = brain.propagate(Input);
             decision(input_vector);
