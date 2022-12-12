@@ -41,6 +41,7 @@ public:
     void fully_connect(Layer* prev_layer); //fully connects Layer to previous layer, randomized weights
     void disconnect(bool previous); // disconects layer to either previous or next layer as indicated by previous
     double f_activation(double x);
+    void print_edges();
 
 private:
     vector<Neuron*> neurons;

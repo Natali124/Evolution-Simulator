@@ -9,9 +9,9 @@ using namespace std;
 
 //Constructors
 Layer::Layer(){
-  std::cout << "Creating Layer"<<std::endl;
   //Neuron* n = new Neuron(this);
   bias_neuron = new Neuron(this);
+  bias_neuron->set_value(1);
   neurons = vector<Neuron*>(0);
   f_activation_name = Sigmoid;
 }
@@ -142,4 +142,19 @@ map<act_function,function<double(double)>> get_f_activation_from_name = {{Sigmoi
 
 double Layer::f_activation(double x){
   return get_f_activation_from_name[f_activation_name](x);
+}
+
+void Layer::print_edges(){
+  for(Neuron* neuron: neurons){
+   cout << neuron->get_id() << ": ";
+   for(double weight: neuron->get_next_weights()){
+      cout << round(weight*100)/100 << " " ;
+  }
+  cout<<" \n";}
+
+  cout << bias_neuron->get_id() << "(b): ";
+  for(double weight: bias_neuron->get_next_weights()){
+     cout << round(weight*100)/100 << " " ;
+  }
+  cout << "\n";
 }
