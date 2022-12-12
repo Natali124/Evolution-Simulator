@@ -188,6 +188,8 @@ void Network::print_adj_list(){
      cout << "Done" << std::endl;}
 
 
+
+
 void Network:: print_weights(){
 
     vector<Neuron*> neurons =  input_layer->get_neurons();
@@ -215,5 +217,28 @@ void Network:: print_weights(){
         
         cout<<" \n";}
         counter += 1;}}
+
+void Network:: print_values(){
+
+    vector<Neuron*> neurons =  input_layer->get_neurons();
+
+    cout << "Input layer \n";
+
+
+    for(Neuron* neuron: neurons){
+            cout << neuron->get_value()<< " " ;}
+
+    cout << '\n';
+    int counter = 1;
+    for(Layer* crnt_layer: hidden_layers){
+        neurons = crnt_layer->get_neurons();
+        cout << "Hidden layer "<< counter<< "\n";
+
+        for(Neuron* neuron: neurons){
+         cout << neuron->get_value()<< " " ;
+        }
+
+        cout<<" \n";}
+        counter += 1;}
 
 

@@ -31,9 +31,11 @@ public:
     void apply_on_all_edges(function<void(Edge&)> edge_function);
     void apply_on_all_weights(function<double(double)> weight_function);
     Network copy();
+
+    //Printing
     void print_adj_list(); // Prints Network represented as adjecency list
     void print_weights(); // Prints weights of the Netwotk
-    
+    void print_values();
 
 
 private:

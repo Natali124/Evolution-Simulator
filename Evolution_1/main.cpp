@@ -31,11 +31,31 @@ int main(int argc, char *argv[])
           }
       }
 
-    n.print_adj_list();
+    Neuron neu = Neuron();
+    neu.set_value(5);
+    cout<<neu.get_value();
+
+    cout<<"Before propagate \n";
+    n.print_values();
     n.print_weights();
-    Edge ed = Edge();
-    ed.randomize_weight();
-    cout<<ed.get_weight();
+
+    n.propagate(vector<double>{1, 2, 3});
+
+    cout<<"After propagate \n";
+    n.print_values();
+    n.print_weights();
+
+
+
+    /*Neuron* n1 = new Neuron();
+    Edge* e1 = new Edge(0);
+    n1->add_edge(e1, true);
+
+    cout<<n1->get_previous_edges().size();
+
+    n1->remove_edge(0, true);
+
+    cout<<n1->get_previous_edges().size();*/
 
     return 0;
 }
