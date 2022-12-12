@@ -42,8 +42,13 @@ QPainterPath LivingBeing::shape() const
 
 void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                         QWidget *widget) {
-    painter->setBrush(color);
-    painter->drawEllipse(-10, -20, 20, 40);
+
+//    painter->setBrush(color);
+//    painter->drawEllipse(-10, -20, 20, 40);
+
+    //debug for seeing sight direction -> eye direction towards -y
+    painter->setPen(Qt::blue);
+    painter->drawLine(0,0,0,-50);
 }
 
 

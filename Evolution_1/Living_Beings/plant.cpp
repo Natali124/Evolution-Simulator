@@ -86,6 +86,9 @@ void Plant::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     painter->drawEllipse(QRectF(0,-25,25,25));
     painter->setBrush(Qt::yellow);
     painter->drawEllipse(QRectF(-15,-15,30,30));
+
+    //call parent implementation of paint
+    LivingBeing::paint(painter, option, widget);
 }
 
 void Plant::set_reproduction_rate(float rr){this->parameters[reproduction_rate] = rr;}
