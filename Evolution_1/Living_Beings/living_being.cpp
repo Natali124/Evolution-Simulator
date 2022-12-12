@@ -20,8 +20,8 @@ void LivingBeing::advance(int step){
 QRectF LivingBeing::boundingRect() const
 {
     qreal adjust = 0.5;
-    return QRectF(-18 - adjust, -22 - adjust,
-                  36 + adjust, 60 + adjust);
+    return QRectF((-18 - adjust)*get_size()/200, (-22 - adjust)*get_size()/200,
+                  (36 + adjust)*get_size()/200, (60 + adjust)*get_size()/200);
 }
 
 QPainterPath LivingBeing::shape() const
@@ -67,4 +67,6 @@ double LivingBeing::get_size() const{};
 void LivingBeing::set_size(double s){};
 double LivingBeing::get_hp() const{};
 void LivingBeing::set_hp(double h){};
+void LivingBeing::set_scene(QGraphicsScene *s){scene=s;};
+QGraphicsScene* LivingBeing::get_scene() const {return scene;};
 
