@@ -23,11 +23,9 @@ MainMenu::MainMenu(QWidget *parent) : QMainWindow(parent), display(CreatureDispl
     auto btn = new QPushButton(this);
     btn->setText("Restart");
     connect(btn, &QPushButton::clicked, this, &MainMenu::randomize_scene);
-
     for (int i=0; i < 10; i++){
         display.addRandomDot();
     }
-
     auto btn2 = new QPushButton(this);
     auto btn3 = new QPushButton(this);
 

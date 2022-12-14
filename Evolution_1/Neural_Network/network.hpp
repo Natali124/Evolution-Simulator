@@ -1,5 +1,7 @@
 #include "layer.hpp"
 #include <functional>
+
+#include <iostream>
 #pragma once
 
 class Network{ //network with 3 layers

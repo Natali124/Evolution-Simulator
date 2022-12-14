@@ -59,13 +59,13 @@ void LivingBeing::set_alive(bool b) {this->alive = b;};
 
 
 
-LivingBeing* LivingBeing::reproduction(){};
+LivingBeing* LivingBeing::reproduction(){return nullptr;};
 
 void LivingBeing::is_eaten(LivingBeing &c){};
 void LivingBeing::take_dmg(double dmg){};
-double LivingBeing::get_size() const{};
+double LivingBeing::get_size() const{return -1;};
 void LivingBeing::set_size(double s){};
-double LivingBeing::get_hp() const{};
+double LivingBeing::get_hp() const{return -1;};
 void LivingBeing::set_hp(double h){};
 void LivingBeing::set_scene(QGraphicsScene *s){scene=s;};
 QGraphicsScene* LivingBeing::get_scene() const {return scene;};
