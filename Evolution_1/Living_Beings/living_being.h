@@ -1,7 +1,7 @@
 #ifndef LIVING_BEING_H
 #define LIVING_BEING_H
 
-#include <QGraphicsItem>
+#include "environment.h"
 #include "Neural_Network/network.hpp"
 #include <iostream>
 #include <vector>
@@ -12,6 +12,7 @@
 class LivingBeing : public QGraphicsItem {
 public:
   LivingBeing(); // initializes a living being with alive = true
+  ~LivingBeing();
   bool alive;
   QColor color;
 
@@ -50,13 +51,3 @@ public:
 
 
 #endif
-
-//Previous definition of the class
-// LIVING_BEING_H
-//Coordinate position;
-/*enum Type_LB{
-    none = -1,
-    predator = 0,
-    prey = 1,
-    plant = 2,
-};*/

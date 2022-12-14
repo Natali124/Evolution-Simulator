@@ -4,6 +4,8 @@
 #include "environment.h"
 #include <QMainWindow>
 
+//int being_count = 10;
+
 class MainMenu : public QMainWindow{
     public:
         MainMenu(QWidget *parent = nullptr);
@@ -16,9 +18,9 @@ class MainMenu : public QMainWindow{
             for(int i = 0; i < 10; i ++)
                 display.addRandomDot();
         }
+        CreatureDisplay display;
 
     private:
-        CreatureDisplay display;
         void setBackgroundImage(QString filePath);
 };
 

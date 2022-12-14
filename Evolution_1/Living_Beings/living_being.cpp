@@ -1,5 +1,6 @@
 #include "environment.h"
 #include "living_being.h"
+#include "qpainter.h"
 
 #include <QGraphicsItem>
 #include <cmath>
@@ -7,11 +8,20 @@
 
 void LivingBeing::reproduction(){};
 
-void LivingBeing::playstep(){};
+void LivingBeing::playstep(){
+    setRotation(rotation() + 7);
+}
 
-void LivingBeing::advance(int step){
+void LivingBeing::advance(int phase){
 
-    if (!step) { return; };
+    if (!phase)
+        return;
+
+    // skip the playstep function for now as it crashes the program
+    setRotation(rotation() + 7);
+    return;
+    //-----------------------------
+
     playstep(); //Ruben's group function
 }
 
@@ -41,13 +51,12 @@ LivingBeing::LivingBeing(){
     alive = true;
     type = none;
 }
-
+LivingBeing::~LivingBeing(){}
 
 
 
 bool LivingBeing::get_alive() {return alive;};
 void LivingBeing::set_alive(bool b) {this->alive = b;};
-
 
 
 void LivingBeing::is_eaten(LivingBeing &c){};

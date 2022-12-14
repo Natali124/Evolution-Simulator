@@ -12,3 +12,7 @@ This week I worked on implementation of the neutron class, creating the construc
 Week 2
 
 This week I implemented an enumerate variable for the activation function in the networks class and changed the attributes that were before objects to pointers in the classes layer and network. Next week I plan to work on testing the neural network.
+
+Week 3
+
+This week I implemented two different functions to represent for string representation of the neural network. I also implemented the function remove_edge and fixed the implementation of add_layer. Next week I plan to work on testing and improving the neural network.

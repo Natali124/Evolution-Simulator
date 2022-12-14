@@ -61,8 +61,10 @@ public:
     Creature();
     // non-default constructor that takes a std::map<Enum_parameters, float> and a Network
     Creature(std::map<Enum_parameters, float>, Network);
+    ~Creature();
 
     // MEMBER FUNCTIONS
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     void reproduction();
     // functions to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
 

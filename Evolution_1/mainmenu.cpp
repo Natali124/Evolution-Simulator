@@ -5,8 +5,10 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include <QBoxLayout>
+#include <QtGui>
 
 MainMenu::MainMenu(QWidget *parent) : QMainWindow(parent), display(CreatureDisplay(this)){
+
     resize(720,440); //720p
     setWindowTitle("Main Menu");
     setBackgroundImage(":/backgrounds/images/forest.jpg");
@@ -14,12 +16,18 @@ MainMenu::MainMenu(QWidget *parent) : QMainWindow(parent), display(CreatureDispl
     display.resize(440, 440);
 //    display.move(720-440, 0);
 
+
+
     QRect rcontent = display.contentsRect();
     display._scene.setSceneRect(0, 0, rcontent.width(), rcontent.height());
 
     auto btn = new QPushButton(this);
     btn->setText("Test");
     connect(btn, &QPushButton::clicked, this, &MainMenu::randomize_scene);
+
+    for (int i=0; i < 10; i++){
+        display.addRandomDot();
+    }
 
     auto btn2 = new QPushButton(this);
     auto btn3 = new QPushButton(this);

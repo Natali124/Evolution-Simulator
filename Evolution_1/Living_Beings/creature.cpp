@@ -3,6 +3,7 @@
 #include "Living_Beings/living_being.h"
 #include "Neural_Network/network.hpp"
 #include "plant.h"
+#include "qpainter.h"
 
 #include <cmath>
 #include <iostream>
@@ -53,7 +54,53 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain): 
     this->set_hp(this->get_Max_hp());
     type = creature;
     found_food = false;
+}
 
+Creature::~Creature() {}
+
+void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
+    if(!get_eat_creature()){
+        // Body
+        painter->setBrush(QColor(std::min((int)get_Max_energy(), (int)255), 0, 0, 255)); //for now make it redder the more energy it can have
+        painter->drawEllipse(-10, -20, 20, 40);
+
+        // Eyes
+        painter->setBrush(Qt::white);
+        painter->drawEllipse(-10, -17, 8, 8);
+        painter->drawEllipse(2, -17, 8, 8);
+
+        // Nose
+        painter->setBrush(Qt::black);
+        painter->drawEllipse(QRectF(-2, -22, 4, 4));
+
+        // Pupils
+        painter->drawEllipse(QRectF(-8.0, -17, 4, 4));
+        painter->drawEllipse(QRectF(4.0, -17, 4, 4));
+
+        // Ears
+        painter->setBrush(scene()->collidingItems(this).isEmpty() ? Qt::darkYellow : Qt::red);
+        painter->drawEllipse(-17, -12, 16, 16);
+        painter->drawEllipse(1, -12, 16, 16);
+
+        // Tail
+        QPainterPath path(QPointF(0, 20));
+        path.cubicTo(-5, 22, -5, 22, 0, 25);
+        path.cubicTo(5, 27, 5, 32, 0, 30);
+        path.cubicTo(-5, 32, -5, 42, 0, 35);
+        painter->setBrush(Qt::NoBrush);
+        painter->drawPath(path);
+}
+    else{
+        painter->setBrush(Qt::gray);
+        painter->drawEllipse(QRectF(-25,-25,50,50));
+        painter->setBrush(Qt::black);
+        painter->drawEllipse(QRectF(-20,-20,15,15));
+        painter->drawEllipse(QRectF(5,-20,15,15));
+        painter->setBrush(Qt::white);
+        painter->drawEllipse(QRectF(-10,-15,5,7));
+        painter->drawEllipse(QRectF(15,-15,5,7));
+        painter->drawEllipse(QRectF(-15,5,30,10));
+    }
 }
 
 void Creature::reproduction() {
@@ -94,21 +141,18 @@ void Creature::take_dmg(float dmg){
 void Creature::attack(){
     //we'll first split between creatures and plants:
     std::vector<LivingBeing*> Close = this->get_close();
-
-    //we can introduce vectors with creatures and plants
-    std::vector<LivingBeing*> Creatures;
-    std::vector<LivingBeing*> Plants; //when it comes to type of those two vectors
-    //for now they will be liv beings, not creatures and plants
+    int len = Close.size();
+    const float alpha_victim = 0.5; //we have to decide what coeff to give
+    const float alpha_attacker = 0.05;
+    //float mean = 0;
+    float dmg = this->get_size()*this->get_physical_strength()*alpha_victim/len;
     for(vector<LivingBeing*>::iterator i = Close.begin(); i != Close.end(); i++){
-        if(dynamic_cast<Creature*>(*i) != nullptr){
-            Creatures.push_back(*i);
-        }
-//        if(dynamic_cast<Plants*>(*i) != nullptr){
-//            Creatures.push_back(*i);
-//        }
-        //for now I'm going to leave it as plants are not included in a file
+        (*i)->take_dmg(dmg);
+        //mean += (*i)->get_size()/len;
     }
-
+    this->set_energy(get_energy() - this->get_size()*alpha_attacker);
+    //we discussed the possibility of making the energy loss depend on the size of the other creatures
+    // we could make the attack depend on the avg size of the creatures
 }
 
 void Creature::die() {if ((get_alive()) && (this->get_hp() == 0) ) {
