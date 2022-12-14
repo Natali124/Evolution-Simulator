@@ -4,7 +4,7 @@
 
 PaintScene::PaintScene(QObject *parent) : QGraphicsScene(parent)
 {
-
+    previousRect = nullptr;
 }
 
 PaintScene::~PaintScene()
@@ -12,29 +12,32 @@ PaintScene::~PaintScene()
 
 }
 
+void PaintScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
+    QRectF block = QRectF(event->scenePos().x(), event->scenePos().y(), 10, 10);
+    Barrier* barrier = new Barrier(block);
+    this->addItem(barrier);
+}
+
+/*
 void PaintScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
    previousPoint = event->scenePos();
-   if (QGraphicsScene::mouseGrabberItem() == nullptr) {
-       std::cout << "null" << std::endl;
-   }
-   std::cout << "hello" << std::endl;
-
-    /*Barrier* barrier = new Barrier;
-    qreal x = event->scenePos().x();
-    qreal y = event->scenePos().y();
-    barrier->block.setRect(x, y, 10, 10);
-    this->addItem(barrier);
-    previousPoint = event->scenePos();*/
+   previousRect = nullptr;
 }
 
 void PaintScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
-    std::cout << "hi" << std::endl;
-}
-
-void PaintScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
-    // We draw the line with the previous coordinates
     QPointF bottomPos = event->scenePos();
     Barrier* barrier = new Barrier(previousPoint, bottomPos);
     this->addItem(barrier);
-};
+    if (previousRect != nullptr){
+        this->removeItem(previousRect);
+    }
+    previousRect = barrier;
+}
+
+void PaintScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
+    QPointF bottomPos = event->scenePos();
+    Barrier* barrier = new Barrier(previousPoint, bottomPos);
+    this->addItem(barrier);
+    this->removeItem(previousRect);
+};*/

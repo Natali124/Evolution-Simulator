@@ -5,6 +5,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QTimer>
 #include <QDebug>
+#include "barrier.h"
 
 class PaintScene : public QGraphicsScene
 {
@@ -14,11 +15,12 @@ class PaintScene : public QGraphicsScene
 
    private:
        QPointF     previousPoint;      // The coordinates of the previous point
+       Barrier* previousRect;
 
    private:
-       void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+       //void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
        void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
-       void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+       //void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
 };
 

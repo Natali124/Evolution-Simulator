@@ -11,7 +11,7 @@ CreatureDisplay::CreatureDisplay(QWidget *parent) : QGraphicsView(parent), _scen
     setRenderHint(QPainter::Antialiasing);
     setCacheMode(QGraphicsView::CacheBackground);
     setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
-    setDragMode(QGraphicsView::ScrollHandDrag);
+    //setDragMode(QGraphicsView::ScrollHandDrag);
 }
 
 void CreatureDisplay::add_object(LivingBeing* being){
