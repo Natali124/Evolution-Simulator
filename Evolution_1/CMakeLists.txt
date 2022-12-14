@@ -13,8 +13,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
-
 set(TS_FILES Evolution_1_en_GB.ts)
+find_package(Qt6 REQUIRED COMPONENTS Charts)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -72,6 +72,7 @@ else()
 endif()
 
 target_link_libraries(Evolution_1 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(Evolution_1 PRIVATE Qt6::Charts)
 
 set_target_properties(Evolution_1 PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
