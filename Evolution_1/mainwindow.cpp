@@ -6,6 +6,7 @@ int num_prey = 0;
 int num_plant = 0;
 int active_creature;
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -31,6 +32,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->creature_list->setVisible(false);
 
     ui->groupBox->setVisible(false);
+
+//    connect(ui->creature_list, SIGNAL(itemClicked(QListWidgetItem*)),
+//                this, SLOT(on_creature_list_item_clicked(QListWidgetItem*)));
 
 }
 
@@ -72,6 +76,7 @@ void MainWindow::on_button_pred_clicked()
     }
 
     num_pred += val;
+    ui->creature_list->sortItems();
 }
 
 
@@ -85,6 +90,7 @@ void MainWindow::on_button_prey_clicked()
     }
 
     num_prey += val;
+    ui->creature_list->sortItems();
 }
 
 
@@ -98,6 +104,7 @@ void MainWindow::on_button_plant_clicked()
     }
 
     num_plant += val;
+    ui->creature_list->sortItems();
 }
 
 
@@ -147,3 +154,7 @@ void MainWindow::on_button_reset_clicked()
     ui->visibility_n->setValue(0);
 }
 
+//void MainWindow::on_creature_list_item_clicked(QListWidgetItem* item)
+//{
+
+//}
