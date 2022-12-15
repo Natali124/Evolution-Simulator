@@ -1,48 +1,27 @@
+#include "Frontend/resources.h"
 #include "creatureDisplay.h"
 #include "Frontend/Windows/mainMenu.h"
+#include "qtimer.h"
 #include <QFile>
 #include <QPushButton>
 #include <QMessageBox>
 #include <QBoxLayout>
+#include <QWidget>
+#include <QGroupBox>
 
-MainMenu::MainMenu(QWidget *parent) : QMainWindow(parent), display(CreatureDisplay(this)){
-    resize(720,440); //720p
-    setWindowTitle("Main Menu");
-    setBackgroundImage(":/backgrounds/images/cheese.jpg");
+MainMenu::MainMenu(Environment *environment, QWidget *parent) : QMainWindow(parent),
+                                                                display(environment, this),
+                                                                environment(environment),
+                                                                timer(EnvironmentTimer(environment)){
 
-    display.resize(440, 440);
-//    display.move(720-440, 0);
+    setWindowTitle("Evolution Simulator");
+    init_layout();
 
-    QRect rcontent = display.contentsRect();
-    display._scene.setSceneRect(0, 0, rcontent.width(), rcontent.height());
-
-    auto btn = new QPushButton(this);
-    btn->setText("Test");
-    connect(btn, &QPushButton::clicked, this, &MainMenu::randomize_scene);
-
-    auto btn2 = new QPushButton(this);
-    auto btn3 = new QPushButton(this);
-
-    auto leftLayout = new QVBoxLayout;
-    leftLayout->addWidget(btn);
-    leftLayout->addWidget(btn2);
-    leftLayout->addWidget(btn3);
-
-    auto central = new QWidget(this);
-    setCentralWidget(central);
-
-    auto mainLayout = new QHBoxLayout;
-//    mainLayout->addWidget(btn);
-    mainLayout->addLayout(leftLayout);
-    mainLayout->addWidget(&display, -1, Qt::AlignCenter);
-
-    QSizePolicy p = display.sizePolicy();
-    p.setVerticalPolicy(QSizePolicy::Minimum);
-    p.setHorizontalPolicy(QSizePolicy::Minimum);
-    p.setHeightForWidth( true );
-    display.setSizePolicy( p );
-
-    central->setLayout(mainLayout);
+    // This order of events is necessary because the initial layout of all the elements will not be
+    // calculated properly if the window is not shown in the beggining.
+    show();
+    resize(720, 440);
+    setMinimumSize(720,440);
 }
 
 void MainMenu::setBackgroundImage(QString filePath){
@@ -51,4 +30,98 @@ void MainMenu::setBackgroundImage(QString filePath){
     QPalette palette;
     palette.setBrush(QPalette::Window, bkgnd);
     setPalette(palette);
+}
+
+void MainMenu::init_layout(){
+
+    //left half
+    auto leftGroupBox = new QGroupBox("Control Panel");
+    auto layout = new QVBoxLayout;
+    leftGroupBox->setLayout(layout);
+
+    auto btn = new QPushButton(leftGroupBox);
+    btn->setText("Test - Spawn 10 creatures");
+    connect(btn, &QPushButton::clicked, this, &MainMenu::randomize_scene);
+    layout->addWidget(btn);
+
+    auto btnStart = new QPushButton(leftGroupBox);
+    btnStart->setText("Start animation");
+    connect(btnStart, &QPushButton::clicked, &timer, &EnvironmentTimer::start);
+    layout->addWidget(btnStart);
+
+    auto btnStop = new QPushButton(leftGroupBox);
+    btnStop->setText("Stop animation");
+    connect(btnStop, &QPushButton::clicked, &timer, &EnvironmentTimer::stop);
+    layout->addWidget(btnStop);
+
+    layout->addStretch();
+    QSizePolicy spLeft(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    spLeft.setHorizontalStretch(1);
+    leftGroupBox->setSizePolicy(spLeft);
+    //-------------------------------------------------------------
+
+    //right half
+    auto rightGroupBox = new QGroupBox("Display");
+    rightGroupBox->setStyleSheet("border:1px solid rgb(0, 255, 0); ");
+    display.setParent(rightGroupBox);
+
+    QSizePolicy spRight(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    spRight.setHorizontalStretch(2);
+    rightGroupBox->setSizePolicy(spRight);
+    //-------------------------------------------------------------
+
+    auto mainLayout = new QHBoxLayout;
+    mainLayout->addWidget(leftGroupBox);
+    mainLayout->addWidget(rightGroupBox);
+
+    //this is so that a layout works on a MainWindow
+    auto central = new QWidget(this);
+    setCentralWidget(central);
+    central->setLayout(mainLayout);
+}
+
+void MainMenu::resizeEvent(QResizeEvent *evt)
+{
+    stretchBackground();
+    fitDisplay();
+
+    QMainWindow::resizeEvent(evt); //call base implementation
+}
+
+void MainMenu::stretchBackground(){
+    QPixmap bkgnd(BACKGROUND_IMAGE_LINK);
+    bkgnd = bkgnd.scaled(size(), Qt::IgnoreAspectRatio);
+    QPalette p = palette();
+    p.setBrush(QPalette::Window, bkgnd);
+    setPalette(p);
+}
+void MainMenu::fitDisplay(){
+    //make display square, center into the right groupbox
+    auto parent = display.parentWidget();
+    int sz = std::min(parent->width(), parent->height()) - 50;
+    display.resize(sz, sz);
+    int padx = ( parent->width() - sz ) / 2;
+    int pady = ( parent->height() - sz ) / 2;
+    display.move(padx, pady);
+}
+
+EnvironmentTimer::EnvironmentTimer(Environment *environment) : environment(environment)
+{
+    // create a timer
+    timer = new QTimer(this);
+
+    // setup signal and slot
+    connect(timer, SIGNAL(timeout()), this, SLOT(MyTimerSlot()));
+}
+
+void EnvironmentTimer::MyTimerSlot()
+{
+    environment->advance();
+}
+void EnvironmentTimer::start(){
+    // milisec - 33fps
+    timer->start(1000 / 33);
+}
+void EnvironmentTimer::stop(){
+    timer->stop();
 }

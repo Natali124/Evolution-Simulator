@@ -23,6 +23,7 @@ public:
 
     ~Plant();
 
+    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     // DATA MEMBERS
     std::map<Enum_parameters, double> parameters;
