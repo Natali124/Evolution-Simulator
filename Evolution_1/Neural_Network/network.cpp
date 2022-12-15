@@ -36,12 +36,14 @@ Network::Network(int n_input, int n_output, int n_hidden_layers, int n_neurons_i
     randomize_edges();
 }
 Network::~Network(){
+    cout << "Starting to delete" << endl;
     // Deletes all layers
     delete input_layer;
     delete output_layer;
     for(auto& layer:hidden_layers){
         delete layer;
       }
+    cout << "Successfully deleted Network" << endl;
 }
 
 //getters:
