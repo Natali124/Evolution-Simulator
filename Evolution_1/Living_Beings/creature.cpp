@@ -89,7 +89,7 @@ std::vector<LivingBeing*> Creature::get_close(){
 
     //This will be used to get all objects in front
     Other::Square *S = new Other::Square(this->x(), this->y(), this->rotation(), this->size, this->size);
-    QList<QGraphicsItem*> list = S->collidingItems();
+    QList<QGraphicsItem*> list = this->get_scene()->collidingItems(S);
     foreach(QGraphicsItem* i , list)
     {
         LivingBeing *L = dynamic_cast<LivingBeing*>(i);
