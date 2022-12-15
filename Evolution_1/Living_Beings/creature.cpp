@@ -1,4 +1,5 @@
 #include <random>
+#include "QtGui/qpainter.h"
 #include "creature.h"
 #include "Neural_Network/network.hpp"
 #include "plant.h"
@@ -7,7 +8,6 @@
 #include <iostream>
 #include <vector>
 #include <map>
-#include <QGraphicsItem>
 #include <QGraphicsItem>
 
 
@@ -20,12 +20,15 @@ Other::Square::Square(qreal X, qreal Y, qreal R, qreal W, qreal H): w(W), h(H){
     setX(X); setY(Y), setRotation(R);
 }
 QRectF Other::Square::boundingRect() const{
-    return QRectF(this->x(), this->y(), this->w, this->h);
+    return QRectF(this->x() - w /2 , this->y() + h/2, this->w, this->h);
 }
 
 //we don't want it to appear
-void Other::Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                          QWidget *widget){
+
+void Other::Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+    painter->setPen(Qt::blue);
+    painter->drawRect(this->boundingRect());
+
 }
 
 void Other::Square::set_shape(){
@@ -56,7 +59,9 @@ Creature::Creature():LivingBeing() {
     counter_no_eat=0;
     counter_no_sleep=0;
 
-    this->brain = new Network(see_ray*3 + 8, 8, 2, see_ray*3+8);
+
+    Network* n = new Network(see_ray*3 + 8, 8, 2, see_ray*3+8);
+    this->brain = n;
 }
 
 Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain): Creature() {
@@ -90,7 +95,7 @@ std::vector<LivingBeing*> Creature::get_close(){
     std::vector<LivingBeing*> v;
 
     //This will be used to get all objects in front
-    Other::Square *S = new Other::Square(this->x(), this->y(), this->rotation(), this->size, this->size);
+    Other::Square *S = new Other::Square(this->x()+this->size * sin(this->rotation()*(3.14/180)), this->y()+this->size * cos(this->rotation()*(3.14/180)), this->rotation(), this->size, this->size);
     this->get_scene()->addItem(S);
     QList<QGraphicsItem*> list = this->get_scene()->collidingItems(S);
     foreach(QGraphicsItem* i , list)
@@ -103,8 +108,6 @@ std::vector<LivingBeing*> Creature::get_close(){
     }
 
     delete S;
-
-
     return v;
 }
 
@@ -297,9 +300,7 @@ void Creature::playstep() {
             set_counter_no_sleep(get_counter_no_sleep()+1);  //neither eat/digest or sleep
             set_counter_no_eat(get_counter_no_eat()+1);
         }
-
         check_if_lack(); //lack of sleep is more damageable bcse more important to sleep than to eat, Harvard study :)
-
     ;}
 };
 
