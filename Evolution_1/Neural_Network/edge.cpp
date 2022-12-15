@@ -31,7 +31,9 @@ void Edge::randomize_weight(){
     }
 
 void Edge::print(){
-  std::cout << start_neuron->get_id() << " ---" << weight << "--- " << end_neuron->get_id() << std::endl;
+  if(end_neuron == nullptr or start_neuron == nullptr){
+       throw std::invalid_argument("Edge is missing start and/or end neuron");}
+  std::cout << start_neuron->get_id() << " --- " << round(weight*100)/100 << " ---" << end_neuron->get_id() << std::endl;
 }
 
 double Edge::get_weight(){

@@ -5,3 +5,7 @@ Week 2:
 Week 3:
 	This week I started work on making the visualiser window responsive, so that it will have a visually pleasing layout in the end. I ran into some issues with git conflicts with vincenzo's work, but I think we figured it out.
 	Next week I plan to finally get rid of placeholder classes and integrate the frontend with the rest of the project. On top of that, I plan to visually improve the window further.
+
+Week 4:
+	This week I some little improvements on the visuals of my window, but I managed to finally merge the frontend git branch into the main one, and resolve all the emerging conflicts. I didn't get rid of the placeholder classes yet, but all the integration is accounted for - all that remains is to delete the files.
+	Next week I plan to add some sliders to control the speed of the animation at the very least. I'll see if I can help in other areas of the team, or I'll see if there is some other interesting functionalities to add on top of already made stuff.
