@@ -1,3 +1,4 @@
+#include "Neural_Network/network.hpp"
 #include "environment.h"
 #include "Frontend/Windows/mainmenu.h"
 #include <QApplication>
@@ -7,8 +8,9 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    MainMenu menu(new Environment());
+//    QApplication a(argc, argv);
+//    MainMenu menu(new Environment());
 
-    return a.exec();
+//    return a.exec();
+      Network* n = new Network();
 }
