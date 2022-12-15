@@ -49,10 +49,14 @@ void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     //debug for seeing sight direction -> eye direction towards -y
     painter->setPen(Qt::blue);
     painter->drawLine(0,0,0,-50);
+
+    painter->setPen(Qt::red);
+    painter->setBrush(Qt::NoBrush);
+    painter->drawRect(boundingRect());
 }
 
 
-LivingBeing::LivingBeing(){
+LivingBeing::LivingBeing(Environment* environment) : environment(environment){
     alive = true;
     type = none;
 }

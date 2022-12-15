@@ -11,10 +11,11 @@
 
 class LivingBeing : public QGraphicsItem {
 public:
-  LivingBeing(); // initializes a living being with alive = true
+  LivingBeing(Environment* environment = nullptr); // initializes a living being with alive = true
   ~LivingBeing();
   bool alive;
   QColor color;
+  Environment* environment;
 
   QRectF boundingRect() const;
   QPainterPath shape() const;
