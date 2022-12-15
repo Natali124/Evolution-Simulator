@@ -83,7 +83,7 @@ public:
     double get_parameter(Enum_parameters p);
     LivingBeing* find_food();
     //in decision we check if there is actually food (bool found_food) before eating
-    void decision(vector<double>input_vector); //takes as input vector given by the nn,
+    void decision(std::vector<double>input_vector); //takes as input vector given by the nn,
                                               //for given parameters (see .cpp) and takes a decision given the biggest one
     void sleep(double delta_t);//called by decision to decide to sleep for a time delta_t
     void sleep_step();//sleeps for one step : += energy and -= sleep_time
@@ -124,7 +124,7 @@ public:
     double get_hp();
     int get_digest_time();
     void set_digest_time(int time);
-    vector<double> get_food_attributes();
+    std::vector<double> get_food_attributes();
     void set_food_attributes(LivingBeing &f);
     void set_size(double s);
     double get_size() const;
@@ -147,10 +147,10 @@ protected:
     bool found_food;//false by default, set to true when found food (plant or creature) and then false again after food is eaten
     double energy;
     double hp;
-    vector<double>input_vector;//outputed by the NN , to take as input in decision
+    std::vector<double>input_vector;//outputed by the NN , to take as input in decision
     double sleep_time=0;
     int digest_time=0;
-    vector<double> food_attributes; // food attributes of what the creature is currently digesting
+    std::vector<double> food_attributes; // food attributes of what the creature is currently digesting
     int counter_no_sleep;  //useful for check_if_lack function called in playstep()
     int counter_no_eat;    //initialized at 0
     //if necessary, counters are increased in playstep or digest-step or sleep_step and set to 0 in sleep_step or eat or digest_step

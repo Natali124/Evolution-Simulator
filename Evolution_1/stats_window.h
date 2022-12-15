@@ -3,16 +3,20 @@
 #include <QMainWindow>
 #include <QAbstractSeries>
 #include <QtCharts>
+#include <QLineSeries>
+#include <QPointF>
+#include <QPainter>
 
 
 
-
-class StatsWindow : public QMainWindow {
+/*class StatsWindow : public QMainWindow {
     public:
         StatsWindow(QWidget *parent = nullptr);
         ~StatsWindow();
 
 };
+*/
+void example();
 
 
 
@@ -23,8 +27,15 @@ class StatsWindow : public QMainWindow {
  *
  * - install qtcharts module with the QT Maintenance Tool
  *
- * - find how to get the input (attributes of living beings that are present in the environment)
+ *
  * - find ideas of what stats to analyze
+ *
+ * x : time (one unit = ? playsteps )
+ * y1 : nb of LB
+ * y2 : life expectancy
+ * different groups : plants VS creatures, groups separated by "barriers" when implemented
+
  * - learn how to display simple graphs
  * - maybe try to display a simple graph on a false input
+ * - find how to get the input (attributes of living beings that are present in the environment)
 */
