@@ -2,7 +2,7 @@
 #include "edge.hpp"
 #pragma once
 
-using namespace std;
+//using namespace std;
 
 class Edge;
 class Layer;
@@ -11,22 +11,22 @@ class Neuron{
 public:
     // Constructors and destructur
     Neuron();
-    Neuron(vector<Edge*> previous_edges, Layer* parent_layer); //constructor for hidden/output layer
+    Neuron(std::vector<Edge*> previous_edges, Layer* parent_layer); //constructor for hidden/output layer
     Neuron(Layer* parent_layer); // constructor for input layer
     ~Neuron();
 
 
     // Getters
     double get_value();
-    vector <Edge*> get_previous_edges(); // returns previous edges 
-    vector <Edge*> get_next_edges();
-    vector<double> get_next_weights();
+    std::vector <Edge*> get_previous_edges(); // returns previous edges
+    std::vector <Edge*> get_next_edges();
+    std::vector<double> get_next_weights();
     int get_id(); 
 
     // Setters
     void set_value(double value);
-    void set_next_edges(vector<Edge*> edges);// Did not implement this functions, was not sure how to do it
-    void set_previous_edges(vector<Edge*> edges);
+    void set_next_edges(std::vector<Edge*> edges);// Did not implement this functions, was not sure how to do it
+    void set_previous_edges(std::vector<Edge*> edges);
    
     //Other functions  
     void forward_propagate(); //updates neuron based on neurons of the previous layer
@@ -38,8 +38,8 @@ public:
 private:
     static int neuron_counter; //Number of existing neiurons. Increases everytime a neuron is intialized, decreases when a neuron is destroyed
     int neuron_id; // ID or name of the neuron
-    vector <Edge*> previous_edges; //incomming edges
-    vector <Edge*> next_edges;  // output edges  
+    std::vector <Edge*> previous_edges; //incomming edges
+    std::vector <Edge*> next_edges;  // output edges
     double value;
     Layer* parent_layer;
 

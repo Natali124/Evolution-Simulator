@@ -12,7 +12,7 @@
 
 
 
-using namespace std;
+//using namespace std;
 
 Other::Square::Square(): Square(0, 0, 0, 1, 1){
 }
@@ -123,7 +123,7 @@ void Creature::attack(){
     const double alpha_attacker = 0.05;
     //double mean = 0;
     double dmg = this->get_size()*this->get_physical_strength()*alpha_victim/len;
-    for(vector<LivingBeing*>::iterator i = Close.begin(); i != Close.end(); i++){
+    for(std::vector<LivingBeing*>::iterator i = Close.begin(); i != Close.end(); i++){
         (*i)->take_dmg(dmg);
         //mean += (*i)->get_size()/len;
     }
@@ -208,7 +208,7 @@ bool Creature::get_eat_creature(){return this->parameters[eat_creature];}
 bool Creature::get_eat_plants(){return this->parameters[eat_plants];}
 int Creature::get_digest_time(){return this->digest_time;}
 void Creature::set_digest_time(int time){this->digest_time = time;}
-vector<double> Creature::get_food_attributes() {return this->food_attributes;}
+std::vector<double> Creature::get_food_attributes() {return this->food_attributes;}
  //void Creature::set_food(LivingBeing &f){this->food = f;}
 void Creature::set_size(double s){this->parameters[size] = s;}
 double Creature::get_size() const{return this->parameters.at(size);}
@@ -265,11 +265,13 @@ this-> energy=energy,this->eye_sight= eye_sight,this-> visibility=visibility,thi
 */
 
 //input_vector : (sleep, eat, attack, move, sleep_time, eat_time, move_rotate, move_distance)
-void Creature::decision(vector<double> input_vector){
-    cout<<input_vector[0]<<" "<<input_vector[1]<<" "<<input_vector[2]<<" "<<input_vector[3]<<" "<<input_vector[4]<<" "<<input_vector[5]<<" "<<input_vector[6]<<" "<<" "<<input_vector[7]<<endl;
+
+void Creature::decision(std::vector<double> input_vector){
+    std::cout<<input_vector[0]<<" "<<input_vector[1]<<" "<<input_vector[2]<<" "<<input_vector[3]<<" "<<input_vector[4]<<" "<<input_vector[5]<<" "<<input_vector[6]<<" "<<" "<<input_vector[7]<<endl;
+
     double action = *max_element(input_vector.begin(), input_vector.begin()+4);
     int j = 0;
-    for (vector<double>::iterator i=input_vector.begin(); i!=input_vector.begin()+4; i++){
+    for (std::vector<double>::iterator i=input_vector.begin(); i!=input_vector.begin()+4; i++){
         if (action==*i) {break;}
         j++;
         }
@@ -304,7 +306,7 @@ void Creature::playstep() {
         }
         else {
 
-            vector<double> Input = See(this->see_ray);
+            std::vector<double> Input = See(this->see_ray);
             Input.push_back(this->get_size());
             Input.push_back(this->get_energy());
             Input.push_back(this->get_Max_energy());
@@ -352,7 +354,7 @@ void Creature::sleep_step() {
 LivingBeing* Creature::find_food(){
     // this function is gonna return the closest dead living being (that you can eat), or no living being
     std::vector<LivingBeing*> close = get_close(); //we look at all the living beings that are close
-    vector<LivingBeing*>::iterator i=close.begin();
+    std::vector<LivingBeing*>::iterator i=close.begin();
     while(i!=close.end()){ //here we'll check if they are alive and we can eat them
         if((*i)->get_alive() == false && ((*i)->type == plant && get_eat_plants()) || ((*i)->type==creature && get_eat_creature())){
             this->set_found_food(true);

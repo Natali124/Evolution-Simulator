@@ -15,23 +15,23 @@ public:
     //getters:
     Layer* get_input_layer();
     Layer* get_output_layer();
-    vector <Layer*> get_hidden_layers();
+    std::vector <Layer*> get_hidden_layers();
 
     //setters:
     void set_input_layer(Layer* input_layer);
     void set_output_layer(Layer* output_layer);
-    void set_hidden_layers(vector<Layer*> hidden_layers);
+    void set_hidden_layers(std::vector<Layer*> hidden_layers);
 
     //functions:
-    vector <double> propagate(vector<double>input_vector);
+    std::vector <double> propagate(std::vector<double>input_vector);
     void randomize_edges();
     void add_layer(int n_nodes);
     void add_layer(int i, int n_nodes, double (*f_activation)(double));
     void add_layer(int i, int n_nodes, act_function f_activation);
     void remove_layer();
     void propagate();
-    void apply_on_all_edges(function<void(Edge&)> edge_function);
-    void apply_on_all_weights(function<double(double)> weight_function);
+    void apply_on_all_edges(std::function<void(Edge&)> edge_function);
+    void apply_on_all_weights(std::function<double(double)> weight_function);
     Network copy();
 
     //Printing
@@ -43,5 +43,5 @@ public:
 private:
     Layer* output_layer;
     Layer* input_layer;
-    vector <Layer*> hidden_layers;
+    std::vector <Layer*> hidden_layers;
 };
