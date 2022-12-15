@@ -5,7 +5,6 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include <QBoxLayout>
-#include <QtGui>
 
 MainMenu::MainMenu(QWidget *parent) : QMainWindow(parent), display(CreatureDisplay(this)){
 
@@ -22,13 +21,11 @@ MainMenu::MainMenu(QWidget *parent) : QMainWindow(parent), display(CreatureDispl
     display._scene.setSceneRect(0, 0, rcontent.width(), rcontent.height());
 
     auto btn = new QPushButton(this);
-    btn->setText("Test");
+    btn->setText("Restart");
     connect(btn, &QPushButton::clicked, this, &MainMenu::randomize_scene);
-
     for (int i=0; i < 10; i++){
         display.addRandomDot();
     }
-
     auto btn2 = new QPushButton(this);
     auto btn3 = new QPushButton(this);
 

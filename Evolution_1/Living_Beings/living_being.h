@@ -1,12 +1,13 @@
 #ifndef LIVING_BEING_H
 #define LIVING_BEING_H
 
-#include "environment.h"
+#include <QGraphicsItem>
+#include <QGraphicsScene>
 #include "Neural_Network/network.hpp"
 #include <iostream>
 #include <vector>
-#include <QGraphicsItem>
 #include <random>
+
 
 
 class LivingBeing : public QGraphicsItem {
@@ -28,25 +29,30 @@ public:
   //common attributes to plants and creatures
   virtual void playstep();
   virtual void is_eaten(LivingBeing &c);
+  virtual LivingBeing* reproduction();
 
   //This is the function we'll be using when we need to make an object take damages (because it's been attacked)
-  virtual void take_dmg(float dmg);
+  virtual void take_dmg(double dmg);
   //common attributes to plants and creatures
-  virtual float get_size();
-  virtual void set_size(float s);
-  virtual float get_hp();
-  virtual void set_hp(float h);
-  bool get_alive();
+  virtual double get_size() const;
+  virtual void set_size(double s);
+  virtual double get_hp() const;
+  virtual void set_hp(double h);
+  bool get_alive() const;
   void set_alive(bool b);
+  void set_scene(QGraphicsScene *s);
+  QGraphicsScene* get_scene() const;
     
-  float normal_distrib(float parameter, float variance){
+  double normal_distrib(double parameter, double variance){ //takes a value and randomly returns a value like the normal distribution does with a given variance.
       std::random_device rd;
       std::mt19937 gen(rd());
-      std::normal_distribution<float> d(parameter, variance);
+      std::normal_distribution<double> d(parameter, variance);
       return d(gen);
   }
-  virtual void reproduction();
   virtual void advance(int);
+
+protected:
+  QGraphicsScene *scene;
 };
 
 
