@@ -24,7 +24,8 @@ QRectF Other::Square::boundingRect() const{
 }
 
 //we don't want it to appear
-void Other::Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+void Other::Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+                          QWidget *widget){
 }
 
 void Other::Square::set_shape(){
@@ -54,10 +55,10 @@ Creature::Creature():LivingBeing() {
     found_food = false;
     counter_no_eat=0;
     counter_no_sleep=0;
-    this->brain = Network(see_ray*3 + 8, 8, 2, see_ray*3+8);
+    this->brain = new Network(see_ray*3 + 8, 8, 2, see_ray*3+8);
 }
 
-Creature::Creature(std::map<Enum_parameters, double> parameters, Network brain): Creature() {
+Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain): Creature() {
     this->parameters = parameters;
     this->base_parameters = parameters; //we save "dna"
     this->brain = brain;
@@ -89,6 +90,7 @@ std::vector<LivingBeing*> Creature::get_close(){
 
     //This will be used to get all objects in front
     Other::Square *S = new Other::Square(this->x(), this->y(), this->rotation(), this->size, this->size);
+    this->get_scene()->addItem(S);
     QList<QGraphicsItem*> list = this->get_scene()->collidingItems(S);
     foreach(QGraphicsItem* i , list)
     {
@@ -98,6 +100,7 @@ std::vector<LivingBeing*> Creature::get_close(){
             v.push_back(L);
         }
     }
+
     delete S;
 
 
@@ -197,7 +200,8 @@ int Creature::get_counter_no_sleep() {return this->counter_no_sleep;}
 int Creature::get_counter_no_eat() {return this->counter_no_eat;}
 void Creature::set_counter_no_eat(int i) {this->counter_no_eat = i;}
 void Creature::set_counter_no_sleep(int j){this->counter_no_sleep = j;}
-
+Network* Creature::get_brain(){return brain;};
+void Creature::set_brain(Network* b){brain = b;};
 
 void Creature::bound_energy_hp() {
     if (get_energy()>get_Max_energy()) {
@@ -270,7 +274,6 @@ void Creature::playstep() {
         bound_energy_hp();
 
         if (sleep_time) {
-
             sleep_step();
         }
         else if(digest_time){
@@ -278,11 +281,17 @@ void Creature::playstep() {
         }
         else {
 
-            vector<double> Input = See(9);
-            /* For now, create bugs due to the structure of brain
-            std::vector<double> input_vector = brain.propagate(Input);
+            vector<double> Input = See(this->see_ray);
+            Input.push_back(this->get_size());
+            Input.push_back(this->get_energy());
+            Input.push_back(this->get_Max_energy());
+            Input.push_back(this->get_hp());
+            Input.push_back(this->get_Max_hp());
+            Input.push_back(this->get_physical_strength());
+            Input.push_back(this->get_eye_sight());
+            Input.push_back(this->get_visibility());
+            std::vector<double> input_vector = brain->propagate(Input);
             decision(input_vector);
-            */
             set_counter_no_sleep(get_counter_no_sleep()+1);  //neither eat/digest or sleep
             set_counter_no_eat(get_counter_no_eat()+1);
         }

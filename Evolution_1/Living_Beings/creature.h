@@ -60,7 +60,7 @@ public:
     // and a default brain
     Creature();
     // non-default constructor that takes a std::map<Enum_parameters, double> and a Network
-    Creature(std::map<Enum_parameters, double>, Network);
+    Creature(std::map<Enum_parameters, double>, Network*);
     ~Creature();
 
     // MEMBER FUNCTIONS
@@ -96,7 +96,6 @@ public:
     //and if so, decreases energy and phys strength
 
     // DATA MEMBERS
-    Network brain;
     std::map<Enum_parameters, double> parameters;
     std::map<Enum_parameters, double> base_parameters; //Those are the parameters we use for reproduction
 
@@ -135,12 +134,15 @@ public:
     int get_counter_no_eat();
     void set_counter_no_eat(int i);
     void set_counter_no_sleep(int j);
+    Network* get_brain();
+    void set_brain(Network* b);
 
     void normal_distrib_random_edge(Edge& edge);
     std::function<double(double)>normal_distrib_random();
 
 
 protected:
+    Network * brain;
     int see_ray = 3;
     bool found_food;//false by default, set to true when found food (plant or creature) and then false again after food is eaten
     double energy;
