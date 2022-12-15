@@ -9,8 +9,14 @@ class Network{ //network with 3 layers
 
 // can you do a default constructor please? Cause I need one for Creature class (Garance)
 public:
-    Network(bool randomize = true);
+    Network(bool randomize = true);  // default constructor that randomizes edges.
     Network(int n_input, int n_output, int n_hidden_layers = 2, int n_neurons_in_hidden = 3);
+    /* n_input: number of inputs, i.e size of input vector, eqv. to size of input_layer
+       n_output: number of outputs, i.e size of output vector, eqv. to size of output_layer
+       n_hidden_layers: number of hidden layers
+       n_neurons_in_hidden: size of hidden layers*/
+
+
     ~Network();
     //getters:
     Layer* get_input_layer();

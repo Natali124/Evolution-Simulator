@@ -36,14 +36,12 @@ Network::Network(int n_input, int n_output, int n_hidden_layers, int n_neurons_i
     randomize_edges();
 }
 Network::~Network(){
-    cout << "Starting to delete" << endl;
     // Deletes all layers
     delete input_layer;
     delete output_layer;
     for(auto& layer:hidden_layers){
         delete layer;
       }
-    cout << "Successfully deleted Network" << endl;
 }
 
 //getters:
@@ -170,12 +168,25 @@ Network Network::copy(){
     //copies the network so that children start with parents' networks
     //WARNING: I am not sure this implementation works correctly, we might need to add copy function to layers/nodes
     //WARNING2: Since we work with pointers, it definitely doesn't work and we need to find some other mechanism
-    Network new_network = Network();
-    new_network.input_layer = this->input_layer;
-    new_network.output_layer = this->output_layer;
-    new_network.hidden_layers = this->hidden_layers;
-    return new_network;
-}
+
+    // Idea: Create network ith identical size and number of neurons to current network. Then copy wieghts and other properties by hand
+
+    //Finding size and number of current layers
+    int inpt_size = input_layer->size();
+    int out_size = output_layer->size();
+    int n_hidden = hidden_layers.size();
+    int hidden_size = hidden_layers[0]->size();
+
+
+    //Creating new network with same number of neurons and layers
+    Network new_network = Network(inpt_size, out_size, n_hidden, hidden_size);
+
+    //Setting the weights
+
+    for(int i = 0; i < inpt_size; i++){
+        for(int j = 0; i < hidden_size; j++){
+
+      }}}
 
 void Network::print_adj_list(){
 
