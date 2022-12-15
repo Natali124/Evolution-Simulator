@@ -152,28 +152,46 @@ void::Creature::is_eaten(Creature &c) {
 
 //not done yet
 
-//void Creature::move_away(){
-//    //std::vector<LivingBeing*> Creature
-//    const double coeff = 0.3; //by how much are they moving away
-//    QList<QGraphicsItem*> list = this->collidingItems();
-//    foreach(QGraphicsItem* i , list)
-//    {
-//        Creature *L = dynamic_cast<Creature*>(i);
-//        if(L != nullptr){
-//            double w1 = this->boundingRect().width();
-//            double w2 = i->boundingRect().width();
-//            double h1 = this->boundingRect().height();
-//            double h2 = i->boundingRect().height();
-//            double r1 = sqrt((w1/2) * (w1/2) + (h1/2) * (h1/2));
-//            double r2 = sqrt((w2/2) * (w2/2) + (h2/2) * (h2/2));
+void Creature::move_away(){
+    //std::vector<LivingBeing*> Creature
+    const double coeff = 0.2; //by how much are they moving away
+    QList<QGraphicsItem*> list = this->collidingItems();
+    double w1, w2, h1, h2, r1, r2, r;
+    foreach(QGraphicsItem* i , list)
+    {
+        double xcoord = 0;
+        double ycoord = 0;
+        double r_aver = 0;
+        int counter = 0;
+        Creature *L = dynamic_cast<Creature*>(i);
+        if(L != nullptr){
+            xcoord += i->x();
+            ycoord += i->y();
+            counter++;
+            w1 = this->boundingRect().width();
+            w2 = i->boundingRect().width();
+            h1 = this->boundingRect().height();
+            h2 = i->boundingRect().height();
+            r1 = sqrt((w1/2) * (w1/2) + (h1/2) * (h1/2));
+            r2 = sqrt((w2/2) * (w2/2) + (h2/2) * (h2/2));
+            r = (r1 + r2)/2;
+            r_aver +=r;
 
-//            this->setX(this->x() + xdiff * coeff);
-//            this->setY(this->y() + ydiff * coeff);
-//            i->setX(i->x() - xdiff * coeff);
-//            i->setY(i->y() - xdiff * coeff);
-//        }
-//    }
-//}
+        }
+        xcoord/=counter;
+        ycoord/=counter;
+        r_aver/=counter;
+        w1 = this->boundingRect().width();
+        h1 = this->boundingRect().height();
+        r1 = sqrt((w1/2) * (w1/2) + (h1/2) * (h1/2));
+        double xdiff = this->x() - xcoord;
+        double ydiff = this->y() - ycoord;
+        double xcoeff = xdiff/sqrt(xdiff * xdiff + ydiff * ydiff);
+        double ycoeff = ydiff/sqrt(xdiff * xdiff + ydiff * ydiff);
+        this->setX(xcoeff * (r_aver + r1)/2 *coeff);
+        this->setY(ycoeff * (r_aver + r1)/2 *coeff);
+    }
+}
 
 
 void Creature::set_energy(double e){this->energy = e;}
