@@ -1,6 +1,6 @@
 #include "Frontend/resources.h"
-#include "creatureDisplay.h"
-#include "Frontend/Windows/mainMenu.h"
+#include "simulationViewWidgets.h"
+#include "Frontend/Widgets/simulationView.h"
 #include "qtimer.h"
 #include <QFile>
 #include <QPushButton>
@@ -9,7 +9,7 @@
 #include <QWidget>
 #include <QGroupBox>
 
-MainMenu::MainMenu(Environment *environment, QWidget *parent) : QMainWindow(parent),
+SimulationView::SimulationView(Environment *environment, QWidget *parent) : QMainWindow(parent),
                                                                 display(environment, this),
                                                                 environment(environment),
                                                                 timer(EnvironmentTimer(environment)){
@@ -24,7 +24,7 @@ MainMenu::MainMenu(Environment *environment, QWidget *parent) : QMainWindow(pare
     setMinimumSize(720,440);
 }
 
-void MainMenu::setBackgroundImage(QString filePath){
+void SimulationView::setBackgroundImage(QString filePath){
     QPixmap bkgnd = QPixmap(filePath);
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
@@ -32,7 +32,7 @@ void MainMenu::setBackgroundImage(QString filePath){
     setPalette(palette);
 }
 
-void MainMenu::init_layout(){
+void SimulationView::init_layout(){
 
     //left half
     auto leftGroupBox = new QGroupBox("Control Panel");
@@ -41,7 +41,7 @@ void MainMenu::init_layout(){
 
     auto btn = new QPushButton(leftGroupBox);
     btn->setText("Test - Spawn 10 creatures");
-    connect(btn, &QPushButton::clicked, this, &MainMenu::randomize_scene);
+    connect(btn, &QPushButton::clicked, this, &SimulationView::randomize_scene);
     layout->addWidget(btn);
 
     auto btnStart = new QPushButton(leftGroupBox);
@@ -80,7 +80,7 @@ void MainMenu::init_layout(){
     central->setLayout(mainLayout);
 }
 
-void MainMenu::resizeEvent(QResizeEvent *evt)
+void SimulationView::resizeEvent(QResizeEvent *evt)
 {
     stretchBackground();
     fitDisplay();
@@ -88,14 +88,14 @@ void MainMenu::resizeEvent(QResizeEvent *evt)
     QMainWindow::resizeEvent(evt); //call base implementation
 }
 
-void MainMenu::stretchBackground(){
+void SimulationView::stretchBackground(){
     QPixmap bkgnd(BACKGROUND_IMAGE_LINK);
     bkgnd = bkgnd.scaled(size(), Qt::IgnoreAspectRatio);
     QPalette p = palette();
     p.setBrush(QPalette::Window, bkgnd);
     setPalette(p);
 }
-void MainMenu::fitDisplay(){
+void SimulationView::fitDisplay(){
     //make display square, center into the right groupbox
     auto parent = display.parentWidget();
     int sz = std::min(parent->width(), parent->height()) - 50;

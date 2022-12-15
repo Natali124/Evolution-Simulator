@@ -1,4 +1,4 @@
-#include "Frontend/Windows/creatureDisplay.h"
+#include "Frontend/Widgets/simulationViewWidgets.h"
 #include "Living_Beings/creature.h"
 #include "Living_Beings/living_being.h"
 #include <Living_Beings/plant.h>
