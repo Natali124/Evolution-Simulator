@@ -38,7 +38,7 @@ void CreatureDisplay::addRandomDot() {
     int y = std::rand() % maxY;
     int i = rand();
     LivingBeing *being;
-    if (i<RAND_MAX/2){
+    if (i<RAND_MAX/1.1){
         being = new Creature;
     }
     else{

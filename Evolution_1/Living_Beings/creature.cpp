@@ -56,8 +56,7 @@ Creature::Creature():LivingBeing() {
     counter_no_eat=0;
     counter_no_sleep=0;
 
-    Network* n = new Network(see_ray*3 + 8, 8, 2, see_ray*3+8);
-    this->brain = *n;
+    this->brain = new Network(see_ray*3 + 8, 8, 2, see_ray*3+8);
 }
 
 Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain): Creature() {
@@ -245,7 +244,8 @@ this-> energy=energy,this->eye_sight= eye_sight,this-> visibility=visibility,thi
 */
 
 //input_vector : (sleep, eat, attack, move, sleep_time, eat_time, move_rotate, move_distance)
-void Creature::decision(vector<double>input_vector){
+void Creature::decision(vector<double> input_vector){
+    cout<<input_vector[0]<<" "<<input_vector[1]<<" "<<input_vector[2]<<" "<<input_vector[3]<<" "<<input_vector[4]<<" "<<input_vector[5]<<" "<<input_vector[6]<<" "<<" "<<input_vector[7]<<endl;
     double action = *max_element(input_vector.begin(), input_vector.begin()+4);
     int j = 0;
     for (vector<double>::iterator i=input_vector.begin(); i!=input_vector.begin()+4; i++){

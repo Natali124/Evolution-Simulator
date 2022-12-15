@@ -15,7 +15,7 @@ class MainMenu : public QMainWindow{
         }
         void randomize_scene(){
             display._scene.clear();
-            for(int i = 0; i < 10; i ++)
+            for(int i = 0; i < 100; i ++)
                 display.addRandomDot();
         };
         CreatureDisplay display;
