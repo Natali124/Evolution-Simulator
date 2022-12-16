@@ -75,18 +75,23 @@ Creature::~Creature() {}
 
 
 LivingBeing* Creature::reproduction() {
-
     std::map<Enum_parameters, double> param_new_creature;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
         double val = normal_distrib(parameters[param], 0.1); // 0.1 is arbitrary value
         param_new_creature.insert(std::pair<Enum_parameters, double>(param, val));
     }
-    Network new_brain = Network();
+    //Need CHANGES: Copy of brain
+    Network new_brain = Network(see_ray*3 + 8, 8, 2, see_ray*3+8);
+
+
     //Network new_brain = network(old brain);
     // modify this function when we can create new networks with inputs
     //new_brain.apply_on_all_edges(normal_distrib_random_edge);
     new_brain.apply_on_all_weights(normal_distrib_random());
     Creature* C= new Creature(param_new_creature, brain);
+    C->setPos(x(), y());
+    C->setRotation(rotation());
+    C->move(0.1, 0.1);
     return C;
 };
 
@@ -267,7 +272,7 @@ this-> energy=energy,this->eye_sight= eye_sight,this-> visibility=visibility,thi
 //input_vector : (sleep, eat, attack, move, sleep_time, eat_time, move_rotate, move_distance)
 
 void Creature::decision(std::vector<double> input_vector){
-    std::cout<<input_vector[0]<<" "<<input_vector[1]<<" "<<input_vector[2]<<" "<<input_vector[3]<<" "<<input_vector[4]<<" "<<input_vector[5]<<" "<<input_vector[6]<<" "<<" "<<input_vector[7]<<endl;
+    //std::cout<<input_vector[0]<<" "<<input_vector[1]<<" "<<input_vector[2]<<" "<<input_vector[3]<<" "<<input_vector[4]<<" "<<input_vector[5]<<" "<<input_vector[6]<<" "<<" "<<input_vector[7]<<std::endl;
 
     double action = *max_element(input_vector.begin(), input_vector.begin()+4);
     int j = 0;
@@ -294,6 +299,7 @@ void Creature::decision(std::vector<double> input_vector){
 
 void Creature::playstep() {
     die();   // actually dies only if it should (alive and hp=0)
+
     if (get_alive()){
         //bouding energy and hp to the max bcse in case of modifications in the previous playstep
         bound_energy_hp();
