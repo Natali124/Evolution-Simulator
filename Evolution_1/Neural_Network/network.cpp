@@ -3,6 +3,9 @@
 #include <vector>
 #include <functional>
 #include <iostream>
+#include <fstream>
+#include <string>
+
 using namespace std;
 
 
@@ -259,5 +262,16 @@ void Network:: print_values(){
 
         cout<<" \n";}
         counter += 1;}
+
+//Helper function for saving network
+
+/*void vector_to_file(vector<vector<double>> inpt, string filename){
+    std::ofstream outfile (filename.c_str());
+
+    for(vector<double> vect: inpt){
+        for(double elm: vect){
+            outfile << elm << " ";
+        }
+        outfile<<"\n";}}*/
 
 
