@@ -43,6 +43,10 @@ public:
     double f_activation(double x);
     void print_edges();
 
+    //Helper function for saving
+    vector<double> layer_to_vector();
+
+
 private:
     vector<Neuron*> neurons;
     Neuron* bias_neuron;

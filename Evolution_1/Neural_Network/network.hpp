@@ -1,6 +1,7 @@
 #include "layer.hpp"
 #include <functional>
 #include <iostream>
+#include <string>
 
 #pragma once
 
@@ -44,6 +45,11 @@ public:
     void print_adj_list(); // Prints Network represented as adjecency list
     void print_weights(); // Prints weights of the Netwotk
     void print_values();
+
+    //Saving
+    vector<vector<double>> network_to_vector();
+    void network_to_file(string filename);
+
 
 
 private:

@@ -124,6 +124,22 @@ void Layer::disconnect(bool previous){
             }
             neuron->set_next_edges(vector<Edge*>(0));}}}
 
+vector<double> Layer::layer_to_vector(){
+/* Each layer will be saved as follows: for each edge, the weght and the activation is stored.
+ The last number of the vector is the activation function*/
+    vector<double> output(0);
+    for(Neuron* neuron: neurons){
+        for(Edge* edge: neuron->get_next_edges()){
+            output.push_back(edge->get_weight());
+
+            if (edge->get_activation()){
+             output.push_back(0);}
+            else{
+                output.push_back(1);}}}
+    output.push_back(f_activation_name);}
+
+
+
 // Added for compilation reasons (Vincenzo)
 Layer::~Layer(){
   delete bias_neuron;
