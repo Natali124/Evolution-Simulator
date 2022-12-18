@@ -201,7 +201,7 @@ void copy_edge(Network* new_nn, Network* old_nn, Edge &e){
     // create new edge
     Edge* new_e = new Edge(new_n1,new_n2);
     new_e->set_weight(e.get_weight());
-    new_e->set_activation(e.get_is_active());
+    new_e->set_activation(e.get_activation());
 
     // add edge to the relevant neurons
     new_n1->add_edge(new_e,false);
