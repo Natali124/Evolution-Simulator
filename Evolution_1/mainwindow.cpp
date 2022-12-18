@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->creature_list->setVisible(false);
 
-    ui->groupBox->setVisible(false);
+    ui->groupBox_pred_or_prey->setVisible(false);
 
 //    connect(ui->creature_list, SIGNAL(itemClicked(QListWidgetItem*)),
 //                this, SLOT(on_creature_list_item_clicked(QListWidgetItem*)));

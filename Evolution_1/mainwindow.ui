@@ -161,7 +161,7 @@
      <string>SIMULATE</string>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox">
+   <widget class="QGroupBox" name="groupBox_pred_or_prey">
     <property name="geometry">
      <rect>
       <x>480</x>
@@ -397,7 +397,7 @@
    <zorder>line_2</zorder>
    <zorder>line_3</zorder>
    <zorder>simBut</zorder>
-   <zorder>groupBox</zorder>
+   <zorder>groupBox_pred_or_prey</zorder>
    <zorder>button_delete_all</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -609,7 +609,7 @@
   <connection>
    <sender>creature_list</sender>
    <signal>currentItemChanged(QListWidgetItem*,QListWidgetItem*)</signal>
-   <receiver>groupBox</receiver>
+   <receiver>groupBox_pred_or_prey</receiver>
    <slot>show()</slot>
    <hints>
     <hint type="sourcelabel">
