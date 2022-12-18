@@ -1,7 +1,6 @@
 #include "Frontend/resources.h"
 #include "simulationViewWidgets.h"
 #include "Frontend/Widgets/simulationView.h"
-#include "qtimer.h"
 #include <QFile>
 #include <QPushButton>
 #include <QMessageBox>
@@ -44,15 +43,9 @@ void SimulationView::init_layout(){
     connect(btn, &QPushButton::clicked, this, &SimulationView::randomize_scene);
     layout->addWidget(btn);
 
-    auto btnStart = new QPushButton(leftGroupBox);
-    btnStart->setText("Start animation");
-    connect(btnStart, &QPushButton::clicked, &timer, &EnvironmentTimer::start);
-    layout->addWidget(btnStart);
+    auto slider = new SimulationSpeedSlider(&timer, leftGroupBox);
+    layout->addWidget(slider);
 
-    auto btnStop = new QPushButton(leftGroupBox);
-    btnStop->setText("Stop animation");
-    connect(btnStop, &QPushButton::clicked, &timer, &EnvironmentTimer::stop);
-    layout->addWidget(btnStop);
 
     layout->addStretch();
     QSizePolicy spLeft(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -70,9 +63,11 @@ void SimulationView::init_layout(){
     rightGroupBox->setSizePolicy(spRight);
     //-------------------------------------------------------------
 
+    //----------bringing them together-----------------------------
     auto mainLayout = new QHBoxLayout;
     mainLayout->addWidget(leftGroupBox);
     mainLayout->addWidget(rightGroupBox);
+    //-------------------------------------------------------------
 
     //this is so that a layout works on a MainWindow
     auto central = new QWidget(this);
@@ -103,25 +98,4 @@ void SimulationView::fitDisplay(){
     int padx = ( parent->width() - sz ) / 2;
     int pady = ( parent->height() - sz ) / 2;
     display.move(padx, pady);
-}
-
-EnvironmentTimer::EnvironmentTimer(Environment *environment) : environment(environment)
-{
-    // create a timer
-    timer = new QTimer(this);
-
-    // setup signal and slot
-    connect(timer, SIGNAL(timeout()), this, SLOT(MyTimerSlot()));
-}
-
-void EnvironmentTimer::MyTimerSlot()
-{
-    environment->advance();
-}
-void EnvironmentTimer::start(){
-    // milisec - 33fps
-    timer->start(1000 / 33);
-}
-void EnvironmentTimer::stop(){
-    timer->stop();
 }

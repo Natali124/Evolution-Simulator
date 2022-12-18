@@ -15,7 +15,7 @@ public:
 
     // CONSTRUCTORS
     // the defaul constructor initialises parameters with some random values
-    Plant();
+    Plant(Environment* environment = nullptr);
     // this constructor take a std::map<Enum_parameters, float> and creates a creature with such parameters.
     Plant(std::map<Enum_parameters, float> parameters);
     ~Plant();

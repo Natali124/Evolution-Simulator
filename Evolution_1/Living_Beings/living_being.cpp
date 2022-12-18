@@ -1,9 +1,9 @@
 #include "environment.h"
 #include "living_being.h"
 #include "qpainter.h"
-
 #include <QGraphicsItem>
 #include <cmath>
+#include <QDebug>
 
 
 void LivingBeing::reproduction(){};
@@ -18,7 +18,7 @@ void LivingBeing::advance(int phase){
         return;
 
     // skip the playstep function for now as it crashes the program
-    setRotation(rotation() + 7);
+    setRotation(rotation() + environment->get_simulation_step());
     return;
     //-----------------------------
 

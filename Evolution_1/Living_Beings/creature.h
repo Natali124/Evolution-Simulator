@@ -58,7 +58,7 @@ public:
     // CONSTRUCTOR
     // default constructor that creates a creature with random parameters
     // and a default brain
-    Creature();
+    Creature(Environment* environment = nullptr);
     // non-default constructor that takes a std::map<Enum_parameters, float> and a Network
     Creature(std::map<Enum_parameters, float>, Network);
     ~Creature();
