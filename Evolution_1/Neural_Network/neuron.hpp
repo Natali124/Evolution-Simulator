@@ -36,7 +36,7 @@ public:
     void add_edge(Edge* edge, bool previous); // adds an edge. boolean previous indicates wether its in next_edges or previous_edges
     void remove_edge(int index, bool previous); // removes edge at given index, previous indicates if it is in previous_edges or next_edges. removes edge from both of the connected neurons
     void remove_edge(Edge* edge, bool previous); //removes given edge found in previous_edges or next_edges as indicated by previous. removes edge from only this neuron
-
+    bool is_connected(Neuron*);
 
 private:
     static int neuron_counter; //Number of existing neiurons. Increases everytime a neuron is intialized, decreases when a neuron is destroyed

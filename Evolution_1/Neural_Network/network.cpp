@@ -3,6 +3,9 @@
 #include <vector>
 #include <functional>
 #include <iostream>
+#include <fstream>
+#include <string>
+
 using namespace std;
 
 Network::Network(){
@@ -302,5 +305,41 @@ void Network:: print_values(){
       }
 
 }
+
+//Helper function for saving network
+
+template <typename T> void vector_to_file(vector<vector<T>> inpt, string filename){
+    /*Form of filename should be filename.txt (or pdf or however you want to save your file*/
+
+        std::ofstream outfile (filename.c_str());
+
+        for(vector<double> vect: inpt){
+            for(double elm: vect){
+                outfile << elm << " ";
+            }
+            outfile<<"\n";}}
+
+void vector_to_file(vector<vector<double>> inpt, string filename){
+/*Form of filename should be filename.txt (or pdf or however you want to save your file*/
+    vector_to_file(inpt, filename);}
+
+
+//Saving
+
+vector<vector<double>> Network:: network_to_vector(){
+    vector<vector<double>> output(0);
+    output.push_back(input_layer->layer_to_vector());
+    for(Layer* hidden: hidden_layers){
+        output.push_back(hidden->layer_to_vector());}
+     return output;}
+
+void Network::network_to_file(string filename){
+     vector<vector<double>> network_vect = this->network_to_vector();
+     vector_to_file(network_vect, filename);}
+
+
+
+
+
 
 
