@@ -36,14 +36,12 @@ Network::Network(int n_input, int n_output, int n_hidden_layers, int n_neurons_i
     randomize_edges();
 }
 Network::~Network(){
-    cout << "Starting to delete" << endl;
     // Deletes all layers
     delete input_layer;
     delete output_layer;
     for(auto& layer:hidden_layers){
         delete layer;
       }
-    cout << "Successfully deleted Network" << endl;
 }
 
 //getters:
@@ -57,6 +55,9 @@ vector <Layer*> Network::get_hidden_layers(){
     return hidden_layers;
 }
 
+int Network::size(){
+  return hidden_layers.size() +2;
+}
 //setters:
 void Network::set_input_layer(Layer* input_layer){
     this->input_layer = input_layer;
@@ -108,20 +109,15 @@ void Network::apply_on_all_edges(function<void(Edge&)> edge_function){
     // applies a function on all edges of network
     // function changes Edge object directly
 
-    // apply to all edges going to any hidden_layer
-    for(auto & layer : hidden_layers){
-        for(auto & neuron : layer->get_neurons()){
+    for(int j = +1; j < this->size(); j++){ // starts at 1, because input layer has no previous edges
+        Layer* layer = (*this)[j];
+        for(int i = 0; i< layer->size(); i++){
+            Neuron* neuron = (*layer)[i];
             for(auto & edge : neuron->get_previous_edges()){
               edge_function(*edge);
             }
-        }
-    }
-    // apply to all edges going to ouput_layer
-    for(auto & neuron : output_layer->get_neurons()){
-        for(auto & edge : neuron->get_previous_edges()){
-            edge_function(*edge);
           }
-      }
+    }
 }
 
 void Network::apply_on_all_weights(function<double(double)> weight_function){
@@ -175,6 +171,19 @@ Network Network::copy(){
     new_network.output_layer = this->output_layer;
     new_network.hidden_layers = this->hidden_layers;
     return new_network;
+Layer* Network::operator[](int i){
+    if (i<0 or i> hidden_layers.size()+1){
+        throw std::out_of_range ("Index out of range");
+      }
+     else if(i==0){
+        return input_layer;
+      } else if (1<= i and i<=hidden_layers.size()){
+        return hidden_layers[i-1];
+      } else {
+      return output_layer;
+      }
+}
+
 }
 
 void Network::print_adj_list(){
@@ -225,6 +234,10 @@ void Network:: print_weights(){
 
         crnt_layer->print_edges();
         counter += 1;}}
+        counter += 1;}
+
+    cout << endl;
+}
 
 void Network:: print_values(){
 
@@ -246,7 +259,10 @@ void Network:: print_values(){
          cout << neuron->get_value()<< " " ;
         }
 
-        cout<<" \n";}
-        counter += 1;}
+        cout<<" \n";
+        counter += 1;
+      }
+
+}
 
 

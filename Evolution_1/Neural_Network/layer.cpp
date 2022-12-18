@@ -1,6 +1,8 @@
 #include "edge.hpp"
 #include "neuron.hpp"
 #include "layer.hpp"
+#include "network.hpp"
+#include "utils.cpp"
 
 #include <cmath>
 #include <vector>
@@ -36,9 +38,11 @@ Layer::Layer(int n_neurons, act_function act_func):Layer(n_neurons){
 
 //Overloading the [] operator, returns the i-th neuron
 Neuron* Layer :: operator[](int i){
-    if(i< 0 or i >= neurons.size()){
+    if(i< 0 or i > neurons.size()){
         throw std::out_of_range ("Index out of range");
-        }
+      } else if (i == neurons.size()){
+         return bias_neuron;
+      }
     return neurons[i];}
 
 
@@ -70,6 +74,24 @@ Neuron* Layer::get_bias_neuron(){
   return bias_neuron;
 }
 
+act_function Layer::get_activation_function(){
+  return f_activation_name;
+}
+
+int Layer::get_index(Network* n){
+    if(n->get_input_layer() == this){
+        return 0;
+      } else {
+        int i = find_index<Layer*>(n->get_hidden_layers(),this);
+        if(i==-1){
+            return n->get_hidden_layers().size() + 1;
+
+          } else {
+            return i+1;
+          }
+      }
+}
+
 void Layer :: remove_neuron(int index){
     Neuron* neur = neurons.at(index);
     neurons.erase(neurons.begin() + index);
@@ -78,7 +100,7 @@ void Layer :: remove_neuron(int index){
 void Layer :: add_neuron(Neuron* node){
     neurons.push_back(node);}
 int Layer::size(){
-    return neurons.size();
+    return neurons.size()+1;
 }
 void Layer :: set_activation_function(act_function func){
   f_activation_name = func;
@@ -124,7 +146,6 @@ void Layer::disconnect(bool previous){
             }
             neuron->set_next_edges(vector<Edge*>(0));}}}
 
-// Added for compilation reasons (Vincenzo)
 Layer::~Layer(){
   delete bias_neuron;
   for(auto &neuron : neurons){

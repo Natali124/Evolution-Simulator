@@ -6,6 +6,7 @@ using namespace std;
 
 class Edge;
 class Layer;
+class Network;
 
 class Neuron{
 public:
@@ -22,6 +23,8 @@ public:
     vector <Edge*> get_next_edges();
     vector<double> get_next_weights();
     int get_id(); 
+    int get_index(); // returns index of neuron in parent_layer
+    void get_full_index(Network* n, int& i, int& j); // sets (i,j) where i is index of parent layer in network, j is index of neuron in parent layer
 
     // Setters
     void set_value(double value);

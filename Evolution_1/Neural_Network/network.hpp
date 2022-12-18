@@ -9,13 +9,15 @@ class Network{ //network with 3 layers
 
 // can you do a default constructor please? Cause I need one for Creature class (Garance)
 public:
-    Network(bool randomize = true);
+    Network();
+    Network(bool randomize);
     Network(int n_input, int n_output, int n_hidden_layers = 2, int n_neurons_in_hidden = 3);
     ~Network();
     //getters:
     Layer* get_input_layer();
     Layer* get_output_layer();
     vector <Layer*> get_hidden_layers();
+    int size();
 
     //setters:
     void set_input_layer(Layer* input_layer);
@@ -32,7 +34,8 @@ public:
     void propagate();
     void apply_on_all_edges(function<void(Edge&)> edge_function);
     void apply_on_all_weights(function<double(double)> weight_function);
-    Network copy();
+    Network* copy();
+    Layer* operator[](int i);
 
     //Printing
     void print_adj_list(); // Prints Network represented as adjecency list
