@@ -5,9 +5,15 @@
 #include <iostream>
 using namespace std;
 
+Network::Network(){
+    // default constructor for Network. Assigns everything as nullptr
+    input_layer = nullptr;
+    output_layer = nullptr;
+    hidden_layers = vector<Layer*>(0);
+}
 
 Network::Network(bool randomize){
-    // default constructor with default input, output, and one hidden layer. Randomizes edges.
+    // simple constructor with input, output, and one hidden layer. Randomizes edges if randomize else all edges are 0.
     input_layer = new Layer(3);
     Layer* hid_layer = new Layer(3);
     output_layer = new Layer(3);
@@ -162,15 +168,6 @@ void Network::add_layer(int i, int n_nodes, act_function f_activation){
 
 }
 
-Network Network::copy(){
-    //copies the network so that children start with parents' networks
-    //WARNING: I am not sure this implementation works correctly, we might need to add copy function to layers/nodes
-    //WARNING2: Since we work with pointers, it definitely doesn't work and we need to find some other mechanism
-    Network new_network = Network();
-    new_network.input_layer = this->input_layer;
-    new_network.output_layer = this->output_layer;
-    new_network.hidden_layers = this->hidden_layers;
-    return new_network;
 Layer* Network::operator[](int i){
     if (i<0 or i> hidden_layers.size()+1){
         throw std::out_of_range ("Index out of range");
@@ -184,6 +181,48 @@ Layer* Network::operator[](int i){
       }
 }
 
+void copy_edge(Network* new_nn, Network* old_nn, Edge &e){
+    // copies Edge e to new neural network of same size as the one before
+    Neuron* n1 = e.get_start_neuron();
+    Neuron* n2 = e.get_end_neuron();
+
+    // get indeces of neurons in old network
+    int i1; int j1; int i2; int j2;
+    n1->get_full_index(old_nn,i1,j1);
+    n2->get_full_index(old_nn,i2,j2);
+
+    // find corresponding neurons in new network
+    Neuron* new_n1 =(*((*new_nn)[i1]))[j1];
+    Neuron* new_n2 =(*((*new_nn)[i2]))[j2];
+
+    // create new edge
+    Edge* new_e = new Edge(new_n1,new_n2);
+    new_e->set_weight(e.get_weight());
+    new_e->set_activation(e.get_is_active());
+
+    // add edge to the relevant neurons
+    new_n1->add_edge(new_e,false);
+    new_n2->add_edge(new_e, true);
+
+
+}
+
+
+Network* Network::copy(){
+    // copies the network, creates a new Network object and copies all
+    // connections and weights
+    Network* n = new Network();
+
+    // Adding Layers with appropriate number of neurons
+    n->set_input_layer(new Layer(input_layer->get_neurons().size(),input_layer->get_activation_function()));
+    n->set_output_layer(new Layer(output_layer->get_neurons().size(),output_layer->get_activation_function()));
+    for (Layer* l : hidden_layers) {
+        n->hidden_layers.push_back(new Layer(l->get_neurons().size(),l->get_activation_function()));
+      }
+
+    this->apply_on_all_edges([n, this](Edge& e){copy_edge(n,this,e);});
+
+    return n;
 }
 
 void Network::print_adj_list(){
@@ -233,7 +272,6 @@ void Network:: print_weights(){
         cout << "Hidden layer "<< counter<< "\n";
 
         crnt_layer->print_edges();
-        counter += 1;}}
         counter += 1;}
 
     cout << endl;
