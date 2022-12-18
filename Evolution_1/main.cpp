@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     QObject::connect(&timer, SIGNAL(timeout()), &menu.display._scene, SLOT(advance()));
     timer.start(1000 / 33);
 
-    example();
+    //example();
     return a.exec();
 
 
