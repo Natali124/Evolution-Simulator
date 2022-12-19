@@ -17,4 +17,8 @@ Week 4:\
 Taken care of merging the branches to the main.\
 Redefined the play_step() function to have a working simulation.\
 Implemented real-time drawing of barriers.\
-Next week I will improve the realtime drawing of the barrier in order to have more fluid graphics.}
+Next week I will improve the realtime drawing of the barrier in order to have more fluid graphics.\
+Week 4:\
+Make beings movable.\
+Improve the drawing of the barrier.\
+Next week I'll take care of events like drawing barrier on creatures.\}
