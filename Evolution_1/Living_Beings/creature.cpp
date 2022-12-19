@@ -119,7 +119,9 @@ std::vector<LivingBeing*> Creature::get_close(){
 }
 
 void Creature::take_dmg(double dmg){
-    this->set_hp(this->get_hp()-dmg);
+    if (this->get_hp()>0){
+        this->set_hp(this->get_hp()-dmg);
+    }
 }
 
 void Creature::attack(){
@@ -139,7 +141,7 @@ void Creature::attack(){
     // we could make the attack depend on the avg size of the creatures
 }
 
-void Creature::die() {if ((get_alive()) && (this->get_hp() == 0) ) {
+void Creature::die() {if ((get_alive()) && (this->get_hp() < 0) ) {
         set_alive(false);}
                      };
 
