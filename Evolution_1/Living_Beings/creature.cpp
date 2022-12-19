@@ -119,7 +119,9 @@ std::vector<LivingBeing*> Creature::get_close(){
 }
 
 void Creature::take_dmg(double dmg){
-    this->set_hp(this->get_hp()-dmg);
+    if (this->get_hp()>0){
+        this->set_hp(this->get_hp()-dmg);
+    }
 }
 
 void Creature::attack(){
@@ -139,9 +141,7 @@ void Creature::attack(){
     // we could make the attack depend on the avg size of the creatures
 }
 
-void Creature::die() {if ((get_alive()) && (this->get_hp() < 0) ) {
-        set_alive(false);}
-                     };
+
 
 void::Creature::is_eaten(Creature &c) {
 
@@ -286,9 +286,11 @@ void Creature::decision(std::vector<double> input_vector){
         sleep(*(input_vector.begin()+4)); //sleep for sleep_time
     }
     if(j==1){
-        LivingBeing* food = find_food();
+        /*
+        LivingBeing* food = find_food(); //had some bugs
         if (get_found_food()) {
             eat((*food), *(input_vector.begin()+5));}
+        */
     }
     if(j==2){
         double rotation = *(input_vector.begin()+6);
@@ -302,11 +304,17 @@ void Creature::decision(std::vector<double> input_vector){
 void Creature::playstep() {
 
 
+    if (repro_count>500){
+        repro_count=0;
+        this->get_scene()->addItem(this->reproduction());
+    }
 
-
-    die();   // actually dies only if it should (alive and hp=0)
-
-    if (get_alive()){
+    if ((get_alive()) && (this->get_hp() < 0) ) {
+            this->set_alive(false);
+            this->scene->removeItem(this);
+            delete this;
+        }
+    else{
         //bouding energy and hp to the max bcse in case of modifications in the previous playstep
         bound_energy_hp();
 
@@ -329,10 +337,28 @@ void Creature::playstep() {
             Input.push_back(this->get_visibility());
             std::vector<double> input_vector = brain->propagate(Input);
             decision(input_vector);
-            set_counter_no_sleep(get_counter_no_sleep()+1);  //neither eat/digest or sleep
-            set_counter_no_eat(get_counter_no_eat()+1);
         }
-        check_if_lack(); //lack of sleep is more damageable bcse more important to sleep than to eat, Harvard study :)
+        QList<QGraphicsItem*> list = this->get_scene()->collidingItems(this);
+        foreach(QGraphicsItem* i, list){
+            if (this->get_eat_creature()){
+                Creature* j = dynamic_cast<Creature*>(i);
+                if (j!=nullptr){
+                    if (this->get_physical_strength()>j->get_size()){
+                         j->set_hp(-1000);
+                         this->repro_count+=600;
+                    }
+                }
+            }
+            if (this->get_eat_plants()){
+                Plant* j = dynamic_cast<Plant*>(i);
+                if (j!=nullptr){
+                    if (this->get_physical_strength()>j->get_size()){
+                         j->set_hp(-1000);
+                         this->repro_count+=600;
+                    }
+                }
+            }
+        }
     ;}
 };
 

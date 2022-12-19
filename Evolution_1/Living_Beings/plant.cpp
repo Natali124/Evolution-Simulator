@@ -88,12 +88,13 @@ void Plant::is_eaten(Creature &c) {
 
 void Plant::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     painter->setBrush(Qt::white);
-    painter->drawEllipse(QRectF(-25,-25,25,25));
-    painter->drawEllipse(QRectF(0,0,25,25));
-    painter->drawEllipse(QRectF(-25,0,25,25));
-    painter->drawEllipse(QRectF(0,-25,25,25));
+    double s = this->get_size()/200;
+    painter->drawEllipse(QRectF(-25*s,-25*s,25*s,25*s));
+    painter->drawEllipse(QRectF(0*s,0*s,25*s,25*s));
+    painter->drawEllipse(QRectF(-25*s,0*s,25*s,25*s));
+    painter->drawEllipse(QRectF(0*s,-25*s,25*s,25*s));
     painter->setBrush(Qt::yellow);
-    painter->drawEllipse(QRectF(-15,-15,30,30));
+    painter->drawEllipse(QRectF(-15*s,-15*s,30*s,30*s));
 }
 
 
@@ -220,20 +221,40 @@ void Plant::slimming_carbs(Creature &c) {
 
 void Plant::playstep() {    // random values for increasing hp, random weight of growing coef for increasing size
     //changing size and upper bound it by max_size , same for hp
+    if (repro_count>500){
+        repro_count = 0;
+        //Need repro function here
+        Plant* Child = new Plant();
+        Child->set_scene(this->get_scene());
+        Child->setX(this->x()+(0.5-(double)rand()/(double)RAND_MAX));
+        Child->setY(this->y()+(0.5-(double)rand()/(double)RAND_MAX));
+        this->get_scene()->addItem(Child);
+        //End need Repro
+    }
+    else{
+        repro_count+=10;
+    }
 
-    double growing_coef = 0.25 * get_Max_size()/get_size();
+    if (this->get_hp()<0){
+        this->scene->removeItem(this);
+        delete this;
+    }
+    else{
+        double growing_coef = 0.25 * get_Max_size()/get_size();
 
-    if (get_size()< get_Max_size()) {
-        double new_size = get_size()+ growing_coef;
-        set_size(new_size);}
-    if (get_size()>get_Max_size()) {
-        set_size(get_Max_size());
+        if (get_size()< get_Max_size()) {
+            double new_size = get_size()+ growing_coef;
+            set_size(new_size);}
+        if (get_size()>get_Max_size()) {
+            set_size(get_Max_size());
 
-    if (get_hp()< get_Max_hp()){
-        set_hp(1.1*get_hp()); }
-    if (get_hp()>get_Max_hp()) {
-        set_hp(get_Max_hp()); }
-}
+        if (get_hp()< get_Max_hp()){
+            set_hp(1.1*get_hp()); }
+        if (get_hp()>get_Max_hp()) {
+            set_hp(get_Max_hp()); }
+    }
+    }
+
 };
 
 
