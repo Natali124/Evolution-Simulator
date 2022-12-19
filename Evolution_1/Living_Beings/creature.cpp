@@ -139,7 +139,7 @@ void Creature::attack(){
     // we could make the attack depend on the avg size of the creatures
 }
 
-void Creature::die() {if ((get_alive()) && (this->get_hp() == 0) ) {
+void Creature::die() {if ((get_alive()) && (this->get_hp() < 0) ) {
         set_alive(false);}
                      };
 
@@ -300,6 +300,10 @@ void Creature::decision(std::vector<double> input_vector){
 
 
 void Creature::playstep() {
+
+
+
+
     die();   // actually dies only if it should (alive and hp=0)
 
     if (get_alive()){

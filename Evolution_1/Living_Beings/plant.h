@@ -74,6 +74,7 @@ public:
     void slimming_carbs(Creature &c);// ++ energy, - strength and - visibility
 
 protected:
+    int repro_count = 0;
     double hp;
 
 };

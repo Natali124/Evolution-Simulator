@@ -142,6 +142,7 @@ public:
 
 
 protected:
+    int repro_count = 0;
     Network * brain;
     int see_ray = 3;
     bool found_food;//false by default, set to true when found food (plant or creature) and then false again after food is eaten
