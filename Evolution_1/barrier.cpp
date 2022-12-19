@@ -43,22 +43,6 @@ MouseBarrier::~MouseBarrier()
 
 }
 
-void MouseBarrier::mousePressEvent(QGraphicsSceneMouseEvent *event){
-    topPos = event->pos();
-}
-
-void MouseBarrier::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
-}
-
-void MouseBarrier::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
-    bottomPos = event->pos();
-    Barrier* barrier = new Barrier;
-    barrier->block.setTopLeft(topPos);
-    barrier->block.setBottomRight(bottomPos);
-    this->addItem(barrier);
-    //this->removeItem(prevBar);
-    //if (prevBar != NULL) {delete prevBar;};
-}
 
 
 

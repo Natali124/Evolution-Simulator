@@ -1,6 +1,7 @@
 #include "mainmenu.h"
 #include "environment.h"
 #include "mainmenu.h"
+#include "paintscene.h"
 #include <QFile>
 #include <QPushButton>
 #include <QMessageBox>
@@ -31,6 +32,7 @@ MainMenu::MainMenu(QWidget *parent) : QMainWindow(parent), display(CreatureDispl
     }
 
     auto btn2 = new QPushButton(this);
+    btn2->setText("Enable/disable barrier");
     auto btn3 = new QPushButton(this);
 
     auto leftLayout = new QVBoxLayout;

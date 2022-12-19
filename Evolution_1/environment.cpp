@@ -39,6 +39,7 @@ void CreatureDisplay::addRandomDot() {
     int y = std::rand() % maxY;
 
     LivingBeing *being = new LivingBeing;
+    being->setFlag(LivingBeing::ItemIsMovable, true);
     being->setPos(x, y);
     _scene.addItem(being);
 }

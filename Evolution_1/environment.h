@@ -3,6 +3,7 @@
 
 #include "paintscene.h"
 #include <iostream>
+#include <QGraphicsItem>
 #include <QGraphicsView>
 #include "Living_Beings/living_being.h"
 #include "barrier.h"

@@ -12,4 +12,6 @@ Next week I\'92ll dedicate my time to implement better and more realistic graphi
 Week 3:\
 Organised the visualisation of the creature in order to proceed with the simulation.\
 Coded the class Barrier.\
-Next week I will take care of real time drawing in Qt.}
+Next week I will take care of real time drawing in Qt.\
+\
+}

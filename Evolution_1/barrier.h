@@ -34,14 +34,15 @@ public:
     explicit MouseBarrier(QObject *parent = 0);
     ~MouseBarrier();
 
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    //void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    //void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    //void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
     QPointF topPos;
     QPointF bottomPos;
     Barrier* barrier;
     //Barrier* prevBar;
+
 };
 
 #endif // BARRIER_H

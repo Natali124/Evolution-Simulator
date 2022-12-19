@@ -18,9 +18,12 @@ class PaintScene : public QGraphicsScene
        Barrier* previousRect;
 
    private:
-       //void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
-       void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
-       //void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+
+       void mouseMoveEvent(QGraphicsSceneMouseEvent *event){
+           QRectF block = QRectF(event->scenePos().x(), event->scenePos().y(), 10, 10);
+           Barrier* barrier = new Barrier(block);
+           this->addItem(barrier);
+       }
 
 };
 

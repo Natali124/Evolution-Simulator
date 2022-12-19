@@ -1,6 +1,7 @@
 #ifndef MAINMENU_H
 #define MAINMENU_H
 
+#include "paintscene.h"
 #include "environment.h"
 #include <QWidget>
 #include <QMainWindow>
@@ -19,6 +20,7 @@ class MainMenu : public QMainWindow{
             for(int i = 0; i < 10; i ++)
                 display.addRandomDot();
         }
+
         CreatureDisplay display;
 
     private:

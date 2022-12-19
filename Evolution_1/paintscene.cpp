@@ -12,11 +12,6 @@ PaintScene::~PaintScene()
 
 }
 
-void PaintScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
-    QRectF block = QRectF(event->scenePos().x(), event->scenePos().y(), 10, 10);
-    Barrier* barrier = new Barrier(block);
-    this->addItem(barrier);
-}
 
 /*
 void PaintScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
