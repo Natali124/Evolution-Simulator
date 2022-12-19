@@ -226,13 +226,13 @@ void Plant::playstep() {    // random values for increasing hp, random weight of
         //Need repro function here
         Plant* Child = new Plant();
         Child->set_scene(this->get_scene());
-        Child->setX(this->x()+(0.5-(double)rand()/(double)RAND_MAX));
-        Child->setY(this->y()+(0.5-(double)rand()/(double)RAND_MAX));
+        Child->setX(this->x()+150*(0.5-(double)rand()/(double)RAND_MAX));
+        Child->setY(this->y()+150*(0.5-(double)rand()/(double)RAND_MAX));
         this->get_scene()->addItem(Child);
         //End need Repro
     }
     else{
-        repro_count+=10;
+        repro_count+=2;
     }
 
     if (this->get_hp()<0){

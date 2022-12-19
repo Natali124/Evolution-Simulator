@@ -338,7 +338,7 @@ void Creature::playstep() {
             std::vector<double> input_vector = brain->propagate(Input);
             decision(input_vector);
         }
-        QList<QGraphicsItem*> list = this->get_scene()->collidingItems(this);
+        QList<QGraphicsItem*> list = ((this->get_scene())->collidingItems(this));
         foreach(QGraphicsItem* i, list){
             if (this->get_eat_creature()){
                 Creature* j = dynamic_cast<Creature*>(i);
