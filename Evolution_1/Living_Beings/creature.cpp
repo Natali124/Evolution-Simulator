@@ -80,8 +80,9 @@ LivingBeing* Creature::reproduction() {
         double val = normal_distrib(parameters[param], 0.1); // 0.1 is arbitrary value
         param_new_creature.insert(std::pair<Enum_parameters, double>(param, val));
     }
-    //Need CHANGES: Copy of brain
-    Network new_brain = Network(see_ray*3 + 8, 8, 2, see_ray*3+8);
+    //Copy of current brain
+    Network new_brain = brain->copy();
+
 
 
     //Network new_brain = network(old brain);
@@ -89,9 +90,10 @@ LivingBeing* Creature::reproduction() {
     //new_brain.apply_on_all_edges(normal_distrib_random_edge);
     new_brain.apply_on_all_weights(normal_distrib_random());
     Creature* C= new Creature(param_new_creature, brain);
+    C->set_scene(this->get_scene());
     C->setPos(x(), y());
     C->setRotation(rotation());
-    C->move(0.1, 0.1);
+    C->move(1, 1); //So that they aren't both exactly at the same place, and wont stay at the same position and do the same things
     return C;
 };
 

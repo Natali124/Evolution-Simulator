@@ -6,7 +6,7 @@
 #include <vector>
 #include <map>
 #include <functional>
-//using namespace std;
+using namespace std;
 
 class Neuron;
 class Edge;
