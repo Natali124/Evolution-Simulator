@@ -122,6 +122,7 @@ void Creature::take_dmg(double dmg){
     if (this->get_hp()>0){
         this->set_hp(this->get_hp()-dmg);
     }
+    die();
 }
 
 void Creature::attack(){
