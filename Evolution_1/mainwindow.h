@@ -1,7 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include <mainmenu.h>
 #include <QMainWindow>
+#include <QtCharts>
+#include <QChartView>
+#include <QLineSeries>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

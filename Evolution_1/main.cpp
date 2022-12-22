@@ -1,6 +1,7 @@
 
 #include "environment.h"
 #include "mainmenu.h"
+#include "mainwindow.h"
 #include "Frontend/Windows/mainMenu.h"
 #include "Neural_Network/network.hpp"
 #include <QApplication>
@@ -9,7 +10,7 @@
 #include <QTimer>
 #include <QTime>
 #include <math.h>
-#include "stats_window.h"
+
 
 //using namespace std;
 double foo(double x){
@@ -28,11 +29,15 @@ int main(int argc, char *argv[])
     MainMenu menu;
     menu.show();
 
+    //for stats :
+    //MainWindow window;
+    //window.resize(400, 300);
+    //window.show();*/
+
     QTimer timer;
     QObject::connect(&timer, SIGNAL(timeout()), &menu.display._scene, SLOT(advance()));
     timer.start(1000 / 33);
 
-    //example();
     return a.exec();
 
 

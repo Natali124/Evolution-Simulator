@@ -73,8 +73,7 @@ else()
 endif()
 
 
-target_link_libraries(Evolution_1 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
-target_link_libraries(Evolution_1 PRIVATE Qt${QT_VERSION_MAJOR}::Charts)
+target_link_libraries(Evolution_1 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Charts)
 
 
 set_target_properties(Evolution_1 PROPERTIES
