@@ -6,13 +6,13 @@
 #include <fstream>
 #include <string>
 
-using namespace std;
+//using namespace std;
 
 Network::Network(){
     // default constructor for Network. Assigns everything as nullptr
     input_layer = nullptr;
     output_layer = nullptr;
-    hidden_layers = vector<Layer*>(0);
+    hidden_layers = std::vector<Layer*>(0);
 }
 
 Network::Network(bool randomize){
@@ -20,7 +20,7 @@ Network::Network(bool randomize){
     input_layer = new Layer(3);
     Layer* hid_layer = new Layer(3);
     output_layer = new Layer(3);
-    vector<Layer*> v;
+    std::vector<Layer*> v;
     v.push_back(hid_layer);
     hidden_layers = v;
     hid_layer->fully_connect(input_layer);
@@ -30,7 +30,7 @@ Network::Network(bool randomize){
 Network::Network(int n_input, int n_output, int n_hidden_layers, int n_neurons_in_hidden){
     // Constructor with number of input, output, hidden layers, neurons in hidden_layers
     input_layer = new Layer(n_input);
-    vector<Layer*> v = vector<Layer*>(0);
+    std::vector<Layer*> v = std::vector<Layer*>(0);
     for(int i = 0; i<n_hidden_layers; i++){
         v.push_back(new Layer(n_neurons_in_hidden));
         if (i==0){
@@ -60,7 +60,7 @@ Layer* Network::get_input_layer(){
 Layer* Network::get_output_layer(){
     return output_layer;
 }
-vector <Layer*> Network::get_hidden_layers(){
+std::vector <Layer*> Network::get_hidden_layers(){
     return hidden_layers;
 }
 
@@ -74,12 +74,12 @@ void Network::set_input_layer(Layer* input_layer){
 void Network::set_output_layer(Layer* output_layer){
     this->output_layer = output_layer;
 }
-void Network::set_hidden_layers(vector<Layer*> hidden_layers){
+void Network::set_hidden_layers(std::vector<Layer*> hidden_layers){
     this->hidden_layers = hidden_layers;
 }
 
 
-vector <double> Network::propagate(vector<double>v){
+std::vector <double> Network::propagate(std::vector<double>v){
     // returns output vector for given input vector
     // going through the neural network
 
@@ -114,7 +114,7 @@ void Network::randomize_edges(){
       }
 }
 
-void Network::apply_on_all_edges(function<void(Edge&)> edge_function){
+void Network::apply_on_all_edges(std::function<void(Edge&)> edge_function){
     // applies a function on all edges of network
     // function changes Edge object directly
 
@@ -129,7 +129,7 @@ void Network::apply_on_all_edges(function<void(Edge&)> edge_function){
     }
 }
 
-void Network::apply_on_all_weights(function<double(double)> weight_function){
+void Network::apply_on_all_weights(std::function<double(double)> weight_function){
   // applies a function on all weights of the network
   apply_on_all_edges([weight_function](Edge& e) { e.set_weight(weight_function(e.get_weight())); });
 }
@@ -230,16 +230,16 @@ Network* Network::copy(){
 
 void Network::print_adj_list(){
 
-    vector<Neuron*> neurons =  input_layer->get_neurons();
+    std::vector<Neuron*> neurons =  input_layer->get_neurons();
     
-    cout << "Input layer \n";
+    std::cout << "Input layer \n";
 
     for(auto& neuron: neurons){
-        cout << neuron->get_id() << ": ";
-        vector<Edge*> crnt_edges = neuron->get_next_edges();    
+        std::cout << neuron->get_id() << ": ";
+        std::vector<Edge*> crnt_edges = neuron->get_next_edges();
         for(Edge* edge: crnt_edges){
-            cout<<edge->get_end_neuron_id() << " ";}
-        cout<<"\n";
+            std::cout<<edge->get_end_neuron_id() << " ";}
+        std::cout<<"\n";
     }
 
     
@@ -247,17 +247,17 @@ void Network::print_adj_list(){
     for(Layer* crnt_layer: hidden_layers){
         neurons = crnt_layer->get_neurons();
 
-        cout << "Hidden layer "<< counter<< "\n";
+        std::cout << "Hidden layer "<< counter<< "\n";
         
         for(Neuron* neuron: neurons){
 
-            cout << neuron->get_id() << ": ";
-            vector<Edge*> crnt_edges = neuron->get_next_edges();
+            std::cout << neuron->get_id() << ": ";
+            std::vector<Edge*> crnt_edges = neuron->get_next_edges();
             for(Edge* edge: crnt_edges){
-                cout<< edge->get_end_neuron_id() <<" ";}
-            cout<<" \n";}
+                std::cout<< edge->get_end_neuron_id() <<" ";}
+            std::cout<<" \n";}
         counter += 1;}
-     cout << "Done" << std::endl;}
+     std::cout << "Done" << std::endl;}
 
 
 
@@ -265,42 +265,42 @@ void Network::print_adj_list(){
 void Network:: print_weights(){
 
 
-    cout << "Input layer \n";
+    std::cout << "Input layer \n";
 
     input_layer->print_edges();
-    cout << '\n';
+    std::cout << '\n';
     int counter = 1;
     for(Layer* crnt_layer: hidden_layers){
 
-        cout << "Hidden layer "<< counter<< "\n";
+        std::cout << "Hidden layer "<< counter<< "\n";
 
         crnt_layer->print_edges();
         counter += 1;}
 
-    cout << endl;
+    std::cout << std::endl;
 }
 
 void Network:: print_values(){
 
-    vector<Neuron*> neurons =  input_layer->get_neurons();
+    std::vector<Neuron*> neurons =  input_layer->get_neurons();
 
-    cout << "Input layer \n";
+    std::cout << "Input layer \n";
 
 
     for(Neuron* neuron: neurons){
-            cout << neuron->get_value()<< " " ;}
+            std::cout << neuron->get_value()<< " " ;}
 
-    cout << '\n';
+    std::cout << '\n';
     int counter = 1;
     for(Layer* crnt_layer: hidden_layers){
         neurons = crnt_layer->get_neurons();
-        cout << "Hidden layer "<< counter<< "\n";
+        std::cout << "Hidden layer "<< counter<< "\n";
 
         for(Neuron* neuron: neurons){
-         cout << neuron->get_value()<< " " ;
+         std::cout << neuron->get_value()<< " " ;
         }
 
-        cout<<" \n";
+        std::cout<<" \n";
         counter += 1;
       }
 
@@ -308,33 +308,33 @@ void Network:: print_values(){
 
 //Helper function for saving network
 
-template <typename T> void vector_to_file(vector<vector<T>> inpt, string filename){
+template <typename T> void vector_to_file(std::vector<std::vector<T>> inpt, std::string filename){
     /*Form of filename should be filename.txt (or pdf or however you want to save your file*/
 
         std::ofstream outfile (filename.c_str());
 
-        for(vector<double> vect: inpt){
+        for(std::vector<double> vect: inpt){
             for(double elm: vect){
                 outfile << elm << " ";
             }
             outfile<<"\n";}}
 
-void vector_to_file(vector<vector<double>> inpt, string filename){
+void vector_to_file(std::vector<std::vector<double>> inpt, std::string filename){
 /*Form of filename should be filename.txt (or pdf or however you want to save your file*/
     vector_to_file(inpt, filename);}
 
 
 //Saving
 
-vector<vector<double>> Network:: network_to_vector(){
-    vector<vector<double>> output(0);
+std::vector<std::vector<double>> Network:: network_to_vector(){
+    std::vector<std::vector<double>> output(0);
     output.push_back(input_layer->layer_to_vector());
     for(Layer* hidden: hidden_layers){
         output.push_back(hidden->layer_to_vector());}
      return output;}
 
-void Network::network_to_file(string filename){
-     vector<vector<double>> network_vect = this->network_to_vector();
+void Network::network_to_file(std::string filename){
+     std::vector<std::vector<double>> network_vect = this->network_to_vector();
      vector_to_file(network_vect, filename);}
 
 

@@ -6,7 +6,7 @@
 #include <vector>
 #include <map>
 #include <functional>
-using namespace std;
+//using namespace std;
 
 class Neuron;
 class Edge;
@@ -46,7 +46,7 @@ public:
     void print_edges();
 
     //Helper function for saving
-    vector<double> layer_to_vector();
+    std::vector<double> layer_to_vector();
 
 
 private:

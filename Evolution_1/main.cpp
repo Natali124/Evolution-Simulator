@@ -30,9 +30,9 @@ int main(int argc, char *argv[])
     menu.show();
 
     //for stats :
-    //MainWindow window;
-    //window.resize(400, 300);
-    //window.show();*/
+    /*MainWindow window;
+    window.resize(400, 300);
+    window.show();*/
 
     QTimer timer;
     QObject::connect(&timer, SIGNAL(timeout()), &menu.display._scene, SLOT(advance()));
