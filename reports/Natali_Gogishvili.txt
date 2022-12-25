@@ -10,3 +10,7 @@ Worked on Network class. Added/implemented functions, getters, setters, default 
 Week 3:
 
 Set up main function/cpp.main file in neural networks branch for testing neural networks. Worked on testing Edge class, identified errors in networks/layers classes.
+
+Week 4:
+
+Worked on bugs (fixing randomization function, etc.). Note: since my laptop ran out of battery, I was working with Anja and Tita on it.
