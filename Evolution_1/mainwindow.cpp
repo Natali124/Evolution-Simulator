@@ -6,9 +6,7 @@ int num_prey = 0;
 int num_plant = 0;
 int active_creature;
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
 
     ui->setupUi(this);
