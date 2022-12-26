@@ -102,7 +102,7 @@
          <item row="3" column="2">
           <widget class="QSlider" name="max_energy_s">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -118,7 +118,7 @@
          <item row="7" column="2">
           <widget class="QSlider" name="visibility_s">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -212,7 +212,7 @@
          <item row="11" column="2">
           <widget class="QSlider" name="size_s">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -241,7 +241,7 @@
          <item row="5" column="2">
           <widget class="QSlider" name="eye_sight_s">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -335,7 +335,7 @@
          <item row="9" column="2">
           <widget class="QSlider" name="max_health_s">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -526,11 +526,17 @@
    <widget class="QPushButton" name="startBut">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>200</y>
-      <width>149</width>
-      <height>75</height>
+      <x>400</x>
+      <y>250</y>
+      <width>200</width>
+      <height>100</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
     <property name="text">
      <string>START</string>
