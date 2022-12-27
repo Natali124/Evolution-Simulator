@@ -342,5 +342,20 @@ void Network::network_to_file(string filename){
 
 
 
+double norm_distr_random(double x){
+  double p = (double) QRandomGenerator64::global()->generateDouble();
+  if(p<0.5){
+    std::random_device rd;
+    std:mt19937 gen(rd());
+    std::normal_distribution<double> d(x,0.2);
+    x = d(gen);
+    }
+  return x;
+}
 
 
+Network* Network::reproduce(){
+  Network* nn = this->copy();
+  nn->apply_on_all_weights(norm_distr_random);
+  return nn;
+}

@@ -43,6 +43,7 @@ public:
     void apply_on_all_weights(function<double(double)> weight_function);
     Network* copy();
     Layer* operator[](int i);
+    Network* reproduce();
 
     //Printing
     void print_adj_list(); // Prints Network represented as adjecency list
