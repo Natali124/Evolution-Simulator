@@ -3,6 +3,7 @@
 #include "mainmenu.h"
 #include "Frontend/Windows/mainMenu.h"
 #include "Neural_Network/network.hpp"
+#include "Neural_Network/nn_evolution.hpp"
 #include <QApplication>
 #include <QGraphicsScene>
 #include <iostream>
