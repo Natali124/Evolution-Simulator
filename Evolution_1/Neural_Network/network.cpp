@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <QRandomGenerator64>
 
 using namespace std;
 

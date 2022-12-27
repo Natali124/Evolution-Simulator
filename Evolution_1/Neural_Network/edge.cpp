@@ -4,6 +4,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
+#include <QRandomGenerator64>
 using namespace std;
 
 Edge::Edge(){
@@ -25,7 +26,7 @@ Edge::Edge(double w, Neuron* start, Neuron* end):Edge(start,end){
 
 void Edge::randomize_weight(){
         //srand((time(NULL)));
-        double r = (double) rand()/(double)(RAND_MAX);
+        double r = QRandomGenerator64::global()->generateDouble();
         r = r*2 - 1;
         set_weight(r);
     }
