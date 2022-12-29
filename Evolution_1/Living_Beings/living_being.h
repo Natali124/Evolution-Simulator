@@ -8,13 +8,15 @@
 #include <vector>
 #include <random>
 
-
-
+extern int number_LBs;
+extern int number_LBs_alive;
+extern int number_LBs_dead;
 class LivingBeing : public QGraphicsItem {
 public:
   LivingBeing(); // initializes a living being with alive = true
   ~LivingBeing();
   bool alive;
+
   QColor color;
 
   QRectF boundingRect() const;
@@ -51,6 +53,7 @@ public:
   }
   virtual void advance(int);
 
+  int number_of_steps_since_beginning = 0;
 protected:
   QGraphicsScene *scene;
 };

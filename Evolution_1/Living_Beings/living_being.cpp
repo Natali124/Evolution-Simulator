@@ -5,6 +5,9 @@
 #include <cmath>
 
 
+int number_LBs = 0;
+int number_LBs_alive = 0;
+int number_LBs_dead = 0;
 
 void LivingBeing::playstep(){
     setRotation(rotation() + 7);
@@ -44,6 +47,8 @@ void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 LivingBeing::LivingBeing(){
     alive = true;
     type = none;
+    number_LBs ++;
+    number_LBs_alive ++;
 }
 
 

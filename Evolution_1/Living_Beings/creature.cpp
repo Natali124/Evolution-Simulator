@@ -11,7 +11,9 @@
 #include <QGraphicsItem>
 
 
-
+int number_creatures = 0;
+int number_creatures_alive = 0;
+int number_creatures_dead = 0;
 //using namespace std;
 
 Other::Square::Square(): Square(0, 0, 0, 1, 1){
@@ -55,6 +57,8 @@ Creature::Creature():LivingBeing() {
     // the brain is already constructed by the default constructor in the .h file.
     type = creature;
     this->set_alive(true);
+    number_creatures ++;
+    number_creatures_alive ++;
     found_food = false;
     counter_no_eat=0;
     counter_no_sleep=0;
@@ -68,6 +72,8 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain)
     this->parameters = parameters;
     this->base_parameters = parameters; //we save "dna"
     this->brain = brain;
+    number_creatures ++;
+    number_creatures_alive ++;
 }
 
 Creature::~Creature() {}
@@ -142,9 +148,13 @@ void Creature::attack(){
     // we could make the attack depend on the avg size of the creatures
 }
 
-void Creature::die() {if ((get_alive()) && (this->get_hp() < 0) ) {
-        set_alive(false);}
-                     };
+void Creature::die() {if ((this->get_alive()) && (this->get_hp() < 0) ) {
+        set_alive(false);
+        number_LBs_alive --;
+        number_LBs_dead ++;
+        number_creatures_alive --;
+        number_creatures_dead ++;
+    }};
 
 void::Creature::is_eaten(Creature &c) {
 

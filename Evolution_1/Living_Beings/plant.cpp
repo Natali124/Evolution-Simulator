@@ -7,6 +7,9 @@
 
 
 
+int number_plants = 0;
+int number_plants_alive = 0;
+int number_plants_dead = 0;
 
 Plant::Plant():LivingBeing(){
     //we need a way to differenciate animals and plants
@@ -17,12 +20,16 @@ Plant::Plant():LivingBeing(){
     }
     type = plant;
     this->set_hp(this->get_Max_hp());
+    number_plants ++;
+    number_plants_alive ++;
 }
 
 
 Plant::Plant(std::map<Enum_parameters, double> parameters): Plant() {
     this->parameters = parameters;
     this->base_parameters = parameters; //we save "dna"
+    number_plants ++;
+    number_plants_alive++;
 }
 
 Plant::~Plant() {};
@@ -33,6 +40,15 @@ Plant::Plant(double reproduction_rate) {
     this-> reproduction_rate = reproduction_rate;
     type = plant; }
 */
+
+
+void Plant::die() {if ((this->get_alive()) && (this->get_hp() < 0) ) {
+        set_alive(false);
+        number_plants_alive --;
+        number_plants_dead ++;
+        number_LBs_alive --;
+        number_LBs_dead ++;
+    }};
 
 void Plant::is_eaten(Creature &c) {
 
@@ -107,6 +123,8 @@ void Plant::set_hp(double ms){this->hp = ms;}
 double Plant::get_hp() const{return this->hp;}
 double Plant::get_Max_size() const{return this->parameters.at(Max_size);}
 void Plant::set_Max_size(double s) {this->parameters[Max_size]=s;}
+//bool Plant::get_alive() {return this->alive;}
+//void Plant::set_alive(bool b) {this->alive = b;}
 
 
 

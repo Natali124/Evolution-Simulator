@@ -29,9 +29,14 @@ class StatsWindow : public QMainWindow {
  *
  * - find ideas of what stats to analyze
  *
+ *
+ *
+ *
  * x : time (one unit = ? playsteps )
- * y1 : nb of LB
+ * y1 : nb of prey/predator/plant, alive/dead
  * y2 : life expectancy
+ * -average of each parameter, or histogram with distribution of the values for each parameter in the population
+ *
  * different groups : plants VS creatures, groups separated by "barriers" when implemented
 
  * -

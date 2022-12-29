@@ -8,18 +8,27 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->setupUi(this);
 
-    QLineSeries *series = new QLineSeries();
-    series->append(0, 6);
-    series->append(2, 4);
-    series->append(3, 8);
-    series->append(7, 4);
-    series->append(10, 5);
-    *series << QPointF(11, 1) << QPointF(13, 3) << QPointF(17, 6) << QPointF(18, 3) << QPointF(20, 2);
+    QScatterSeries *LBs = new QScatterSeries();
+    QScatterSeries *Creatures = new QScatterSeries();
+    QScatterSeries *Plants = new QScatterSeries();
+
+    LBs->append(0, number_LBs);
+    Creatures->append(1, number_creatures);
+    Plants->append(2, number_plants);
+
+    //series->append(0, 0);
+    //series->append(1, 7);
+    //series->append(2, 7);
+    //series->append(3, 7);
+    //series->append(4, 7);
+    //*series << QPointF(0.5, 8) << QPointF(1.5, 8) << QPointF(2.5, 8) << QPointF(3.5, 8) << QPointF(4.5, 8);
     QChart *chart = new QChart();
     chart->legend()->hide();
-    chart->addSeries(series);
+    chart->addSeries(LBs);
+    chart->addSeries(Creatures);
+    chart->addSeries(Plants);
     chart->createDefaultAxes();
-    chart->setTitle("Simple line chart example");
+    chart->setTitle("Number of LBs, Creatures and Plants");
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setParent(ui->horizontalFrame);

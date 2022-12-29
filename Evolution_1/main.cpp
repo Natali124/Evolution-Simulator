@@ -21,8 +21,8 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
 
-    QWidget *statswindow = new QWidget;
-    statswindow->setWindowTitle("Statistics of the simulation");
+    //QWidget *statswindow = new QWidget;
+    //statswindow->setWindowTitle("Statistics of the simulation");
     //
     srand(QTime(0,0,0).secsTo(QTime::currentTime()));
 
@@ -30,9 +30,10 @@ int main(int argc, char *argv[])
     menu.show();
 
     //for stats :
-    /*MainWindow window;
-    window.resize(400, 300);
-    window.show();*/
+    MainWindow window;
+    window.resize(800, 600);
+    window.show();
+    //
 
     QTimer timer;
     QObject::connect(&timer, SIGNAL(timeout()), &menu.display._scene, SLOT(advance()));
