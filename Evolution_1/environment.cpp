@@ -5,6 +5,13 @@
 Environment::Environment() : QGraphicsScene(0, 0, 30, 30) { }
 Environment::Environment(float height, float width) : QGraphicsScene(0, 0, width, height){ }
 
+void Environment::advance(){
+    emit updated();
+
+    //call parent implementation as to advance all children qGraphicsItem's of this object
+    QGraphicsScene::advance();
+}
+
 
 //getters/setters
 qreal Environment::get_simulation_step(){ return simulation_step; }

@@ -47,6 +47,8 @@ set(PROJECT_SOURCES
         Frontend/resources.h
         Frontend/Widgets/SimulationSpeedSlider.cpp
         Frontend/Widgets/environmentTimer.cpp
+        Frontend/Widgets/statView.h
+        Frontend/Widgets/statView.cpp
         ${TS_FILES}
 )
 

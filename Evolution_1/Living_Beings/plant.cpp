@@ -13,6 +13,7 @@ Plant::Plant(Environment* environment):LivingBeing(environment){
     std::map<Enum_parameters, float> parameters;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
         float val = (float)rand()/(float)RAND_MAX;
+//        parameters[param] = val;
         parameters.insert(std::pair<Enum_parameters, float>(param, val));
     }
     type = plant;
