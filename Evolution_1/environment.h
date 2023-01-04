@@ -2,6 +2,8 @@
 #define ENVIRONMENT_H
 
 #include "qgraphicsscene.h"
+#include <iostream>
+#include <QGraphicsView>
 
 class Environment : public QGraphicsScene
 {
