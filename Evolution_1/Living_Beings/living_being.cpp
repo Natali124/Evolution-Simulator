@@ -1,3 +1,5 @@
+#include "Frontend/Widgets/statView.h"
+#include "Living_Beings/creature.h"
 #include "environment.h"
 #include "living_being.h"
 #include "qpainter.h"
@@ -55,6 +57,12 @@ void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     painter->drawRect(boundingRect());
 }
 
+//spawns a window showing being's stats
+void LivingBeing::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
+    auto view = new StatView(this);
+}
+
+
 
 LivingBeing::LivingBeing(Environment* environment) : environment(environment){
     alive = true;
@@ -75,3 +83,21 @@ void LivingBeing::set_size(float s){};
 float LivingBeing::get_hp(){};
 void LivingBeing::set_hp(float h){};
 
+std::string LivingBeing::get_type_string(){
+    switch(type) {
+        case LivingBeing::Type_LB::none:
+            return "living being";
+        case LivingBeing::Type_LB::creature:{
+            auto creature = dynamic_cast<Creature*>(this);
+            if(creature->get_eat_creature())
+                return "predator";
+            else
+                return "prey";
+            break;
+        }
+        case LivingBeing::Type_LB::plant:
+            return "plant";
+    }
+
+    return "";
+}

@@ -18,7 +18,6 @@ CreatureDisplay::CreatureDisplay(Environment* env, QWidget *parent) : QGraphicsV
     setRenderHint(QPainter::Antialiasing);
     setCacheMode(QGraphicsView::CacheBackground);
     setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
-    setDragMode(QGraphicsView::ScrollHandDrag);
 
     auto policy = sizePolicy();
     policy.setHeightForWidth(true);

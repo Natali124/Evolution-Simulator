@@ -2,7 +2,6 @@
 #define LIVING_BEING_H
 
 #include "environment.h"
-#include "Neural_Network/network.hpp"
 #include <iostream>
 #include <vector>
 #include <QGraphicsItem>
@@ -26,6 +25,8 @@ public:
   };
   Type_LB type;
 
+  std::string get_type_string();
+
   //common attributes to plants and creatures
   virtual void playstep();
   virtual void is_eaten(LivingBeing &c);
@@ -48,6 +49,9 @@ public:
   }
   virtual void reproduction();
   virtual void advance(int);
+
+  //event handling for frontend
+  virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 };
 
 
