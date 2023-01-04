@@ -24,7 +24,7 @@ public:
     Neuron* get_end_neuron();
     int get_start_neuron_id();
     int get_end_neuron_id();
-    bool get_is_active();
+    bool get_activation();
 
     //Setters
 

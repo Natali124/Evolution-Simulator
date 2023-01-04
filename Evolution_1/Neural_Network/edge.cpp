@@ -26,6 +26,7 @@ Edge::Edge(double w, Neuron* start, Neuron* end):Edge(start,end){
     }
 
 void Edge::randomize_weight(){
+
 //        srand((time(NULL)));
 //        double r = (double) arc4random()/(pow(2, 32)-1);
         double r = (double) QRandomGenerator::global()->generateDouble();
@@ -55,7 +56,7 @@ int Edge:: get_end_neuron_id(){
 int Edge:: get_start_neuron_id(){
     return start_neuron->get_id();
 }
-bool Edge::get_is_active(){
+bool Edge::get_activation(){
     return is_active;
 }
 void Edge::set_weight(double w){

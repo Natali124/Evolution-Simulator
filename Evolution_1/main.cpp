@@ -1,13 +1,45 @@
+
 #include "environment.h"
-#include "Frontend/Windows/mainmenu.h"
+#include "mainmenu.h"
+#include "mainwindow.h"
+#include "Frontend/Windows/mainMenu.h"
+#include "Neural_Network/network.hpp"
 #include <QApplication>
+#include <QGraphicsScene>
 #include <iostream>
+#include <QTimer>
+#include <QTime>
 #include <math.h>
 
+
+//using namespace std;
+double foo(double x){
+  return x+0.4;
+}
 int main(int argc, char *argv[])
 {
+
     QApplication a(argc, argv);
-    MainMenu menu(new Environment());
+
+    //QWidget *statswindow = new QWidget;
+    //statswindow->setWindowTitle("Statistics of the simulation");
+    //
+    srand(QTime(0,0,0).secsTo(QTime::currentTime()));
+
+    MainMenu menu;
+    menu.show();
+
+    //for stats :
+    MainWindow window;
+    window.resize(800, 600);
+    window.show();
+    //
+
+    QTimer timer;
+    QObject::connect(&timer, SIGNAL(timeout()), &menu.display._scene, SLOT(advance()));
+    timer.start(1000 / 33);
 
     return a.exec();
+
+
 }

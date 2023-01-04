@@ -6,40 +6,56 @@
 
 
 
-void Plant::reproduction() {}
 
+int number_plants = 0;
+int number_plants_alive = 0;
+int number_plants_dead = 0;
 
 Plant::Plant():LivingBeing(){
-    std::map<Enum_parameters, float> parameters;
+    //we need a way to differenciate animals and plants
+    color = QColorConstants::DarkGreen;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
-        float val = (float)rand()/(float)RAND_MAX;
-        parameters.insert(std::pair<Enum_parameters, float>(param, val));
+        double val = abs((double)rand()/(double)RAND_MAX * 200);
+        this->parameters.insert(std::pair<Enum_parameters, double>(param, val));
     }
     type = plant;
+    this->set_hp(this->get_Max_hp());
+    number_plants ++;
+    number_plants_alive ++;
 }
 
 
-Plant::Plant(std::map<Enum_parameters, float> parameters): Plant() {
+Plant::Plant(std::map<Enum_parameters, double> parameters): Plant() {
     this->parameters = parameters;
     this->base_parameters = parameters; //we save "dna"
-
-
-    this->set_hp(this->get_Max_hp());
-
-    type = plant;
+    number_plants ++;
+    number_plants_alive++;
 }
 
-Plant::~Plant(){}
+Plant::~Plant() {};
 
 
 /* No need normally since we have already a function with parameter, normally there is reproduction_rate in trhose parameters
-Plant::Plant(float reproduction_rate) {
+Plant::Plant(double reproduction_rate) {
     this-> reproduction_rate = reproduction_rate;
     type = plant; }
 */
 
+
+void Plant::die() {if ((this->get_alive()) && (this->get_hp() < 0) ) {
+        set_alive(false);
+        number_plants_alive --;
+        number_plants_dead ++;
+        number_LBs_alive --;
+        number_LBs_dead ++;
+    }};
+
 void Plant::is_eaten(Creature &c) {
-    float alpha = get_alpha(c);
+
+    //modifying the eater's attributes:
+
+
+    double alpha = get_alpha(c);
     if (type_plant == 0) { // carbs
         c.set_energy(c.get_energy() + alpha);
         c.set_physical_strength(c.get_physical_strength() - alpha);}
@@ -75,6 +91,14 @@ void Plant::is_eaten(Creature &c) {
         c.set_energy(c.get_energy() + 2*alpha);
         c.set_physical_strength(c.get_physical_strength() - alpha);
         c.set_visibility(c.get_visibility() - alpha);}
+
+
+    //damage to the plant:
+
+    double size_coef = 0.25*(c.get_size()/get_size());
+    set_size(get_size() - size_coef );
+    double dmg_coef = 0.25*(c.get_hp()/get_hp());
+    take_dmg(dmg_coef);
 }
 
 
@@ -91,34 +115,40 @@ void Plant::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     LivingBeing::paint(painter, option, widget);
 }
 
-void Plant::set_reproduction_rate(float rr){this->parameters[reproduction_rate] = rr;}
-float Plant::get_reproduction_rate(){return this->parameters[reproduction_rate];}
-void Plant::set_size(float s){this->parameters[size] = s;}
-float Plant::get_size(){return this->parameters[size];}
-void Plant::set_Max_hp(float ms){this->parameters[Max_hp] = ms;}
-float Plant::get_Max_hp(){return this->parameters[Max_hp];}
-void Plant::set_hp(float ms){this->hp = ms;}
-float Plant::get_hp(){return this->hp;}
+
+void Plant::set_reproduction_rate(double rr){this->parameters[reproduction_rate] = rr;}
+double Plant::get_reproduction_rate(){return this->parameters[reproduction_rate];}
+void Plant::set_size(double s){this->parameters[size] = s;}
+double Plant::get_size() const {return this->parameters.at(size);}
+void Plant::set_Max_hp(double ms){this->parameters[Max_hp] = ms;}
+double Plant::get_Max_hp() const{return this->parameters.at(Max_hp);}
+void Plant::set_hp(double ms){this->hp = ms;}
+double Plant::get_hp() const{return this->hp;}
+double Plant::get_Max_size() const{return this->parameters.at(Max_size);}
+void Plant::set_Max_size(double s) {this->parameters[Max_size]=s;}
+//bool Plant::get_alive() {return this->alive;}
+//void Plant::set_alive(bool b) {this->alive = b;}
 
 
 
 
-void Plant::take_dmg(float dmg){
+
+void Plant::take_dmg(double dmg){
     this->set_hp(this->get_hp() - dmg);
 }
 
 
-float Plant::get_alpha(Creature &c) {
-    float ps = get_size();
-    float cs = c.get_size();
-    float d = ps - cs;
-    float dif = abs(d);
-    float alpha = 1 - (1/dif);
+double Plant::get_alpha(Creature &c) {
+    double ps = get_size();
+    double cs = c.get_size();
+    double d = ps - cs;
+    double dif = abs(d);
+    double alpha = 1 - (1/dif);
     return alpha;
 }
 void Plant::carbs(Creature &c) {
     if (type_plant == 0) {
-        float alpha = get_alpha(c);
+        double alpha = get_alpha(c);
 
         c.set_energy(c.get_energy() + alpha);
         c.set_physical_strength(c.get_physical_strength() - alpha);
@@ -129,7 +159,7 @@ void Plant::carbs(Creature &c) {
 
 void Plant::protein(Creature &c){
     if (type_plant == 1) {
-        float alpha = get_alpha(c);
+        double alpha = get_alpha(c);
 
 
         c.set_physical_strength(c.get_physical_strength() + alpha);
@@ -141,7 +171,7 @@ void Plant::protein(Creature &c){
 
 void Plant::slimming_effect(Creature &c){
     if (type_plant == 2) {
-    float alpha = get_alpha(c);
+    double alpha = get_alpha(c);
 
 
     c.set_eye_sight(c.get_eye_sight() + alpha);
@@ -152,7 +182,7 @@ void Plant::slimming_effect(Creature &c){
 
 void Plant::allergenic_effect(Creature &c){
     if (type_plant == 3) {
-    float alpha = get_alpha(c);
+    double alpha = get_alpha(c);
 
 
     c.set_visibility(c.get_visibility() + alpha);
@@ -164,7 +194,7 @@ void Plant::allergenic_effect(Creature &c){
 
 void Plant::allergenic_protein(Creature &c) {
     if (type_plant == 4) {
-    float alpha = get_alpha(c);
+    double alpha = get_alpha(c);
 
     c.set_physical_strength(c.get_physical_strength() + 2*alpha);
     c.set_energy(c.get_energy() - alpha);
@@ -175,7 +205,7 @@ void Plant::allergenic_protein(Creature &c) {
 
 void Plant::allergenic_carbs(Creature &c){
     if (type_plant == 5) {
-    float alpha = get_alpha(c);
+    double alpha = get_alpha(c);
 
 
     c.set_energy(c.get_energy() + 2*alpha);
@@ -187,7 +217,7 @@ void Plant::allergenic_carbs(Creature &c){
 
 void Plant::slimming_protein(Creature &c) {
     if (type_plant == 6) {
-    float alpha = get_alpha(c);
+    double alpha = get_alpha(c);
 
 
     c.set_physical_strength(c.get_physical_strength() + 2*alpha);
@@ -199,7 +229,7 @@ void Plant::slimming_protein(Creature &c) {
 
 void Plant::slimming_carbs(Creature &c) {
     if (type_plant == 7) {
-        float alpha = get_alpha(c);
+        double alpha = get_alpha(c);
 
 
         c.set_energy(c.get_energy() + 2*alpha);
@@ -209,18 +239,31 @@ void Plant::slimming_carbs(Creature &c) {
 
 };
 
+void Plant::playstep() {    // random values for increasing hp, random weight of growing coef for increasing size
+    //changing size and upper bound it by max_size , same for hp
 
-void Plant::playstep() {
-    set_size(1.1*get_size());
-    set_hp(1.05*get_Max_hp());
-} //should add reproduction
-/*
-void Plant::reproduction(){
-    std::map<Enum_parameters, float> param_new_plant;
+    double growing_coef = 0.25 * get_Max_size()/get_size();
+
+    if (get_size()< get_Max_size()) {
+        double new_size = get_size()+ growing_coef;
+        set_size(new_size);}
+    if (get_size()>get_Max_size()) {
+        set_size(get_Max_size());
+
+    if (get_hp()< get_Max_hp()){
+        set_hp(1.1*get_hp()); }
+    if (get_hp()>get_Max_hp()) {
+        set_hp(get_Max_hp()); }
+}
+};
+
+
+LivingBeing* Plant::reproduction(){
+    std::map<Enum_parameters, double> param_new_plant;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
-        float val = normal_distrib(parameters[param]);
+        double val = normal_distrib(parameters[param],0.1);
         param_new_plant.insert(std::pair<Enum_parameters, float>(param, val));
     }
     Plant* p = new Plant(param_new_plant);
-};
-*/
+    return p;
+}
