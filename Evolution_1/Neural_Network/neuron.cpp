@@ -1,24 +1,22 @@
 #include "edge.hpp"
 #include "neuron.hpp"
 #include "layer.hpp"
-#include "utils.cpp"
-#include "network.hpp"
 #include <vector>
-//using namespace std;
+using namespace std;
 
 int Neuron::neuron_counter = 0;
 
 //Constructors
 Neuron::Neuron(){
-    previous_edges = std::vector<Edge*>(0);
-    next_edges = std::vector<Edge*>(0);
+    previous_edges = vector<Edge*>(0);
+    next_edges = vector<Edge*>(0);
     parent_layer = nullptr;
     neuron_id = neuron_counter;
     neuron_counter += 1;
 
 }
 
-Neuron::Neuron(std::vector<Edge*> previous_edges, Layer* parent_layer):Neuron(){
+Neuron::Neuron(vector<Edge*> previous_edges, Layer* parent_layer):Neuron(){
     
         this->previous_edges = previous_edges;
         this->parent_layer = parent_layer;
@@ -27,7 +25,7 @@ Neuron::Neuron(std::vector<Edge*> previous_edges, Layer* parent_layer):Neuron(){
 
 Neuron:: Neuron(Layer* parent_layer):Neuron(){
         this ->parent_layer = parent_layer;
-        previous_edges = std::vector<Edge*>(0);
+        previous_edges = vector<Edge*>(0);
         }
 
 
@@ -46,14 +44,14 @@ Neuron:: ~Neuron(){
       }
 };
 //Getters
-std::vector<Edge*> Neuron :: get_previous_edges(){
+vector<Edge*> Neuron :: get_previous_edges(){
     return previous_edges;}
 
-std::vector<Edge*> Neuron :: get_next_edges(){
+vector<Edge*> Neuron :: get_next_edges(){
     return next_edges;}
 
-std::vector<double> Neuron::get_next_weights(){
-    std::vector<double> weights;
+vector<double> Neuron::get_next_weights(){
+    vector<double> weights;
 
     for(Edge* edge: next_edges){
         weights.push_back(edge->get_weight());}
@@ -66,28 +64,13 @@ int Neuron:: get_id(){
 double Neuron::get_value(){
     return value;}
 
-int Neuron::get_index(){
-    // returns index of neuron in parent layer, bias_neuron is last index
-
-    int i =  find_index<Neuron*>(parent_layer->get_neurons(),this);
-    if(i!= -1){
-        return i;
-      } else {
-        return parent_layer->size()-1;
-      }
-}
-
-void Neuron::get_full_index(Network* n, int& i, int& j){
-    i = parent_layer->get_index(n);
-    j = this->get_index();
-}
 
 //Setters
-void Neuron::set_next_edges(std::vector<Edge*> edges){
+void Neuron::set_next_edges(vector<Edge*> edges){
   next_edges = edges;
 }
 
-void Neuron::set_previous_edges(std::vector<Edge*> edges){
+void Neuron::set_previous_edges(vector<Edge*> edges){
   previous_edges = edges;
 }
 

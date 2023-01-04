@@ -1,25 +1,13 @@
 #ifndef ENVIRONMENT_H
 #define ENVIRONMENT_H
 
-#include <iostream>
-#include <QGraphicsView>
-#include "Living_Beings/creature.h"
-#include "Living_Beings/plant.h"
-#include "barrier.h"
+#include "qgraphicsscene.h"
 
-class CreatureDisplay : public QGraphicsView{
+class Environment : public QGraphicsScene
+{
     public:
-        CreatureDisplay(QWidget *parent = nullptr);
-
-        void add_object(LivingBeing*);
-        void add_object(Barrier*);
-        void remove_object(LivingBeing*);
-        void remove_object(Barrier*);
-        void addRandomDot();
-        QGraphicsScene _scene;
-        int heightForWidth(int w) const {return w;}
+        Environment(); // Creates a 30x30 grid
+        Environment(float width, float height); // creates a widthxheight grid
 };
 
-
 #endif // ENVIRONMENT_H
-
