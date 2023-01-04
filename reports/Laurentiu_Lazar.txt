@@ -9,3 +9,7 @@ Week 3:
 Week 4:
 	This week I some little improvements on the visuals of my window, but I managed to finally merge the frontend git branch into the main one, and resolve all the emerging conflicts. I didn't get rid of the placeholder classes yet, but all the integration is accounted for - all that remains is to delete the files.
 	Next week I plan to add some sliders to control the speed of the animation at the very least. I'll see if I can help in other areas of the team, or I'll see if there is some other interesting functionalities to add on top of already made stuff.
+
+Week 5:
+	This week I successfully implemented the animation speed slider controller thingie. I additionally cleaned up code and reorganised things and helped people a bit during the lecture.
+	Next week(s?) I plan on seeing if I can visualise other aspects of our creatures in an interesting way.
