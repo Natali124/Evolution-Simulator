@@ -188,7 +188,6 @@ void Creature::attack(){
 
 void Creature::die() {
     if ((!this->get_alive()) || (this->get_hp() < 0) ) {
-        std::cout<<this->get_hp()<<std::endl;
         set_alive(false);
 
 

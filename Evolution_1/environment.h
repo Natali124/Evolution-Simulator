@@ -22,6 +22,7 @@ class Environment : public QGraphicsScene
             if (touched != nullptr){
                 this->removeItem(touched);
             }
+            //std::cout << event->scenePos().x() << " " << event->scenePos().y() << std::endl;
         }
     private:
         qreal simulation_step = 7;
