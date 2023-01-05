@@ -37,8 +37,6 @@ Plant::Plant(std::map<Enum_parameters, double> parameters, Environment *e): Plan
 }
 
 Plant::~Plant() {
-    this->get_scene()->removeItem(this);
-
 };
 
 
@@ -52,8 +50,6 @@ Plant::Plant(double reproduction_rate) {
 void Plant::die() {
     if ((!this->get_alive()) || (this->get_hp() < 0) ) {
         std::cout<<"P:"<<this->get_hp()<<std::endl;
-        set_alive(false);
-
 
         set_alive(false);
         number_plants_alive --;

@@ -103,11 +103,10 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain,
     Input_saved.push_back(this->get_physical_strength());
     Input_saved.push_back(this->get_eye_sight());
     Input_saved.push_back(this->get_visibility());
+
 }
 
 Creature::~Creature() {
-    this->get_scene()->removeItem(this);
-
 }
 
 
@@ -363,14 +362,14 @@ void Creature::Eat(){
         Plant *j = dynamic_cast<Plant*>(i);
         Creature *k = dynamic_cast<Creature*>(i);
         if (this->get_eat_plants() && j != nullptr){
-           if (j->get_alive_time()>100){
+           if (j->get_alive_time()>50){
                 j->set_hp(-1);
                 j->die();
                 repro_factor+=100;
            }
         }
-        else if (this->get_eat_creature() && k != nullptr){
-            if (k->get_alive_time()>100){
+        if (this->get_eat_creature() && k != nullptr){
+            if (k->get_alive_time()>50){
                 k->set_hp(-1);
                 k->die();
                 repro_factor+=100;
@@ -381,6 +380,7 @@ void Creature::Eat(){
 
 
 }
+
 
 
 void Creature::playstep() {
