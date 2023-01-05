@@ -25,12 +25,15 @@ QRectF Other::Square::boundingRect() const{
     return QRectF(this->x() - w /2 , this->y() + h/2, this->w, this->h);
 }
 
+/*QGraphicsEllipseItem Other::Square::ellipse(){
+    return QGraphicsEllipseItem(this->x() - w /2 , this->y() + h/2, this->w, this->h);
+} */
+
 //we don't want it to appear
 
 void Other::Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
     painter->setPen(Qt::blue);
     painter->drawRect(this->boundingRect());
-
 }
 
 void Other::Square::set_shape(){
@@ -137,7 +140,8 @@ std::vector<LivingBeing*> Creature::get_close(){
     std::vector<LivingBeing*> v;
 
     //This will be used to get all objects in front
-    Other::Square *S = new Other::Square(this->x()+this->size * sin(this->rotation()*(3.14/180)), this->y()+this->size * cos(this->rotation()*(3.14/180)), this->rotation(), this->size, this->size);
+    //Other::Square *S = new Other::Square(this->x()+this->size * sin(this->rotation()*(3.14/180)), this->y()+this->size * cos(this->rotation()*(3.14/180)), this->rotation(), this->size, this->size);
+    Other::Square *S = new Other::Square(this->x(), this->y(), this->rotation(), this->size, this->size); //around the creature?
     this->get_scene()->addItem(S);
     QList<QGraphicsItem*> list = this->get_scene()->collidingItems(S);
     foreach(QGraphicsItem* i , list)
@@ -153,7 +157,10 @@ std::vector<LivingBeing*> Creature::get_close(){
     return v;
 }
 
+
+
 void Creature::take_dmg(double dmg){
+    set_last_attack(0);
     if (this->get_hp()>0){
         this->set_hp(this->get_hp()-dmg);
     }
@@ -273,6 +280,8 @@ void Creature::set_counter_no_eat(int i) {this->counter_no_eat = i;}
 void Creature::set_counter_no_sleep(int j){this->counter_no_sleep = j;}
 Network* Creature::get_brain(){return brain;};
 void Creature::set_brain(Network* b){brain = b;};
+int Creature::get_last_attack(){return this->last_attack;};
+void Creature::set_last_attack(int i){this->last_attack = i;};
 
 void Creature::bound_energy_hp() {
     if (get_energy()>get_Max_energy()) {
@@ -398,10 +407,16 @@ void Creature::playstep() {
             decision(input_vector);
             set_counter_no_sleep(get_counter_no_sleep()+1);  //neither eat/digest or sleep
             set_counter_no_eat(get_counter_no_eat()+1);
+            counter_attack();
         }
         check_if_lack(); //lack of sleep is more damageable bcse more important to sleep than to eat, Harvard study :)
     ;}
 };
+
+void Creature::counter_attack(){
+    set_last_attack(get_last_attack()+1);
+    if(get_last_attack() >= 100){set_last_attack(100);}
+    }
 
 
 void Creature::check_if_lack() {
