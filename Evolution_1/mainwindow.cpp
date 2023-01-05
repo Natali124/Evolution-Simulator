@@ -3,7 +3,8 @@
 #include <Living_Beings/creature.h>
 #include <Living_Beings/living_being.h>
 #include <Living_Beings/plant.h>
-#include <QStringList>
+
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,10 +19,13 @@ MainWindow::MainWindow(QWidget *parent)
     QBarSet *dead = new QBarSet("dead");
     QBarSet *tn = new QBarSet("total_number");
     //*alive << number_LBs_alive << number_creatures_alive << number_plants_alive;
-    *alive << number_LBs_alive << number_creatures_alive << (number_LBs_alive - number_creatures_alive);
-    *dead <<number_LBs_dead << number_creatures_dead << number_plants_dead;
+    //*alive << number_LBs_alive << number_creatures_alive << (number_LBs_alive - number_creatures_alive);
+    //*dead <<number_LBs_dead << number_creatures_dead << number_plants_dead;
     //*tn << number_LBs << number_creatures << number_plants;
-    *tn << number_LBs << number_creatures << (number_LBs - number_creatures);
+    //*tn << number_LBs << number_creatures << (number_LBs - number_creatures);
+    *alive << 15 << 10 << 5;
+    *dead << 1 << 1 << 1;
+    *tn << 16 << 11 << 6;
     QBarSeries *series = new QBarSeries();
     series->append(alive);
     series->append(dead);
