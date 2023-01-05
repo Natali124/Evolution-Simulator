@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->button_pred->setVisible(false);
     ui->button_plant->setVisible(false);
     ui->button_delete_all->setVisible(false);
+    ui->button_delete_creature->setVisible(false);
 
     ui->count_pred->setVisible(false);
     ui->count_prey->setVisible(false);
@@ -60,6 +61,7 @@ void MainWindow::on_startBut_clicked()
     ui->line_3->setVisible(true);
     ui->creature_list->setVisible(true);
     ui->button_delete_all->setVisible(true);
+    ui->button_delete_creature->setVisible(true);
 }
 
 
@@ -152,7 +154,8 @@ void MainWindow::on_button_reset_clicked()
     ui->visibility_n->setValue(0);
 }
 
-//void MainWindow::on_creature_list_item_clicked(QListWidgetItem* item)
-//{
-
-//}
+void MainWindow::on_button_delete_creature_clicked()
+{
+    QListWidgetItem *it = ui->creature_list->takeItem(ui->creature_list->currentRow());
+        delete it;
+}

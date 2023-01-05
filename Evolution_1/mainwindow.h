@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "QtWidgets/qlistwidget.h"
 #include <QMainWindow>
 #include <QApplication>
 #include <cstdlib>
@@ -33,6 +34,8 @@ private slots:
     void on_button_delete_all_clicked();
 
     void on_button_reset_clicked();
+
+    void on_button_delete_creature_clicked();
 
 private:
     Ui::MainWindow *ui;
