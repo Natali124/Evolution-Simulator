@@ -58,7 +58,18 @@ bool LivingBeing::get_alive() const {return alive;};
 void LivingBeing::set_alive(bool b) {this->alive = b;};
 
 
-
+void LivingBeing::die() {if ((this->get_alive()) && (this->get_hp() < 0) ) {
+        set_alive(false);
+        number_LBs_alive --;
+        number_LBs_dead ++;
+        if (this->type == plant) {
+            number_plants_dead ++;
+            number_plants_alive --;
+        } else if (this->type == creature) {
+            number_creatures_dead ++;
+            number_creatures_alive --;
+        }
+        }};
 
 
 

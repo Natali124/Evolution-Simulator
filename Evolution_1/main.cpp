@@ -12,9 +12,9 @@ int main(int argc, char *argv[])
     SimulationView menu(new Environment());
 
     //for stats:
-    //MainWindow window;
-    //window.resize(800, 600);
-    //window.show();
+    MainWindow window;
+    window.resize(800, 600);
+    window.show();
 
     return a.exec();
 }

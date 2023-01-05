@@ -4,10 +4,6 @@
 #include <map>
 #include "creature.h"
 
-extern int number_plants;
-extern int number_plants_alive;
-extern int number_plants_dead;
-
 class Plant : public LivingBeing
 {
 public:

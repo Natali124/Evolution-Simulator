@@ -9,9 +9,7 @@
 #include <vector>
 #include <random>
 
-extern int number_LBs;
-extern int number_LBs_alive;
-extern int number_LBs_dead;
+
 class LivingBeing : public QGraphicsItem {
 public:
   LivingBeing(); // initializes a living being with alive = true
@@ -32,6 +30,7 @@ public:
   //common attributes to plants and creatures
   virtual void playstep();
   virtual void is_eaten(LivingBeing &c);
+  virtual void die();
   virtual LivingBeing* reproduction();
 
   //This is the function we'll be using when we need to make an object take damages (because it's been attacked)
@@ -54,10 +53,19 @@ public:
   }
   virtual void advance(int);
 
-  int number_of_steps_since_beginning = 0;
+  //int number_of_steps_since_beginning = 0;
 protected:
   Environment *scene;
 };
-
+//Variables for stats
+extern int number_LBs;
+extern int number_LBs_alive;
+extern int number_LBs_dead;
+extern int number_creatures;
+extern int number_creatures_alive;
+extern int number_creatures_dead;
+extern int number_plants;
+extern int number_plants_alive;
+extern int number_plants_dead;
 
 #endif
