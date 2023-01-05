@@ -181,7 +181,7 @@ std::vector<LivingBeing*> Creature::get_close(){
     Other::Square *S = new Other::Square(this->x()+this->size * sin(this->rotation()*(3.14/180)), this->y()+this->size * cos(this->rotation()*(3.14/180)), this->rotation(), this->size, this->size);
     this->get_scene()->addItem(S);
     QList<QGraphicsItem*> list = this->get_scene()->collidingItems(S);
-    foreach(QGraphicsItem* i , list)
+    foreach(QGraphicsItem* i, list)
     {
         LivingBeing *L = dynamic_cast<LivingBeing*>(i);
         // if i was possible to cast && if they don't have the same coordinates

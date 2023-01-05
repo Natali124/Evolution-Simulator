@@ -10,6 +10,7 @@
 #include <QBarSet>
 #include <QBarCategoryAxis>
 #include <QValueAxis>
+#include "environment.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -26,4 +27,14 @@ public:
 private:
     Ui::MainWindow *ui;
 };
+
+class Chart : QChart {
+public:
+    Environment* env;
+    void advance(int phase);
+    int step;
+    void set_step(int val);
+    int get_step();
+};
+
 #endif // MAINWINDOW_H

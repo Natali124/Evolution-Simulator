@@ -4,7 +4,13 @@
 #include <Living_Beings/living_being.h>
 #include <Living_Beings/plant.h>
 
-
+void Chart::advance(int phase) { //this function is used to update
+    if (phase == 1) {
+        this->set_step(this->get_step()+1);
+    }
+}
+int Chart::get_step() {return this->step;}
+void Chart::set_step(int val) {this->step = val;}
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -31,10 +37,13 @@ MainWindow::MainWindow(QWidget *parent)
     series->append(dead);
     series->append(tn);
 
+
     //LBs->append(0, number_LBs);
     //Creatures->append(1, number_creatures);
     //Plants->append(2, number_plants);
     QChart *chart = new QChart();
+    //*chart->advance(int phase)
+
     chart->addSeries(series);
     //chart->addSeries(LBs);
     //chart->addSeries(Creatures);
@@ -57,9 +66,6 @@ MainWindow::MainWindow(QWidget *parent)
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setParent(ui->horizontalFrame);
-
-
-
 }
 
 MainWindow::~MainWindow()
