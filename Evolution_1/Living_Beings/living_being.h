@@ -44,6 +44,8 @@ public:
   bool get_alive() const;
   void set_alive(bool b);
   void set_scene(Environment *s);
+  int get_alive_time();
+  void increase_alive_time();
   Environment* get_scene() const;
 
   double normal_distrib(double parameter, double variance){ //takes a value and randomly returns a value like the normal distribution does with a given variance.
@@ -56,6 +58,7 @@ public:
 
   int number_of_steps_since_beginning = 0;
 protected:
+  int alive_time = 0;
   Environment *scene;
 };
 

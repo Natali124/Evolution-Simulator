@@ -75,6 +75,8 @@ public:
     Creature(std::map<Enum_parameters, double>, Network*, Environment *e);
     ~Creature();
 
+    void Eat();
+
     // MEMBER FUNCTIONS
     LivingBeing* reproduction();
     // functions to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
@@ -155,6 +157,7 @@ public:
 
 protected:
 
+    double repro_factor = 0;
     //Those are the memory variable of the creature (memory between turns, for now there are only 2)
     double var1=0;
     double var2=0;

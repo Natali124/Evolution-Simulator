@@ -105,7 +105,10 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain,
     Input_saved.push_back(this->get_visibility());
 }
 
-Creature::~Creature() {}
+Creature::~Creature() {
+    this->get_scene()->removeItem(this);
+
+}
 
 
 
@@ -177,12 +180,18 @@ void Creature::attack(){
     // we could make the attack depend on the avg size of the creatures
 }
 
-void Creature::die() {if ((this->get_alive()) && (this->get_hp() < 0) ) {
+void Creature::die() {
+    if ((!this->get_alive()) || (this->get_hp() < 0) ) {
+        std::cout<<this->get_hp()<<std::endl;
         set_alive(false);
+
+
         number_LBs_alive --;
         number_LBs_dead ++;
         number_creatures_alive --;
         number_creatures_dead ++;
+        //here we chose to kill and destroy everything which is dead
+        Creature::~Creature();
     }};
 
 void::Creature::is_eaten(Creature &c) {
@@ -345,12 +354,52 @@ void Creature::decision(std::vector<double> input_vector){
 }
 
 
+//This is what we'll b e using to eat whatever the LB is touching and can eat
+void Creature::Eat(){
+    QList<QGraphicsItem*> list = get_scene()->collidingItems(this);
+
+    foreach(QGraphicsItem* i , list){
+
+        Plant *j = dynamic_cast<Plant*>(i);
+        Creature *k = dynamic_cast<Creature*>(i);
+        if (this->get_eat_plants() && j != nullptr){
+           if (j->get_alive_time()>100){
+                j->set_hp(-1);
+                j->die();
+                repro_factor+=100;
+           }
+        }
+        else if (this->get_eat_creature() && k != nullptr){
+            if (k->get_alive_time()>100){
+                k->set_hp(-1);
+                k->die();
+                repro_factor+=100;
+            }
+
+        }
+    }
+
+
+}
 
 
 void Creature::playstep() {
-    die();   // actually dies only if it should (alive and hp=0)
+    increase_alive_time();
+    die();   // actually dies only if it should (alive and hp<=0)
+
 
     if (get_alive()){
+
+
+        //We check if our creature eat:
+
+        Eat();
+
+
+
+
+
+
         //bouding energy and hp to the max bcse in case of modifications in the previous playstep
         bound_energy_hp();
 

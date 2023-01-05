@@ -36,7 +36,10 @@ Plant::Plant(std::map<Enum_parameters, double> parameters, Environment *e): Plan
     number_plants_alive++;
 }
 
-Plant::~Plant() {};
+Plant::~Plant() {
+    this->get_scene()->removeItem(this);
+
+};
 
 
 /* No need normally since we have already a function with parameter, normally there is reproduction_rate in trhose parameters
@@ -46,12 +49,19 @@ Plant::Plant(double reproduction_rate) {
 */
 
 
-void Plant::die() {if ((this->get_alive()) && (this->get_hp() < 0) ) {
+void Plant::die() {
+    if ((!this->get_alive()) || (this->get_hp() < 0) ) {
+        std::cout<<"P:"<<this->get_hp()<<std::endl;
+        set_alive(false);
+
+
         set_alive(false);
         number_plants_alive --;
         number_plants_dead ++;
         number_LBs_alive --;
         number_LBs_dead ++;
+        //here we chose to kill and destroy everything which is dead
+        Plant::~Plant();
     }};
 
 void Plant::is_eaten(Creature &c) {
@@ -243,6 +253,8 @@ void Plant::slimming_carbs(Creature &c) {
 void Plant::playstep() {    // random values for increasing hp, random weight of growing coef for increasing size
     //changing size and upper bound it by max_size , same for hp
 
+
+    increase_alive_time();
     double growing_coef = 0.25 * get_Max_size()/get_size();
 
     if (get_size()< get_Max_size()) {
