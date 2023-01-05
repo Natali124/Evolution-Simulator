@@ -15,6 +15,13 @@ class Environment : public QGraphicsScene
         qreal get_min_step();
         qreal get_max_step();
         void  set_simulation_step(qreal);
+        void mousePressEvent(QMouseEvent* event){
+            QTransform id;
+            QGraphicsItem* touched = itemAt(event->scenePos().x(), event->scenePos().y(), id);
+            if (touched != nullptr){
+                this->removeItem(touched);
+            }
+        }
     private:
         qreal simulation_step = 7;
         qreal min_step = 0.3, max_step = 10;
