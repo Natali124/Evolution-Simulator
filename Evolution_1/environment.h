@@ -3,6 +3,7 @@
 
 #include "qgraphicsscene.h"
 #include <iostream>
+#include <QGraphicsSceneMouseEvent>
 #include <QGraphicsView>
 
 class Environment : public QGraphicsScene
