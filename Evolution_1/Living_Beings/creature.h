@@ -60,7 +60,7 @@ public:
     // positive double, positive double, positive double, [0, 1], Bool, Bool, positive double, positive double
     enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, Max_hp, size, last};
 
-    // for bool values they ll eaither be 0 or not (thus a smooth conversion, normally)
+    // for bool values they ll either be 0 or not (thus a smooth conversion, normally)
 
 
     // the 'last' parameter is  just there in order to make iteration easier, it has no actual purpuse
@@ -74,6 +74,7 @@ public:
     // non-default constructor that takes a std::map<Enum_parameters, double> and a Network
     Creature(std::map<Enum_parameters, double>, Network*, Environment *e);
     ~Creature();
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     // MEMBER FUNCTIONS
     LivingBeing* reproduction();
