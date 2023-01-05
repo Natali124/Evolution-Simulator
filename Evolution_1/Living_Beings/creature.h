@@ -29,6 +29,7 @@ namespace Other {
         void set_shape();
         qreal w;
         qreal h;
+        QGraphicsEllipseItem ellipse();
     };
 
 
@@ -108,6 +109,8 @@ public:
     void bound_energy_hp();   //called in playstep
     void check_if_lack(); //called in playstep , checks if does not sleep or eat or digest for 24 steps
     //and if so, decreases energy and phys strength
+    void counter_attack(); //called in playstep - returns the n of turns before the creature was attck (bounded to 100)
+
 
     // DATA MEMBERS
     std::map<Enum_parameters, double> parameters;
@@ -150,6 +153,8 @@ public:
     void set_counter_no_sleep(int j);
     Network* get_brain();
     void set_brain(Network* b);
+    int get_last_attack();
+    void set_last_attack(int i);
 
     void normal_distrib_random_edge(Edge& edge);
     std::function<double(double)>normal_distrib_random();
@@ -175,7 +180,7 @@ protected:
     int counter_no_sleep;  //useful for check_if_lack function called in playstep()
     int counter_no_eat;    //initialized at 0
     //if necessary, counters are increased in playstep or digest-step or sleep_step and set to 0 in sleep_step or eat or digest_step
-
+    int last_attack;
 };
 
 
