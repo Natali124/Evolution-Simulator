@@ -121,14 +121,14 @@ LivingBeing* Creature::reproduction() {
         param_new_creature.insert(std::pair<Enum_parameters, double>(param, val));
     }
     //Copy of current brain
-    Network new_brain = brain->copy();
+    Network* new_brain = brain->copy();
 
 
 
     //Network new_brain = network(old brain);
     // modify this function when we can create new networks with inputs
     //new_brain.apply_on_all_edges(normal_distrib_random_edge);
-    new_brain.apply_on_all_weights(normal_distrib_random());
+    new_brain->apply_on_all_weights(normal_distrib_random());
     Creature* C= new Creature(param_new_creature, brain, this->get_scene());
     C->set_scene(this->get_scene());
     C->setPos(x(), y());
