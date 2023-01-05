@@ -5,6 +5,11 @@
 #include <QtCharts>
 #include <QChartView>
 #include <QLineSeries>
+#include <QStringList>
+#include <QBarSeries>
+#include <QBarSet>
+#include <QBarCategoryAxis>
+#include <QValueAxis>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
