@@ -1,9 +1,9 @@
-
 #include "environment.h"
 #include "mainmenu.h"
 #include "Frontend/Windows/mainMenu.h"
 #include "Neural_Network/network.hpp"
 #include "Neural_Network/nn_evolution.hpp"
+#include <string>
 #include <QApplication>
 #include <QGraphicsScene>
 #include <iostream>
@@ -12,11 +12,26 @@
 #include <math.h>
 
 
+
 using namespace std;
 double foo(double x){
   return x+0.4;
 }
-int main(int argc, char *argv[])
+
+
+
+int main(){
+    Network nn = Network(5, 5);
+    Layer* layer = nn.get_input_layer();
+    vector<vector<double>> vect = nn.network_to_vector();
+    vector_to_file(vect, "test.txt");
+    nn.network_to_file("test.txt");
+
+
+    return 0;
+}
+
+/*int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
@@ -36,4 +51,4 @@ int main(int argc, char *argv[])
     return a.exec();
 
 
-}
+}*/
