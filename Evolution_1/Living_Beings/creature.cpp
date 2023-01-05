@@ -114,7 +114,7 @@ Creature::~Creature() {
 
 
 
-LivingBeing* Creature::reproduction() {
+Creature* Creature::reproduction() {
     std::map<Enum_parameters, double> param_new_creature;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
         double val = normal_distrib(parameters[param], 0.1); // 0.1 is arbitrary value
@@ -365,6 +365,15 @@ void Creature::decision(std::vector<double> input_vector){
 //This is what we'll b e using to eat whatever the LB is touching and can eat
 void Creature::Eat(){
     QList<QGraphicsItem*> list = get_scene()->collidingItems(this);
+
+    if (repro_factor>50){
+        repro_factor = 0;
+        Creature* c = reproduction();
+        this->get_scene()->addItem(c);
+
+    }
+
+
 
     foreach(QGraphicsItem* i , list){
 

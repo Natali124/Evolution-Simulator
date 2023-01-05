@@ -79,7 +79,7 @@ public:
     void Eat();
 
     // MEMBER FUNCTIONS
-    LivingBeing* reproduction();
+    Creature* reproduction();
     // functions to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
 
     virtual std::vector<LivingBeing*> get_close();
