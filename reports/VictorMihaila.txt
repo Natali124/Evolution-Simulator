@@ -8,3 +8,7 @@ This week I implemented some preliminary designs for plants and predators. Next 
 Week 4:
 This week I fixed some bugs with the designs of the creatures and then integrated them in the classes Plant and Creature. I also wrote a possible way of randomizing the creatures spawned on the grid.
 Next week I hope to work on displaying different actions of the creatures.
+
+Week 5:
+This week I studied the QPixmap so that I will be able to replace the current designs for living beings I drew previously with better designs displayed as images.
+Next week I plan on creating these designs in some other way that I am yet to figure out and the implement them in the simulation.

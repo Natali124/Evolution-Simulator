@@ -4,6 +4,8 @@
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
+#include <QRandomGenerator>
+
 using namespace std;
 
 Edge::Edge(){
@@ -24,8 +26,9 @@ Edge::Edge(double w, Neuron* start, Neuron* end):Edge(start,end){
     }
 
 void Edge::randomize_weight(){
-        //srand((time(NULL)));
-        double r = (double) rand()/(double)(RAND_MAX);
+//        srand((time(NULL)));
+//        double r = (double) arc4random()/(pow(2, 32)-1);
+        double r = (double) QRandomGenerator::global()->generateDouble();
         r = r*2 - 1;
         set_weight(r);
     }
@@ -52,7 +55,7 @@ int Edge:: get_end_neuron_id(){
 int Edge:: get_start_neuron_id(){
     return start_neuron->get_id();
 }
-bool Edge::get_activation(){
+bool Edge::get_is_active(){
     return is_active;
 }
 void Edge::set_weight(double w){

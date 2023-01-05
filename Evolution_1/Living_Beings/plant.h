@@ -20,10 +20,11 @@ public:
     // CONSTRUCTORS
     // the defaul constructor initialises parameters with some random values and initializes the size at 1 and hp at max_hp
     Plant();
+    Plant(Environment *e);
 
     // this constructor take a std::map<Enum_parameters, double> and creates a creature with such parameters,
     //initializes the size at 1 and hp at max_hp
-    Plant(std::map<Enum_parameters, double> parameters);
+    Plant(std::map<Enum_parameters, double> parameters, Environment *e);
 
     ~Plant();
 

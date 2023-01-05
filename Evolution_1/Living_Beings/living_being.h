@@ -4,6 +4,7 @@
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 #include "Neural_Network/network.hpp"
+#include "environment.h"
 #include <iostream>
 #include <vector>
 #include <random>
@@ -42,9 +43,9 @@ public:
   virtual void set_hp(double h);
   bool get_alive() const;
   void set_alive(bool b);
-  void set_scene(QGraphicsScene *s);
-  QGraphicsScene* get_scene() const;
-    
+  void set_scene(Environment *s);
+  Environment* get_scene() const;
+
   double normal_distrib(double parameter, double variance){ //takes a value and randomly returns a value like the normal distribution does with a given variance.
       std::random_device rd;
       std::mt19937 gen(rd());
@@ -55,7 +56,7 @@ public:
 
   int number_of_steps_since_beginning = 0;
 protected:
-  QGraphicsScene *scene;
+  Environment *scene;
 };
 
 
