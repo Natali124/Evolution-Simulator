@@ -63,9 +63,20 @@ Creature::Creature():LivingBeing() {
     counter_no_eat=0;
     counter_no_sleep=0;
 
-
-    Network* n = new Network(see_ray*3 + 8, 8, 2, see_ray*3+8);
+    //For the input: each vision ray has 3 outputs; then we have 2 times 8 attributes taken into account (at turn t and t-dt); and then two memory variables
+    Network* n = new Network(see_ray*3 + 8*2 + 2, 8+2, 4, 10);
     this->brain = n;
+
+    //We'll also prepare another vector with all the attributes we'll use after (we want to know the previous parametters in the next turn)
+    Input_saved = std::vector<double>();
+    Input_saved.push_back(this->get_size());
+    Input_saved.push_back(this->get_energy());
+    Input_saved.push_back(this->get_Max_energy());
+    Input_saved.push_back(this->get_hp());
+    Input_saved.push_back(this->get_Max_hp());
+    Input_saved.push_back(this->get_physical_strength());
+    Input_saved.push_back(this->get_eye_sight());
+    Input_saved.push_back(this->get_visibility());
 }
 
 
@@ -81,6 +92,17 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain,
     this->brain = brain;
     number_creatures ++;
     number_creatures_alive ++;
+
+    //We'll also prepare another vector with all the attributes we'll use after (we want to know the previous parametters in the next turn)
+    Input_saved = std::vector<double>();
+    Input_saved.push_back(this->get_size());
+    Input_saved.push_back(this->get_energy());
+    Input_saved.push_back(this->get_Max_energy());
+    Input_saved.push_back(this->get_hp());
+    Input_saved.push_back(this->get_Max_hp());
+    Input_saved.push_back(this->get_physical_strength());
+    Input_saved.push_back(this->get_eye_sight());
+    Input_saved.push_back(this->get_visibility());
 }
 
 Creature::~Creature() {}
@@ -274,10 +296,10 @@ void Creature::normal_distrib_random_edge(Edge& edge){
 std::function<double(double)> Creature::normal_distrib_random(){ return [](double weight){
     //takes an weight of an edge and has a 10% percent chance to modify the weight according to the normal distribuition.
     double p = abs((double)rand()/(double)RAND_MAX);
-    if (p < 0.1){
+    if (p < 0.5){
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::normal_distribution<double> d(weight, 0.1);
+        std::normal_distribution<double> d(weight, 0.4);
         weight = d(gen);
     }
     return weight;
@@ -291,10 +313,13 @@ this-> physical_strength = physical_strength,
 this-> energy=energy,this->eye_sight= eye_sight,this-> visibility=visibility,this-> brain=brain; };
 */
 
-//input_vector : (sleep, eat, attack, move, sleep_time, eat_time, move_rotate, move_distance)
+//input_vector : (sleep, eat, attack, move, sleep_time, eat_time, move_rotate, move_distance, var1, var2)
 
 void Creature::decision(std::vector<double> input_vector){
-    //std::cout<<input_vector[0]<<" "<<input_vector[1]<<" "<<input_vector[2]<<" "<<input_vector[3]<<" "<<input_vector[4]<<" "<<input_vector[5]<<" "<<input_vector[6]<<" "<<" "<<input_vector[7]<<std::endl;
+    //std::cout<<input_vector[0]<<" "<<input_vector[1]<<" "<<input_vector[2]<<" "<<input_vector[3]<<" "<<input_vector[4]<<" "<<input_vector[5]<<" "<<input_vector[6]<<" "<<input_vector[7]<<std::endl;
+    //We give a value to the memory variables
+    var1=input_vector[8];
+    var2=input_vector[9];
 
     double action = *max_element(input_vector.begin(), input_vector.begin()+4);
     int j = 0;
@@ -311,12 +336,15 @@ void Creature::decision(std::vector<double> input_vector){
             eat((*food), *(input_vector.begin()+5));}
     }
     if(j==2){
-        double rotation = *(input_vector.begin()+6);
-        double distance = *(input_vector.begin()+7);
+        //Here we want to be able to move forward, backward, to rotate left and right
+        double rotation = 2*(*(input_vector.begin()+6))-1;
+        double distance = 2*(*(input_vector.begin()+7))-1;
         move(rotation, distance);
     }
 
 }
+
+
 
 
 void Creature::playstep() {
@@ -335,15 +363,38 @@ void Creature::playstep() {
         else {
 
             std::vector<double> Input = See(this->see_ray);
-            Input.push_back(this->get_size());
-            Input.push_back(this->get_energy());
-            Input.push_back(this->get_Max_energy());
-            Input.push_back(this->get_hp());
-            Input.push_back(this->get_Max_hp());
-            Input.push_back(this->get_physical_strength());
-            Input.push_back(this->get_eye_sight());
-            Input.push_back(this->get_visibility());
+            //We add the previous values of size, energy, etc to our inputs
+            for (std::vector<double>::iterator i = Input_saved.begin(); i<Input_saved.end(); i++){
+                Input.push_back(*i);
+            }
+            //We'll devide each coefficients by 200 to get a value between 0 and 1, so that everything is having the same weight
+            double K = 200;
+            Input.push_back(this->get_size()/K);
+            Input.push_back(this->get_energy()/K);
+            Input.push_back(this->get_Max_energy()/K);
+            Input.push_back(this->get_hp()/K);
+            Input.push_back(this->get_Max_hp()/K);
+            Input.push_back(this->get_physical_strength()/K);
+            Input.push_back(this->get_eye_sight()/K);
+            Input.push_back(this->get_visibility()/K);
+            Input.push_back(this->var1);
+            Input.push_back(this->var2);
+
+            //std::cout<<"input vector:  ";
+            //Other::Cout_Vector(Input);
             std::vector<double> input_vector = brain->propagate(Input);
+
+            //We'll also prepare another vector with all the attributes we'll use after (we want to know the previous parametters in the next turn)
+            Input_saved = std::vector<double>();
+            Input_saved.push_back(this->get_size());
+            Input_saved.push_back(this->get_energy());
+            Input_saved.push_back(this->get_Max_energy());
+            Input_saved.push_back(this->get_hp());
+            Input_saved.push_back(this->get_Max_hp());
+            Input_saved.push_back(this->get_physical_strength());
+            Input_saved.push_back(this->get_eye_sight());
+            Input_saved.push_back(this->get_visibility());
+
             decision(input_vector);
             set_counter_no_sleep(get_counter_no_sleep()+1);  //neither eat/digest or sleep
             set_counter_no_eat(get_counter_no_eat()+1);
@@ -473,7 +524,7 @@ void Creature::digest_step(){
 };
 
 
-//Vision is simulated using multiple rays which will start from the creature trying to see an go on multiple dircetion.
+//Vision is simulated using multiple rays which will start from the creature trying to see an go on multiple direction.
 //The see function will return a vector of size 3*n containing the distance, the size and hp of the first living_being (only distance for non_living beings) that ta ray collide with.
 std::vector<double> Creature::See(int n){
     std::vector<double> v; //Here we'll get all the output, It will be of size n
@@ -491,10 +542,10 @@ std::vector<double> Creature::See(int n){
 std::vector<double> Creature::See(int n, int i){
     // return a distance score with 0 meaning really close and 256 meaning nothing seen (see only the closest object)
 
-    //start: x, y; teta = ((i+1)*pi)/(n+2), this will allow us to get the vision ray at good positions.
+    //start: x, y; teta = ((i)**2pi)/(n), this will allow us to get the vision ray at good positions.
     std::vector<double> v;
     double r=-1;
-    double teta = ((i+1)*3.14)/(n+2) + this->rotation()*(3.14/180);
+    double teta = ((i)*2*3.14)/(n) + this->rotation()*(3.14/180);
 
 
     //lenght is vision

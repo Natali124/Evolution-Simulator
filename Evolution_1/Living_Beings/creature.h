@@ -10,6 +10,14 @@
 
 //This namespace will be used in order to have some more object to use:
 namespace Other {
+    //This is a debugging tool to show vectors, only works if T is a type compatible with std::cout
+    template <typename T> void Cout_Vector(std::vector<T> v){
+        for (typename std::vector<T>::iterator i = v.begin(); i<v.end(); i++){
+            std::cout<<*i<<" ";
+        }
+        std::cout<<std::endl;
+    }
+
     //We"ll use this class to detect what's in front of what, as an example it could be used to attack, eat, etc...
     class Square: public QGraphicsItem{
     public:
@@ -146,6 +154,12 @@ public:
 
 
 protected:
+
+    //Those are the memory variable of the creature (memory between turns, for now there are only 2)
+    double var1=0;
+    double var2=0;
+
+    std::vector<double> Input_saved; //This is what we'll use to make our creature know what it had the previous turn
     Network * brain;
     int see_ray = 3;
     bool found_food;//false by default, set to true when found food (plant or creature) and then false again after food is eaten
