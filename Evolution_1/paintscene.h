@@ -16,15 +16,15 @@ class PaintScene : public QGraphicsScene
    private:
        QPointF     previousPoint;      // The coordinates of the previous point
        Barrier* previousRect;
+       //bool click_in_bounding_rect;
 
-   private:
+
 
        void mouseMoveEvent(QGraphicsSceneMouseEvent *event){
            QRectF block = QRectF(event->scenePos().x(), event->scenePos().y(), 10, 10);
            Barrier* barrier = new Barrier(block);
            this->addItem(barrier);
        }
-
 };
 
 #endif // PAINTSCENE_H

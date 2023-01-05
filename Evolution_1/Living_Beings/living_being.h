@@ -15,7 +15,6 @@ public:
   ~LivingBeing();
   bool alive;
   QColor color;
-
   QRectF boundingRect() const;
   QPainterPath shape() const;
   virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -28,7 +27,6 @@ public:
   //common attributes to plants and creatures
   virtual void playstep();
   virtual void is_eaten(LivingBeing &c);
-
   //This is the function we'll be using when we need to make an object take damages (because it's been attacked)
   virtual void take_dmg(float dmg);
   //common attributes to plants and creatures

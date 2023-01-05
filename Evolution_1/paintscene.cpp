@@ -7,10 +7,7 @@ PaintScene::PaintScene(QObject *parent) : QGraphicsScene(parent)
     previousRect = nullptr;
 }
 
-PaintScene::~PaintScene()
-{
-
-}
+PaintScene::~PaintScene() {}
 
 
 /*

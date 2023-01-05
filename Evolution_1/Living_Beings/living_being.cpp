@@ -44,6 +44,7 @@ void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 LivingBeing::LivingBeing(){
     alive = true;
     type = none;
+    setFlag(ItemIsMovable, true);
 }
 LivingBeing::~LivingBeing(){}
 
