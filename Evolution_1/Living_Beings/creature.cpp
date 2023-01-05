@@ -62,7 +62,7 @@ Creature::Creature():LivingBeing() {
     counter_no_sleep=0;
 
     //For the input: each vision ray has 3 outputs; then we have 2 times 8 attributes taken into account (at turn t and t-dt); and then two memory variables
-    Network* n = new Network(see_ray*3 + 8*2 + 2, 8+2, 4, 10);
+    Network* n = new Network(see_ray*3 + 8*2 + 2, 9+2, 4, 10);
     this->brain = n;
 
     //We'll also prepare another vector with all the attributes we'll use after (we want to know the previous parametters in the next turn)
@@ -354,34 +354,40 @@ this-> physical_strength = physical_strength,
 this-> energy=energy,this->eye_sight= eye_sight,this-> visibility=visibility,this-> brain=brain; };
 */
 
-//input_vector : (sleep, eat, attack, move, sleep_time, eat_time, move_rotate, move_distance, var1, var2)
+//input_vector : (sleep, eat, attack, move, reproduce, sleep_time, eat_time, move_rotate, move_distance, var1, var2)
 
 void Creature::decision(std::vector<double> input_vector){
     //std::cout<<input_vector[0]<<" "<<input_vector[1]<<" "<<input_vector[2]<<" "<<input_vector[3]<<" "<<input_vector[4]<<" "<<input_vector[5]<<" "<<input_vector[6]<<" "<<input_vector[7]<<std::endl;
     //We give a value to the memory variables
-    var1=input_vector[8];
-    var2=input_vector[9];
+    var1=input_vector[9];
+    var2=input_vector[10];
 
-    double action = *max_element(input_vector.begin(), input_vector.begin()+4);
-    int j = 0;
-    for (std::vector<double>::iterator i=input_vector.begin(); i!=input_vector.begin()+4; i++){
-        if (action==*i) {break;}
-        j++;
-        }
+    int j =  std::distance(input_vector.begin(), std::max_element(input_vector.begin(), input_vector.begin()+5)); // index of max element of the first 5 elements (0 <= j <= 4)
+
     if(j==0){
-        sleep(*(input_vector.begin()+4)); //sleep for sleep_time
+        // sleep
+        sleep(*(input_vector.begin()+5)); //sleep for sleep_time
     }
     if(j==1){
+        // eat
         LivingBeing* food = find_food();
         if (get_found_food()) {
-            eat((*food), *(input_vector.begin()+5));}
+            eat((*food), *(input_vector.begin()+6));}
     }
     if(j==2){
+        //attack, to do
+      }
+    if(j==3){
+        // move
         //Here we want to be able to move forward, backward, to rotate left and right
         double rotation = 2*(*(input_vector.begin()+6))-1;
         double distance = 2*(*(input_vector.begin()+7))-1;
         move(rotation, distance);
     }
+    if(j==4){
+        // reproduce, terminates with exit code 3 if the next line is not commented out
+        //reproduction();
+      }
 
 }
 
