@@ -265,7 +265,6 @@ void Network::print_adj_list(){
 
 void Network:: print_weights(){
 
-
     cout << "Input layer \n";
 
     input_layer->print_edges();
@@ -314,14 +313,14 @@ template <typename T> void vector_to_file(vector<vector<T>> inpt, string filenam
 
         std::ofstream outfile (filename.c_str());
 
-        for(vector<double> vect: inpt){
-            for(double elm: vect){
+        for(vector<T> vect: inpt){
+            for(T elm: vect){
                 outfile << elm << " ";
             }
             outfile<<"\n";}}
 
 void vector_to_file(vector<vector<double>> inpt, string filename){
-/*Form of filename should be filename.txt (or pdf or however you want to save your file*/
+/*Form of filename should be filename.txt (or pdf or however you want to save your file)*/
     vector_to_file(inpt, filename);}
 
 
@@ -337,9 +336,6 @@ vector<vector<double>> Network:: network_to_vector(){
 void Network::network_to_file(string filename){
      vector<vector<double>> network_vect = this->network_to_vector();
      vector_to_file(network_vect, filename);}
-
-
-
 
 
 double norm_distr_random(double x){

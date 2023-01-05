@@ -153,12 +153,12 @@ vector<double> Layer::layer_to_vector(){
     for(Neuron* neuron: neurons){
         for(Edge* edge: neuron->get_next_edges()){
             output.push_back(edge->get_weight());
-
             if (edge->get_activation()){
              output.push_back(0);}
             else{
                 output.push_back(1);}}}
-    output.push_back(f_activation_name);}
+    //output.push_back(f_activation_name);
+    return output;}
 
 
 
