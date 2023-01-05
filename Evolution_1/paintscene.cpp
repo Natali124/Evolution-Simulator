@@ -5,6 +5,8 @@
 PaintScene::PaintScene(QObject *parent) : QGraphicsScene(parent)
 {
     previousRect = nullptr;
+    click_in_bounding_rect = false;
+    last_touched = nullptr;
 }
 
 PaintScene::~PaintScene() {}

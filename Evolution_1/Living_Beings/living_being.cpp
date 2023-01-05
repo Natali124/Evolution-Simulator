@@ -38,6 +38,7 @@ void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
                         QWidget *widget) {
     painter->setBrush(color);
     painter->drawEllipse(-10, -20, 20, 40);
+    painter->drawRect(boundingRect());
 }
 
 
