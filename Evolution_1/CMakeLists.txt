@@ -44,6 +44,7 @@ set(PROJECT_SOURCES
         Frontend/Widgets/simulationView.h
         Frontend/Widgets/simulationView.cpp
         Frontend/mainMenuResources.qrc
+        Frontend/CreatureDesigns.qrc
         Frontend/resources.h
         Frontend/Widgets/SimulationSpeedSlider.cpp
         Frontend/Widgets/environmentTimer.cpp
