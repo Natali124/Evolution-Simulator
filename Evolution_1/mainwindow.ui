@@ -36,7 +36,7 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>Add predator</string>
+       <string>Add omnivorous creature</string>
       </property>
      </widget>
     </item>
@@ -62,7 +62,7 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>Add prey</string>
+       <string>Add herbivore creature</string>
       </property>
      </widget>
     </item>

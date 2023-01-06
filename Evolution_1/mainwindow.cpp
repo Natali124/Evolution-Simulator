@@ -69,10 +69,10 @@ void MainWindow::on_startBut_clicked()
 void MainWindow::on_button_pred_clicked()
 {
     int val = ui->count_pred->value();
-    qDebug() << "Predators:" << val;
+    qDebug() << "Omnivorous creature:" << val;
 
     for (int i = num_pred; i < num_pred+val; i++) {
-        ui->creature_list->addItem("Predator " + QString::number(i+1));
+        ui->creature_list->addItem("Omnivorous creature " + QString::number(i+1));
     }
 
     num_pred += val;
@@ -83,10 +83,10 @@ void MainWindow::on_button_pred_clicked()
 void MainWindow::on_button_prey_clicked()
 {
     int val = ui->count_prey->value();
-    qDebug() << "Prey:" << val;
+    qDebug() << "Herbivore creature:" << val;
 
     for (int i = num_prey; i < num_prey+val; i++) {
-        ui->creature_list->addItem("Prey " + QString::number(i+1));
+        ui->creature_list->addItem("Herbivore creature " + QString::number(i+1));
     }
 
     num_prey += val;
