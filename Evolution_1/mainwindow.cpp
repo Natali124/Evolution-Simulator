@@ -157,6 +157,7 @@ void MainWindow::on_button_delete_all_clicked()
 
     // Hide the Simulation button, called "simbut" for short, as you can't launch the simulation with no creatures.
     ui->simBut->setVisible(false);
+    ui->groupBox->setVisible(false);
 }
 
 
@@ -175,6 +176,7 @@ void MainWindow::on_button_delete_creature_clicked()
     int count = ui->creature_list->count();
     if (count == 0) {
         ui->simBut->setVisible(false);
+        ui->groupBox->setVisible(false);
     }
 }
 
