@@ -11,6 +11,8 @@
 #include <QBarCategoryAxis>
 #include <QValueAxis>
 #include "environment.h"
+#include <Frontend/Widgets/simulationView.h>
+#include <Frontend/Widgets/simulationViewWidgets.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,12 +23,15 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(SimulationView& menu, QWidget *parent = nullptr);
     ~MainWindow();
+    std::vector<double> creature_hp_ratio(SimulationView& menu); //helper vector for creating a graph on the proportion of creatures having
+    //certain percentages of hp (their hp/ their max_hp)
 
 private:
     Ui::MainWindow *ui;
 };
+
 
 class Chart : QChart {
 public:
@@ -37,4 +42,6 @@ public:
     int get_step();
 };
 
+
 #endif // MAINWINDOW_H
+

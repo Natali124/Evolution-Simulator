@@ -27,6 +27,7 @@ public:
   };
   Type_LB type;
 
+  Type_LB get_type() {return type;};
   //common attributes to plants and creatures
   virtual void playstep();
   virtual void is_eaten(LivingBeing &c);

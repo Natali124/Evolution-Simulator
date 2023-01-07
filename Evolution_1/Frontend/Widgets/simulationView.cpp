@@ -99,3 +99,4 @@ void SimulationView::fitDisplay(){
     int pady = ( parent->height() - sz ) / 2;
     display.move(padx, pady);
 }
+

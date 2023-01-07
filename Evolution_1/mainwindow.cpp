@@ -3,6 +3,10 @@
 #include <Living_Beings/creature.h>
 #include <Living_Beings/living_being.h>
 #include <Living_Beings/plant.h>
+#include "environment.h"
+#include <Frontend/Widgets/simulationView.h>
+#include <Frontend/Widgets/simulationViewWidgets.h>
+#include <QGraphicsItem>
 
 void Chart::advance(int phase) { //this function is used to update
     if (phase == 1) {
@@ -12,47 +16,130 @@ void Chart::advance(int phase) { //this function is used to update
 int Chart::get_step() {return this->step;}
 void Chart::set_step(int val) {this->step = val;}
 
-MainWindow::MainWindow(QWidget *parent)
+
+std::vector<double> MainWindow::creature_hp_ratio(SimulationView &menu) {
+    std::vector<double> v;    //v stores the ratio of hp/max_hp for each creature
+    Environment* environment = menu.get_environment();
+    QList<QGraphicsItem *> list = environment->items();
+    QListIterator<QGraphicsItem*> i(list);
+    while (i.hasNext()) {
+        LivingBeing* LB = dynamic_cast<LivingBeing*>(i.next());
+        LivingBeing::Type_LB type = LB->get_type();
+        if (type == Creature::creature) {
+            Creature* c = dynamic_cast<Creature*>(LB);
+            double ratio = (c->get_hp())/(c->get_Max_hp());
+            v.push_back(ratio);
+        }
+    }
+    std::vector<double> res;  //res stores 5 numbers, the proportion of creatures having:
+    double n1=0;   //between 0 and 20% of max_hp
+    double n2=0;   //between 21% and 40% of max_hp
+    double n3=0;   //between 41% and 60% of max_hp
+    double n4=0;   //between 61% and 80% of max_hp
+    double n5=0;   //between 81% and 100% of max_hp
+    double total_nb=0;  //total nb of creatures stored in the vector v
+    for (std::vector<double>::iterator j=v.begin();j!=v.end(); j++) {
+        total_nb+=1;
+        if (0.0<=(*j)<=0.2){
+            n1+=1;    }
+        else if (0.21<=(*j)<=0.4){
+            n2+=1;}
+        else if (0.41<=(*j)<=0.6){
+            n3+=1;}
+        else if (0.61<=(*j)<=0.8) {
+            n4+=1;}
+        else if (0.81<=(*j)<=1.0){
+            n5+=1;}
+    }
+    double n1_f = n1/total_nb;
+    double n2_f = n2/total_nb;
+    double n3_f = n3/total_nb;
+    double n4_f = n4/total_nb;
+    double n5_f = n5/total_nb;
+    res.push_back(n1_f);
+    res.push_back(n2_f);
+    res.push_back(n3_f);
+    res.push_back(n4_f);
+    res.push_back(n5_f);
+    return res;
+};
+
+MainWindow::MainWindow(SimulationView& menu, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
+    //chart1:
     //QScatterSeries *LBs = new QScatterSeries();
     //QScatterSeries *Creatures = new QScatterSeries();
     //QScatterSeries *Plants = new QScatterSeries();
-    QBarSet *alive = new QBarSet("alive");
-    QBarSet *dead = new QBarSet("dead");
-    QBarSet *tn = new QBarSet("total_number");
+
+    //chart2:
+    //QBarSet *alive = new QBarSet("alive");
+    //QBarSet *dead = new QBarSet("dead");
+    //QBarSet *tn = new QBarSet("total_number");
+
+    //chart3:
+    QBarSet *prop = new QBarSet("proportion of creatures having ...% of their max_hp  (random for now, working on it)");
+
+    //chart2:
     //*alive << number_LBs_alive << number_creatures_alive << number_plants_alive;
-    //*alive << number_LBs_alive << number_creatures_alive << (number_LBs_alive - number_creatures_alive);
     //*dead <<number_LBs_dead << number_creatures_dead << number_plants_dead;
     //*tn << number_LBs << number_creatures << number_plants;
-    //*tn << number_LBs << number_creatures << (number_LBs - number_creatures);
-    *alive << 15 << 10 << 5;
-    *dead << 1 << 1 << 1;
-    *tn << 16 << 11 << 6;
+
+    //charts 2,3:
     QBarSeries *series = new QBarSeries();
-    series->append(alive);
-    series->append(dead);
-    series->append(tn);
 
+    //chart 3:
+    //for now I put random values in proportion because no LBs in the environment
+    //but when there will be, prop should have the five numbers n1 ,..,n5 multiplied by 10 to see them more clearly bcse they are ratios between 0 and 1
+    //std::vector<double> v = creature_hp_ratio(menu);
+    //for (std::vector<double>::iterator j=v.begin();j!=v.end(); j++) {
+    //    prop->append((*j)*10);
+    //}
+    *prop << 3.1 << 1.0 << 3.2 << 1.7 << 1.0 ;
+    series->append(prop);
 
+    //chart2:
+    //series->append(alive);
+    //series->append(dead);
+    //series->append(tn);
+
+    //chart1:
     //LBs->append(0, number_LBs);
     //Creatures->append(1, number_creatures);
     //Plants->append(2, number_plants);
+
+    //all charts:
     QChart *chart = new QChart();
+
+    //?
     //*chart->advance(int phase)
 
+    //charts 2,3:
     chart->addSeries(series);
+
+    //chart1:
     //chart->addSeries(LBs);
     //chart->addSeries(Creatures);
     //chart->addSeries(Plants);
     //chart->createDefaultAxes();
-    chart->setTitle("Number of LBs, Creatures and Plants");
+
+    //charts 1 , 2:
+    //chart->setTitle("Number of LBs, Creatures and Plants (random for now)");
+
+    //charts 2,3:
     chart->setAnimationOptions(QChart::SeriesAnimations);
     QStringList categories;
-    categories << "LBs" << "Creatures" << "Plants";
+
+    //chart2:
+    //categories << "LBs" << "Creatures" << "Plants";
+
+    //chart3:
+    categories << "0 to 20%" << "21% to 40%" << "41% to 60%" << "61% to 80%" << "81% to 100%";
+
+    //charts 2,3:
     QBarCategoryAxis *axisX = new QBarCategoryAxis();
     axisX->append(categories);
     chart->addAxis(axisX, Qt::AlignBottom);
@@ -61,6 +148,8 @@ MainWindow::MainWindow(QWidget *parent)
     axisY->setRange(0,15);
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
+
+    //all charts:
     chart->legend()->setVisible(true);;
     chart->legend()->setAlignment(Qt::AlignBottom);
     QChartView *chartView = new QChartView(chart);

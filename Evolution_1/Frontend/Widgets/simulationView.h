@@ -18,6 +18,7 @@ class SimulationView : public QMainWindow{
         }
         virtual void resizeEvent(QResizeEvent*);
         Environment* environment;
+        Environment* get_environment() {return environment;};
         EnvironmentTimer timer;
 
     private:
