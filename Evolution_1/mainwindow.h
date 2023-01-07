@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "QtWidgets/qlistwidget.h"
 #include <QMainWindow>
 #include <QApplication>
 #include <cstdlib>
@@ -21,6 +20,9 @@ public:
     ~MainWindow();
 
 private slots:
+
+    // all functions are explained in mainwindow.cpp
+
     void on_startBut_clicked();
 
     void on_button_pred_clicked();
