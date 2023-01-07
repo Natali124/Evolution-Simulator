@@ -80,6 +80,12 @@ Creature::Creature():LivingBeing() {
     Input_saved.push_back(this->get_physical_strength());
     Input_saved.push_back(this->get_eye_sight());
     Input_saved.push_back(this->get_visibility());
+
+
+
+    parameters[eat_creature] = true;
+    parameters[eat_plants] = true;
+
 }
 
 
@@ -133,7 +139,7 @@ Creature* Creature::reproduction() {
     C->set_scene(this->get_scene());
     C->setPos(x(), y());
     C->setRotation(rotation());
-    C->move(1, 1); //So that they aren't both exactly at the same place, and wont stay at the same position and do the same things
+    C->move(10, 10); //So that they aren't both exactly at the same place, and wont stay at the same position and do the same things
     return C;
 };
 
@@ -188,7 +194,6 @@ void Creature::attack(){
 
 void Creature::die() {
     if ((!this->get_alive()) || (this->get_hp() < 0) ) {
-        std::cout<<this->get_hp()<<std::endl;
         set_alive(false);
 
 
@@ -345,7 +350,7 @@ void Creature::decision(std::vector<double> input_vector){
         j++;
         }
     if(j==0){
-        sleep(*(input_vector.begin()+4)); //sleep for sleep_time
+        sleep(*(input_vector.begin()+4) * 200); //sleep for sleep_time
     }
     if(j==1){
         LivingBeing* food = find_food();
@@ -366,11 +371,10 @@ void Creature::decision(std::vector<double> input_vector){
 void Creature::Eat(){
     QList<QGraphicsItem*> list = get_scene()->collidingItems(this);
 
-    if (repro_factor>50){
-        repro_factor = 0;
+    if (repro_factor>=50){
+        repro_factor -= 50;
         Creature* c = reproduction();
         this->get_scene()->addItem(c);
-
     }
 
 
@@ -380,17 +384,22 @@ void Creature::Eat(){
         Plant *j = dynamic_cast<Plant*>(i);
         Creature *k = dynamic_cast<Creature*>(i);
         if (this->get_eat_plants() && j != nullptr){
-           if (j->get_alive_time()>50){
                 j->set_hp(-1);
                 j->die();
-                repro_factor+=100;
-           }
+                set_energy(get_Max_energy());
+                repro_factor+=30;
+                set_counter_no_eat(0);
         }
-        if (this->get_eat_creature() && k != nullptr){
+        if (this->get_eat_creature() && k != nullptr && (!same_spiecie(k))){
             if (k->get_alive_time()>50){
-                k->set_hp(-1);
-                k->die();
-                repro_factor+=100;
+                double r = (double)rand()/(double)RAND_MAX;
+                if (r>(k->get_size())/get_physical_strength()){
+                    k->set_hp(-1);
+                    k->die();
+                    set_energy(get_Max_energy());
+                    repro_factor+=30;
+                    set_counter_no_eat(0);
+                }
             }
 
         }
@@ -402,17 +411,26 @@ void Creature::Eat(){
 
 
 void Creature::playstep() {
+    if (this->x()<-100){
+        this->set_hp(-1);
+    }
+    if (this->y()<-100){
+        this->set_hp(-1);
+    }
+    if (this->x()>600){
+        this->set_hp(-1);
+    }
+    if (this->y()>600){
+        this->set_hp(-1);
+    }
+
+
+
     increase_alive_time();
     die();   // actually dies only if it should (alive and hp<=0)
 
 
     if (get_alive()){
-
-
-        //We check if our creature eat:
-
-        Eat();
-
 
 
 
@@ -464,10 +482,15 @@ void Creature::playstep() {
 
             decision(input_vector);
             set_counter_no_sleep(get_counter_no_sleep()+1);  //neither eat/digest or sleep
-            set_counter_no_eat(get_counter_no_eat()+1);
+
             counter_attack();
         }
+        //We check if our creature eat
+        set_counter_no_eat(get_counter_no_eat()+1);
+        Eat();
         check_if_lack(); //lack of sleep is more damageable bcse more important to sleep than to eat, Harvard study :)
+
+
     ;}
 };
 
@@ -478,7 +501,12 @@ void Creature::counter_attack(){
 
 
 void Creature::check_if_lack() {
-    if (get_counter_no_eat()==2400) {
+    if (get_energy()<=get_Max_energy()/20){
+        set_hp(get_hp()-get_Max_hp()/100);
+    }
+    if (get_counter_no_eat()>=2400) {
+        set_hp(get_hp()-get_Max_hp()/100);
+
         set_physical_strength(0.95*get_physical_strength());
         set_energy(0.95*get_energy());
     }
@@ -488,7 +516,7 @@ void Creature::check_if_lack() {
     }
 }
 
-void Creature::sleep(double delta_t) {
+void Creature::sleep(int delta_t) {
     sleep_time = delta_t;
     set_counter_no_sleep(0);
     set_physical_strength(1.09*get_physical_strength()); //regains almost all its energy and ps lost due to lack of sleep (lost 10%)
@@ -497,8 +525,7 @@ void Creature::sleep(double delta_t) {
 
 void Creature::sleep_step() {
     set_counter_no_eat(get_counter_no_eat()+1);
-    double e = get_energy() +1;
-    set_energy(e);
+    set_energy(get_energy() +1);
     sleep_time-=1;
 }
 
@@ -677,5 +704,22 @@ void Creature::move(double rotation, double distance){
     float current_energy = get_energy();
     current_energy -= (_ener_rotcoeff * rotation + _ener_movecoeff * distance) * _sizecoeff * s * s; //change of energy depends on rotation, distance travelled and size squared to punish too big animals
     set_energy(current_energy);
+}
+
+
+//The description is in the .h file
+bool Creature::same_spiecie(Creature* c){
+    double d = 0;
+    for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
+        d+= abs(1 - parameters[param]/c->parameters[param]);
+    }
+    return d<0.5;
+}
+
+QRectF Creature::boundingRect() const
+{
+    qreal adjust = 0.5;
+    return QRectF((-18 - adjust)*get_size()/200, (-22 - adjust)*get_size()/200,
+                  (36 + adjust)*get_size()/200, (60 + adjust)*get_size()/200);
 }
 

@@ -49,7 +49,6 @@ Plant::Plant(double reproduction_rate) {
 
 void Plant::die() {
     if ((!this->get_alive()) || (this->get_hp() < 0) ) {
-        std::cout<<"P:"<<this->get_hp()<<std::endl;
 
         set_alive(false);
         number_plants_alive --;
@@ -114,12 +113,24 @@ void Plant::is_eaten(Creature &c) {
 
 void Plant::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     painter->setBrush(Qt::white);
-    painter->drawEllipse(QRectF(-25,-25,25,25));
-    painter->drawEllipse(QRectF(0,0,25,25));
-    painter->drawEllipse(QRectF(-25,0,25,25));
-    painter->drawEllipse(QRectF(0,-25,25,25));
+    double k =  get_size()/200;
+    painter->drawEllipse(QRectF(-25*k,-25*k,25*k,25*k));
+    painter->drawEllipse(QRectF(0,0,25*k,25*k));
+    painter->drawEllipse(QRectF(-25*k,0,25*k,25*k));
+    painter->drawEllipse(QRectF(0,-25*k,25*k,25*k));
     painter->setBrush(Qt::yellow);
-    painter->drawEllipse(QRectF(-15,-15,30,30));
+    painter->drawEllipse(QRectF(-15*k,-15*k,30*k,30*k));
+
+
+    //qreal adjust = 0.5;
+    //painter->drawRect((-22 - adjust)*k, (-22 - adjust)*k, (45 + adjust)*k, (45 + adjust)*k);
+}
+
+QRectF Plant::boundingRect() const
+{
+    double k = get_size()/200;
+    qreal adjust = 0.5;
+    return QRectF((-22 - adjust)*k, (-22 - adjust)*k, (45 + adjust)*k, (45 + adjust)*k);
 }
 
 
@@ -249,6 +260,25 @@ void Plant::slimming_carbs(Creature &c) {
 void Plant::playstep() {    // random values for increasing hp, random weight of growing coef for increasing size
     //changing size and upper bound it by max_size , same for hp
 
+    if (this->x()<100){
+        this->set_hp(-1);
+    }
+    if (this->y()<100){
+        this->set_hp(-1);
+    }
+    if (this->x()>400){
+        this->set_hp(-1);
+    }
+    if (this->y()<400){
+        this->set_hp(-1);
+    }
+
+    repro_factor+=rand()%4;
+    if (repro_factor>=500){
+        repro_factor -= 500;
+        Plant* p = reproduction();
+        this->get_scene()->addItem(p);
+    }
 
     increase_alive_time();
     double growing_coef = 0.25 * get_Max_size()/get_size();
@@ -267,12 +297,15 @@ void Plant::playstep() {    // random values for increasing hp, random weight of
 };
 
 
-LivingBeing* Plant::reproduction(){
+Plant* Plant::reproduction(){
     std::map<Enum_parameters, double> param_new_plant;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
         double val = normal_distrib(parameters[param],0.1);
         param_new_plant.insert(std::pair<Enum_parameters, float>(param, val));
     }
     Plant* p = new Plant(param_new_plant, this->get_scene());
+    p->setPos(this->x() + 100*(double)rand()/(double)(RAND_MAX),this->y()+100*(double)rand()/(double)(RAND_MAX));
     return p;
 }
+
+

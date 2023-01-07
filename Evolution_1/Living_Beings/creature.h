@@ -100,7 +100,7 @@ public:
     //in decision we check if there is actually food (bool found_food) before eating
     void decision(std::vector<double>input_vector); //takes as input vector given by the nn,
                                               //for given parameters (see .cpp) and takes a decision given the biggest one
-    void sleep(double delta_t);//called by decision to decide to sleep for a time delta_t
+    void sleep(int delta_t);//called by decision to decide to sleep for a time delta_t
     void sleep_step();//sleeps for one step : += energy and -= sleep_time
     void playstep();//first tries to : die, sleep , digest, or takes a decison
 
@@ -156,8 +156,12 @@ public:
     int get_last_attack();
     void set_last_attack(int i);
 
+    //this function will be used to detect if two creatures have similar attributes and can be considered as from the same spiecie. This will help us removing some of the problem we had with children eating there parents
+    bool same_spiecie(Creature* c);
+
     void normal_distrib_random_edge(Edge& edge);
     std::function<double(double)>normal_distrib_random();
+    QRectF boundingRect() const;
 
 
 protected:
