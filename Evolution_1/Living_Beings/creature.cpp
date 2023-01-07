@@ -60,7 +60,7 @@ Creature::~Creature() {}
 
 void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     if(!get_eat_creature()){
-        // Body
+        /*// Body
         painter->setBrush(QColor(std::min((int)get_Max_energy(), (int)255), 0, 0, 255)); //for now make it redder the more energy it can have
         painter->drawEllipse(-10, -20, 20, 40);
 
@@ -88,7 +88,8 @@ void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         path.cubicTo(5, 27, 5, 32, 0, 30);
         path.cubicTo(-5, 32, -5, 42, 0, 35);
         painter->setBrush(Qt::NoBrush);
-        painter->drawPath(path);
+        painter->drawPath(path);*/
+        painter->drawPixmap(QRect(-30,-30,90,90),QPixmap(":/designs/deer.png"));
     } else {
         /*painter->setBrush(Qt::gray);
         painter->drawEllipse(QRectF(-25,-25,50,50));
