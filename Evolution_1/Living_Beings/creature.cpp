@@ -89,7 +89,7 @@ void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         path.cubicTo(-5, 32, -5, 42, 0, 35);
         painter->setBrush(Qt::NoBrush);
         painter->drawPath(path);*/
-        painter->drawPixmap(QRect(-30,-30,90,90),QPixmap(":/designs/deer.png"));
+        painter->drawPixmap(QRect(-50,-50,100,100),QPixmap(":/designs/deer.png"));
     } else {
         /*painter->setBrush(Qt::gray);
         painter->drawEllipse(QRectF(-25,-25,50,50));
@@ -100,7 +100,7 @@ void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         painter->drawEllipse(QRectF(-10,-15,5,7));
         painter->drawEllipse(QRectF(15,-15,5,7));
         painter->drawEllipse(QRectF(-15,5,30,10));*/
-        painter->drawPixmap(QRect(-30,-30,70,70),QPixmap(":/designs/wolf.png"));
+        painter->drawPixmap(QRect(-30,-30,60,60),QPixmap(":/designs/wolf.png"));
     }
 
     LivingBeing::paint(painter, option, widget);
