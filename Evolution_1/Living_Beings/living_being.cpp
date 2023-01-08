@@ -59,16 +59,15 @@ void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 
 //spawns a window showing being's stats
 void LivingBeing::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
-    auto view = new StatView(this);
+    new StatView(this);
 }
-
-
 
 LivingBeing::LivingBeing(Environment* environment) : environment(environment){
     alive = true;
     type = none;
 }
-LivingBeing::~LivingBeing(){}
+LivingBeing::~LivingBeing(){
+}
 
 
 
