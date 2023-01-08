@@ -23,3 +23,9 @@ This week I created an outline for the functions used to save the network in a f
 To this end, I researched file handling in C++ and wrote an outline on Trello how this function could be implemented. I also implmented the function
 network_to_file, with the helper functions network_to_vector, layer_to_vector and vector_to_file. Next week I plan to either implement more functonlities
 for the neural network or work on other parts of the project, depending on what is needed.
+
+Week 5
+
+This week I finished the function for reading and constructing the network that I had outlined the previous week. To this end I read up on reading files in 
+C++ and string methods. Moreover, I implemented the functions file_to_vector, vector_to_layer, vector_to_network and file_to_network. Tita helped me with
+debugging the functions. Nxt week, I plan to either join the teams working or statistics or work on displaying the network.
