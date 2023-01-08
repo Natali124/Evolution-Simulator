@@ -15,12 +15,3 @@ double do_step(vector<Network*> &networks, int n, int tests,  double r, int n_in
 
 void run_evolution(int n = 100, double r = 10, double tests = 10, int n_in = 5, int n_out = 5, int n_gen = 1000, int print_every = 10);
 
-//Reconstructing network
-
-vector<vector<double>> file_to_vector(string filename);
-
-Layer vector_to_layer(vector<double> inpt);
-
-Network vector_to_network(vector<vector<double>> inpt);
-
-Network file_to_network(string filename);
