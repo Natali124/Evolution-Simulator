@@ -1,7 +1,7 @@
 #include "edge.hpp"
 #include "neuron.hpp"
 #include "layer.hpp"
-#include "utils.cpp"
+#include "utils.hpp"
 #include "network.hpp"
 #include <vector>
 using namespace std;

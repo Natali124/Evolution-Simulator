@@ -2,7 +2,7 @@
 #include "neuron.hpp"
 #include "layer.hpp"
 #include "network.hpp"
-#include "utils.cpp"
+#include "utils.hpp"
 
 #include <cmath>
 #include <vector>
