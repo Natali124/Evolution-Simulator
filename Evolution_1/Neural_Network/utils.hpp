@@ -27,6 +27,8 @@ template <typename T> void vector_to_file(vector<vector<T>> inpt, string filenam
             }
             outfile<<"\n";}}
 
+void vector_to_file(vector<vector<double>> inpt, string filename);
+
 //Reconstructing network
 
 vector<vector<double>> file_to_vector(string filename);
