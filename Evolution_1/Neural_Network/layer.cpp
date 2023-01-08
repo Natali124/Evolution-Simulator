@@ -159,11 +159,17 @@ vector<double> Layer::layer_to_vector(){
             if (edge->get_activation()){
              output.push_back(0);}
             else{
-                output.push_back(1);}}}  
+                output.push_back(1);}}}
+    Neuron* neuron = bias_neuron;
+    for(Edge* edge: neuron->get_next_edges()){
+        output.push_back(round(edge->get_weight()*100));
+        if (edge->get_activation()){
+         output.push_back(0);}
+        else{
+            output.push_back(1);}}
+
     output.push_back(f_activation_name);
     return output;}
-
-
 
 // Added for compilation reasons (Vincenzo)
 Layer::~Layer(){

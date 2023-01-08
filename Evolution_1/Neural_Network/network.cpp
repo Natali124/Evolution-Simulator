@@ -1,5 +1,6 @@
 #include "network.hpp"
 #include "layer.hpp"
+#include "utils.hpp"
 #include <vector>
 #include <functional>
 #include <iostream>
@@ -306,22 +307,6 @@ void Network:: print_values(){
 
 }
 
-//Helper function for saving network
-
-template <typename T> void vector_to_file(vector<vector<T>> inpt, string filename){
-    /*Form of filename should be filename.txt (or pdf or however you want to save your file)*/
-
-        std::ofstream outfile (filename.c_str());
-
-        for(vector<T> vect: inpt){
-            for(T elm: vect){
-                outfile << elm << " ";
-            }
-            outfile<<"\n";}}
-
-void vector_to_file(vector<vector<double>> inpt, string filename){
-/*Form of filename should be filename.txt (or pdf or however you want to save your file)*/
-    vector_to_file(inpt, filename);}
 
 
 //Saving
@@ -334,6 +319,8 @@ vector<vector<double>> Network:: network_to_vector(){
     int otpt_layer_size = output_layer->get_neurons().size();
     vector<double> otpt_layer(0);
     otpt_layer.push_back(otpt_layer_size);
+    otpt_layer.push_back(output_layer->get_activation_function());
+    output.push_back(otpt_layer);
     return output;}
 
 void Network::network_to_file(string filename){

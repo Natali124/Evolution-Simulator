@@ -19,10 +19,15 @@ double foo(double x){
 }
 
 int main(){
-    Network nn = Network(2, 3, 1, 2);
-    vector<vector<double>> vect = nn.network_to_vector();
-    vector<vector<double>> vect2 = file_to_vector("vect_test2.txt");
-    vector_to_network(vect);
+    Network* nn = new Network(5, 2, 3, 2);
+    vector<vector<double>> vect = nn->network_to_vector();
+    string path = "/Users/anjamatic/CSE201/";
+    vector_to_file(vect,path + "vector_to_file_test.txt");
+    nn->network_to_file(path + "test_file.txt");
+    vector<vector<double>> vect2 = file_to_vector(path + "vect_test2.txt");
+    Network* nn2 = vector_to_network(vect);
+    nn->print_weights();
+    nn2->print_weights();
     return 0;
 }
 
