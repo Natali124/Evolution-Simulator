@@ -150,14 +150,17 @@ vector<double> Layer::layer_to_vector(){
 /* Each layer will be saved as follows: for each edge, the weght and the activation is stored.
  The last number of the vector is the activation function*/
     vector<double> output(0);
+    int n = neurons.size();
+    output.push_back(n);
+
     for(Neuron* neuron: neurons){
         for(Edge* edge: neuron->get_next_edges()){
-            output.push_back(edge->get_weight());
+            output.push_back(round(edge->get_weight()*100));
             if (edge->get_activation()){
              output.push_back(0);}
             else{
-                output.push_back(1);}}}
-    //output.push_back(f_activation_name);
+                output.push_back(1);}}}  
+    output.push_back(f_activation_name);
     return output;}
 
 

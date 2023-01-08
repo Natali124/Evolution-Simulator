@@ -309,7 +309,7 @@ void Network:: print_values(){
 //Helper function for saving network
 
 template <typename T> void vector_to_file(vector<vector<T>> inpt, string filename){
-    /*Form of filename should be filename.txt (or pdf or however you want to save your file*/
+    /*Form of filename should be filename.txt (or pdf or however you want to save your file)*/
 
         std::ofstream outfile (filename.c_str());
 
@@ -331,12 +331,17 @@ vector<vector<double>> Network:: network_to_vector(){
     output.push_back(input_layer->layer_to_vector());
     for(Layer* hidden: hidden_layers){
         output.push_back(hidden->layer_to_vector());}
-     return output;}
+    int otpt_layer_size = output_layer->get_neurons().size();
+    vector<double> otpt_layer(0);
+    otpt_layer.push_back(otpt_layer_size);
+    return output;}
 
 void Network::network_to_file(string filename){
      vector<vector<double>> network_vect = this->network_to_vector();
      vector_to_file(network_vect, filename);}
 
+
+//Reproduction
 
 double norm_distr_random(double x){
   double p = (double) QRandomGenerator64::global()->generateDouble();
@@ -348,7 +353,6 @@ double norm_distr_random(double x){
     }
   return x;
 }
-
 
 Network* Network::reproduce(){
   Network* nn = this->copy();

@@ -52,7 +52,6 @@ public:
 private:
     vector<Neuron*> neurons;
     Neuron* bias_neuron;
-
     act_function f_activation_name;
 
 };
