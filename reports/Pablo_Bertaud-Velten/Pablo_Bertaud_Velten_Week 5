@@ -1,3 +1,0 @@
-Week 5:
-
-This week I worked on the Statistics part of the project, implementing counters for different types of species, as well as a counter for steps in the simulation. I am also currently trying to implement the advance() function to update the charts when the environment changes (birht, death, etc). I also implemented a common die() member function for animals and plants, simplifying the code a bit. The goal now is to manage to solve all the issues associated to the stats window and the link it makes with the rest of the simulation.
