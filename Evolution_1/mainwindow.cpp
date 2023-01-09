@@ -57,10 +57,12 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
 }
 
+
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
 
 void MainWindow::setBackgroundImage(QString filePath){
     QPixmap bkgnd = QPixmap(filePath);
@@ -70,6 +72,7 @@ void MainWindow::setBackgroundImage(QString filePath){
     setPalette(palette);
 }
 
+
 void MainWindow::resizeEvent(QResizeEvent *evt)
 {
     stretchBackground();
@@ -77,6 +80,7 @@ void MainWindow::resizeEvent(QResizeEvent *evt)
 
     QMainWindow::resizeEvent(evt); //call base implementation
 }
+
 
 void MainWindow::stretchBackground(){
     QString back(":/backgrounds/images/nature-outdoor-forest-background_1308-54338.jpg");
@@ -107,7 +111,6 @@ void MainWindow::on_startBut_clicked()
     ui->button_delete_all->setVisible(true);
     ui->button_delete_creature->setVisible(true);
 }
-
 
 
 void MainWindow::on_button_pred_clicked()
@@ -252,6 +255,7 @@ void MainWindow::on_button_rdm_clicked()
         ui->eat_plant->setCheckState(Qt::Checked);
     }
 }
+
 
 void MainWindow::on_button_reset_clicked()
 {
