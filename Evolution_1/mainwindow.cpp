@@ -38,13 +38,11 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
 }
 
+
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-
-
-
 
 
 void MainWindow::on_startBut_clicked()
@@ -208,6 +206,7 @@ void MainWindow::on_button_rdm_clicked()
         ui->eat_plant->setCheckState(Qt::Checked);
     }
 }
+
 
 void MainWindow::on_button_reset_clicked()
 {
