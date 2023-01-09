@@ -18,11 +18,13 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    virtual void resizeEvent(QResizeEvent*);
 
 private slots:
 
     // all functions are explained in mainwindow.cpp
     void setBackgroundImage(QString filePath);
+    void stretchBackground();
     void on_startBut_clicked();
 
     void on_button_pred_clicked();
