@@ -13,11 +13,6 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     SimulationView menu(new Environment());
 
-    //for stats:
-    /*MainWindow window(menu);
-    window.resize(800, 600);
-    window.show();*/
-
     new Environment_Stats(new Environment());
 
 

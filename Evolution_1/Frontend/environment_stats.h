@@ -2,7 +2,15 @@
 #define ENVIRONMENT_STATS_H
 
 
-
+#include <QMainWindow>
+#include <QtCharts>
+#include <QChartView>
+#include <QLineSeries>
+#include <QStringList>
+#include <QBarSeries>
+#include <QBarSet>
+#include <QBarCategoryAxis>
+#include <QValueAxis>
 #include "environment.h"
 #include "qchart.h"
 #include "qchartview.h"
