@@ -12,7 +12,7 @@ Next week I\'92ll dedicate my time to implement better and more realistic graphi
 Week 3:\
 Organised the visualisation of the creature in order to proceed with the simulation.\
 Coded the class Barrier.\
-Next week I will take care of real time drawing in Qt.
+Next week I will take care of real time drawing in Qt.\
 Week 4:\
 Taken care of merging the branches to the main.\
 Redefined the play_step() function to have a working simulation.\
@@ -21,4 +21,8 @@ Next week I will improve the realtime drawing of the barrier in order to have mo
 Week 4:\
 Make beings movable.\
 Improve the drawing of the barrier.\
-Next week I'll take care of events like drawing barrier on creatures.\}
+Next week I will take care of events like drawing barrier on creatures.\
+Week 5:\
+Makes being movable and drawing barrier at the same time.\
+Merging several branches into main to conclude the project.\
+Next week I will try to implement a startscreen.\}
