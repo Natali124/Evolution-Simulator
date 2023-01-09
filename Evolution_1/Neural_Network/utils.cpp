@@ -1,11 +1,10 @@
-#include <fstream>
 #include "utils.hpp"
 
 
 
-/*void vector_to_file(vector<vector<double>> inpt, string filename){
-/*Form of filename should be filename.txt (or pdf or however you want to save your file)
-    vector_to_file(inpt, filename);}*/
+void vector_to_file(vector<vector<double>> inpt, string filename){
+/*Form of filename should be filename.txt (or pdf or however you want to save your file)*/
+    vector_to_file(inpt, filename);}
 
 
 //Reconstructing the network form file
