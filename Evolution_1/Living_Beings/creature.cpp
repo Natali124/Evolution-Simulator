@@ -67,7 +67,7 @@ Creature::Creature():LivingBeing() {
     counter_no_sleep=0;
 
     //For the input: each vision ray has 3 outputs; then we have 2 times 8 attributes taken into account (at turn t and t-dt); and then two memory variables
-    Network* n = new Network(see_ray*3 + 8*2 + 2, 8+2, 4, 10);
+    Network* n = new Network(see_ray*3 + 8*2 + 2, 8+2, 1, 10);
     this->brain = n;
 
     //We'll also prepare another vector with all the attributes we'll use after (we want to know the previous parametters in the next turn)
@@ -85,6 +85,7 @@ Creature::Creature():LivingBeing() {
 
     parameters[eat_creature] = true;
     parameters[eat_plants] = true;
+    parameters[eye_sight] = 200;
 
 }
 
@@ -123,7 +124,7 @@ Creature::~Creature() {
 Creature* Creature::reproduction() {
     std::map<Enum_parameters, double> param_new_creature;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
-        double val = normal_distrib(parameters[param], 0.1); // 0.1 is arbitrary value
+        double val = normal_distrib(parameters[param], 10); // 0.1 is arbitrary value
         param_new_creature.insert(std::pair<Enum_parameters, double>(param, val));
     }
     //Copy of current brain
@@ -321,7 +322,7 @@ std::function<double(double)> Creature::normal_distrib_random(){ return [](doubl
     if (p < 0.5){
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::normal_distribution<double> d(weight, 0.4);
+        std::normal_distribution<double> d(weight, 10);
         weight = d(gen);
     }
     return weight;
@@ -352,12 +353,13 @@ void Creature::decision(std::vector<double> input_vector){
     if(j==0){
         sleep(*(input_vector.begin()+4) * 200); //sleep for sleep_time
     }
-    if(j==1){
+    /*if(j==1){
         LivingBeing* food = find_food();
         if (get_found_food()) {
             eat((*food), *(input_vector.begin()+5));}
     }
-    if(j==2){
+    if(j==2){*/
+    else{
         //Here we want to be able to move forward, backward, to rotate left and right
         double rotation = 2*(*(input_vector.begin()+6))-1;
         double distance = 2*(*(input_vector.begin()+7))-1;
@@ -373,9 +375,13 @@ void Creature::Eat(){
 
     if (repro_factor>=50){
         repro_factor -= 50;
-        Creature* c = reproduction();
-        this->get_scene()->addItem(c);
+        if (true){
+            Creature* c = reproduction();
+            this->get_scene()->addItem(c);
+        }
     }
+
+
 
 
 
@@ -411,16 +417,16 @@ void Creature::Eat(){
 
 
 void Creature::playstep() {
-    if (this->x()<-100){
+    if (this->x()<-0){
         this->set_hp(-1);
     }
-    if (this->y()<-100){
+    if (this->y()<-0){
         this->set_hp(-1);
     }
-    if (this->x()>600){
+    if (this->x()>500){
         this->set_hp(-1);
     }
-    if (this->y()>600){
+    if (this->y()>500){
         this->set_hp(-1);
     }
 
@@ -462,8 +468,8 @@ void Creature::playstep() {
             Input.push_back(this->get_physical_strength()/K);
             Input.push_back(this->get_eye_sight()/K);
             Input.push_back(this->get_visibility()/K);
-            Input.push_back(this->var1);
-            Input.push_back(this->var2);
+            Input.push_back(0);
+            Input.push_back(0);
 
             //std::cout<<"input vector:  ";
             //Other::Cout_Vector(Input);
@@ -471,14 +477,14 @@ void Creature::playstep() {
 
             //We'll also prepare another vector with all the attributes we'll use after (we want to know the previous parametters in the next turn)
             Input_saved = std::vector<double>();
-            Input_saved.push_back(this->get_size());
-            Input_saved.push_back(this->get_energy());
-            Input_saved.push_back(this->get_Max_energy());
-            Input_saved.push_back(this->get_hp());
-            Input_saved.push_back(this->get_Max_hp());
-            Input_saved.push_back(this->get_physical_strength());
-            Input_saved.push_back(this->get_eye_sight());
-            Input_saved.push_back(this->get_visibility());
+            Input_saved.push_back(this->get_size()/K);
+            Input_saved.push_back(this->get_energy()/K);
+            Input_saved.push_back(this->get_Max_energy()/K);
+            Input_saved.push_back(this->get_hp()/K);
+            Input_saved.push_back(this->get_Max_hp()/K);
+            Input_saved.push_back(this->get_physical_strength()/K);
+            Input_saved.push_back(this->get_eye_sight()/K);
+            Input_saved.push_back(this->get_visibility()/K);
 
             decision(input_vector);
             set_counter_no_sleep(get_counter_no_sleep()+1);  //neither eat/digest or sleep

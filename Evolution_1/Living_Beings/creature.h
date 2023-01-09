@@ -173,7 +173,7 @@ protected:
 
     std::vector<double> Input_saved; //This is what we'll use to make our creature know what it had the previous turn
     Network * brain;
-    int see_ray = 3;
+    int see_ray = 9;
     bool found_food;//false by default, set to true when found food (plant or creature) and then false again after food is eaten
     double energy;
     double hp;

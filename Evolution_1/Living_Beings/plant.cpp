@@ -273,11 +273,13 @@ void Plant::playstep() {    // random values for increasing hp, random weight of
         this->set_hp(-1);
     }
 
-    repro_factor+=rand()%4;
+    repro_factor+=rand()%5;
     if (repro_factor>=500){
         repro_factor -= 500;
-        Plant* p = reproduction();
-        this->get_scene()->addItem(p);
+        if (true){
+            Plant* p = reproduction();
+            this->get_scene()->addItem(p);
+        }
     }
 
     increase_alive_time();
