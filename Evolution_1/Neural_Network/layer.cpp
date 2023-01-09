@@ -147,7 +147,7 @@ void Layer::disconnect(bool previous){
             neuron->set_next_edges(vector<Edge*>(0));}}}
 
 vector<double> Layer::layer_to_vector(){
-/* Each layer will be saved as follows: for each edge, the weght and the activation is stored.
+/* Each layer will be saved as follows: Firstly, the number for each edge, the weght and the activation is stored.
  The last number of the vector is the activation function*/
     vector<double> output(0);
     int n = neurons.size();
