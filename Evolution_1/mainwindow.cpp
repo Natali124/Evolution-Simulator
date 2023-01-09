@@ -8,13 +8,13 @@
 #include <Frontend/Widgets/simulationViewWidgets.h>
 #include <QGraphicsItem>
 
-void Chart::advance(int phase) { //this function is used to update
+void MainWindow::advance(int phase) { //this function is used to update
     if (phase == 1) {
         this->set_step(this->get_step()+1);
     }
 }
-int Chart::get_step() {return this->step;}
-void Chart::set_step(int val) {this->step = val;}
+int MainWindow::get_step() {return this->step;}
+void MainWindow::set_step(int val) {this->step = val;}
 
 
 std::vector<double> MainWindow::creature_hp_ratio(SimulationView &menu) {

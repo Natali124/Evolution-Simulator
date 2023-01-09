@@ -1,3 +1,4 @@
+#include "Frontend/environment_stats.h"
 #include "environment.h"
 #include "Frontend/Widgets/simulationView.h"
 #include <QApplication>
@@ -6,15 +7,19 @@
 #include <QGraphicsScene>
 #include "mainwindow.h"
 
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     SimulationView menu(new Environment());
 
     //for stats:
-    MainWindow window(menu);
+    /*MainWindow window(menu);
     window.resize(800, 600);
-    window.show();
+    window.show();*/
+
+    new Environment_Stats(new Environment());
+
 
     return a.exec();
 }

@@ -27,20 +27,22 @@ public:
     ~MainWindow();
     std::vector<double> creature_hp_ratio(SimulationView& menu); //helper vector for creating a graph on the proportion of creatures having
     //certain percentages of hp (their hp/ their max_hp)
+    void advance(int phase);
+    int step;
+    void set_step(int val);
+    int get_step();
 
 private:
     Ui::MainWindow *ui;
 };
 
 
-class Chart : QChart {
+/*class Chart :  {
 public:
     Environment* env;
     void advance(int phase);
-    int step;
-    void set_step(int val);
-    int get_step();
-};
+
+};*/
 
 
 #endif // MAINWINDOW_H
