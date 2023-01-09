@@ -10,9 +10,9 @@ int active_creature;
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
     // only the start button is visible.
-
+    QString back(":/backgrounds/images/nature-outdoor-forest-background_1308-54338.jpg");
     ui->setupUi(this);
-
+    setBackgroundImage(back);
     ui->simBut->setVisible(false);
 
     ui->button_prey->setVisible(false);
@@ -43,7 +43,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
+void MainWindow::setBackgroundImage(QString filePath){
+    QPixmap bkgnd = QPixmap(filePath);
+    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Window, bkgnd);
+    setPalette(palette);
+}
 
 
 
