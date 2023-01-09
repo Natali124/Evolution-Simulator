@@ -14,11 +14,12 @@
 #include "environment.h"
 #include "qchart.h"
 #include "qchartview.h"
+#include <Frontend/Widgets/simulationView.h>
 
 class Environment_Stats : QChartView {
 public:
     Environment* env;
-    Environment_Stats(Environment*, QWidget* parent = nullptr);
+    Environment_Stats(SimulationView& menu, QWidget* parent = nullptr);
 
 };
 

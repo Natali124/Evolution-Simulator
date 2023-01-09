@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     SimulationView menu(new Environment());
 
-    new Environment_Stats(new Environment());
+    new Environment_Stats(menu);
 
 
     return a.exec();
