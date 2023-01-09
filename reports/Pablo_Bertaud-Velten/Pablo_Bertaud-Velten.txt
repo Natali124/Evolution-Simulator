@@ -9,4 +9,15 @@
 \
 This week I worked on the digest function, which is what happens when a creature eats another creature or a plant. For this to be properly imbedded in the rest of the actions, I had to create a digest_step function, which would update the creature's stats in function of what it ate, and so this required the creation of other data attributes for creatures, such as digest_time and foot_attributes. Then I also worked on minor changes like reorganizing a few things and making the is_eaten function for plants, using what Garance had previously done, by improving the structure and making it more condensed.\
 \
-Next week my goal will be to find some new features to implement, in order to broaden the simulation and make it more interesting}
+Next week my goal will be to find some new features to implement, in order to broaden the simulation and make it more interesting
+
+
+Week 4: \
+This week I created a bew branch called Frontend_Statistics to work on the stats part of the simulation. I defined the main window, and thought about which variables to measure and what stats to implement.\
+
+
+
+Week 5:\
+
+This week I worked on the Statistics part of the project, implementing counters for different types of species, as well as a counter for steps in the simulation. I am also currently trying to implement the advance() function to update the charts when the environment changes (birht, death, etc). I also implemented a common die() member function for animals and plants, simplifying the code a bit. The goal now is to manage to solve all the issues associated to the stats window and the link it makes with the rest of the simulation.
+}
