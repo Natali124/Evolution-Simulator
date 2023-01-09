@@ -3,7 +3,11 @@
 #include <iostream>
 #include <string>
 
+
+void vector_to_file(vector<vector<double>> inpt, string filename);
 #pragma once
+
+
 
 class Network{ //network with 3 layers
 
@@ -61,6 +65,5 @@ private:
     Layer* input_layer;
     vector <Layer*> hidden_layers;
 };
-
 
 

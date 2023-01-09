@@ -309,20 +309,28 @@ void Network:: print_values(){
 
 //Helper function for saving network
 
-template <typename T> void vector_to_file(vector<vector<T>> inpt, string filename){
-    /*Form of filename should be filename.txt (or pdf or however you want to save your file*/
+//template <typename T> void vector_to_file(vector<vector<T>> inpt, string filename){
+//    /*Form of filename should be filename.txt (or pdf or however you want to save your file)*/
 
-        std::ofstream outfile (filename.c_str());
+//        std::ofstream outfile (filename.c_str());
 
-        for(vector<double> vect: inpt){
-            for(double elm: vect){
-                outfile << elm << " ";
-            }
-            outfile<<"\n";}}
+//        for(vector<T> vect: inpt){
+//            for(T elm: vect){
+//                outfile << elm << " ";
+//            }
+//            outfile<<"\n";}}
 
 void vector_to_file(vector<vector<double>> inpt, string filename){
 /*Form of filename should be filename.txt (or pdf or however you want to save your file*/
-    vector_to_file(inpt, filename);}
+  /*Form of filename should be filename.txt (or pdf or however you want to save your file)*/
+
+      std::ofstream outfile (filename.c_str());
+
+      for(vector<double> vect: inpt){
+          for(double elm: vect){
+              outfile << elm << " ";
+          }
+          outfile<<"\n";}}
 
 
 //Saving

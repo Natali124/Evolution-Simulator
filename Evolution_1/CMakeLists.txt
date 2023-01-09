@@ -44,6 +44,8 @@ set(PROJECT_SOURCES
         Frontend/mainMenuResources.qrc
         Neural_Network/nn_evolution.cpp
         Neural_Network/nn_evolution.hpp
+        Neural_Network/reading.hpp
+        Neural_Network/reading.cpp
         ${TS_FILES}
 )
 
