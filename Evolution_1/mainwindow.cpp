@@ -10,9 +10,9 @@ int active_creature;
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
     // only the start button is visible.
-
+    QString back(":/backgrounds/images/nature-outdoor-forest-background_1308-54338.jpg");
     ui->setupUi(this);
-
+    setBackgroundImage(back);
     ui->simBut->setVisible(false);
 
     ui->button_prey->setVisible(false);
@@ -32,6 +32,25 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->creature_list->setVisible(false);
 
     ui->groupBox->setVisible(false);
+    ui->groupBox->setStyleSheet("color: white; font-weight:bold; font-size:20pt");
+    ui->P_strength_t->setStyleSheet("color: white; font-weight:bold");
+    ui->max_energy_t->setStyleSheet("color: white; font-weight:bold");
+    ui->max_energy_n->setStyleSheet("color: black");
+    ui->eye_sight_t->setStyleSheet("color: white; font-weight:bold");
+    ui->eye_sight_n->setStyleSheet("color: black");
+    ui->visibility_t->setStyleSheet("color: white; font-weight:bold");
+    ui->visibility_n->setStyleSheet("color: black");
+    ui->max_health_t->setStyleSheet("color: white; font-weight:bold");
+    ui->max_health_n->setStyleSheet("color: black");
+    ui->size_t->setStyleSheet("color: white; font-weight:bold");
+    ui->size_n->setStyleSheet("color: black");
+
+
+    ui->button_reset->setStyleSheet("color: black");
+    ui->button_rdm->setStyleSheet("color: black");
+    ui->P_strength_n->setStyleSheet("color: black");
+
+
 
 //    connect(ui->creature_list, SIGNAL(itemClicked(QListWidgetItem*)),
 //                this, SLOT(on_creature_list_item_clicked(QListWidgetItem*)));
@@ -42,6 +61,34 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+
+void MainWindow::setBackgroundImage(QString filePath){
+    QPixmap bkgnd = QPixmap(filePath);
+    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Window, bkgnd);
+    setPalette(palette);
+}
+
+
+void MainWindow::resizeEvent(QResizeEvent *evt)
+{
+    stretchBackground();
+    //fitDisplay();
+
+    QMainWindow::resizeEvent(evt); //call base implementation
+}
+
+
+void MainWindow::stretchBackground(){
+    QString back(":/backgrounds/images/nature-outdoor-forest-background_1308-54338.jpg");
+    QPixmap bkgnd(back);
+    bkgnd = bkgnd.scaled(size(), Qt::IgnoreAspectRatio);
+    QPalette p = palette();
+    p.setBrush(QPalette::Window, bkgnd);
+    setPalette(p);
 }
 
 
@@ -64,7 +111,6 @@ void MainWindow::on_startBut_clicked()
     ui->button_delete_all->setVisible(true);
     ui->button_delete_creature->setVisible(true);
 }
-
 
 
 void MainWindow::on_button_pred_clicked()

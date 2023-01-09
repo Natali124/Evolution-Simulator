@@ -7,18 +7,23 @@
 
 \f0\fs24 \cf0 Week 2:\
 Coded data attributes of the classes using the std library. Research on frontend (how to implement graphics).\
-Next week I\'92ll dedicate my time to implement better and more realistic graphics.\
+Next week I will dedicate my time to implement better and more realistic graphics.\
 \
 Week 3:\
 Organised the visualisation of the creature in order to proceed with the simulation.\
 Coded the class Barrier.\
-Next week I will take care of real time drawing in Qt.
+Next week I will take care of real time drawing in Qt.\
 Week 4:\
 Taken care of merging the branches to the main.\
 Redefined the play_step() function to have a working simulation.\
 Implemented real-time drawing of barriers.\
 Next week I will improve the realtime drawing of the barrier in order to have more fluid graphics.\
 Week 4:\
-Make beings movable.\
+Make beings movable (drag them around the screen).\
 Improve the drawing of the barrier.\
-Next week I'll take care of events like drawing barrier on creatures.\}
+Next week I will take care of events like drawing barrier on creatures.\
+Week 5:\
+Make movable and drawing barrier at the same time.\
+Coded a functionality that allows to kill creatures by touching them.\
+Merging several branches into main to conclude the project.\
+Next week I will try to implement a startscreen.\}

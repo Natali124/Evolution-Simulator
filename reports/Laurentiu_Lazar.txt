@@ -13,3 +13,8 @@ Week 4:
 Week 5:
 	This week I successfully implemented the animation speed slider controller thingie. I additionally cleaned up code and reorganised things and helped people a bit during the lecture.
 	Next week(s?) I plan on seeing if I can visualise other aspects of our creatures in an interesting way.
+
+Weeks 6,7,8:
+	These past weeks I implemented a window which appears when double clicking a creature and shows different stats. It uses custom labels which are constructed with a getter function. They are also connected with a signal to the environment so that they are updated in real time.
+	I have started to experiment with qt signals and passing functions as parameters in functions in order to achieve this.
+	Next week I plan to implement some sliders to control how parameters influence eachoder for beings in the environment.s
