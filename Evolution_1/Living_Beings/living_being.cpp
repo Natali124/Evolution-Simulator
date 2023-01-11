@@ -15,8 +15,7 @@ void LivingBeing::playstep(){
 }
 
 void LivingBeing::advance(int phase){
-
-    if (!phase)
+    if (!phase) //this is because a graphics scene.advance() first calls advance on all its items with phase 0, indicating that an update will happen soon, and then with phase 1
         return;
 
     // skip the playstep function for now as it crashes the program
