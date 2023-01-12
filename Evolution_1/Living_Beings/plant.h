@@ -4,6 +4,10 @@
 #include <map>
 #include "creature.h"
 
+extern int number_plants;
+extern int number_plants_alive;
+extern int number_plants_dead;
+
 class Plant : public LivingBeing
 {
 public:
@@ -53,7 +57,7 @@ public:
     Type_Plant type_plant;
 
     // MEMBER FUNCTIONS
-    LivingBeing* reproduction();
+    Plant* reproduction();
 
     //functions about a creature eating a plant:impact on physical_strength, energy, visibility and eye_sight.
     //variables are incremented/ decremented by a coefficient alpha which depends on the
@@ -77,7 +81,10 @@ public:
     void slimming_protein(Creature &c);//++ strength , - energy and - visibility
     void slimming_carbs(Creature &c);// ++ energy, - strength and - visibility
 
+    QRectF boundingRect() const;
+
 protected:
+    int repro_factor = 0;
     double hp;
 
 };

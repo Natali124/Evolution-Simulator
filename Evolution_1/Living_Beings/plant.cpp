@@ -36,7 +36,8 @@ Plant::Plant(std::map<Enum_parameters, double> parameters, Environment *e): Plan
     number_plants_alive++;
 }
 
-Plant::~Plant() {};
+Plant::~Plant() {
+};
 
 
 /* No need normally since we have already a function with parameter, normally there is reproduction_rate in trhose parameters
@@ -46,12 +47,16 @@ Plant::Plant(double reproduction_rate) {
 */
 
 
-void Plant::die() {if ((this->get_alive()) && (this->get_hp() < 0) ) {
+void Plant::die() {
+    if ((!this->get_alive()) || (this->get_hp() < 0) ) {
+
         set_alive(false);
         number_plants_alive --;
         number_plants_dead ++;
         number_LBs_alive --;
         number_LBs_dead ++;
+        //here we chose to kill and destroy everything which is dead
+        Plant::~Plant();
     }};
 
 void Plant::is_eaten(Creature &c) {
@@ -108,12 +113,25 @@ void Plant::is_eaten(Creature &c) {
 
 void Plant::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     painter->setBrush(Qt::white);
-    painter->drawEllipse(QRectF(-25,-25,25,25));
-    painter->drawEllipse(QRectF(0,0,25,25));
-    painter->drawEllipse(QRectF(-25,0,25,25));
-    painter->drawEllipse(QRectF(0,-25,25,25));
+    //This is the coefficient we'll divide everything by /200 because size can be at most 200 and by 2 because it seems more appropriated
+    double k =  get_size()/(200 * 5);
+    painter->drawEllipse(QRectF(-25*k,-25*k,25*k,25*k));
+    painter->drawEllipse(QRectF(0,0,25*k,25*k));
+    painter->drawEllipse(QRectF(-25*k,0,25*k,25*k));
+    painter->drawEllipse(QRectF(0,-25*k,25*k,25*k));
     painter->setBrush(Qt::yellow);
-    painter->drawEllipse(QRectF(-15,-15,30,30));
+    painter->drawEllipse(QRectF(-15*k,-15*k,30*k,30*k));
+
+
+    //qreal adjust = 0.5;
+    //painter->drawRect((-22 - adjust)*k, (-22 - adjust)*k, (45 + adjust)*k, (45 + adjust)*k);
+}
+
+QRectF Plant::boundingRect() const
+{
+    double k = get_size()/(200 * 3);
+    qreal adjust = 0.5;
+    return QRectF((-22 - adjust)*k, (-22 - adjust)*k, (45 + adjust)*k, (45 + adjust)*k);
 }
 
 
@@ -243,6 +261,18 @@ void Plant::slimming_carbs(Creature &c) {
 void Plant::playstep() {    // random values for increasing hp, random weight of growing coef for increasing size
     //changing size and upper bound it by max_size , same for hp
 
+
+
+    repro_factor+=rand()%3;
+    if (repro_factor>=500){
+        repro_factor -= 500;
+        if (true){
+            Plant* p = reproduction();
+            this->get_scene()->addItem(p);
+        }
+    }
+
+    increase_alive_time();
     double growing_coef = 0.25 * get_Max_size()/get_size();
 
     if (get_size()< get_Max_size()) {
@@ -259,12 +289,34 @@ void Plant::playstep() {    // random values for increasing hp, random weight of
 };
 
 
-LivingBeing* Plant::reproduction(){
+Plant* Plant::reproduction(){
     std::map<Enum_parameters, double> param_new_plant;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
         double val = normal_distrib(parameters[param],0.1);
         param_new_plant.insert(std::pair<Enum_parameters, float>(param, val));
     }
     Plant* p = new Plant(param_new_plant, this->get_scene());
+    p->setPos(this->x() + 100*(double)rand()/(double)(RAND_MAX),this->y()+100*(double)rand()/(double)(RAND_MAX));
+    //(The only moment a plant can use this is when it's borned)
+    //PACMAN, when touching a border, the creature is TPed on the other side, however this is not exactly how the border of pacman works... (is is continuous)
+    if (p->x()<0){
+        p->setX(500+x());
+        p->setY(500-y());
+    }
+    if (p->y()<0){
+        p->setX(500-x());
+        p->setY(500+y());
+    }
+    if (p->x()>500){
+        p->setX(500-x());
+        p->setY(500-y());
+    }
+    if (p->y()>500){
+        p->setX(500-x());
+        p->setY(500-y());
+    }
+
     return p;
 }
+
+

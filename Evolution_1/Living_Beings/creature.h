@@ -18,18 +18,6 @@ namespace Other {
         std::cout<<std::endl;
     }
 
-    //We"ll use this class to detect what's in front of what, as an example it could be used to attack, eat, etc...
-    class Square: public QGraphicsItem{
-    public:
-        // base values: 0, 0, 1, 1
-        Square();
-        Square(qreal X, qreal Y, qreal R, qreal W, qreal H);
-        QRectF boundingRect() const;
-        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-        void set_shape();
-        qreal w;
-        qreal h;
-    };
 
 
     // This function is returning an array of T2 that are casted from a list of type T1 from which we don't take elements that can't be casted
@@ -50,6 +38,9 @@ namespace Other {
 }
 
 
+extern int number_creatures;
+extern int number_creatures_alive;
+extern int number_creatures_dead;
 class Creature : public LivingBeing {
 public:
 
@@ -57,7 +48,7 @@ public:
     // positive double, positive double, positive double, [0, 1], Bool, Bool, positive double, positive double
     enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, Max_hp, size, last};
 
-    // for bool values they ll either be 0 or not (thus a smooth conversion, normally)
+    // for bool values they ll eaither be 0 or not (thus a smooth conversion, normally)
 
 
     // the 'last' parameter is  just there in order to make iteration easier, it has no actual purpuse
@@ -67,14 +58,18 @@ public:
     // default constructor that creates a creature with random parameters
     // and a default brain
     Creature();
+
     Creature(Environment *e);
     // non-default constructor that takes a std::map<Enum_parameters, double> and a Network
     Creature(std::map<Enum_parameters, double>, Network*, Environment *e);
+    //This is what we'll use to prevent creatures to spawn one on another
+    bool Check_Overlap_Creature(Environment* e);
     ~Creature();
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+    void Eat();
 
     // MEMBER FUNCTIONS
-    LivingBeing* reproduction();
+    Creature* reproduction();
     // functions to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
 
     virtual std::vector<LivingBeing*> get_close();
@@ -95,7 +90,7 @@ public:
     //in decision we check if there is actually food (bool found_food) before eating
     void decision(std::vector<double>input_vector); //takes as input vector given by the nn,
                                               //for given parameters (see .cpp) and takes a decision given the biggest one
-    void sleep(double delta_t);//called by decision to decide to sleep for a time delta_t
+    void sleep(int delta_t);//called by decision to decide to sleep for a time delta_t
     void sleep_step();//sleeps for one step : += energy and -= sleep_time
     void playstep();//first tries to : die, sleep , digest, or takes a decison
 
@@ -104,6 +99,8 @@ public:
     void bound_energy_hp();   //called in playstep
     void check_if_lack(); //called in playstep , checks if does not sleep or eat or digest for 24 steps
     //and if so, decreases energy and phys strength
+    void counter_attack(); //called in playstep - returns the n of turns before the creature was attck (bounded to 100)
+
 
     // DATA MEMBERS
     std::map<Enum_parameters, double> parameters;
@@ -146,20 +143,24 @@ public:
     void set_counter_no_sleep(int j);
     Network* get_brain();
     void set_brain(Network* b);
+    int get_last_attack();
+    void set_last_attack(int i);
+
+    //this function will be used to detect if two creatures have similar attributes and can be considered as from the same spiecie. This will help us removing some of the problem we had with children eating there parents
+    bool same_spiecie(Creature* c);
 
     void normal_distrib_random_edge(Edge& edge);
     std::function<double(double)>normal_distrib_random();
+    QRectF boundingRect() const;
 
 
 protected:
 
-    //Those are the memory variable of the creature (memory between turns, for now there are only 2)
-    double var1=0;
-    double var2=0;
+    double repro_factor = 0;
 
     std::vector<double> Input_saved; //This is what we'll use to make our creature know what it had the previous turn
     Network * brain;
-    int see_ray = 3;
+    int see_ray = 9;
     bool found_food;//false by default, set to true when found food (plant or creature) and then false again after food is eaten
     double energy;
     double hp;
@@ -170,7 +171,7 @@ protected:
     int counter_no_sleep;  //useful for check_if_lack function called in playstep()
     int counter_no_eat;    //initialized at 0
     //if necessary, counters are increased in playstep or digest-step or sleep_step and set to 0 in sleep_step or eat or digest_step
-
+    int last_attack;
 };
 
 
