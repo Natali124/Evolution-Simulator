@@ -125,6 +125,7 @@ public:
     float get_size();
     bool get_found_food();
     void set_found_food(bool b);
+    void set_eat_creature(bool eat);
 
 
 protected:

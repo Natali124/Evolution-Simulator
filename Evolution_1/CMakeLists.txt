@@ -37,7 +37,6 @@ set(PROJECT_SOURCES
         Neural_Network/network.hpp
         Neural_Network/neuron.cpp
         Neural_Network/neuron.hpp
-        Neural_Network/utils.cpp
         Frontend/mouse.h
         Frontend/mouse.cpp
         Frontend/Widgets/simulationViewWidgets.h
@@ -45,10 +44,6 @@ set(PROJECT_SOURCES
         Frontend/Widgets/simulationView.h
         Frontend/Widgets/simulationView.cpp
         Frontend/mainMenuResources.qrc
-        Neural_Network/nn_evolution.cpp
-        Neural_Network/nn_evolution.hpp
-        Neural_Network/reading.hpp
-        Neural_Network/reading.cpp
         Frontend/resources.h
         Frontend/Widgets/SimulationSpeedSlider.cpp
         Frontend/Widgets/environmentTimer.cpp

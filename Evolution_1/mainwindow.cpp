@@ -1,12 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QRandomGenerator>
-
 int num_pred = 0;
 int num_prey = 0;
 int num_plant = 0;
-int active_creature;
+int active_creature = 0;
 
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
@@ -117,7 +115,6 @@ void MainWindow::on_startBut_clicked()
 
 void MainWindow::on_button_pred_clicked()
 {
-
     // Once you have clicked on the "Add omnivorous creature" button, called button_pred for short,
     // there will be added to creature list the number of omnivorous creatures you have chosen to add and that, sorted.
     // Their name'll be "omnivorous creature" + "number of the omnivorous creature created".
@@ -130,7 +127,8 @@ void MainWindow::on_button_pred_clicked()
     }
 
     num_pred += val;
-    ui->creature_list->sortItems();
+    active_creature += num_pred;
+    sort_creature_list(ui->creature_list);
 
     // The Simulation button appears, called "simbut" for short, as you can now launch the simulation as you've just created one/some creature(s).
 
@@ -144,7 +142,6 @@ void MainWindow::on_button_pred_clicked()
 
 void MainWindow::on_button_prey_clicked()
 {
-
     // Once you have clicked on the "Add herbivore creature" button, called button_prey for short,
     // there will be added to creature list the number of herbivore creatures you have chosen to add and that, sorted.
     // Their name'll be "herbivore creature" + "number of the herbivore creature created".
@@ -157,7 +154,8 @@ void MainWindow::on_button_prey_clicked()
     }
 
     num_prey += val;
-    ui->creature_list->sortItems();
+    active_creature += num_prey;
+    sort_creature_list(ui->creature_list);
 
     // The Simulation button appears, called "simbut" for short, as you can now launch the simulation as you've just created one/some creature(s).
 
@@ -170,7 +168,6 @@ void MainWindow::on_button_prey_clicked()
 
 void MainWindow::on_button_plant_clicked()
 {
-
     // Once you have clicked on the "Add plant" button, called button_plant for short,
     // there will be added to creature list the number of plants you have chosen to add and that, sorted.
     // Their name'll be "plant" + "number of the plant created".
@@ -183,7 +180,8 @@ void MainWindow::on_button_plant_clicked()
     }
 
     num_plant += val;
-    ui->creature_list->sortItems();
+    active_creature += num_plant;
+    sort_creature_list(ui->creature_list);
 
     // The Simulation button appears, called "simbut" for short, as you can now launch the simulation as you've just created one/some creature(s).
 
@@ -196,13 +194,13 @@ void MainWindow::on_button_plant_clicked()
 
 void MainWindow::on_button_delete_all_clicked()
 {
-
     // Once you have clicked on the "Delete All" button, all creatures (plants, omnivorous or herbivore) will be deleted from creature_list.
 
     ui->creature_list->clear();
     num_pred = 0;
     num_plant = 0;
     num_prey = 0;
+    active_creature = 0;
 
     // Hide the Simulation button, called "simbut" for short, as you can't launch the simulation with no creatures.
     ui->simBut->setVisible(false);
@@ -223,6 +221,7 @@ void MainWindow::on_button_delete_creature_clicked()
     // If the user used this button to delete all creatures from his list, then we hide the Simulation button, called "simbut" for short, as you can't launch the simulation with no creatures.
 
     int count = ui->creature_list->count();
+    active_creature -= count;
     if (count == 0) {
         ui->simBut->setVisible(false);
         ui->groupBox->setVisible(false);
@@ -232,19 +231,19 @@ void MainWindow::on_button_delete_creature_clicked()
 
 void MainWindow::on_button_rdm_clicked()
 {
-
     // Once you have clicked on the "Random" button, called button_rdm, the properties of your selected creature will be put at random values.
 
     ui->eat_creature->setCheckState(Qt::Unchecked);
     ui->eat_plant->setCheckState(Qt::Unchecked);
-    ui->P_strength_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
-    ui->eye_sight_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
-    ui->max_energy_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
-    ui->size_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
-    ui->max_health_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
-    ui->visibility_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
 
-    int val = ((int) QRandomGenerator::global()->generate()) % 3;
+    ui->P_strength_n->setValue(arc4random() % 101);
+    ui->eye_sight_n->setValue(arc4random() % 101);
+    ui->max_energy_n->setValue(arc4random() % 101);
+    ui->size_n->setValue(arc4random() % 101);
+    ui->max_health_n->setValue(arc4random() % 101);
+    ui->visibility_n->setValue(arc4random() % 101);
+
+    int val = arc4random() % 3;
     if (val == 0) {
         ui->eat_creature->setCheckState(Qt::Checked);
     }
@@ -260,7 +259,6 @@ void MainWindow::on_button_rdm_clicked()
 
 void MainWindow::on_button_reset_clicked()
 {
-
     // Once you have clicked on the "Reset" button, called button_reset, all the properties of your selected creature will be set back to zero.
 
     ui->eat_creature->setCheckState(Qt::Unchecked);
@@ -271,4 +269,10 @@ void MainWindow::on_button_reset_clicked()
     ui->size_n->setValue(0);
     ui->max_health_n->setValue(0);
     ui->visibility_n->setValue(0);
+}
+
+
+void MainWindow::sort_creature_list(QListWidget *creature_list)
+{
+    ui->creature_list->sortItems();
 }
