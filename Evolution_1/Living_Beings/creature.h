@@ -67,10 +67,13 @@ public:
 
     void Eat();
 
+    QPainterPath shape() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
 
     // MEMBER FUNCTIONS
     Creature* reproduction();
-    // functions to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
+
 
     virtual std::vector<LivingBeing*> get_close();
 

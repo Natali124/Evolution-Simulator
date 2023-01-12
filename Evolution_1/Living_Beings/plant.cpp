@@ -48,7 +48,7 @@ Plant::Plant(double reproduction_rate) {
 
 
 void Plant::die() {
-    if ((!this->get_alive()) || (this->get_hp() < 0) ) {
+    if ((!this->get_alive()) || (this->get_hp() <= 0) ) {
 
         set_alive(false);
         number_plants_alive --;
@@ -56,7 +56,7 @@ void Plant::die() {
         number_LBs_alive --;
         number_LBs_dead ++;
         //here we chose to kill and destroy everything which is dead
-        set_hp(-1);
+        Plant::~Plant();
     }};
 
 void Plant::is_eaten(Creature &c) {

@@ -43,9 +43,9 @@ QPainterPath LivingBeing::shape() const
 
 void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                         QWidget *widget) {
-    painter->setBrush(color);
+    /*painter->setBrush(color);
     //I divided by 200 since random the random constructor gives a size between 0 and 200, this might be temprorary values;
-    painter->drawEllipse(-5*get_size()/400, -10*get_size()/400, 10*get_size()/400, 20*get_size()/400);
+    painter->drawEllipse(-5*get_size()/400, -10*get_size()/400, 10*get_size()/400, 20*get_size()/400);*/
 }
 
 

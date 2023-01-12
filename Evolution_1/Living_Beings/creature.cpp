@@ -107,47 +107,58 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain,
 Creature::~Creature() {
 }
 
+QPainterPath Creature::shape() const
+{
+    double K = this->get_size()/400; //size coefficient
+    QPainterPath path;
+    //I divided by 200 since random the random constructor gives a size between 0 and 200, this might be temprorary values;
+    path.addRect(-25*K, -25*K, 50*K, 50*K);
+    return path;
+}
+
 void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
+    double K = this->get_size()/400; //size coefficient
+
     if(!get_eat_creature()){
         // Body
         painter->setBrush(QColor(std::min((int)get_Max_energy(), (int)255), 0, 0, 255)); //for now make it redder the more energy it can have
-        painter->drawEllipse(-10, -20, 20, 40);
+        painter->drawEllipse(-10*K, -20*K, 20*K, 40*K);
 
         // Eyes
         painter->setBrush(Qt::white);
-        painter->drawEllipse(-10, -17, 8, 8);
-        painter->drawEllipse(2, -17, 8, 8);
+        painter->drawEllipse(-10*K, -17*K, 8*K, 8*K);
+        painter->drawEllipse(2*K, -17*K, 8*K, 8*K);
 
         // Nose
         painter->setBrush(Qt::black);
-        painter->drawEllipse(QRectF(-2, -22, 4, 4));
+        painter->drawEllipse(QRectF(-2*K, -22*K, 4*K, 4*K));
 
         // Pupils
-        painter->drawEllipse(QRectF(-8.0, -17, 4, 4));
-        painter->drawEllipse(QRectF(4.0, -17, 4, 4));
+        painter->drawEllipse(QRectF(-8.0*K, -17*K, 4*K, 4*K));
+        painter->drawEllipse(QRectF(4.0*K, -17*K, 4*K, 4*K));
 
         // Ears
         painter->setBrush(get_scene()->collidingItems(this).isEmpty() ? Qt::darkYellow : Qt::red);
-        painter->drawEllipse(-17, -12, 16, 16);
-        painter->drawEllipse(1, -12, 16, 16);
+        painter->drawEllipse(-17*K, -12*K, 16*K, 16*K);
+        painter->drawEllipse(1*K, -12*K, 16*K, 16*K);
 
         // Tail
         QPainterPath path(QPointF(0, 20));
-        path.cubicTo(-5, 22, -5, 22, 0, 25);
-        path.cubicTo(5, 27, 5, 32, 0, 30);
-        path.cubicTo(-5, 32, -5, 42, 0, 35);
+        path.cubicTo(-5*K, 22*K, -5*K, 22*K, 0*K, 25*K);
+        path.cubicTo(5*K, 27*K, 5*K, 32*K, 0*K, 30*K);
+        path.cubicTo(-5*K, 32*K, -5*K, 42*K, 0*K, 35*K);
         painter->setBrush(Qt::NoBrush);
         painter->drawPath(path);
     } else {
         painter->setBrush(Qt::gray);
-        painter->drawEllipse(QRectF(-25,-25,50,50));
+        painter->drawEllipse(QRectF(-25*K,-25*K,50*K,50*K));
         painter->setBrush(Qt::black);
-        painter->drawEllipse(QRectF(-20,-20,15,15));
-        painter->drawEllipse(QRectF(5,-20,15,15));
+        painter->drawEllipse(QRectF(-20*K,-20*K,15*K,15*K));
+        painter->drawEllipse(QRectF(5*K,-20*K,15*K,15*K));
         painter->setBrush(Qt::white);
-        painter->drawEllipse(QRectF(-10,-15,5,7));
-        painter->drawEllipse(QRectF(15,-15,5,7));
-        painter->drawEllipse(QRectF(-15,5,30,10));
+        painter->drawEllipse(QRectF(-10*K,-15*K,5*K,7*K));
+        painter->drawEllipse(QRectF(15*K,-15*K,5*K,7*K));
+        painter->drawEllipse(QRectF(-15*K,5*K,30*K,10*K));
     }
 
     LivingBeing::paint(painter, option, widget);
@@ -231,7 +242,7 @@ void Creature::die() {
         number_creatures_dead ++;
         //here we chose to kill and destroy everything which is dead
 
-        set_hp(-1);
+        Creature::~Creature();
     }};
 
 void::Creature::is_eaten(Creature &c) {
@@ -755,8 +766,8 @@ void Creature::move(double rotation, double distance){
     float w = get_scene()->width();
     float h = get_scene()->height();
 
-    setX(fmod(this->x() + (distance*_ddistance) * cos(this->rotation()*M_PI/180),w));
-    setY(fmod(this->y() + (distance*_ddistance) * sin(this->rotation()*M_PI/180),h));
+    setX(fmod(this->x() + (distance*_ddistance) * cos(this->rotation()*M_PI/180 - M_PI/2),w));
+    setY(fmod(this->y() + (distance*_ddistance) * sin(this->rotation()*M_PI/180 - M_PI/2),h));
 
     float s = this->size;
     float current_energy = get_energy();
