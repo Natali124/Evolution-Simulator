@@ -2,6 +2,7 @@
 #define ENVIRONMENT_H
 
 #include "qgraphicsscene.h"
+#include "barrier.h"
 
 class Environment : public QGraphicsScene
 {
