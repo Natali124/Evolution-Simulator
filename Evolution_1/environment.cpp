@@ -23,3 +23,7 @@ void  Environment::set_simulation_step(qreal step){
 }
 qreal Environment::get_min_step(){ return min_step; }
 qreal Environment::get_max_step(){ return max_step; }
+
+int Environment::nr_beings(){
+    return items().size();
+}

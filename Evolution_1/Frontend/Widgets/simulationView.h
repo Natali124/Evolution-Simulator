@@ -15,6 +15,7 @@ class SimulationView : public QMainWindow{
             display.environment->clear();
             for(int i = 0; i < 20; i ++)
                 display.addRandomDot();
+            emit environment->updated();
         }
         virtual void resizeEvent(QResizeEvent*);
         Environment* environment;

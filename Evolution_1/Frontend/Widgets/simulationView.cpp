@@ -1,3 +1,4 @@
+#include "Frontend/Widgets/statView.h"
 #include "Frontend/resources.h"
 #include "simulationViewWidgets.h"
 #include "Frontend/Widgets/simulationView.h"
@@ -34,7 +35,10 @@ void SimulationView::setBackgroundImage(QString filePath){
 void SimulationView::init_layout(){
 
     //left half
-    auto leftGroupBox = new QGroupBox("Control Panel");
+    auto left_widget = new QWidget(this);
+    auto left_layout = new QVBoxLayout;
+
+    auto leftGroupBox = new QGroupBox("Control Panel", left_widget);
     auto layout = new QVBoxLayout;
     leftGroupBox->setLayout(layout);
 
@@ -46,11 +50,16 @@ void SimulationView::init_layout(){
     auto slider = new SimulationSpeedSlider(&timer, leftGroupBox);
     layout->addWidget(slider);
 
+    auto being_counter = new ParameterDisplay("Number of beings:", environment, &Environment::nr_beings, this, environment);
 
     layout->addStretch();
     QSizePolicy spLeft(QSizePolicy::Preferred, QSizePolicy::Preferred);
     spLeft.setHorizontalStretch(1);
-    leftGroupBox->setSizePolicy(spLeft);
+    left_widget->setSizePolicy(spLeft);
+
+    left_layout->addWidget(leftGroupBox);
+    left_layout->addWidget(being_counter);
+    left_widget->setLayout(left_layout);
     //-------------------------------------------------------------
 
     //right half
@@ -65,7 +74,8 @@ void SimulationView::init_layout(){
 
     //----------bringing them together-----------------------------
     auto mainLayout = new QHBoxLayout;
-    mainLayout->addWidget(leftGroupBox);
+//    mainLayout->addWidget(leftGroupBox);
+    mainLayout->addWidget(left_widget);
     mainLayout->addWidget(rightGroupBox);
     //-------------------------------------------------------------
 
