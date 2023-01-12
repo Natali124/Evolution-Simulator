@@ -32,6 +32,18 @@ public:
     QChart *chart {chart = new QChart()};
     void update_chart();
     QChart* get_chart() {return chart;};
+    int number_LBs;
+    int number_LBs_alive;
+    int number_LBs_dead;
+    int number_creatures;
+    int number_creatures_alive;
+    int number_creatures_dead;
+    int number_plants;
+    int number_plants_alive;
+    int number_plants_dead;
+    void average_creatures(SimulationView& menu);
+
+
 
 
 };

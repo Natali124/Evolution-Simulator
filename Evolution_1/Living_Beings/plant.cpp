@@ -7,9 +7,9 @@
 
 
 
-int number_plants = 0;
-int number_plants_alive = 0;
-int number_plants_dead = 0;
+//int number_plants = 0;
+//int number_plants_alive = 0;
+//int number_plants_dead = 0;
 
 Plant::Plant():LivingBeing(){
     //we need a way to differenciate animals and plants
@@ -20,9 +20,7 @@ Plant::Plant():LivingBeing(){
     }
     type = plant;
     this->set_hp(this->get_Max_hp());
-    number_plants ++;
-    number_plants_alive ++;
-}
+    }
 
 
 Plant::Plant(Environment *e): Plant(){
@@ -32,8 +30,6 @@ Plant::Plant(Environment *e): Plant(){
 Plant::Plant(std::map<Enum_parameters, double> parameters, Environment *e): Plant(e) {
     this->parameters = parameters;
     this->base_parameters = parameters; //we save "dna"
-    number_plants ++;
-    number_plants_alive++;
 }
 
 Plant::~Plant() {
@@ -51,10 +47,6 @@ void Plant::die() {
     if ((!this->get_alive()) || (this->get_hp() <= 0) ) {
 
         set_alive(false);
-        number_plants_alive --;
-        number_plants_dead ++;
-        number_LBs_alive --;
-        number_LBs_dead ++;
         //here we chose to kill and destroy everything which is dead
         Plant::~Plant();
     }};

@@ -5,11 +5,6 @@
 #include <cmath>
 
 
-int number_LBs = 0;
-int number_LBs_alive = 0;
-int number_LBs_dead = 0;
-
-
 
 int LivingBeing::get_alive_time(){return this->alive_time;}
 void LivingBeing::increase_alive_time(){if (alive_time<10000){alive_time++;}}
@@ -52,8 +47,6 @@ void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 LivingBeing::LivingBeing(){
     alive = true;
     type = none;
-    number_LBs ++;
-    number_LBs_alive ++;
 }
 
 
@@ -63,7 +56,12 @@ bool LivingBeing::get_alive() const {return alive;};
 void LivingBeing::set_alive(bool b) {this->alive = b;};
 
 
-
+void LivingBeing::die() {if ((this->get_alive()) && (this->get_hp() < 0) ) {
+        set_alive(false);
+        if (this->type == plant) {
+        } else if (this->type == creature) {
+        }
+        }}
 
 
 

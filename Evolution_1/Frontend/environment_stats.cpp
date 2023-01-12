@@ -1,12 +1,7 @@
 #include "environment_stats.h"
 
 
-Environment_Stats::Environment_Stats(SimulationView& menu, QWidget *parent): QChartView(parent)
-{
-
-    this->startTimer(10000);
-
-
+Environment_Stats::Environment_Stats(SimulationView& menu, QWidget *parent): QChartView(parent) {
 
     this->env = menu.get_environment();
 
@@ -86,7 +81,7 @@ Environment_Stats::Environment_Stats(SimulationView& menu, QWidget *parent): QCh
     chart->addAxis(axisX, Qt::AlignBottom);
     series->attachAxis(axisX);
     QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0,15);
+    axisY->setRange(0,100);
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 
@@ -106,14 +101,43 @@ void Environment_Stats::timerEvent(QTimerEvent *event) {
 }
 
 void Environment_Stats::update_chart(){
+
+    //For some reason only plants show up for now on the chart
+
+    number_LBs = 0;
+    number_LBs_alive = 0;
+    number_LBs_dead = 0;
+    number_creatures = 0;
+    number_creatures_alive = 0;
+    number_creatures_dead = 0;
+    number_plants = 0;
+    number_plants_alive = 0;
+    number_plants_dead = 0;
+
+    //now updating every counter using the list
+    QList<QGraphicsItem *> list_LBs = (this->env)->items();
+    for (int i=0; i < list_LBs.count(); i++) {
+        LivingBeing* LB = dynamic_cast<LivingBeing*>(list_LBs[i]);
+        //if (LB->get_type() == Creature::plant) {
+            //if (LB->get_alive() == true) {number_plants_alive += 1;}
+            //else {number_plants_dead += 1;} }
+        if (LB->get_type() == Creature::creature) {
+            if (LB->get_alive() == true) {
+                number_creatures_alive += 1;
+                number_LBs_alive += 1;}
+            else {
+                number_creatures_dead += 1;
+                number_LBs_dead += 1;}
+        }
+    }
     chart = get_chart();
     chart->removeAllSeries();
     QBarSet *alive = new QBarSet("alive");
     QBarSet *dead = new QBarSet("dead");
     QBarSet *tn = new QBarSet("total_number");
-    *alive << number_LBs_alive << number_creatures_alive << number_plants_alive;
-    *dead <<number_LBs_dead << number_creatures_dead << number_plants_dead;
-    *tn << number_LBs << number_creatures << number_plants;
+    *alive << number_LBs_alive; //<< number_creatures_alive << number_plants_alive;
+    *dead <<number_LBs_dead; //<< number_creatures_dead << number_plants_dead;
+    *tn << number_LBs; //<< number_creatures << number_plants;
     QBarSeries *series = new QBarSeries();
     series->append(alive);
     series->append(dead);

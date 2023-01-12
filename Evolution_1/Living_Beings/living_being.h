@@ -63,5 +63,4 @@ protected:
   Environment *scene;
 };
 
-
 #endif
