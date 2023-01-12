@@ -38,8 +38,6 @@ set(PROJECT_SOURCES
         Neural_Network/neuron.cpp
         Neural_Network/neuron.hpp
         Neural_Network/utils.cpp
-        Frontend/mouse.h
-        Frontend/mouse.cpp
         Frontend/Widgets/simulationViewWidgets.h
         Frontend/Widgets/creatureDisplay.cpp
         Frontend/Widgets/simulationView.h
