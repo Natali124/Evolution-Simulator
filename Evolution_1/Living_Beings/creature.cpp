@@ -45,6 +45,7 @@ void Other::Square::set_shape(){
 
 
 Creature::Creature():LivingBeing() {
+
     //we need a way to differenciate animals and plants
     color = QColorConstants::DarkGray;
     // in the iteration param refers to an int into Enum_parameters (which does not include the value last)
@@ -67,7 +68,7 @@ Creature::Creature():LivingBeing() {
     counter_no_sleep=0;
 
     //For the input: each vision ray has 3 outputs; then we have 2 times 8 attributes taken into account (at turn t and t-dt); and then two memory variables
-    Network* n = new Network(see_ray*3 + 8*2 + 2, 8+2, 1, 10);
+    Network* n = new Network(see_ray*3 + 8*2 + 2, 8, 1, 10);
     this->brain = n;
 
     //We'll also prepare another vector with all the attributes we'll use after (we want to know the previous parametters in the next turn)
@@ -90,8 +91,17 @@ Creature::Creature():LivingBeing() {
 }
 
 
+bool Creature::Check_Overlap_Creature(Environment* e){
+    QList<QGraphicsItem*> list = e->collidingItems(this);
+    return (!list.isEmpty());
+}
+
+
 Creature::Creature(Environment* e): Creature(){
     this->set_scene(e);
+    if (Check_Overlap_Creature(e)){
+        set_hp(-1);
+    }
 }
 
 
@@ -113,6 +123,9 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain,
     Input_saved.push_back(this->get_physical_strength());
     Input_saved.push_back(this->get_eye_sight());
     Input_saved.push_back(this->get_visibility());
+
+
+
 
 }
 
@@ -336,8 +349,6 @@ this-> energy=energy,this->eye_sight= eye_sight,this-> visibility=visibility,thi
 void Creature::decision(std::vector<double> input_vector){
     //std::cout<<input_vector[0]<<" "<<input_vector[1]<<" "<<input_vector[2]<<" "<<input_vector[3]<<" "<<input_vector[4]<<" "<<input_vector[5]<<" "<<input_vector[6]<<" "<<input_vector[7]<<std::endl;
     //We give a value to the memory variables
-    var1=input_vector[8];
-    var2=input_vector[9];
 
     double action = *max_element(input_vector.begin(), input_vector.begin()+4);
     int j = 0;
@@ -388,17 +399,17 @@ void Creature::Eat(){
                 j->set_hp(-1);
                 j->die();
                 set_energy(get_Max_energy());
-                repro_factor+=30;
+                repro_factor+=10;
                 set_counter_no_eat(0);
         }
         if (this->get_eat_creature() && k != nullptr && (!same_spiecie(k))){
             if (k->get_alive_time()>50){
                 double r = (double)rand()/(double)RAND_MAX;
-                if (r>(k->get_size())/get_physical_strength()){
+                if (r>(k->get_size())/(get_physical_strength() * get_size() /100)){
                     k->set_hp(-1);
                     k->die();
                     set_energy(get_Max_energy());
-                    repro_factor+=30;
+                    repro_factor+=10;
                     set_counter_no_eat(0);
                 }
             }
@@ -412,17 +423,22 @@ void Creature::Eat(){
 
 
 void Creature::playstep() {
-    if (this->x()<-0){
-        this->set_hp(-1);
+    //PACMAN, when touching a border, the creature is TPed on the other side, however this is not exactly how the border of pacman works... (is is continuous)
+    if (this->x()<0){
+        setX(500+x());
+        setY(500-y());
     }
-    if (this->y()<-0){
-        this->set_hp(-1);
+    if (this->y()<0){
+        setX(500-x());
+        setY(500+y());
     }
     if (this->x()>500){
-        this->set_hp(-1);
+        setX(500-x());
+        setY(500-y());
     }
     if (this->y()>500){
-        this->set_hp(-1);
+        setX(500-x());
+        setY(500-y());
     }
 
 
@@ -459,8 +475,8 @@ void Creature::playstep() {
             Input.push_back(this->get_physical_strength()/K);
             Input.push_back(this->get_eye_sight()/K);
             Input.push_back(this->get_visibility()/K);
-            Input.push_back(0);
-            Input.push_back(0);
+            Input.push_back(x());
+            Input.push_back(y());
 
             //std::cout<<"input vector:  ";
             //Other::Cout_Vector(Input);
@@ -491,6 +507,7 @@ void Creature::playstep() {
     ;}
 };
 
+//Why counter?
 void Creature::counter_attack(){
     set_last_attack(get_last_attack()+1);
     if(get_last_attack() >= 100){set_last_attack(100);}
@@ -501,16 +518,18 @@ void Creature::check_if_lack() {
     if (get_energy()<=get_Max_energy()/20){
         set_hp(get_hp()-get_Max_hp()/100);
     }
-    if (get_counter_no_eat()>=2400) {
+    if (get_counter_no_eat()>=1200) {
         set_hp(get_hp()-get_Max_hp()/100);
 
-        set_physical_strength(0.95*get_physical_strength());
-        set_energy(0.95*get_energy());
+        //set_physical_strength(0.95*get_physical_strength());
+        //set_energy(0.95*get_energy());
     }
+    /*
     if (get_counter_no_sleep()==2400) {
         set_physical_strength(0.90*get_physical_strength());
         set_energy(0.90*get_energy());
     }
+    */
 }
 
 void Creature::sleep(int delta_t) {
@@ -678,15 +697,33 @@ std::vector<double> Creature::See(int n, int i){
 
     //we then add size:
     v.push_back(last_seen->get_size());
-    //we then add healthpoints:
-    v.push_back(last_seen->get_hp());
+
+
+    //we then add type:
+    Plant* j = dynamic_cast<Plant*>(last_seen);
+    if (j!= nullptr){
+        v.push_back(1);
+    }
+    else{
+        Creature* j = dynamic_cast<Creature*>(last_seen);
+        if (j!= nullptr){
+            v.push_back(2);
+        }
+        else{
+            v.push_back(3);
+        }
+    }
+
+
+
+
     return v;
 }
 
 
 const float _dtheta = 20; //base value of the change of rotation - to set maximal rotation range to 10 degrees
 const float _ddistance = 2; //base value of the change of the distance - maximal value of move is 2
-const float _ener_rotcoeff = 0.05; //base value for energy consumption while rotating
+const float _ener_rotcoeff = 0.2; //base value for energy consumption while rotating
 const float _ener_movecoeff = 0.5; //base value for energy consumption while moving
 const float _sizecoeff = 0.1; //base value for energy punishment connected with the size;
 //move function first moves the creature by the distance with respect to angle getrotation from qtgraphicsitem
@@ -710,7 +747,7 @@ bool Creature::same_spiecie(Creature* c){
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
         d+= abs(1 - parameters[param]/c->parameters[param]);
     }
-    return d<0.5;
+    return d<1;
 }
 
 QRectF Creature::boundingRect() const
