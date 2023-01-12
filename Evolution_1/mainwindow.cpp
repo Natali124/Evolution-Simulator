@@ -35,27 +35,32 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     ui->groupBox->setVisible(false);
     ui->groupBox->setStyleSheet("color: white; font-weight:bold; font-size:20pt");
-    ui->P_strength_t->setStyleSheet("color: white; font-weight:bold; background-color:light grey");
-    ui->max_energy_t->setStyleSheet("color: white; font-weight:bold; background-color:light grey");
-    ui->max_energy_n->setStyleSheet("color: grey; background-color:light grey");
-    ui->eye_sight_t->setStyleSheet("color: white; font-weight:bold; background-color:light grey");
-    ui->eye_sight_n->setStyleSheet("color: grey; background-color:light grey");
-    ui->visibility_t->setStyleSheet("color: white; font-weight:bold; background-color:light grey");
-    ui->visibility_n->setStyleSheet("color: grey; background-color:light grey");
-    ui->max_health_t->setStyleSheet("color: white; font-weight:bold; background-color:light grey");
-    ui->max_health_n->setStyleSheet("color: grey; background-color:light grey");
-    ui->size_t->setStyleSheet("color: white; font-weight:bold; background-color:light grey");
-    ui->size_n->setStyleSheet("color: grey; background-color:light grey");
-    ui->button_plant->setStyleSheet("color: black; background-color:light grey");
-    ui->button_pred->setStyleSheet("color: black; background-color:light grey");
-    ui->button_prey->setStyleSheet("color: black; background-color:light grey");
-    ui->button_delete_all->setStyleSheet("color: black; background-color:light grey");
-    ui->button_delete_creature->setStyleSheet("color: black; background-color:light grey");
+    ui->P_strength_t->setStyleSheet("color: white; font-weight:bold");
+    ui->max_energy_t->setStyleSheet("color: white; font-weight:bold");
+    ui->max_energy_n->setStyleSheet("color: black; background-color: white");
+    ui->eye_sight_t->setStyleSheet("color: white; font-weight:bold");
+    ui->eye_sight_n->setStyleSheet("color: black; background-color: white");
+    ui->visibility_t->setStyleSheet("color: white; font-weight:bold");
+    ui->visibility_n->setStyleSheet("color: black; background-color: white");
+    ui->max_health_t->setStyleSheet("color: white; font-weight:bold");
+    ui->max_health_n->setStyleSheet("color: black; background-color: white");
+    ui->size_t->setStyleSheet("color: white; font-weight:bold");
+    ui->size_n->setStyleSheet("color: black; background-color: white");
+    ui->button_plant->setStyleSheet("color: white; background-color: grey");
+    ui->button_pred->setStyleSheet("color: white; background-color: grey");
+    ui->button_prey->setStyleSheet("color: white; background-color: grey");
+    ui->button_delete_all->setStyleSheet("color: white; background-color: grey");
+    ui->button_delete_creature->setStyleSheet("color: white; background-color: grey");
+    ui->creature_list->setStyleSheet("background-color:white");
+    ui->count_plant->setStyleSheet("color: black; background-color: white");
+    ui->count_pred->setStyleSheet("color: black; background-color: white");
+    ui->count_prey->setStyleSheet("color: black; background-color: white");
 
-    ui->button_reset->setStyleSheet("color: black");
-    ui->startBut->setStyleSheet("background-color:light grey; font-weight:bold");
-    ui->button_rdm->setStyleSheet("color: black; background-color:light grey; font-weight:bold");
-    ui->P_strength_n->setStyleSheet("color: grey; background-color:light grey; font-weight:bold");
+    ui->button_reset->setStyleSheet("color: white; background-color: grey; font-weight:bold");
+    ui->startBut->setStyleSheet("background-color: grey; font-weight:bold; color:white");
+    ui->button_rdm->setStyleSheet("color: white; background-color: grey; font-weight:bold");
+    ui->P_strength_n->setStyleSheet("color: black; background-color: white");
+    ui->simBut->setStyleSheet("color: white; background-color: grey; font-weight:bold");
 
 
 
