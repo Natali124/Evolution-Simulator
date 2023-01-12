@@ -8,6 +8,7 @@
 void LivingBeing::reproduction(){};
 
 void LivingBeing::playstep(){
+        qDebug()<<"test";
     setRotation(rotation() + 7);
 }
 

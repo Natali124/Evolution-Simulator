@@ -1,9 +1,10 @@
 #include <random>
+#include "QtWidgets/qgraphicsscene.h"
 #include "creature.h"
 #include "Living_Beings/living_being.h"
 #include "Neural_Network/network.hpp"
 #include "plant.h"
-
+#include "barrier.h"
 #include <cmath>
 #include <iostream>
 #include <vector>
@@ -110,9 +111,12 @@ void Creature::attack(){
     // we could make the attack depend on the avg size of the creatures
 }
 
-void Creature::die() {if ((get_alive()) && (this->get_hp() == 0) ) {
-        set_alive(false);}
-                     };
+void Creature::die() {
+    if ((get_alive()) && (this->get_hp() == 0) ) {
+        set_alive(false);
+    }
+
+};
 
 void::Creature::is_eaten(Creature &c) {
     if (get_alive() == false) {
@@ -185,20 +189,36 @@ void Creature::decision(vector<float>input_vector){
 
 
 void Creature::playstep() {
+    qDebug()<<"test1";
     die();   // actually dies only if it should (alive and hp=0)
     if (get_alive()){
 
-    if (sleep_time) {
-        sleep_step();
-    }
-    else if(digest_time){
-        digest_step();
-    }
-    else {
-        decision(input_vector);
-    }
+        if (sleep_time) {
+            sleep_step();
+        }
+        else if(digest_time){
+            digest_step();
+        }
+        else {
+            decision(input_vector);
+        }
     ;}
+    touch_barrier();
 };
+
+
+void Creature::touch_barrier(){
+
+    QList<QGraphicsItem*> list = this->collidingItems();
+    foreach(QGraphicsItem* i, list){
+        Barrier *barrier = dynamic_cast<Barrier*>(i);
+        if (barrier != nullptr) {
+            qDebug()<<"test2";
+            set_hp(0);
+        }
+    }
+
+}
 
 void Creature::sleep(float delta_t) {
     sleep_time = delta_t;

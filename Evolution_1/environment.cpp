@@ -1,4 +1,5 @@
 #include "environment.h"
+#include "Living_Beings/creature.h"
 #include "math.h"
 #include <QtGui>
 
@@ -38,7 +39,7 @@ void CreatureDisplay::addRandomDot() {
     int x = std::rand() % maxX;
     int y = std::rand() % maxY;
 
-    LivingBeing *being = new LivingBeing;
+    auto *being = new Creature;
     being->setFlag(LivingBeing::ItemIsMovable, true);
     being->setPos(x, y);
     _scene.addItem(being);

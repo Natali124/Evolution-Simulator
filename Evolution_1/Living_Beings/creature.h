@@ -78,6 +78,8 @@ public:
     // the stock of energy in the corpse decreases , reverse function of eat without the eat_time,
     //the loss of energy depends on the size and the diet of the creature WHICH IS EATING
 
+    void touch_barrier();
+
     float get_parameter(Enum_parameters p);
     LivingBeing* find_food();
     //in decision we check if there is actually food (bool found_food) before eating
