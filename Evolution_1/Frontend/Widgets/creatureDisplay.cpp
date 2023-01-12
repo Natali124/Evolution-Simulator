@@ -35,14 +35,17 @@ void CreatureDisplay::addRandomDot(){
 //    randomly initializing living beings
     LivingBeing *being;
 
-    int t=rand()%3;
-    if(t==0){
+    int t=rand()%5;
+    if(t<2){
         Creature* aux = new Creature(environment);
         aux->set_Max_energy( QRandomGenerator::global()->bounded(256) );
+        aux->parameters[Creature::eat_creature] = 0;
+        aux->parameters[Creature::eat_plants] = 1;
         being = aux;
-    } else if(t==1){
+    } else if(t==4){
         Creature* aux = new Creature(environment);
-        aux->parameters[Creature::eat_creature] = 1; // I don't see any better way to set a creature to be a predator for now, but this is for debugging anyways, not permanent
+        aux->parameters[Creature::eat_creature] = 1;
+        aux->parameters[Creature::eat_plants] = 0;
         being = aux;
     } else{ //for now this isn't possible
         being = new Plant(environment);

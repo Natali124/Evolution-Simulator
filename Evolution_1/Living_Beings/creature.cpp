@@ -20,6 +20,7 @@ int number_creatures_dead = 0;
 
 
 
+
 Creature::Creature():LivingBeing() {
 
     //we need a way to differenciate animals and plants
@@ -77,6 +78,7 @@ Creature::Creature():LivingBeing() {
 
 
 bool Creature::Check_Overlap_Creature(Environment* e){
+    return (false);
     QList<QGraphicsItem*> list = e->collidingItems(this);
     return (!list.isEmpty());
 }
@@ -448,7 +450,7 @@ void Creature::Eat(){
                 repro_factor+=10;
                 set_counter_no_eat(0);
         }
-        if (this->get_eat_creature() && k != nullptr && (!same_spiecie(k) || !k->get_eat_creature())){
+        if (this->get_eat_creature() && k != nullptr && (!k->get_eat_creature())){
             if (k->get_alive_time()>50){
                 double r = (double)rand()/(double)RAND_MAX;
                 if (r>(k->get_size())/(get_physical_strength() * get_size() /100)){
@@ -565,7 +567,13 @@ void Creature::check_if_lack() {
     if (get_energy()<=get_Max_energy()/20){
         set_hp(get_hp()-get_Max_hp()/100);
     }
-    if (get_counter_no_eat()>=1200) {
+    if (get_counter_no_eat()>=1500 && get_eat_creature()) {
+        set_hp(get_hp()-get_Max_hp()/100);
+
+        //set_physical_strength(0.95*get_physical_strength());
+        //set_energy(0.95*get_energy());
+    }
+    else if (get_counter_no_eat()>=5000 && !get_eat_creature()) {
         set_hp(get_hp()-get_Max_hp()/100);
 
         //set_physical_strength(0.95*get_physical_strength());
