@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "Living_Beings/living_being.h"
+#include "Living_Beings/creature.h"
+#include "Living_Beings/plant.h"
 
 int num_pred = 0;
 int num_prey = 0;
@@ -50,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->button_rdm->setStyleSheet("color: black");
     ui->P_strength_n->setStyleSheet("color: grey");
 
-
+    Environment* env = new Environment;
 
 //    connect(ui->creature_list, SIGNAL(itemClicked(QListWidgetItem*)),
 //                this, SLOT(on_creature_list_item_clicked(QListWidgetItem*)));
@@ -61,6 +64,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete env;
 }
 
 
