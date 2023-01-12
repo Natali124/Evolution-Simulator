@@ -479,21 +479,8 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="1">
-     <widget class="QPushButton" name="button_prey">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>Add herbivore creature</string>
-      </property>
-     </widget>
-    </item>
     <item row="4" column="0">
-     <widget class="QSpinBox" name="count_prey">
+     <widget class="QSpinBox" name="count_plant">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -502,7 +489,7 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
+    <item row="0" column="1">
      <widget class="QPushButton" name="button_pred">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -515,7 +502,7 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
+    <item row="0" column="0">
      <widget class="QSpinBox" name="count_pred">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -525,7 +512,30 @@
       </property>
      </widget>
     </item>
-    <item row="6" column="1">
+    <item row="2" column="1">
+     <widget class="QPushButton" name="button_prey">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>Add herbivore creature</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QSpinBox" name="count_prey">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
      <widget class="QPushButton" name="button_plant">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -535,16 +545,6 @@
       </property>
       <property name="text">
        <string>Add plant</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0">
-     <widget class="QSpinBox" name="count_plant">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
       </property>
      </widget>
     </item>
@@ -558,12 +558,12 @@
    <zorder>simBut</zorder>
    <zorder>creature_list</zorder>
    <zorder>startBut</zorder>
-   <zorder>button_prey</zorder>
-   <zorder>count_prey</zorder>
+   <zorder>count_plant</zorder>
    <zorder>button_pred</zorder>
    <zorder>count_pred</zorder>
+   <zorder>button_prey</zorder>
+   <zorder>count_prey</zorder>
    <zorder>button_plant</zorder>
-   <zorder>count_plant</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

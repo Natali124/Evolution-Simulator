@@ -46,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->max_health_n->setStyleSheet("color: black; background-color: white");
     ui->size_t->setStyleSheet("color: white; font-weight:bold");
     ui->size_n->setStyleSheet("color: black; background-color: white");
-    ui->button_plant->setStyleSheet("color: white; background-color: grey");
+    ui->button_plant->setStyleSheet("color: light grey; background-color: grey");
     ui->button_pred->setStyleSheet("color: white; background-color: grey");
     ui->button_prey->setStyleSheet("color: white; background-color: grey");
     ui->button_delete_all->setStyleSheet("color: white; background-color: grey");
