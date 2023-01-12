@@ -267,7 +267,7 @@ void Plant::playstep() {    // random values for increasing hp, random weight of
 
 
 
-    repro_factor+=rand()%7;
+    repro_factor+=rand()%3;
 
     if (repro_factor>=500){
         repro_factor -= 500;

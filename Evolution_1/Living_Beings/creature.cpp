@@ -43,6 +43,17 @@ Creature::Creature():LivingBeing() {
     counter_no_eat=0;
     counter_no_sleep=0;
 
+    //We then need to take care of preys and predators:
+    if (this->parameters[eat_creature]>100){
+        this->parameters[eat_creature]=1;
+        this->parameters[eat_plants]=0;
+    }
+    else{
+        this->parameters[eat_creature]=0;
+        this->parameters[eat_plants]=1;
+
+    }
+
     //For the input: each vision ray has 3 outputs; then we have 2 times 8 attributes taken into account (at turn t and t-dt); and then two memory variables
     Network* n = new Network(see_ray*3 + 8*2 + 2, 8+2, 1, 10);
     this->brain = n;
@@ -59,9 +70,6 @@ Creature::Creature():LivingBeing() {
     Input_saved.push_back(this->get_visibility());
 
 
-
-    parameters[eat_creature] = true;
-    parameters[eat_plants] = true;
     parameters[eye_sight] = 200;
 
 
@@ -143,7 +151,7 @@ void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         painter->drawEllipse(1*K, -12*K, 16*K, 16*K);
 
         // Tail
-        QPainterPath path(QPointF(0, 20));
+        QPainterPath path(QPointF(0*K, 20*K));
         path.cubicTo(-5*K, 22*K, -5*K, 22*K, 0*K, 25*K);
         path.cubicTo(5*K, 27*K, 5*K, 32*K, 0*K, 30*K);
         path.cubicTo(-5*K, 32*K, -5*K, 42*K, 0*K, 35*K);
@@ -170,6 +178,12 @@ Creature* Creature::reproduction() {
         double val = normal_distrib(parameters[param], 10); // 0.1 is arbitrary value
         param_new_creature.insert(std::pair<Enum_parameters, double>(param, val));
     }
+
+    //Creature can change from prey to predators, and the reverse
+    param_new_creature[eat_creature]=parameters[eat_creature];
+    param_new_creature[eat_plants]=parameters[eat_plants];
+
+
     //Copy of current brain
     Network* new_brain = brain->copy();
 
@@ -434,7 +448,7 @@ void Creature::Eat(){
                 repro_factor+=10;
                 set_counter_no_eat(0);
         }
-        if (this->get_eat_creature() && k != nullptr && (!same_spiecie(k))){
+        if (this->get_eat_creature() && k != nullptr && (!same_spiecie(k) || !k->get_eat_creature())){
             if (k->get_alive_time()>50){
                 double r = (double)rand()/(double)RAND_MAX;
                 if (r>(k->get_size())/(get_physical_strength() * get_size() /100)){
