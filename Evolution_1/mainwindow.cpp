@@ -53,7 +53,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->button_rdm->setStyleSheet("color: black");
     ui->P_strength_n->setStyleSheet("color: grey");
 
-    Environment* env = new Environment;
 
 //    connect(ui->creature_list, SIGNAL(itemClicked(QListWidgetItem*)),
 //                this, SLOT(on_creature_list_item_clicked(QListWidgetItem*)));

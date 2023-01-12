@@ -8,8 +8,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    SimulationView menu(new Environment());
     MainWindow w; //start screen window
+    SimulationView menu(w.env);
     w.show();
 
     return a.exec();

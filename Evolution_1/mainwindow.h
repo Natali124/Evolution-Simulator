@@ -21,7 +21,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     virtual void resizeEvent(QResizeEvent*);
-    Environment env;
+    Environment* env = new Environment;
 
 
 private slots:
