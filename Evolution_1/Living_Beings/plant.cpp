@@ -113,7 +113,8 @@ void Plant::is_eaten(Creature &c) {
 
 void Plant::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     painter->setBrush(Qt::white);
-    double k =  get_size()/200;
+    //This is the coefficient we'll divide everything by /200 because size can be at most 200 and by 2 because it seems more appropriated
+    double k =  get_size()/(200 * 5);
     painter->drawEllipse(QRectF(-25*k,-25*k,25*k,25*k));
     painter->drawEllipse(QRectF(0,0,25*k,25*k));
     painter->drawEllipse(QRectF(-25*k,0,25*k,25*k));
@@ -128,7 +129,7 @@ void Plant::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 
 QRectF Plant::boundingRect() const
 {
-    double k = get_size()/200;
+    double k = get_size()/(200 * 3);
     qreal adjust = 0.5;
     return QRectF((-22 - adjust)*k, (-22 - adjust)*k, (45 + adjust)*k, (45 + adjust)*k);
 }
@@ -260,20 +261,9 @@ void Plant::slimming_carbs(Creature &c) {
 void Plant::playstep() {    // random values for increasing hp, random weight of growing coef for increasing size
     //changing size and upper bound it by max_size , same for hp
 
-    if (this->x()<100){
-        this->set_hp(-1);
-    }
-    if (this->y()<100){
-        this->set_hp(-1);
-    }
-    if (this->x()>400){
-        this->set_hp(-1);
-    }
-    if (this->y()<400){
-        this->set_hp(-1);
-    }
 
-    repro_factor+=rand()%5;
+
+    repro_factor+=rand()%3;
     if (repro_factor>=500){
         repro_factor -= 500;
         if (true){
@@ -307,6 +297,25 @@ Plant* Plant::reproduction(){
     }
     Plant* p = new Plant(param_new_plant, this->get_scene());
     p->setPos(this->x() + 100*(double)rand()/(double)(RAND_MAX),this->y()+100*(double)rand()/(double)(RAND_MAX));
+    //(The only moment a plant can use this is when it's borned)
+    //PACMAN, when touching a border, the creature is TPed on the other side, however this is not exactly how the border of pacman works... (is is continuous)
+    if (p->x()<0){
+        p->setX(500+x());
+        p->setY(500-y());
+    }
+    if (p->y()<0){
+        p->setX(500-x());
+        p->setY(500+y());
+    }
+    if (p->x()>500){
+        p->setX(500-x());
+        p->setY(500-y());
+    }
+    if (p->y()>500){
+        p->setX(500-x());
+        p->setY(500-y());
+    }
+
     return p;
 }
 

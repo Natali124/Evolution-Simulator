@@ -71,9 +71,12 @@ public:
     // default constructor that creates a creature with random parameters
     // and a default brain
     Creature();
+
     Creature(Environment *e);
     // non-default constructor that takes a std::map<Enum_parameters, double> and a Network
     Creature(std::map<Enum_parameters, double>, Network*, Environment *e);
+    //This is what we'll use to prevent creatures to spawn one on another
+    bool Check_Overlap_Creature(Environment* e);
     ~Creature();
 
     void Eat();
@@ -167,9 +170,6 @@ public:
 protected:
 
     double repro_factor = 0;
-    //Those are the memory variable of the creature (memory between turns, for now there are only 2)
-    double var1=0;
-    double var2=0;
 
     std::vector<double> Input_saved; //This is what we'll use to make our creature know what it had the previous turn
     Network * brain;
