@@ -56,7 +56,7 @@ void Plant::die() {
         number_LBs_alive --;
         number_LBs_dead ++;
         //here we chose to kill and destroy everything which is dead
-        Plant::~Plant();
+        set_hp(-1);
     }};
 
 void Plant::is_eaten(Creature &c) {
