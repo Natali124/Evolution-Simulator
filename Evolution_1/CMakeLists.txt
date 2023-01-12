@@ -49,6 +49,7 @@ set(PROJECT_SOURCES
         Frontend/Widgets/environmentTimer.cpp
         Frontend/Widgets/statView.h
         Frontend/Widgets/statView.cpp
+        barrier.h barrier.cpp
         ${TS_FILES}
 )
 
