@@ -232,24 +232,24 @@ Network* Network::copy(){
 void Network::print_adj_list(){
 
     vector<Neuron*> neurons =  input_layer->get_neurons();
-    
+
     cout << "Input layer \n";
 
     for(auto& neuron: neurons){
         cout << neuron->get_id() << ": ";
-        vector<Edge*> crnt_edges = neuron->get_next_edges();    
+        vector<Edge*> crnt_edges = neuron->get_next_edges();
         for(Edge* edge: crnt_edges){
             cout<<edge->get_end_neuron_id() << " ";}
         cout<<"\n";
     }
 
-    
+
     int counter = 1;
     for(Layer* crnt_layer: hidden_layers){
         neurons = crnt_layer->get_neurons();
 
         cout << "Hidden layer "<< counter<< "\n";
-        
+
         for(Neuron* neuron: neurons){
 
             cout << neuron->get_id() << ": ";

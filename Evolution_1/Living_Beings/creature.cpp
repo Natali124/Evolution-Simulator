@@ -13,33 +13,12 @@
 
 //using namespace std;
 
-Other::Square::Square(): Square(0, 0, 0, 1, 1){
-}
-Other::Square::Square(qreal X, qreal Y, qreal R, qreal W, qreal H): w(W), h(H){
-    setX(X); setY(Y), setRotation(R);
-}
-QRectF Other::Square::boundingRect() const{
-    return QRectF(this->x() - w /2 , this->y() + h/2, this->w, this->h);
-}
 
-/*QGraphicsEllipseItem Other::Square::ellipse(){
-    return QGraphicsEllipseItem(this->x() - w /2 , this->y() + h/2, this->w, this->h);
-} */
 
-//we don't want it to appear
-
-void Other::Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
-    painter->setPen(Qt::blue);
-    painter->drawRect(this->boundingRect());
-}
-
-void Other::Square::set_shape(){
-    QPainterPath path;
-    path.addRect(this->boundingRect());
-}
 
 
 Creature::Creature():LivingBeing() {
+
     //we need a way to differenciate animals and plants
     color = QColorConstants::DarkGray;
     // in the iteration param refers to an int into Enum_parameters (which does not include the value last)
@@ -80,12 +59,24 @@ Creature::Creature():LivingBeing() {
     parameters[eat_plants] = true;
     parameters[eye_sight] = 200;
 
+
+}
+
+
+bool Creature::Check_Overlap_Creature(Environment* e){
+    QList<QGraphicsItem*> list = e->collidingItems(this);
+    return (!list.isEmpty());
 }
 
 
 Creature::Creature(Environment* e): Creature(){
     this->set_scene(e);
+    if (Check_Overlap_Creature(e)){
+        set_hp(-1);
+    }
 }
+
+
 
 Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain, Environment* e): Creature(e) {
     this->parameters = parameters;
@@ -104,52 +95,64 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain,
     Input_saved.push_back(this->get_eye_sight());
     Input_saved.push_back(this->get_visibility());
 
+
 }
 
 Creature::~Creature() {
 }
 
+QPainterPath Creature::shape() const
+{
+    double K = this->get_size()/400; //size coefficient
+    QPainterPath path;
+    //I divided by 200 since random the random constructor gives a size between 0 and 200, this might be temprorary values;
+    path.addRect(-25*K, -25*K, 50*K, 50*K);
+    return path;
+}
+
 void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
+    double K = this->get_size()/400; //size coefficient
+
     if(!get_eat_creature()){
         // Body
         painter->setBrush(QColor(std::min((int)get_Max_energy(), (int)255), 0, 0, 255)); //for now make it redder the more energy it can have
-        painter->drawEllipse(-10, -20, 20, 40);
+        painter->drawEllipse(-10*K, -20*K, 20*K, 40*K);
 
         // Eyes
         painter->setBrush(Qt::white);
-        painter->drawEllipse(-10, -17, 8, 8);
-        painter->drawEllipse(2, -17, 8, 8);
+        painter->drawEllipse(-10*K, -17*K, 8*K, 8*K);
+        painter->drawEllipse(2*K, -17*K, 8*K, 8*K);
 
         // Nose
         painter->setBrush(Qt::black);
-        painter->drawEllipse(QRectF(-2, -22, 4, 4));
+        painter->drawEllipse(QRectF(-2*K, -22*K, 4*K, 4*K));
 
         // Pupils
-        painter->drawEllipse(QRectF(-8.0, -17, 4, 4));
-        painter->drawEllipse(QRectF(4.0, -17, 4, 4));
+        painter->drawEllipse(QRectF(-8.0*K, -17*K, 4*K, 4*K));
+        painter->drawEllipse(QRectF(4.0*K, -17*K, 4*K, 4*K));
 
         // Ears
         painter->setBrush(get_scene()->collidingItems(this).isEmpty() ? Qt::darkYellow : Qt::red);
-        painter->drawEllipse(-17, -12, 16, 16);
-        painter->drawEllipse(1, -12, 16, 16);
+        painter->drawEllipse(-17*K, -12*K, 16*K, 16*K);
+        painter->drawEllipse(1*K, -12*K, 16*K, 16*K);
 
         // Tail
         QPainterPath path(QPointF(0, 20));
-        path.cubicTo(-5, 22, -5, 22, 0, 25);
-        path.cubicTo(5, 27, 5, 32, 0, 30);
-        path.cubicTo(-5, 32, -5, 42, 0, 35);
+        path.cubicTo(-5*K, 22*K, -5*K, 22*K, 0*K, 25*K);
+        path.cubicTo(5*K, 27*K, 5*K, 32*K, 0*K, 30*K);
+        path.cubicTo(-5*K, 32*K, -5*K, 42*K, 0*K, 35*K);
         painter->setBrush(Qt::NoBrush);
         painter->drawPath(path);
     } else {
         painter->setBrush(Qt::gray);
-        painter->drawEllipse(QRectF(-25,-25,50,50));
+        painter->drawEllipse(QRectF(-25*K,-25*K,50*K,50*K));
         painter->setBrush(Qt::black);
-        painter->drawEllipse(QRectF(-20,-20,15,15));
-        painter->drawEllipse(QRectF(5,-20,15,15));
+        painter->drawEllipse(QRectF(-20*K,-20*K,15*K,15*K));
+        painter->drawEllipse(QRectF(5*K,-20*K,15*K,15*K));
         painter->setBrush(Qt::white);
-        painter->drawEllipse(QRectF(-10,-15,5,7));
-        painter->drawEllipse(QRectF(15,-15,5,7));
-        painter->drawEllipse(QRectF(-15,5,30,10));
+        painter->drawEllipse(QRectF(-10*K,-15*K,5*K,7*K));
+        painter->drawEllipse(QRectF(15*K,-15*K,5*K,7*K));
+        painter->drawEllipse(QRectF(-15*K,5*K,30*K,10*K));
     }
 
     LivingBeing::paint(painter, option, widget);
@@ -182,6 +185,7 @@ std::vector<LivingBeing*> Creature::get_close(){
     std::vector<LivingBeing*> v; //creates a vector that will store the beings near you
     QRectF bounding_rect(this->x() -  size/2 , this->y() - size/2, size, size); //creates a bounding rect around the creature
     QList<QGraphicsItem*> close = this->get_scene()->items(bounding_rect); //creates list close of colliding items
+
 
     for (QGraphicsItem* item : close){
         LivingBeing *L = dynamic_cast<LivingBeing*>(item);
@@ -225,7 +229,8 @@ void Creature::die() {
     if ((!this->get_alive()) || (this->get_hp() < 0) ) {
         set_alive(false);
         //here we chose to kill and destroy everything which is dead
-        set_hp(-1);
+
+        Creature::~Creature();
     }};
 
 void::Creature::is_eaten(Creature &c) {
@@ -358,16 +363,18 @@ this-> physical_strength = physical_strength,
 this-> energy=energy,this->eye_sight= eye_sight,this-> visibility=visibility,this-> brain=brain; };
 */
 
-//input_vector : (sleep, eat, attack, move, reproduce, sleep_time, eat_time, move_rotate, move_distance, var1, var2)
+//input_vector : (sleep, eat, attack, move, sleep_time, eat_time, move_rotate, move_distance, var1, var2)
 
 void Creature::decision(std::vector<double> input_vector){
     //std::cout<<input_vector[0]<<" "<<input_vector[1]<<" "<<input_vector[2]<<" "<<input_vector[3]<<" "<<input_vector[4]<<" "<<input_vector[5]<<" "<<input_vector[6]<<" "<<input_vector[7]<<std::endl;
     //We give a value to the memory variables
-    var1=input_vector[9];
-    var2=input_vector[10];
 
-    int j =  std::distance(input_vector.begin(), std::max_element(input_vector.begin(), input_vector.begin()+5)); // index of max element of the first 5 elements (0 <= j <= 4)
-
+    double action = *max_element(input_vector.begin(), input_vector.begin()+4);
+    int j = 0;
+    for (std::vector<double>::iterator i=input_vector.begin(); i!=input_vector.begin()+4; i++){
+        if (action==*i) {break;}
+        j++;
+        }
     if(j==0){
         sleep(*(input_vector.begin()+4) * 200); //sleep for sleep_time
     }
@@ -384,10 +391,6 @@ void Creature::decision(std::vector<double> input_vector){
         double distance = 2*(*(input_vector.begin()+7))-1;
         move(rotation, distance);
     }
-    if(j==4){
-        // reproduce, terminates with exit code 3 if the next line is not commented out
-        //reproduction();
-      }
 
 }
 
@@ -416,17 +419,17 @@ void Creature::Eat(){
                 j->set_hp(-1);
                 j->die();
                 set_energy(get_Max_energy());
-                repro_factor+=30;
+                repro_factor+=10;
                 set_counter_no_eat(0);
         }
         if (this->get_eat_creature() && k != nullptr && (!same_spiecie(k))){
             if (k->get_alive_time()>50){
                 double r = (double)rand()/(double)RAND_MAX;
-                if (r>(k->get_size())/get_physical_strength()){
+                if (r>(k->get_size())/(get_physical_strength() * get_size() /100)){
                     k->set_hp(-1);
                     k->die();
                     set_energy(get_Max_energy());
-                    repro_factor+=30;
+                    repro_factor+=10;
                     set_counter_no_eat(0);
                 }
             }
@@ -438,19 +441,25 @@ void Creature::Eat(){
 }
 
 
-
 void Creature::playstep() {
-    if (this->x()<-0){
-        this->set_hp(-1);
+
+    //PACMAN, when touching a border, the creature is TPed on the other side, however this is not exactly how the border of pacman works... (is is continuous)
+    if (this->x()<0){
+        setX(500+x());
+        setY(500-y());
     }
-    if (this->y()<-0){
-        this->set_hp(-1);
+    if (this->y()<0){
+        setX(500-x());
+        setY(500+y());
     }
     if (this->x()>500){
-        this->set_hp(-1);
+        setX(500-x());
+        setY(500-y());
     }
     if (this->y()>500){
-        this->set_hp(-1);
+        setX(500-x());
+        setY(500-y());
+
     }
 
 
@@ -487,8 +496,8 @@ void Creature::playstep() {
             Input.push_back(this->get_physical_strength()/K);
             Input.push_back(this->get_eye_sight()/K);
             Input.push_back(this->get_visibility()/K);
-            Input.push_back(0);
-            Input.push_back(0);
+            Input.push_back(x());
+            Input.push_back(y());
 
             //std::cout<<"input vector:  ";
             //Other::Cout_Vector(Input);
@@ -519,6 +528,7 @@ void Creature::playstep() {
     ;}
 };
 
+
 void Creature::counter_attack(){
     set_last_attack(get_last_attack()+1);
     if(get_last_attack() >= 100){set_last_attack(100);}
@@ -529,16 +539,18 @@ void Creature::check_if_lack() {
     if (get_energy()<=get_Max_energy()/20){
         set_hp(get_hp()-get_Max_hp()/100);
     }
-    if (get_counter_no_eat()>=2400) {
+    if (get_counter_no_eat()>=1200) {
         set_hp(get_hp()-get_Max_hp()/100);
 
-        set_physical_strength(0.95*get_physical_strength());
-        set_energy(0.95*get_energy());
+        //set_physical_strength(0.95*get_physical_strength());
+        //set_energy(0.95*get_energy());
     }
+    /*
     if (get_counter_no_sleep()==2400) {
         set_physical_strength(0.90*get_physical_strength());
         set_energy(0.90*get_energy());
     }
+    */
 }
 
 void Creature::sleep(int delta_t) {
@@ -706,24 +718,44 @@ std::vector<double> Creature::See(int n, int i){
 
     //we then add size:
     v.push_back(last_seen->get_size());
-    //we then add healthpoints:
-    v.push_back(last_seen->get_hp());
+
+
+    //we then add type:
+    Plant* j = dynamic_cast<Plant*>(last_seen);
+    if (j!= nullptr){
+        v.push_back(1);
+    }
+    else{
+        Creature* j = dynamic_cast<Creature*>(last_seen);
+        if (j!= nullptr){
+            v.push_back(2);
+        }
+        else{
+            v.push_back(3);
+        }
+    }
+
+
+
+
     return v;
 }
 
 
 const float _dtheta = 20; //base value of the change of rotation - to set maximal rotation range to 10 degrees
 const float _ddistance = 2; //base value of the change of the distance - maximal value of move is 2
-const float _ener_rotcoeff = 0.05; //base value for energy consumption while rotating
+const float _ener_rotcoeff = 0.2; //base value for energy consumption while rotating
 const float _ener_movecoeff = 0.5; //base value for energy consumption while moving
 const float _sizecoeff = 0.1; //base value for energy punishment connected with the size;
 //move function first moves the creature by the distance with respect to angle getrotation from qtgraphicsitem
 //then changes the rotation (so rotation applies only for next movements)
 void Creature::move(double rotation, double distance){
     setRotation(this->rotation() + rotation * _dtheta);
+    float w = get_scene()->width();
+    float h = get_scene()->height();
 
-    setX(this->x() + (distance*_ddistance) * cos(this->rotation()*M_PI/180));
-    setY(this->y() + (distance*_ddistance) * sin(this->rotation()*M_PI/180));
+    setX(fmod(this->x() + (distance*_ddistance) * cos(this->rotation()*M_PI/180 - M_PI/2),w));
+    setY(fmod(this->y() + (distance*_ddistance) * sin(this->rotation()*M_PI/180 - M_PI/2),h));
 
     float s = this->size;
     float current_energy = get_energy();
@@ -738,7 +770,8 @@ bool Creature::same_spiecie(Creature* c){
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
         d+= abs(1 - parameters[param]/c->parameters[param]);
     }
-    return d<0.5;
+    return d<1;
+
 }
 
 QRectF Creature::boundingRect() const

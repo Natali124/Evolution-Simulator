@@ -31,16 +31,16 @@ QPainterPath LivingBeing::shape() const
 {
     QPainterPath path;
     //I divided by 200 since random the random constructor gives a size between 0 and 200, this might be temprorary values;
-    path.addRect(-10*get_size()/200, -20*get_size()/200, 20*get_size()/200, 40*get_size()/200);
+    path.addRect(-5*get_size()/400, -10*get_size()/400, 10*get_size()/400, 20*get_size()/400);
     return path;
 }
 
 
 void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                         QWidget *widget) {
-    painter->setBrush(color);
+    /*painter->setBrush(color);
     //I divided by 200 since random the random constructor gives a size between 0 and 200, this might be temprorary values;
-    painter->drawEllipse(-10*get_size()/200, -20*get_size()/200, 20*get_size()/200, 40*get_size()/200);
+    painter->drawEllipse(-5*get_size()/400, -10*get_size()/400, 10*get_size()/400, 20*get_size()/400);*/
 }
 
 
@@ -61,7 +61,7 @@ void LivingBeing::die() {if ((this->get_alive()) && (this->get_hp() < 0) ) {
         if (this->type == plant) {
         } else if (this->type == creature) {
         }
-        }};
+        }}
 
 
 

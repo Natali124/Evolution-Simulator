@@ -18,20 +18,6 @@ namespace Other {
         std::cout<<std::endl;
     }
 
-    //We"ll use this class to detect what's in front of what, as an example it could be used to attack, eat, etc...
-    class Square: public QGraphicsItem{
-    public:
-        // base values: 0, 0, 1, 1
-        Square();
-        Square(qreal X, qreal Y, qreal R, qreal W, qreal H);
-        QRectF boundingRect() const;
-        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-        void set_shape();
-        qreal w;
-        qreal h;
-        QGraphicsEllipseItem ellipse();
-    };
-
 
     // This function is returning an array of T2 that are casted from a list of type T1 from which we don't take elements that can't be casted
     // I though I would need it but it seems that not... I'll erase if I really don need it, Ruben
@@ -51,6 +37,9 @@ namespace Other {
 }
 
 
+extern int number_creatures;
+extern int number_creatures_alive;
+extern int number_creatures_dead;
 class Creature : public LivingBeing {
 public:
 
@@ -58,7 +47,7 @@ public:
     // positive double, positive double, positive double, [0, 1], Bool, Bool, positive double, positive double
     enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, Max_hp, size, last};
 
-    // for bool values they ll either be 0 or not (thus a smooth conversion, normally)
+    // for bool values they ll eaither be 0 or not (thus a smooth conversion, normally)
 
 
     // the 'last' parameter is  just there in order to make iteration easier, it has no actual purpuse
@@ -68,17 +57,23 @@ public:
     // default constructor that creates a creature with random parameters
     // and a default brain
     Creature();
+
     Creature(Environment *e);
     // non-default constructor that takes a std::map<Enum_parameters, double> and a Network
     Creature(std::map<Enum_parameters, double>, Network*, Environment *e);
+    //This is what we'll use to prevent creatures to spawn one on another
+    bool Check_Overlap_Creature(Environment* e);
     ~Creature();
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     void Eat();
 
+    QPainterPath shape() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+
     // MEMBER FUNCTIONS
     Creature* reproduction();
-    // functions to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
+
 
     virtual std::vector<LivingBeing*> get_close();
 
@@ -165,9 +160,7 @@ public:
 protected:
 
     double repro_factor = 0;
-    //Those are the memory variable of the creature (memory between turns, for now there are only 2)
-    double var1=0;
-    double var2=0;
+
 
     std::vector<double> Input_saved; //This is what we'll use to make our creature know what it had the previous turn
     Network * brain;

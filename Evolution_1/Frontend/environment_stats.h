@@ -41,6 +41,8 @@ public:
     int number_plants;
     int number_plants_alive;
     int number_plants_dead;
+    void average_creatures(SimulationView& menu);
+
 
 
 };
