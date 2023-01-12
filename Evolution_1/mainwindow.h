@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "QtWidgets/qlistwidget.h"
 #include <QMainWindow>
 #include <QApplication>
 #include <cstdlib>
@@ -24,11 +23,8 @@ public:
 private slots:
 
     // all functions are explained in mainwindow.cpp
-
     void setBackgroundImage(QString filePath);
-
     void stretchBackground();
-
     void on_startBut_clicked();
 
     void on_button_pred_clicked();
@@ -44,8 +40,6 @@ private slots:
     void on_button_reset_clicked();
 
     void on_button_delete_creature_clicked();
-
-    void sort_creature_list(QListWidget *creature_list);
 
 private:
     Ui::MainWindow *ui;
