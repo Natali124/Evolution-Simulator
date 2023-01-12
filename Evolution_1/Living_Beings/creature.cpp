@@ -157,25 +157,19 @@ Creature* Creature::reproduction() {
     return C;
 };
 
-
 std::vector<LivingBeing*> Creature::get_close(){
-    std::vector<LivingBeing*> v;
+    std::vector<LivingBeing*> v; //creates a vector that will store the beings near you
+    QRectF bounding_rect(this->x() -  size/2 , this->y() - size/2, size, size); //creates a bounding rect around the creature
+    QList<QGraphicsItem*> close = this->get_scene()->items(bounding_rect); //creates list close of colliding items
 
-    //This will be used to get all objects in front
-    //Other::Square *S = new Other::Square(this->x()+this->size * sin(this->rotation()*(3.14/180)), this->y()+this->size * cos(this->rotation()*(3.14/180)), this->rotation(), this->size, this->size);
-    Other::Square *S = new Other::Square(this->x(), this->y(), this->rotation(), this->size, this->size); //around the creature?
-    this->get_scene()->addItem(S);
-    QList<QGraphicsItem*> list = this->get_scene()->collidingItems(S);
-    foreach(QGraphicsItem* i , list)
-    {
-        LivingBeing *L = dynamic_cast<LivingBeing*>(i);
-        // if i was possible to cast && if they don't have the same coordinates
-        if ((L!=nullptr) && ((L->x() != this->x()) || (L->y() != this->y()))){
+
+    for (QGraphicsItem* item : close){
+        LivingBeing *L = dynamic_cast<LivingBeing*>(item);
+        // if item was possible to cast && if they don't have the same coordinates
+        if (L!=nullptr){
             v.push_back(L);
         }
     }
-
-    delete S;
     return v;
 }
 
@@ -190,6 +184,7 @@ void Creature::take_dmg(double dmg){
 }
 
 void Creature::attack(){
+    qDebug()<<"attack"; //to debug
     //we'll first split between creatures and plants:
     std::vector<LivingBeing*> Close = this->get_close();
     int len = Close.size();
@@ -237,7 +232,7 @@ void::Creature::is_eaten(Creature &c) {
 
 void Creature::move_away(){
     //std::vector<LivingBeing*> Creature
-    const double coeff = 0.2; //by how much are they moving away
+    const double coeff = 2; //by how much are they moving away
     QList<QGraphicsItem*> list = this->collidingItems();
     double w1, w2, h1, h2, r1, r2, r;
     foreach(QGraphicsItem* i , list)
@@ -453,10 +448,6 @@ void Creature::playstep() {
 
 
     if (get_alive()){
-
-
-
-
 
         //bouding energy and hp to the max bcse in case of modifications in the previous playstep
         bound_energy_hp();
@@ -739,9 +730,11 @@ const float _sizecoeff = 0.1; //base value for energy punishment connected with 
 //then changes the rotation (so rotation applies only for next movements)
 void Creature::move(double rotation, double distance){
     setRotation(this->rotation() + rotation * _dtheta);
+    float w = get_scene()->width();
+    float h = get_scene()->height();
 
-    setX(this->x() + (distance*_ddistance) * cos(this->rotation()*M_PI/180));
-    setY(this->y() + (distance*_ddistance) * sin(this->rotation()*M_PI/180));
+    setX(fmod(this->x() + (distance*_ddistance) * cos(this->rotation()*M_PI/180),w));
+    setY(fmod(this->y() + (distance*_ddistance) * sin(this->rotation()*M_PI/180),h));
 
     float s = this->size;
     float current_energy = get_energy();
