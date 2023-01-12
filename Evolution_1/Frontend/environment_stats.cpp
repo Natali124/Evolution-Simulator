@@ -49,7 +49,7 @@ Environment_Stats::Environment_Stats(SimulationView& menu, QWidget *parent): QCh
 
     //all charts:
     QChart *chart = new QChart();
-
+    setChart(chart);
     //?
     //*chart->advance(int phase)
 
@@ -89,7 +89,6 @@ Environment_Stats::Environment_Stats(SimulationView& menu, QWidget *parent): QCh
     chart->legend()->setVisible(true);;
     chart->legend()->setAlignment(Qt::AlignBottom);
     this->setRenderHint(QPainter::Antialiasing);
-
     show();
     this->update();
 }
