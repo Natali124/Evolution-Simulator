@@ -25,8 +25,6 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(SimulationView& menu, QWidget *parent = nullptr);
     ~MainWindow();
-    std::vector<double> creature_hp_ratio(SimulationView& menu); //helper vector for creating a graph on the proportion of creatures having
-    //certain percentages of hp (their hp/ their max_hp)
     void advance(int phase);
     int step;
     void set_step(int val);
@@ -36,13 +34,6 @@ private:
     Ui::MainWindow *ui;
 };
 
-
-/*class Chart :  {
-public:
-    Environment* env;
-    void advance(int phase);
-
-};*/
 
 
 #endif // MAINWINDOW_H
