@@ -3,7 +3,9 @@
 #include <QtGui>
 
 Environment::Environment() : QGraphicsScene(0, 0, 30, 30) {
-
+    previousRect = nullptr;
+    click_in_bounding_rect = false;
+    last_touched = nullptr;
 }
 Environment::Environment(float height, float width) : QGraphicsScene(0, 0, width, height){ }
 
