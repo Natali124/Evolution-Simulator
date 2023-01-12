@@ -35,20 +35,20 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->groupBox->setStyleSheet("color: white; font-weight:bold; font-size:20pt");
     ui->P_strength_t->setStyleSheet("color: white; font-weight:bold");
     ui->max_energy_t->setStyleSheet("color: white; font-weight:bold");
-    ui->max_energy_n->setStyleSheet("color: black");
+    ui->max_energy_n->setStyleSheet("color: grey");
     ui->eye_sight_t->setStyleSheet("color: white; font-weight:bold");
-    ui->eye_sight_n->setStyleSheet("color: black");
+    ui->eye_sight_n->setStyleSheet("color: grey");
     ui->visibility_t->setStyleSheet("color: white; font-weight:bold");
-    ui->visibility_n->setStyleSheet("color: black");
+    ui->visibility_n->setStyleSheet("color: grey");
     ui->max_health_t->setStyleSheet("color: white; font-weight:bold");
-    ui->max_health_n->setStyleSheet("color: black");
+    ui->max_health_n->setStyleSheet("color: grey");
     ui->size_t->setStyleSheet("color: white; font-weight:bold");
-    ui->size_n->setStyleSheet("color: black");
+    ui->size_n->setStyleSheet("color: grey");
 
 
     ui->button_reset->setStyleSheet("color: black");
     ui->button_rdm->setStyleSheet("color: black");
-    ui->P_strength_n->setStyleSheet("color: black");
+    ui->P_strength_n->setStyleSheet("color: grey");
 
 
 
@@ -135,6 +135,8 @@ void MainWindow::on_button_pred_clicked()
     if (ui->simBut->isVisible() == false) {
         ui->simBut->setVisible(true);
     };
+
+    QObject::connect(ui->simBut, &QPushButton::clicked, this, &QWidget::close);
 }
 
 
@@ -160,7 +162,7 @@ void MainWindow::on_button_prey_clicked()
     if (ui->simBut->isVisible() == false) {
         ui->simBut->setVisible(true);
     };
-
+    QObject::connect(ui->simBut, &QPushButton::clicked, this, &QWidget::close);
 }
 
 
@@ -186,6 +188,7 @@ void MainWindow::on_button_plant_clicked()
     if (ui->simBut->isVisible() == false) {
         ui->simBut->setVisible(true);
     };
+    QObject::connect(ui->simBut, &QPushButton::clicked, this, &QWidget::close);
 }
 
 
