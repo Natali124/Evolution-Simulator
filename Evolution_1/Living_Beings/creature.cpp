@@ -693,11 +693,9 @@ const float _sizecoeff = 0.1; //base value for energy punishment connected with 
 //then changes the rotation (so rotation applies only for next movements)
 void Creature::move(double rotation, double distance){
     setRotation(this->rotation() + rotation * _dtheta);
-    float w = get_scene()->width();
-    float h = get_scene()->height();
 
-    setX(fmod(this->x() + (distance*_ddistance) * cos(this->rotation()*M_PI/180),w));
-    setY(fmod(this->y() + (distance*_ddistance) * sin(this->rotation()*M_PI/180),h));
+    setX(this->x() + (distance*_ddistance) * cos(this->rotation()*M_PI/180));
+    setY(this->y() + (distance*_ddistance) * sin(this->rotation()*M_PI/180));
 
     float s = this->size;
     float current_energy = get_energy();
