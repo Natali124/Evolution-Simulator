@@ -32,6 +32,7 @@ public:
     QChart *chart {chart = new QChart()};
     void update_chart();
     QChart* get_chart() {return chart;};
+    void average_creatures(SimulationView& menu);
 
 
 };

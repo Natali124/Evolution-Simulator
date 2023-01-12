@@ -1,4 +1,5 @@
 #include "environment_stats.h"
+#include
 
 
 Environment_Stats::Environment_Stats(SimulationView& menu, QWidget *parent): QChartView(parent)
@@ -120,6 +121,28 @@ void Environment_Stats::update_chart(){
     series->append(tn);
     chart->addSeries(series);
     update();
+}
+
+void Environment_Stats::average_creatures(SimulationView& menu){
+    enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, Max_hp, size, last};
+    std::map<Enum_parameters, double> param_average;
+    Environment* environment = menu.get_environment();
+    QList<QGraphicsItem *> list = environment->items();
+    QListIterator<QGraphicsItem*> i(list);
+    while (i.hasNext()){
+        LivingBeing* LB = dynamic_cast<LivingBeing*>(i.next());
+        LivingBeing::Type_LB type = LB->get_type();
+        if (type == Creature::creature) {
+            Creature* c = dynamic_cast<Creature*>(LB);
+//            double ratio = (c->get_hp())/(c->get_Max_hp());
+            for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
+
+//                double val = normal_distrib(parameters[param], 0.1); // 0.1 is arbitrary value
+//                param_new_creature.insert(std::pair<Enum_parameters, double>(param, val));
+            }
+        }
+    }
+
 }
 
 
