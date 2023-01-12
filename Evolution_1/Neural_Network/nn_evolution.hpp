@@ -1,4 +1,9 @@
-#include "network.hpp"
+#pragma once
+#include <tuple>
+#include <vector>
+using namespace std;
+class Network;
+
 
 bool sortbysec(tuple<Network*, double> a,
                tuple<Network*, double> b);

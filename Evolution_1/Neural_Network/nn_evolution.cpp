@@ -1,4 +1,5 @@
 #include "nn_evolution.hpp"
+#include "network.hpp"
 #include <QRandomGenerator>
 
 // Comparison function to sort the vector elements
