@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <QGraphicsScene>
 #include <iostream>
+#include "environment.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,6 +20,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     virtual void resizeEvent(QResizeEvent*);
+    Environment env;
+
 
 private slots:
 
