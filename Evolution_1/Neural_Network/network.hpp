@@ -23,7 +23,8 @@ public:
     //getters:
     Layer* get_input_layer();
     Layer* get_output_layer();
-    vector <Layer*> get_hidden_layers();
+
+    std::vector <Layer*> get_hidden_layers();
     int size();
 
     //setters:
@@ -39,8 +40,9 @@ public:
     void add_layer(int i, int n_nodes, act_function f_activation);
     void remove_layer();
     void propagate();
-    void apply_on_all_edges(function<void(Edge&)> edge_function);
-    void apply_on_all_weights(function<double(double)> weight_function);
+
+    void apply_on_all_edges(std::function<void(Edge&)> edge_function);
+    void apply_on_all_weights(std::function<double(double)> weight_function);
     Network* copy();
     Layer* operator[](int i);
     Network* reproduce();
@@ -51,8 +53,10 @@ public:
     void print_values();
 
     //Saving
-    vector<vector<double>> network_to_vector();
-    void network_to_file(string filename);
+
+    std::vector<std::vector<double>> network_to_vector();
+    void network_to_file(std::string filename);
+
 
 
 

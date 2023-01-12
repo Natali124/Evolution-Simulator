@@ -19,7 +19,6 @@ namespace Other {
     }
 
 
-
     // This function is returning an array of T2 that are casted from a list of type T1 from which we don't take elements that can't be casted
     // I though I would need it but it seems that not... I'll erase if I really don need it, Ruben
     template <typename T1, typename T2> std::vector<T2*> cast_array(const std::vector<T1>& L1){
@@ -67,6 +66,7 @@ public:
     ~Creature();
 
     void Eat();
+
 
     // MEMBER FUNCTIONS
     Creature* reproduction();
@@ -157,6 +157,7 @@ public:
 protected:
 
     double repro_factor = 0;
+
 
     std::vector<double> Input_saved; //This is what we'll use to make our creature know what it had the previous turn
     Network * brain;

@@ -19,10 +19,12 @@ public:
 
     // Getters
     double get_value();
-    vector <Edge*> get_previous_edges(); // returns previous edges
-    vector <Edge*> get_next_edges();
-    vector<double> get_next_weights();
-    int get_id();
+
+    std::vector <Edge*> get_previous_edges(); // returns previous edges
+    std::vector <Edge*> get_next_edges();
+    std::vector<double> get_next_weights();
+    int get_id(); 
+
     int get_index(); // returns index of neuron in parent_layer
     void get_full_index(Network* n, int& i, int& j); // sets (i,j) where i is index of parent layer in network, j is index of neuron in parent layer
 

@@ -44,7 +44,7 @@ Creature::Creature():LivingBeing() {
     counter_no_sleep=0;
 
     //For the input: each vision ray has 3 outputs; then we have 2 times 8 attributes taken into account (at turn t and t-dt); and then two memory variables
-    Network* n = new Network(see_ray*3 + 8*2 + 2, 8, 1, 10);
+    Network* n = new Network(see_ray*3 + 8*2 + 2, 8+2, 1, 10);
     this->brain = n;
 
     //We'll also prepare another vector with all the attributes we'll use after (we want to know the previous parametters in the next turn)
@@ -63,6 +63,7 @@ Creature::Creature():LivingBeing() {
     parameters[eat_creature] = true;
     parameters[eat_plants] = true;
     parameters[eye_sight] = 200;
+
 
 }
 
@@ -101,14 +102,56 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain,
     Input_saved.push_back(this->get_visibility());
 
 
-
-
 }
 
 Creature::~Creature() {
 }
 
+void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
+    if(!get_eat_creature()){
+        // Body
+        painter->setBrush(QColor(std::min((int)get_Max_energy(), (int)255), 0, 0, 255)); //for now make it redder the more energy it can have
+        painter->drawEllipse(-10, -20, 20, 40);
 
+        // Eyes
+        painter->setBrush(Qt::white);
+        painter->drawEllipse(-10, -17, 8, 8);
+        painter->drawEllipse(2, -17, 8, 8);
+
+        // Nose
+        painter->setBrush(Qt::black);
+        painter->drawEllipse(QRectF(-2, -22, 4, 4));
+
+        // Pupils
+        painter->drawEllipse(QRectF(-8.0, -17, 4, 4));
+        painter->drawEllipse(QRectF(4.0, -17, 4, 4));
+
+        // Ears
+        painter->setBrush(get_scene()->collidingItems(this).isEmpty() ? Qt::darkYellow : Qt::red);
+        painter->drawEllipse(-17, -12, 16, 16);
+        painter->drawEllipse(1, -12, 16, 16);
+
+        // Tail
+        QPainterPath path(QPointF(0, 20));
+        path.cubicTo(-5, 22, -5, 22, 0, 25);
+        path.cubicTo(5, 27, 5, 32, 0, 30);
+        path.cubicTo(-5, 32, -5, 42, 0, 35);
+        painter->setBrush(Qt::NoBrush);
+        painter->drawPath(path);
+    } else {
+        painter->setBrush(Qt::gray);
+        painter->drawEllipse(QRectF(-25,-25,50,50));
+        painter->setBrush(Qt::black);
+        painter->drawEllipse(QRectF(-20,-20,15,15));
+        painter->drawEllipse(QRectF(5,-20,15,15));
+        painter->setBrush(Qt::white);
+        painter->drawEllipse(QRectF(-10,-15,5,7));
+        painter->drawEllipse(QRectF(15,-15,5,7));
+        painter->drawEllipse(QRectF(-15,5,30,10));
+    }
+
+    LivingBeing::paint(painter, option, widget);
+}
 
 Creature* Creature::reproduction() {
     std::map<Enum_parameters, double> param_new_creature;
@@ -187,7 +230,8 @@ void Creature::die() {
         number_creatures_alive --;
         number_creatures_dead ++;
         //here we chose to kill and destroy everything which is dead
-        Creature::~Creature();
+
+        set_hp(-1);
     }};
 
 void::Creature::is_eaten(Creature &c) {
@@ -336,10 +380,11 @@ void Creature::decision(std::vector<double> input_vector){
         sleep(*(input_vector.begin()+4) * 200); //sleep for sleep_time
     }
     /*if(j==1){
-        LivingBeing* food = find_food();
-        if (get_found_food()) {
-            eat((*food), *(input_vector.begin()+5));}
-    }
+    if(j==2){
+        //attack, to do
+      }
+    if(j==3){
+        // move
     if(j==2){*/
     else{
         //Here we want to be able to move forward, backward, to rotate left and right
@@ -397,8 +442,8 @@ void Creature::Eat(){
 }
 
 
-
 void Creature::playstep() {
+
     //PACMAN, when touching a border, the creature is TPed on the other side, however this is not exactly how the border of pacman works... (is is continuous)
     if (this->x()<0){
         setX(500+x());
@@ -415,6 +460,7 @@ void Creature::playstep() {
     if (this->y()>500){
         setX(500-x());
         setY(500-y());
+
     }
 
 
@@ -483,7 +529,7 @@ void Creature::playstep() {
     ;}
 };
 
-//Why counter?
+
 void Creature::counter_attack(){
     set_last_attack(get_last_attack()+1);
     if(get_last_attack() >= 100){set_last_attack(100);}
@@ -726,6 +772,7 @@ bool Creature::same_spiecie(Creature* c){
         d+= abs(1 - parameters[param]/c->parameters[param]);
     }
     return d<1;
+
 }
 
 QRectF Creature::boundingRect() const
