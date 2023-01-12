@@ -1,0 +1,16 @@
+This week I worked on the following:
+- Implemented an evolution focused on just the neural network to test functionality for a given "goal-function"
+	-> copied Network::reproduce() from reproduction team
+	-> implemented loss functions to calculate loss between given and expected output vector
+	-> implemented do_step function that 
+		-> evaluates networks on random input vectors
+		-> deletes the worst performing networks
+		-> reproduces remaining networks 
+		-> calculates average loss
+	-> implemented run_evolution that runs for some generations and prints average losses (with variable parameters)
+- tested the evolution and varied parameters to find "sweet spot"
+- Debugged and finished the Network-to-file and file-to-network functions with Anja Matic (which took quite a long time and is not done yet)
+
+Next week I plan to work on the following:
+- Resolve the last few build errors still present 
+- work on presentation of the network (maybe using QuickCanava? -> need to install and read documentation)

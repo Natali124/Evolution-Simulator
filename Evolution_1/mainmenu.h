@@ -3,7 +3,7 @@
 
 #include "environment.h"
 #include <QMainWindow>
-#include <iostream>
+
 //int being_count = 10;
 
 class MainMenu : public QMainWindow{
@@ -17,7 +17,7 @@ class MainMenu : public QMainWindow{
             display._scene.clear();
             for(int i = 0; i < 10; i ++)
                 display.addRandomDot();
-        };
+        }
         CreatureDisplay display;
 
     private:

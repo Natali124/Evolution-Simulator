@@ -13,3 +13,7 @@ We also had a meeting regarding organization and use of trello, we draw the conc
 Plans for next week: Finishing attack function and developing function moving creatures if they're too close to each other.
 
 Changes for 5.12-11.12: Me and Flavia are doing minor changes to the class creature, we finished a funciton attack and started a function move_away which is supposed to push away from each other animals which are touching with each other. Plan for this week is to finish this function and help other groups if needed as tasks for our subgroup are almost finished
+
+Changes for 12.12-18.12: I completely changed and finished move_away function. About further plans I will get more information after the winter break
+
+Changes for 2.01-8.01: After the break we had a meeting where we discussed main points which needed to be carried out in out project. What we need to do now on is to make neural network done (as Object-Oriented and Frontend part is already done). As I was not in a NN team I decided to try to work on coefficients and functions in objects so that the simulation and/or neural network could work better. Because it was just a process of trials and errors seeing the behavious of a simulation I did't make any meaningful changes this week.

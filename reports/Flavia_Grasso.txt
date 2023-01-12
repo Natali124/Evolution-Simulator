@@ -13,3 +13,11 @@ This week I worked on the implementation of the decision function, that given an
 
 Week 3
 After finalizing the attack function with oscar I did some research on the functioning of QGraphicsItem Class that I will pursue next week, to fix any bugs we may have with visualizing the living beings and implement the move_away function with Oscar. 
+
+
+Week 4
+This week I mostly conducted some reaserch on using QGraphicsItem to help  implement the move_away() function and did some changes for the get_close() function. Since our group finished most of the tasks and we need to wait for the output of the neural network to see the result (or not) of our code. I will see next week what my next task is depending on the results.
+
+Week 5
+Unfortunately, the results for the evolution didn't turn out to be exactly what we wanted, there was some debugging we needed to do. I did some small changes to a couple of functions. One of the things we saw from the evolution is that some creatures spawned and had very low HP but continued to live. So Ruben had to change the die function and asked me to implement a counter_attack() and last_attack() function, that would give a parameter to the NN depending on when the last attack was, that would alter its behavior (if a creature was attacked recently it should be weaker).
+Next week, Vincenzo asked me to do some work with the Barrier branch. I will make so that the creatures die if they go towards the barrier.

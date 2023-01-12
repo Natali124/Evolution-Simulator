@@ -1,32 +1,14 @@
 #ifndef MAINMENU_H
 #define MAINMENU_H
 
-#include "Frontend/Windows/creatureDisplay.h"
+#include "Frontend/Widgets/simulationViewWidgets.h"
 #include <QMainWindow>
 #include <QTimer>
 
-//a class to control the passage of time in the environment
-class EnvironmentTimer : public QObject
-{
-    Q_OBJECT
-    public:
-        EnvironmentTimer(Environment*);
-        QTimer *timer;
-        void start();
-        void stop();
-
-    public slots:
-        void MyTimerSlot();
-
-    private:
-        Environment* environment;
-        float timeStep = 1000/33;
-};
-
 //main window for displaying the game
-class MainMenu : public QMainWindow{
+class SimulationView : public QMainWindow{
     public:
-        MainMenu(Environment *environment, QWidget *parent = nullptr);
+        SimulationView(Environment *environment, QWidget *parent = nullptr);
 
         CreatureDisplay* getDisplay(){ return &display; }
         void randomize_scene(){ // placeholder
