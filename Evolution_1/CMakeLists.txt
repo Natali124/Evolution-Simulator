@@ -49,6 +49,7 @@ set(PROJECT_SOURCES
         Neural_Network/nn_evolution.hpp
         Neural_Network/reading.hpp
         Neural_Network/reading.cpp
+        Frontend/CreatureDesigns.qrc
         Frontend/resources.h
         Frontend/Widgets/SimulationSpeedSlider.cpp
         Frontend/Widgets/environmentTimer.cpp
