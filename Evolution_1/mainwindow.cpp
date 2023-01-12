@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->button_prey->setStyleSheet("color: white; background-color: grey");
     ui->button_delete_all->setStyleSheet("color: white; background-color: grey");
     ui->button_delete_creature->setStyleSheet("color: white; background-color: grey");
-    ui->creature_list->setStyleSheet("background-color:white");
+    ui->creature_list->setStyleSheet("background-color:white; color: black");
     ui->count_plant->setStyleSheet("color: black; background-color: white");
     ui->count_pred->setStyleSheet("color: black; background-color: white");
     ui->count_prey->setStyleSheet("color: black; background-color: white");
