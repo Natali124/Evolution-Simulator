@@ -25,12 +25,15 @@ QRectF Other::Square::boundingRect() const{
     return QRectF(this->x() - w /2 , this->y() + h/2, this->w, this->h);
 }
 
+/*QGraphicsEllipseItem Other::Square::ellipse(){
+    return QGraphicsEllipseItem(this->x() - w /2 , this->y() + h/2, this->w, this->h);
+} */
+
 //we don't want it to appear
 
 void Other::Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
     painter->setPen(Qt::blue);
     painter->drawRect(this->boundingRect());
-
 }
 
 void Other::Square::set_shape(){
@@ -62,7 +65,7 @@ Creature::Creature():LivingBeing() {
     counter_no_sleep=0;
 
     //For the input: each vision ray has 3 outputs; then we have 2 times 8 attributes taken into account (at turn t and t-dt); and then two memory variables
-    Network* n = new Network(see_ray*3 + 8*2 + 2, 9+2, 4, 10);
+    Network* n = new Network(see_ray*3 + 8*2 + 2, 8+2, 1, 10);
     this->brain = n;
 
     //We'll also prepare another vector with all the attributes we'll use after (we want to know the previous parametters in the next turn)
@@ -75,6 +78,13 @@ Creature::Creature():LivingBeing() {
     Input_saved.push_back(this->get_physical_strength());
     Input_saved.push_back(this->get_eye_sight());
     Input_saved.push_back(this->get_visibility());
+
+
+
+    parameters[eat_creature] = true;
+    parameters[eat_plants] = true;
+    parameters[eye_sight] = 200;
+
 }
 
 
@@ -100,9 +110,11 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain,
     Input_saved.push_back(this->get_physical_strength());
     Input_saved.push_back(this->get_eye_sight());
     Input_saved.push_back(this->get_visibility());
+
 }
 
-Creature::~Creature() {}
+Creature::~Creature() {
+}
 
 void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     if(!get_eat_creature()){
@@ -150,51 +162,48 @@ void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     LivingBeing::paint(painter, option, widget);
 }
 
-LivingBeing* Creature::reproduction() {
+Creature* Creature::reproduction() {
     std::map<Enum_parameters, double> param_new_creature;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
-        double val = normal_distrib(parameters[param], 0.1); // 0.1 is arbitrary value
+        double val = normal_distrib(parameters[param], 10); // 0.1 is arbitrary value
         param_new_creature.insert(std::pair<Enum_parameters, double>(param, val));
     }
     //Copy of current brain
-    Network new_brain = brain->copy();
+    Network* new_brain = brain->copy();
 
 
 
     //Network new_brain = network(old brain);
     // modify this function when we can create new networks with inputs
     //new_brain.apply_on_all_edges(normal_distrib_random_edge);
-    new_brain.apply_on_all_weights(normal_distrib_random());
+    new_brain->apply_on_all_weights(normal_distrib_random());
     Creature* C= new Creature(param_new_creature, brain, this->get_scene());
     C->set_scene(this->get_scene());
     C->setPos(x(), y());
     C->setRotation(rotation());
-    C->move(1, 1); //So that they aren't both exactly at the same place, and wont stay at the same position and do the same things
+    C->move(10, 10); //So that they aren't both exactly at the same place, and wont stay at the same position and do the same things
     return C;
 };
 
-
 std::vector<LivingBeing*> Creature::get_close(){
-    std::vector<LivingBeing*> v;
+    std::vector<LivingBeing*> v; //creates a vector that will store the beings near you
+    QRectF bounding_rect(this->x() -  size/2 , this->y() - size/2, size, size); //creates a bounding rect around the creature
+    QList<QGraphicsItem*> close = this->get_scene()->items(bounding_rect); //creates list close of colliding items
 
-    //This will be used to get all objects in front
-    Other::Square *S = new Other::Square(this->x()+this->size * sin(this->rotation()*(3.14/180)), this->y()+this->size * cos(this->rotation()*(3.14/180)), this->rotation(), this->size, this->size);
-    this->get_scene()->addItem(S);
-    QList<QGraphicsItem*> list = this->get_scene()->collidingItems(S);
-    foreach(QGraphicsItem* i, list)
-    {
-        LivingBeing *L = dynamic_cast<LivingBeing*>(i);
-        // if i was possible to cast && if they don't have the same coordinates
-        if ((L!=nullptr) && ((L->x() != this->x()) || (L->y() != this->y()))){
+    for (QGraphicsItem* item : close){
+        LivingBeing *L = dynamic_cast<LivingBeing*>(item);
+        // if item was possible to cast && if they don't have the same coordinates
+        if (L!=nullptr){
             v.push_back(L);
         }
     }
-
-    delete S;
     return v;
 }
 
+
+
 void Creature::take_dmg(double dmg){
+    set_last_attack(0);
     if (this->get_hp()>0){
         this->set_hp(this->get_hp()-dmg);
     }
@@ -202,6 +211,7 @@ void Creature::take_dmg(double dmg){
 }
 
 void Creature::attack(){
+    qDebug()<<"attack"; //to debug
     //we'll first split between creatures and plants:
     std::vector<LivingBeing*> Close = this->get_close();
     int len = Close.size();
@@ -218,12 +228,17 @@ void Creature::attack(){
     // we could make the attack depend on the avg size of the creatures
 }
 
-void Creature::die() {if ((this->get_alive()) && (this->get_hp() < 0) ) {
+void Creature::die() {
+    if ((!this->get_alive()) || (this->get_hp() < 0) ) {
         set_alive(false);
+
+
         number_LBs_alive --;
         number_LBs_dead ++;
         number_creatures_alive --;
         number_creatures_dead ++;
+        //here we chose to kill and destroy everything which is dead
+        Creature::~Creature();
     }};
 
 void::Creature::is_eaten(Creature &c) {
@@ -244,7 +259,7 @@ void::Creature::is_eaten(Creature &c) {
 
 void Creature::move_away(){
     //std::vector<LivingBeing*> Creature
-    const double coeff = 0.2; //by how much are they moving away
+    const double coeff = 2; //by how much are they moving away
     QList<QGraphicsItem*> list = this->collidingItems();
     double w1, w2, h1, h2, r1, r2, r;
     foreach(QGraphicsItem* i , list)
@@ -314,6 +329,8 @@ void Creature::set_counter_no_eat(int i) {this->counter_no_eat = i;}
 void Creature::set_counter_no_sleep(int j){this->counter_no_sleep = j;}
 Network* Creature::get_brain(){return brain;};
 void Creature::set_brain(Network* b){brain = b;};
+int Creature::get_last_attack(){return this->last_attack;};
+void Creature::set_last_attack(int i){this->last_attack = i;};
 
 void Creature::bound_energy_hp() {
     if (get_energy()>get_Max_energy()) {
@@ -340,7 +357,7 @@ std::function<double(double)> Creature::normal_distrib_random(){ return [](doubl
     if (p < 0.5){
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::normal_distribution<double> d(weight, 0.4);
+        std::normal_distribution<double> d(weight, 10);
         weight = d(gen);
     }
     return weight;
@@ -365,20 +382,16 @@ void Creature::decision(std::vector<double> input_vector){
     int j =  std::distance(input_vector.begin(), std::max_element(input_vector.begin(), input_vector.begin()+5)); // index of max element of the first 5 elements (0 <= j <= 4)
 
     if(j==0){
-        // sleep
-        sleep(*(input_vector.begin()+5)); //sleep for sleep_time
+        sleep(*(input_vector.begin()+4) * 200); //sleep for sleep_time
     }
-    if(j==1){
-        // eat
-        LivingBeing* food = find_food();
-        if (get_found_food()) {
-            eat((*food), *(input_vector.begin()+6));}
-    }
+    /*if(j==1){
     if(j==2){
         //attack, to do
       }
     if(j==3){
         // move
+    if(j==2){*/
+    else{
         //Here we want to be able to move forward, backward, to rotate left and right
         double rotation = 2*(*(input_vector.begin()+6))-1;
         double distance = 2*(*(input_vector.begin()+7))-1;
@@ -392,12 +405,75 @@ void Creature::decision(std::vector<double> input_vector){
 }
 
 
+//This is what we'll b e using to eat whatever the LB is touching and can eat
+void Creature::Eat(){
+    QList<QGraphicsItem*> list = get_scene()->collidingItems(this);
+
+    if (repro_factor>=50){
+        repro_factor -= 50;
+        if (true){
+            Creature* c = reproduction();
+            this->get_scene()->addItem(c);
+        }
+    }
+
+
+
+
+
+    foreach(QGraphicsItem* i , list){
+
+        Plant *j = dynamic_cast<Plant*>(i);
+        Creature *k = dynamic_cast<Creature*>(i);
+        if (this->get_eat_plants() && j != nullptr){
+                j->set_hp(-1);
+                j->die();
+                set_energy(get_Max_energy());
+                repro_factor+=30;
+                set_counter_no_eat(0);
+        }
+        if (this->get_eat_creature() && k != nullptr && (!same_spiecie(k))){
+            if (k->get_alive_time()>50){
+                double r = (double)rand()/(double)RAND_MAX;
+                if (r>(k->get_size())/get_physical_strength()){
+                    k->set_hp(-1);
+                    k->die();
+                    set_energy(get_Max_energy());
+                    repro_factor+=30;
+                    set_counter_no_eat(0);
+                }
+            }
+
+        }
+    }
+
+
+}
+
 
 
 void Creature::playstep() {
-    die();   // actually dies only if it should (alive and hp=0)
+    if (this->x()<-0){
+        this->set_hp(-1);
+    }
+    if (this->y()<-0){
+        this->set_hp(-1);
+    }
+    if (this->x()>500){
+        this->set_hp(-1);
+    }
+    if (this->y()>500){
+        this->set_hp(-1);
+    }
+
+
+
+    increase_alive_time();
+    die();   // actually dies only if it should (alive and hp<=0)
+
 
     if (get_alive()){
+
         //bouding energy and hp to the max bcse in case of modifications in the previous playstep
         bound_energy_hp();
 
@@ -424,8 +500,8 @@ void Creature::playstep() {
             Input.push_back(this->get_physical_strength()/K);
             Input.push_back(this->get_eye_sight()/K);
             Input.push_back(this->get_visibility()/K);
-            Input.push_back(this->var1);
-            Input.push_back(this->var2);
+            Input.push_back(0);
+            Input.push_back(0);
 
             //std::cout<<"input vector:  ";
             //Other::Cout_Vector(Input);
@@ -433,26 +509,42 @@ void Creature::playstep() {
 
             //We'll also prepare another vector with all the attributes we'll use after (we want to know the previous parametters in the next turn)
             Input_saved = std::vector<double>();
-            Input_saved.push_back(this->get_size());
-            Input_saved.push_back(this->get_energy());
-            Input_saved.push_back(this->get_Max_energy());
-            Input_saved.push_back(this->get_hp());
-            Input_saved.push_back(this->get_Max_hp());
-            Input_saved.push_back(this->get_physical_strength());
-            Input_saved.push_back(this->get_eye_sight());
-            Input_saved.push_back(this->get_visibility());
+            Input_saved.push_back(this->get_size()/K);
+            Input_saved.push_back(this->get_energy()/K);
+            Input_saved.push_back(this->get_Max_energy()/K);
+            Input_saved.push_back(this->get_hp()/K);
+            Input_saved.push_back(this->get_Max_hp()/K);
+            Input_saved.push_back(this->get_physical_strength()/K);
+            Input_saved.push_back(this->get_eye_sight()/K);
+            Input_saved.push_back(this->get_visibility()/K);
 
             decision(input_vector);
             set_counter_no_sleep(get_counter_no_sleep()+1);  //neither eat/digest or sleep
-            set_counter_no_eat(get_counter_no_eat()+1);
+
+            counter_attack();
         }
+        //We check if our creature eat
+        set_counter_no_eat(get_counter_no_eat()+1);
+        Eat();
         check_if_lack(); //lack of sleep is more damageable bcse more important to sleep than to eat, Harvard study :)
+
+
     ;}
 };
 
+void Creature::counter_attack(){
+    set_last_attack(get_last_attack()+1);
+    if(get_last_attack() >= 100){set_last_attack(100);}
+    }
+
 
 void Creature::check_if_lack() {
-    if (get_counter_no_eat()==2400) {
+    if (get_energy()<=get_Max_energy()/20){
+        set_hp(get_hp()-get_Max_hp()/100);
+    }
+    if (get_counter_no_eat()>=2400) {
+        set_hp(get_hp()-get_Max_hp()/100);
+
         set_physical_strength(0.95*get_physical_strength());
         set_energy(0.95*get_energy());
     }
@@ -462,7 +554,7 @@ void Creature::check_if_lack() {
     }
 }
 
-void Creature::sleep(double delta_t) {
+void Creature::sleep(int delta_t) {
     sleep_time = delta_t;
     set_counter_no_sleep(0);
     set_physical_strength(1.09*get_physical_strength()); //regains almost all its energy and ps lost due to lack of sleep (lost 10%)
@@ -471,8 +563,7 @@ void Creature::sleep(double delta_t) {
 
 void Creature::sleep_step() {
     set_counter_no_eat(get_counter_no_eat()+1);
-    double e = get_energy() +1;
-    set_energy(e);
+    set_energy(get_energy() +1);
     sleep_time-=1;
 }
 
@@ -651,5 +742,22 @@ void Creature::move(double rotation, double distance){
     float current_energy = get_energy();
     current_energy -= (_ener_rotcoeff * rotation + _ener_movecoeff * distance) * _sizecoeff * s * s; //change of energy depends on rotation, distance travelled and size squared to punish too big animals
     set_energy(current_energy);
+}
+
+
+//The description is in the .h file
+bool Creature::same_spiecie(Creature* c){
+    double d = 0;
+    for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
+        d+= abs(1 - parameters[param]/c->parameters[param]);
+    }
+    return d<0.5;
+}
+
+QRectF Creature::boundingRect() const
+{
+    qreal adjust = 0.5;
+    return QRectF((-18 - adjust)*get_size()/200, (-22 - adjust)*get_size()/200,
+                  (36 + adjust)*get_size()/200, (60 + adjust)*get_size()/200);
 }
 
