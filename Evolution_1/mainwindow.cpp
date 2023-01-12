@@ -125,8 +125,20 @@ void MainWindow::on_button_pred_clicked()
     int val = ui->count_pred->value();
     qDebug() << "Omnivorous creature:" << val;
 
+    if (num_pred+val > 999) {
+        val = 999-num_pred;
+    }
+
     for (int i = num_pred; i < num_pred+val; i++) {
-        ui->creature_list->addItem("Omnivorous creature " + QString::number(i+1));
+        if (i<9) {
+            ui->creature_list->addItem("Omnivorous creature 00" + QString::number(i+1));
+        }
+        else if (i<99) {
+            ui->creature_list->addItem("Omnivorous creature 0" + QString::number(i+1));
+        }
+        else if (i>99) {
+            ui->creature_list->addItem("Omnivorous creature " + QString::number(i+1));
+        }
     }
 
     num_pred += val;
@@ -152,8 +164,20 @@ void MainWindow::on_button_prey_clicked()
     int val = ui->count_prey->value();
     qDebug() << "Herbivore creature:" << val;
 
+    if (num_prey+val > 999) {
+        val = 999-num_prey;
+    }
+
     for (int i = num_prey; i < num_prey+val; i++) {
-        ui->creature_list->addItem("Herbivore creature " + QString::number(i+1));
+        if (i<9) {
+            ui->creature_list->addItem("Herbivore creature 00" + QString::number(i+1));
+        }
+        else if (i<99) {
+            ui->creature_list->addItem("Herbivore creature 0" + QString::number(i+1));
+        }
+        else if (i>99) {
+            ui->creature_list->addItem("Herbivore creature " + QString::number(i+1));
+        }
     }
 
     num_prey += val;
@@ -178,8 +202,20 @@ void MainWindow::on_button_plant_clicked()
     int val = ui->count_plant->value();
     qDebug() << "Plants:" << val;
 
+    if (num_plant+val > 999) {
+        val = 999-num_plant;
+    }
+
     for (int i = num_plant; i < num_plant+val; i++) {
-        ui->creature_list->addItem("Plant " + QString::number(i+1));
+        if (i<9) {
+            ui->creature_list->addItem("Plant 00" + QString::number(i+1));
+        }
+        else if (i<99) {
+            ui->creature_list->addItem("Plant 0" + QString::number(i+1));
+        }
+        else if (i>99) {
+            ui->creature_list->addItem("Plant " + QString::number(i+1));
+        }
     }
 
     num_plant += val;
