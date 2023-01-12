@@ -6,6 +6,7 @@ using namespace std;
 
 class Edge;
 class Layer;
+class Network;
 
 class Neuron{
 public:
@@ -22,6 +23,8 @@ public:
     vector <Edge*> get_next_edges();
     vector<double> get_next_weights();
     int get_id(); 
+    int get_index(); // returns index of neuron in parent_layer
+    void get_full_index(Network* n, int& i, int& j); // sets (i,j) where i is index of parent layer in network, j is index of neuron in parent layer
 
     // Setters
     void set_value(double value);
@@ -33,7 +36,7 @@ public:
     void add_edge(Edge* edge, bool previous); // adds an edge. boolean previous indicates wether its in next_edges or previous_edges
     void remove_edge(int index, bool previous); // removes edge at given index, previous indicates if it is in previous_edges or next_edges. removes edge from both of the connected neurons
     void remove_edge(Edge* edge, bool previous); //removes given edge found in previous_edges or next_edges as indicated by previous. removes edge from only this neuron
-
+    bool is_connected(Neuron*);
 
 private:
     static int neuron_counter; //Number of existing neiurons. Increases everytime a neuron is intialized, decreases when a neuron is destroyed
