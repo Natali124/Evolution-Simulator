@@ -9,11 +9,8 @@
 #include <vector>
 #include <map>
 #include <QGraphicsItem>
+#include "environment.h"
 
-
-int number_creatures = 0;
-int number_creatures_alive = 0;
-int number_creatures_dead = 0;
 //using namespace std;
 
 Other::Square::Square(): Square(0, 0, 0, 1, 1){
@@ -58,8 +55,6 @@ Creature::Creature():LivingBeing() {
     // the brain is already constructed by the default constructor in the .h file.
     type = creature;
     this->set_alive(true);
-    number_creatures ++;
-    number_creatures_alive ++;
     found_food = false;
     counter_no_eat=0;
     counter_no_sleep=0;
@@ -97,8 +92,6 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain,
     this->base_parameters = parameters; //we save "dna"
     this->brain = brain;
     //this->set_scene(e);
-    number_creatures ++;
-    number_creatures_alive ++;
 
     //We'll also prepare another vector with all the attributes we'll use after (we want to know the previous parametters in the next turn)
     Input_saved = std::vector<double>();
@@ -231,12 +224,6 @@ void Creature::attack(){
 void Creature::die() {
     if ((!this->get_alive()) || (this->get_hp() < 0) ) {
         set_alive(false);
-
-
-        number_LBs_alive --;
-        number_LBs_dead ++;
-        number_creatures_alive --;
-        number_creatures_dead ++;
         //here we chose to kill and destroy everything which is dead
         set_hp(-1);
     }};

@@ -62,7 +62,7 @@ protected:
   Environment *scene;
 };
 //Variables for stats
-extern int number_LBs;
+/*extern int number_LBs;
 extern int number_LBs_alive;
 extern int number_LBs_dead;
 extern int number_creatures;
@@ -70,6 +70,6 @@ extern int number_creatures_alive;
 extern int number_creatures_dead;
 extern int number_plants;
 extern int number_plants_alive;
-extern int number_plants_dead;
+extern int number_plants_dead;*/
 
 #endif
