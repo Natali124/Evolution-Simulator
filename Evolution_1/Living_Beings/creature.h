@@ -126,8 +126,8 @@ public:
     double get_visibility() const;
     void set_Max_energy(double me);
     double get_Max_energy() const;
-    bool get_eat_creature();
-    bool get_eat_plants();
+    bool get_eat_creature() const;
+    bool get_eat_plants() const;
     void set_Max_hp(double mh);
     double get_Max_hp() const;
     void set_hp(double h);

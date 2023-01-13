@@ -13,7 +13,7 @@ class SimulationView : public QMainWindow{
         CreatureDisplay* getDisplay(){ return &display; }
         void randomize_scene(){ // placeholder
             display.environment->clear();
-            for(int i = 0; i < 500; i ++)
+            for(int i = 0; i < 300; i ++)
                 display.addRandomDot();
         }
         virtual void resizeEvent(QResizeEvent*);

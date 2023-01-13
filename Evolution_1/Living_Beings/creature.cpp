@@ -89,6 +89,7 @@ Creature::Creature(Environment* e): Creature(){
 
 
 Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain, Environment* e): Creature(e) {
+
     this->parameters = parameters;
     this->base_parameters = parameters; //we save "dna"
     this->brain = brain;
@@ -115,9 +116,14 @@ QPainterPath Creature::shape() const
 {
     double K = this->get_size()/400; //size coefficient
     QPainterPath path;
-    //I divided by 200 since random the random constructor gives a size between 0 and 200, this might be temprorary values;
-    path.addRect(-25*K, -25*K, 50*K, 50*K);
+    if(!get_eat_creature()){
+        path.addRect(-15*K, -22*K, 30*K, 60*K);
+    }
+    else {
+        path.addRect(-25*K, -25*K, 50*K, 50*K);
+    }
     return path;
+
 }
 
 void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
@@ -317,8 +323,8 @@ void Creature::set_visibility(double v){this->parameters[visibility] = v;}
 double Creature::get_visibility() const{return this->parameters.at(visibility);}
 void Creature::set_Max_energy(double me){this->parameters[Max_energy] = me;}
 double Creature::get_Max_energy() const{return this->parameters.at(Max_energy);}
-bool Creature::get_eat_creature(){return this->parameters[eat_creature];}
-bool Creature::get_eat_plants(){return this->parameters[eat_plants];}
+bool Creature::get_eat_creature() const{return this->parameters.at(eat_creature);}
+bool Creature::get_eat_plants() const{return this->parameters.at(eat_plants);}
 int Creature::get_digest_time(){return this->digest_time;}
 void Creature::set_digest_time(int time){this->digest_time = time;}
 std::vector<double> Creature::get_food_attributes() {return this->food_attributes;}
@@ -391,22 +397,22 @@ void Creature::decision(std::vector<double> input_vector){
         if (action==*i) {break;}
         j++;
         }
-    if(j==0){
+    /*if(j==0){
         sleep(*(input_vector.begin()+4) * 200); //sleep for sleep_time
     }
-    /*if(j==1){
+    if(j==1){
     if(j==2){
         //attack, to do
       }
     if(j==3){
         // move
-    if(j==2){*/
-    else{
+    if(j==2){
+    else{*/
         //Here we want to be able to move forward, backward, to rotate left and right
         double rotation = 2*(*(input_vector.begin()+6))-1;
         double distance = 2*(*(input_vector.begin()+7))-1;
         move(rotation, distance);
-    }
+    //}
 
 }
 
@@ -441,7 +447,8 @@ void Creature::Eat(){
         if (this->get_eat_creature() && k != nullptr && (!k->get_eat_creature())){
             if (k->get_alive_time()>50){
                 double r = (double)rand()/(double)RAND_MAX;
-                if (r>(k->get_size())/(get_physical_strength() * get_size() /100)){
+                r*=2;//Creature can at most eat something twice bigger
+                if (r>(k->get_size())/(get_size())){
                     k->set_hp(-1);
                     k->die();
                     set_energy(get_Max_energy());

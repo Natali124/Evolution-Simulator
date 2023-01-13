@@ -6,12 +6,13 @@
 
 
 
-
+int N_Plants = 0;
 //int number_plants = 0;
 //int number_plants_alive = 0;
 //int number_plants_dead = 0;
 
 Plant::Plant():LivingBeing(){
+    N_Plants+=1;
     //we need a way to differenciate animals and plants
     color = QColorConstants::DarkGreen;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
@@ -33,6 +34,7 @@ Plant::Plant(std::map<Enum_parameters, double> parameters, Environment *e): Plan
 }
 
 Plant::~Plant() {
+    N_Plants-=1;
 };
 
 
@@ -263,7 +265,7 @@ void Plant::playstep() {    // random values for increasing hp, random weight of
 
     if (repro_factor>=500){
         repro_factor -= 500;
-        if (true){
+        if (N_Plants<500){
             Plant* p = reproduction();
             this->get_scene()->addItem(p);
         }
