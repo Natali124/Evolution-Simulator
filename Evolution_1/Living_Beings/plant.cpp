@@ -31,6 +31,13 @@ Plant::Plant(Environment *e): Plant(){
 Plant::Plant(std::map<Enum_parameters, double> parameters, Environment *e): Plant(e) {
     this->parameters = parameters;
     this->base_parameters = parameters; //we save "dna"
+    //To be sure there are no excess:
+    if (this->get_size()>200){
+        this->set_size(200);
+    }
+    else if (this->get_size()<0.1){
+        this->set_size(0.1);
+    }
 }
 
 Plant::~Plant() {
@@ -109,7 +116,7 @@ void Plant::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     painter->setBrush(Qt::white);
 
     //This is the coefficient we'll divide everything by /200 because size can be at most 200 and by 2 because it seems more appropriated
-    double k =  get_size()/(200 * 5);
+    double k =  get_size()/(200 * 10);
 
     painter->drawEllipse(QRectF(-25*k,-25*k,25*k,25*k));
     painter->drawEllipse(QRectF(0,0,25*k,25*k));
@@ -126,7 +133,7 @@ void Plant::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 QRectF Plant::boundingRect() const
 {
 
-    double k = get_size()/(200 * 3);
+    double k = get_size()/(200 * 6);
 
     qreal adjust = 0.5;
     return QRectF((-22 - adjust)*k, (-22 - adjust)*k, (45 + adjust)*k, (45 + adjust)*k);
@@ -261,7 +268,7 @@ void Plant::playstep() {    // random values for increasing hp, random weight of
 
 
 
-    repro_factor+=rand()%3;
+    repro_factor+=rand()%10;
 
     if (repro_factor>=500){
         repro_factor -= 500;

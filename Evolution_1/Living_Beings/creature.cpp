@@ -17,6 +17,8 @@
 
 
 
+bool Show_Sight = false;
+
 
 Creature::Creature():LivingBeing() {
 
@@ -51,7 +53,7 @@ Creature::Creature():LivingBeing() {
     }
 
     //For the input: each vision ray has 3 outputs; then we have 2 times 8 attributes taken into account (at turn t and t-dt); and then two memory variables
-    Network* n = new Network(see_ray*3 + 8*2 + 2, 8+2, 1, 10);
+    Network* n = new Network(see_ray*3 + 8*2 + 2, 8+2, 1, 100);
     this->brain = n;
 
     //We'll also prepare another vector with all the attributes we'll use after (we want to know the previous parametters in the next turn)
@@ -66,7 +68,7 @@ Creature::Creature():LivingBeing() {
     Input_saved.push_back(this->get_visibility());
 
 
-    parameters[eye_sight] = 200;
+    parameters[eye_sight] = 50;
 
 
 }
@@ -93,6 +95,14 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain,
     this->parameters = parameters;
     this->base_parameters = parameters; //we save "dna"
     this->brain = brain;
+    //To be sure there are no excess:
+    if (this->get_size()>200){
+        this->set_size(200);
+    }
+    else if (this->get_size()<0.1){
+        this->set_size(0.1);
+    }
+
     //this->set_scene(e);
 
     //We'll also prepare another vector with all the attributes we'll use after (we want to know the previous parametters in the next turn)
@@ -106,6 +116,8 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain,
     Input_saved.push_back(this->get_eye_sight());
     Input_saved.push_back(this->get_visibility());
 
+    parameters[eye_sight] = 50;
+
 
 }
 
@@ -114,20 +126,24 @@ Creature::~Creature() {
 
 QPainterPath Creature::shape() const
 {
-    double K = this->get_size()/400; //size coefficient
+    double K = this->get_size()/1000; //size coefficient
     QPainterPath path;
     if(!get_eat_creature()){
         path.addRect(-15*K, -22*K, 30*K, 60*K);
     }
     else {
-        path.addRect(-25*K, -25*K, 50*K, 50*K);
+        path.addRect(-12*K, -12*K, 24*K, 24*K);
     }
     return path;
 
 }
 
 void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
-    double K = this->get_size()/400; //size coefficient
+    if (Show_Sight){
+        painter->drawEllipse(-this->get_eye_sight()/2, -this->get_eye_sight()/2, this->get_eye_sight(), this->get_eye_sight());
+    }
+
+    double K = this->get_size()/600; //size coefficient
 
     if(!get_eat_creature()){
         // Body
@@ -161,14 +177,14 @@ void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         painter->drawPath(path);
     } else {
         painter->setBrush(Qt::gray);
-        painter->drawEllipse(QRectF(-25*K,-25*K,50*K,50*K));
+        painter->drawEllipse(QRectF(-12*K,-12*K,24*K,24*K));
         painter->setBrush(Qt::black);
-        painter->drawEllipse(QRectF(-20*K,-20*K,15*K,15*K));
-        painter->drawEllipse(QRectF(5*K,-20*K,15*K,15*K));
+        painter->drawEllipse(QRectF(-10*K,-10*K,7*K,7*K));
+        painter->drawEllipse(QRectF(2.5*K,-10*K,7*K,7*K));
         painter->setBrush(Qt::white);
-        painter->drawEllipse(QRectF(-10*K,-15*K,5*K,7*K));
-        painter->drawEllipse(QRectF(15*K,-15*K,5*K,7*K));
-        painter->drawEllipse(QRectF(-15*K,5*K,30*K,10*K));
+        painter->drawEllipse(QRectF(-5*K,-7.5*K,2.5*K,3.5*K));
+        painter->drawEllipse(QRectF(7.5*K,-7.5*K,2.5*K,3.5*K));
+        painter->drawEllipse(QRectF(-7.5*K,2.5*K,15*K,5*K));
     }
 
     LivingBeing::paint(painter, option, widget);
@@ -398,7 +414,8 @@ void Creature::decision(std::vector<double> input_vector){
         j++;
         }
     /*if(j==0){
-        sleep(*(input_vector.begin()+4) * 200); //sleep for sleep_time
+
+        //sleep(*(input_vector.begin()+4) * 200); //sleep for sleep_time
     }
     if(j==1){
     if(j==2){
@@ -421,8 +438,15 @@ void Creature::decision(std::vector<double> input_vector){
 void Creature::Eat(){
     QList<QGraphicsItem*> list = get_scene()->collidingItems(this);
 
-    if (repro_factor>=50){
-        repro_factor -= 50;
+    if (get_eat_creature() && repro_factor>=100){
+        repro_factor -= 100;
+        if (true){
+            Creature* c = reproduction();
+            this->get_scene()->addItem(c);
+        }
+    }
+    else if (repro_factor>=20){
+        repro_factor -= 20;
         if (true){
             Creature* c = reproduction();
             this->get_scene()->addItem(c);
@@ -447,7 +471,7 @@ void Creature::Eat(){
         if (this->get_eat_creature() && k != nullptr && (!k->get_eat_creature())){
             if (k->get_alive_time()>50){
                 double r = (double)rand()/(double)RAND_MAX;
-                r*=2;//Creature can at most eat something twice bigger
+                r*=4;//Creature can at most eat something 4 times bigger
                 if (r>(k->get_size())/(get_size())){
                     k->set_hp(-1);
                     k->die();
@@ -562,13 +586,13 @@ void Creature::check_if_lack() {
     if (get_energy()<=get_Max_energy()/20){
         set_hp(get_hp()-get_Max_hp()/100);
     }
-    if (get_counter_no_eat()>=1500 && get_eat_creature()) {
-        set_hp(get_hp()-get_Max_hp()/100);
+    if (get_counter_no_eat()>=300 && get_eat_creature()) {
+        set_hp(get_hp()-get_Max_hp()/50);
 
         //set_physical_strength(0.95*get_physical_strength());
         //set_energy(0.95*get_energy());
     }
-    else if (get_counter_no_eat()>=5000 && !get_eat_creature()) {
+    else if (get_counter_no_eat()>=2500 && !get_eat_creature()) {
         set_hp(get_hp()-get_Max_hp()/100);
 
         //set_physical_strength(0.95*get_physical_strength());
@@ -688,6 +712,7 @@ void Creature::digest_step(){
             else {set_physical_strength(0);}
      }
 };
+
 
 
 //Vision is simulated using multiple rays which will start from the creature trying to see an go on multiple direction.
