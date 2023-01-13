@@ -53,7 +53,7 @@ Creature::Creature():LivingBeing() {
     }
 
     //For the input: each vision ray has 3 outputs; then we have 2 times 8 attributes taken into account (at turn t and t-dt); and then two memory variables
-    Network* n = new Network(see_ray*3 + 8*2 + 2, 8+2, 1, 100);
+    Network* n = new Network(see_ray*3 + 8*2 + 2, 8+2, 3, 100);
     this->brain = n;
 
     //We'll also prepare another vector with all the attributes we'll use after (we want to know the previous parametters in the next turn)
@@ -99,8 +99,8 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain,
     if (this->get_size()>200){
         this->set_size(200);
     }
-    else if (this->get_size()<0.1){
-        this->set_size(0.1);
+    else if (this->get_size()<5){
+        this->set_size(5);
     }
 
     //this->set_scene(e);
@@ -586,7 +586,7 @@ void Creature::check_if_lack() {
     if (get_energy()<=get_Max_energy()/20){
         set_hp(get_hp()-get_Max_hp()/100);
     }
-    if (get_counter_no_eat()>=300 && get_eat_creature()) {
+    if (get_counter_no_eat()>=500 && get_eat_creature()) {
         set_hp(get_hp()-get_Max_hp()/50);
 
         //set_physical_strength(0.95*get_physical_strength());

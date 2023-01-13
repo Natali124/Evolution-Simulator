@@ -35,8 +35,8 @@ Plant::Plant(std::map<Enum_parameters, double> parameters, Environment *e): Plan
     if (this->get_size()>200){
         this->set_size(200);
     }
-    else if (this->get_size()<0.1){
-        this->set_size(0.1);
+    else if (this->get_size()<5){
+        this->set_size(5);
     }
 }
 
@@ -268,11 +268,11 @@ void Plant::playstep() {    // random values for increasing hp, random weight of
 
 
 
-    repro_factor+=rand()%10;
+    repro_factor+=rand()%5;
 
     if (repro_factor>=500){
         repro_factor -= 500;
-        if (N_Plants<500){
+        if (N_Plants<250){
             Plant* p = reproduction();
             this->get_scene()->addItem(p);
         }
@@ -302,7 +302,7 @@ Plant* Plant::reproduction(){
         param_new_plant.insert(std::pair<Enum_parameters, float>(param, val));
     }
     Plant* p = new Plant(param_new_plant, this->get_scene());
-    p->setPos(this->x() + 100*(double)rand()/(double)(RAND_MAX),this->y()+100*(double)rand()/(double)(RAND_MAX));
+    p->setPos(this->x() + 200*(double)rand()/(double)(RAND_MAX),this->y()+200*(double)rand()/(double)(RAND_MAX));
 
     //(The only moment a plant can use this is when it's borned)
     //PACMAN, when touching a border, the creature is TPed on the other side, however this is not exactly how the border of pacman works... (is is continuous)
