@@ -41,5 +41,22 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>StartBut</sender>
+   <signal>clicked()</signal>
+   <receiver>startscreen</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>245</x>
+     <y>157</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>244</x>
+     <y>153</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
