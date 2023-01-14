@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "Frontend/startscreen/propertyslider.h"
 #include "ui_mainwindow.h"
 #include "Living_Beings/living_being.h"
 #include "Living_Beings/creature.h"
@@ -19,8 +20,10 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->setupUi(this);
     setBackgroundImage(back);
     ui->simBut->setVisible(false);
+    ui->button_rdm->setVisible(false);
+    ui->button_reset->setVisible(false);
 
-    ui->groupBox->setVisible(false);
+//    ui->groupBox->setVisible(true);
 
 //    ui->groupBox->setStyleSheet("color: white; font-weight:bold; font-size:20pt");
 //    ui->P_strength_t->setStyleSheet("color: white; font-weight:bold");
@@ -39,6 +42,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 //    ui->button_reset->setStyleSheet("color: black");
 //    ui->button_rdm->setStyleSheet("color: black");
 //    ui->P_strength_n->setStyleSheet("color: grey");
+
+    connect(ui->creature_list, &QListWidget::itemClicked, this, &MainWindow::create_proper_sliders);
 
     show();
 
@@ -98,15 +103,18 @@ void MainWindow::on_button_pred_clicked()
     }
 
     for (int i = num_pred; i < num_pred+val; i++) {
+        auto creature = new Creature;
         if (i<9) {
-            ui->creature_list->addItem("Omnivorous creature 00" + QString::number(i+1));
+            creature->setObjectName("Omnivorous creature 00" + QString::number(i+1));
         }
         else if (i<99) {
-            ui->creature_list->addItem("Omnivorous creature 0" + QString::number(i+1));
+            creature->setObjectName("Omnivorous creature 0" + QString::number(i+1));
         }
         else if (i>99) {
-            ui->creature_list->addItem("Omnivorous creature " + QString::number(i+1));
+            creature->setObjectName("Omnivorous creature " + QString::number(i+1));
         }
+        auto item = new BeingItem(creature);
+        ui->creature_list->addItem(item);
     }
 
     num_pred += val;
@@ -239,20 +247,6 @@ void MainWindow::on_button_rdm_clicked()
 
     // Once you have clicked on the "Random" button, called button_rdm, the properties of your selected creature will be put at random values.
 
-    ui->eat_creature->setCheckState(Qt::Unchecked);
-    ui->eat_plant->setCheckState(Qt::Unchecked);
-
-    int val = ((int) QRandomGenerator::global()->generate()) % 3;
-    if (val == 0) {
-        ui->eat_creature->setCheckState(Qt::Checked);
-    }
-    else if (val == 1) {
-        ui->eat_creature->setCheckState(Qt::Checked);
-        ui->eat_plant->setCheckState(Qt::Checked);
-    }
-    else if (val == 2) {
-        ui->eat_plant->setCheckState(Qt::Checked);
-    }
 }
 
 
@@ -261,6 +255,20 @@ void MainWindow::on_button_reset_clicked()
 
     // Once you have clicked on the "Reset" button, called button_reset, all the properties of your selected creature will be set back to zero.
 
-    ui->eat_creature->setCheckState(Qt::Unchecked);
-    ui->eat_plant->setCheckState(Qt::Unchecked);
+}
+
+void MainWindow::create_proper_sliders(QListWidgetItem* item) {
+    auto being = dynamic_cast<BeingItem*>(item)->being;
+    auto list = findChildren<PropertySlider*>("Property Slider");
+    for (auto i = list.begin(); i != list.end(); i++) {
+        (*i)->deleteLater();
+    }
+    if (being->type == LivingBeing::Type_LB::creature) {
+        auto creature = dynamic_cast<Creature*>(being);
+        ui->verticalLayout_2->addWidget(new PropertySlider("Size", creature, &Creature::set_size, creature->get_size(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider("Energy", creature, &Creature::set_Max_energy, creature->get_Max_energy(), ui->groupBox));
+    }
+    if (being->type == LivingBeing::Type_LB::plant) {
+        // do the same
+    }
 }

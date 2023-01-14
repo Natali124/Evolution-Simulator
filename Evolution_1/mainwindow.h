@@ -18,7 +18,7 @@ class BeingItem : public QListWidgetItem{
     public:
         BeingItem(LivingBeing* being) : QListWidgetItem(being->objectName()), being(being){};
 
-    private:
+    public:
         LivingBeing* being;
 };
 
@@ -52,6 +52,8 @@ private slots:
     void on_button_reset_clicked();
 
     void on_button_delete_creature_clicked();
+
+    void create_proper_sliders(QListWidgetItem*);
 
 private:
     Ui::MainWindow *ui;

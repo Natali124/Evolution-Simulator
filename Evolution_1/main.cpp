@@ -14,18 +14,18 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 //    SimulationView menu(new Environment());
-//    MainWindow w; //start screen window
+    MainWindow w; //start screen window
 
-    auto creature = new Creature;
+//    auto creature = new Creature;
 
-    auto w = new QMainWindow;
-    auto layout = new QVBoxLayout;
-    auto slider = new PropertySlider("Size:", creature, &Creature::set_size, 0, w);
-    layout->addWidget(slider);
-    auto central = new QWidget(w); central->show();
-    w->setCentralWidget(central);
-    central->setLayout(layout);
-    w->show();
+//    auto w = new QMainWindow;
+//    auto layout = new QVBoxLayout;
+//    auto slider = new PropertySlider("Size:", creature, &Creature::set_size, 0, w);
+//    layout->addWidget(slider);
+//    auto central = new QWidget(w); central->show();
+//    w->setCentralWidget(central);
+//    central->setLayout(layout);
+//    w->show();
 
     return a.exec();
 }

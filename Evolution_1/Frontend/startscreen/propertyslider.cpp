@@ -31,6 +31,7 @@ PropertySlider::~PropertySlider()
 }
 
 void PropertySlider::init(QString text, float init_value){
+    setObjectName("Property Slider");
     ui->label->setText(text);
     ui->spinBox->setValue((int)init_value);
     connect(ui->spinBox, &QSpinBox::valueChanged, this, &PropertySlider::update);
