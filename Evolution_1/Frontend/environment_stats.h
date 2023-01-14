@@ -20,6 +20,7 @@
 #include <Living_Beings/plant.h>
 #include <QTimer>
 #include <QTimerEvent>
+#include "Living_Beings/creature.h"
 
 class Environment_Stats : QChartView {
 public:
@@ -41,7 +42,7 @@ public:
     int number_plants;
     int number_plants_alive;
     int number_plants_dead;
-    void average_creatures(SimulationView& menu);
+    std::map<Creature::Enum_parameters, double> average_creatures(SimulationView& menu);
 
 
 

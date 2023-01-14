@@ -149,6 +149,31 @@ void Environment_Stats::update_chart(){
 
 Environment_Stats::~Environment_Stats() {};
 
+std::map<Creature::Enum_parameters, double> Environment_Stats::average_creatures(SimulationView& menu){
+//    enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, Max_hp, size, last};
+    std::map<Creature::Enum_parameters, double> param_average;
+    Environment* environment = menu.get_environment();
+    QList<QGraphicsItem *> list = environment->items();
+    QListIterator<QGraphicsItem*> i(list);
+    int count = 0;
+    while (i.hasNext()){
+        count ++;
+        LivingBeing* LB = dynamic_cast<LivingBeing*>(i.next());
+        LivingBeing::Type_LB type = LB->get_type();
+        if (type == Creature::creature) {
+            Creature* c = dynamic_cast<Creature*>(LB);
+            for ( Creature::Enum_parameters param = (Creature::Enum_parameters)0; param != Creature::last; param=(Creature::Enum_parameters)(param+1) ) {
+                param_average[param] = param_average[param] ;//+ c->get_parameter(param);
+            }
+        }
+    }
+    for ( Creature::Enum_parameters param = (Creature::Enum_parameters)0; param != Creature::last; param=(Creature::Enum_parameters)(param+1) ){
+        param_average[param] = param_average[param] / count ;
+    }
+    return param_average;
+}
+
+
 std::vector<double> creature_hp_ratio(SimulationView& menu) {
     std::vector<double> v;    //v stores the ratio of hp/max_hp for each creature
     Environment* environment = menu.get_environment();
