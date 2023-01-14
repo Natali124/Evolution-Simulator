@@ -11,9 +11,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    new startscreen;
+//    new startscreen;
     new PropertySlider;
-    SimulationView menu(new Environment());
+//    SimulationView menu(new Environment());
 //    MainWindow w; //start screen window
 //    w.show();
 
