@@ -9,9 +9,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    SimulationView menu(new Environment());
-//    MainWindow w; //start screen window
-//    w.show();
+//    SimulationView menu(new Environment());
+    MainWindow w; //start screen window
+    w.show();
 
     return a.exec();
 }
