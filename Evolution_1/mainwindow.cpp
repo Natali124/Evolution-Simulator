@@ -20,40 +20,25 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     setBackgroundImage(back);
     ui->simBut->setVisible(false);
 
-//    ui->button_prey->setVisible(false);
-//    ui->button_pred->setVisible(false);
-//    ui->button_plant->setVisible(false);
-//    ui->button_delete_all->setVisible(false);
-//    ui->button_delete_creature->setVisible(false);
-
-//    ui->count_pred->setVisible(false);
-//    ui->count_prey->setVisible(false);
-//    ui->count_plant->setVisible(false);
-
-//    ui->line_1->setVisible(false);
-//    ui->line_2->setVisible(false);
-//    ui->line_3->setVisible(false);
-
-//    ui->creature_list->setVisible(false);
-
     ui->groupBox->setVisible(false);
-    ui->groupBox->setStyleSheet("color: white; font-weight:bold; font-size:20pt");
-    ui->P_strength_t->setStyleSheet("color: white; font-weight:bold");
-    ui->max_energy_t->setStyleSheet("color: white; font-weight:bold");
-    ui->max_energy_n->setStyleSheet("color: grey");
-    ui->eye_sight_t->setStyleSheet("color: white; font-weight:bold");
-    ui->eye_sight_n->setStyleSheet("color: grey");
-    ui->visibility_t->setStyleSheet("color: white; font-weight:bold");
-    ui->visibility_n->setStyleSheet("color: grey");
-    ui->max_health_t->setStyleSheet("color: white; font-weight:bold");
-    ui->max_health_n->setStyleSheet("color: grey");
-    ui->size_t->setStyleSheet("color: white; font-weight:bold");
-    ui->size_n->setStyleSheet("color: grey");
+
+//    ui->groupBox->setStyleSheet("color: white; font-weight:bold; font-size:20pt");
+//    ui->P_strength_t->setStyleSheet("color: white; font-weight:bold");
+//    ui->max_energy_t->setStyleSheet("color: white; font-weight:bold");
+//    ui->max_energy_n->setStyleSheet("color: grey");
+//    ui->eye_sight_t->setStyleSheet("color: white; font-weight:bold");
+//    ui->eye_sight_n->setStyleSheet("color: grey");
+//    ui->visibility_t->setStyleSheet("color: white; font-weight:bold");
+//    ui->visibility_n->setStyleSheet("color: grey");
+//    ui->max_health_t->setStyleSheet("color: white; font-weight:bold");
+//    ui->max_health_n->setStyleSheet("color: grey");
+//    ui->size_t->setStyleSheet("color: white; font-weight:bold");
+//    ui->size_n->setStyleSheet("color: grey");
 
 
-    ui->button_reset->setStyleSheet("color: black");
-    ui->button_rdm->setStyleSheet("color: black");
-    ui->P_strength_n->setStyleSheet("color: grey");
+//    ui->button_reset->setStyleSheet("color: black");
+//    ui->button_rdm->setStyleSheet("color: black");
+//    ui->P_strength_n->setStyleSheet("color: grey");
 
     show();
 
@@ -96,27 +81,6 @@ void MainWindow::stretchBackground(){
     p.setBrush(QPalette::Window, bkgnd);
     setPalette(p);
 }
-
-
-//void MainWindow::on_startBut_clicked()
-//{
-//    // Once you have clicked on the start button, the original display is now available to click on.
-//    // Except the simulate button, and the creature's properties' selection, as you haven't created any creature yet.
-
-//    ui->startBut->setVisible(false);
-//    ui->button_prey->setVisible(true);
-//    ui->button_pred->setVisible(true);
-//    ui->button_plant->setVisible(true);
-//    ui->count_pred->setVisible(true);
-//    ui->count_prey->setVisible(true);
-//    ui->count_plant->setVisible(true);
-//    ui->line_1->setVisible(true);
-//    ui->line_2->setVisible(true);
-//    ui->line_3->setVisible(true);
-//    ui->creature_list->setVisible(true);
-//    ui->button_delete_all->setVisible(true);
-//    ui->button_delete_creature->setVisible(true);
-//}
 
 
 void MainWindow::on_button_pred_clicked()
@@ -277,12 +241,6 @@ void MainWindow::on_button_rdm_clicked()
 
     ui->eat_creature->setCheckState(Qt::Unchecked);
     ui->eat_plant->setCheckState(Qt::Unchecked);
-    ui->P_strength_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
-    ui->eye_sight_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
-    ui->max_energy_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
-    ui->size_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
-    ui->max_health_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
-    ui->visibility_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
 
     int val = ((int) QRandomGenerator::global()->generate()) % 3;
     if (val == 0) {
@@ -305,10 +263,4 @@ void MainWindow::on_button_reset_clicked()
 
     ui->eat_creature->setCheckState(Qt::Unchecked);
     ui->eat_plant->setCheckState(Qt::Unchecked);
-    ui->P_strength_n->setValue(0);
-    ui->eye_sight_n->setValue(0);
-    ui->max_energy_n->setValue(0);
-    ui->size_n->setValue(0);
-    ui->max_health_n->setValue(0);
-    ui->visibility_n->setValue(0);
 }
