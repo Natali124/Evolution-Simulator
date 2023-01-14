@@ -51,3 +51,6 @@ void PaintScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
     this->addItem(barrier);
     this->removeItem(previousRect);
 };*/
+int Environment::nr_beings(){
+    return items().size();
+}

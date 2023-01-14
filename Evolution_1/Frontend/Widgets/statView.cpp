@@ -6,6 +6,11 @@
 StatView::StatView(LivingBeing* being, QWidget* parent) : QWidget(parent),
                                                           being(being){
     setTitle();
+    setAttribute(Qt::WA_DeleteOnClose); // very important - delete the object from memory when the window is closed
+    setWindowFlags(Qt::WindowStaysOnTopHint); // so that it stays on top of the simulation and doesn't get lost
+//    setWindowModality(Qt::WindowModal);
+
+    connect(being->environment, &Environment::updated, this, &StatView::update);
 
     auto layout = new QVBoxLayout;
 
@@ -43,6 +48,8 @@ StatView::StatView(LivingBeing* being, QWidget* parent) : QWidget(parent),
             break;
     }
 
+    auto nr_updated = new ParameterDisplay("Updated:", this, &StatView::get_updates, this, being->environment); layout->addWidget(nr_updated);
+
     layout->addStretch();
     setLayout(layout);
 
@@ -56,6 +63,7 @@ void StatView::setTitle(std::string title){
         return;
     }
 
+
     title = "View statistiscs for ";
     if(being != nullptr)
         title += being->get_type_string();
@@ -63,5 +71,5 @@ void StatView::setTitle(std::string title){
 }
 
 void StatView::update(){
-
+    updates ++;
 }

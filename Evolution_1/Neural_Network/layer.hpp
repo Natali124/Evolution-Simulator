@@ -10,7 +10,7 @@ using namespace std;
 
 class Neuron;
 class Edge;
-
+class Network;
 
 // Enumerate variable for activation functions
 enum act_function{Sigmoid, ReLu};
@@ -34,6 +34,8 @@ public:
     void add_neuron(Neuron* neuron); // adds Neuron to end of array
     int size();
     void set_activation_function(act_function func); // Set the activation function
+    act_function get_activation_function(); // Get the activation function
+    int get_index(Network* n); // index of layer in network (0 = input_layer, ...)
 
     
     //Other functions
@@ -43,9 +45,14 @@ public:
     double f_activation(double x);
     void print_edges();
 
+    //Helper function for saving
+    vector<double> layer_to_vector();
+
+
 private:
     vector<Neuron*> neurons;
     Neuron* bias_neuron;
+
     act_function f_activation_name;
 
 };
