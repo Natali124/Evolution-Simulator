@@ -6,6 +6,14 @@
 #include <cstdlib>
 #include <QGraphicsScene>
 #include <iostream>
+#include <QListWidget>
+
+class ListWidget : public QListWidget
+{
+public:
+    bool operator<(const QListWidgetItem &other) const;
+};
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
