@@ -48,6 +48,7 @@ void SimulationView::init_layout(){
 
     auto add_omn = new QPushButton(leftGroupBox);
     add_omn->setText("Add Omnivorous Creature");
+    connect(add_omn, &QPushButton::clicked, this, &SimulationView::openNewWindow);
     auto add_herb = new QPushButton(leftGroupBox);
     add_herb->setText("Add Herbivorous Creature");
     auto add_plant = new QPushButton(leftGroupBox);
@@ -85,6 +86,26 @@ void SimulationView::init_layout(){
     setCentralWidget(central);
     central->setLayout(mainLayout);
 }
+
+void SimulationView::openNewWindow() {
+    // Create a new window
+    QMainWindow* newWindow = new QMainWindow();
+
+    newWindow->setGeometry(100, 100, 250, 550);
+
+    QVBoxLayout* layout = new QVBoxLayout();
+
+        // Create a QLabel
+    QSlider* slider = new QSlider(newWindow);
+
+        // Add the label to the layout
+    layout->addWidget(slider);
+
+        // Set the layout of the new window
+    newWindow->setLayout(layout);
+
+    newWindow->show();
+    }
 
 void SimulationView::resizeEvent(QResizeEvent *evt)
 {
