@@ -6,11 +6,21 @@
 #include <cstdlib>
 #include <QGraphicsScene>
 #include <iostream>
+#include "Living_Beings/living_being.h"
 #include "environment.h"
+#include "qlistwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
+class BeingItem : public QListWidgetItem{
+    public:
+        BeingItem(LivingBeing* being) : QListWidgetItem(being->objectName()), being(being){};
+
+    private:
+        LivingBeing* being;
+};
 
 class MainWindow : public QMainWindow
 {
