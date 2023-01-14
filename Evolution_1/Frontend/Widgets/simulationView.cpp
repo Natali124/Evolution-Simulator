@@ -46,6 +46,17 @@ void SimulationView::init_layout(){
     auto slider = new SimulationSpeedSlider(&timer, leftGroupBox);
     layout->addWidget(slider);
 
+    auto add_omn = new QPushButton(leftGroupBox);
+    add_omn->setText("Add Omnivorous Creature");
+    auto add_herb = new QPushButton(leftGroupBox);
+    add_herb->setText("Add Herbivorous Creature");
+    auto add_plant = new QPushButton(leftGroupBox);
+    add_plant->setText("Add Plant");
+
+    layout->addWidget(add_omn);
+    layout->addWidget(add_herb);
+    layout->addWidget(add_plant);
+
 
     layout->addStretch();
     QSizePolicy spLeft(QSizePolicy::Preferred, QSizePolicy::Preferred);
