@@ -25,7 +25,7 @@ class SimulationView : public QMainWindow{
         CreatureDisplay display;
         void setBackgroundImage(QString filePath);
         void init_layout();
-
+        void openNewWindow();
         void stretchBackground();
         void fitDisplay();
 };
