@@ -1,3 +1,5 @@
+#include "Frontend/startscreen.h"
+#include "Frontend/startscreen/propertyslider.h"
 #include "environment.h"
 #include "Frontend/Widgets/simulationView.h"
 #include <QApplication>
@@ -8,9 +10,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w; //start screen window
-    SimulationView menu(w.env);
-    w.show();
+    new startscreen;
+    new PropertySlider;
 
     return a.exec();
 }

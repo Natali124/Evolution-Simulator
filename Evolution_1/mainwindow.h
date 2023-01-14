@@ -32,7 +32,7 @@ private slots:
 
     void stretchBackground();
 
-    void on_startBut_clicked();
+//    void on_startBut_clicked();
 
     void on_button_pred_clicked();
 

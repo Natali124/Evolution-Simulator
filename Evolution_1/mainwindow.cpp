@@ -18,21 +18,21 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     setBackgroundImage(back);
     ui->simBut->setVisible(false);
 
-    ui->button_prey->setVisible(false);
-    ui->button_pred->setVisible(false);
-    ui->button_plant->setVisible(false);
-    ui->button_delete_all->setVisible(false);
-    ui->button_delete_creature->setVisible(false);
+//    ui->button_prey->setVisible(false);
+//    ui->button_pred->setVisible(false);
+//    ui->button_plant->setVisible(false);
+//    ui->button_delete_all->setVisible(false);
+//    ui->button_delete_creature->setVisible(false);
 
-    ui->count_pred->setVisible(false);
-    ui->count_prey->setVisible(false);
-    ui->count_plant->setVisible(false);
+//    ui->count_pred->setVisible(false);
+//    ui->count_prey->setVisible(false);
+//    ui->count_plant->setVisible(false);
 
-    ui->line_1->setVisible(false);
-    ui->line_2->setVisible(false);
-    ui->line_3->setVisible(false);
+//    ui->line_1->setVisible(false);
+//    ui->line_2->setVisible(false);
+//    ui->line_3->setVisible(false);
 
-    ui->creature_list->setVisible(false);
+//    ui->creature_list->setVisible(false);
 
     ui->groupBox->setVisible(false);
     ui->groupBox->setStyleSheet("color: white; font-weight:bold; font-size:20pt");
@@ -53,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->button_rdm->setStyleSheet("color: black");
     ui->P_strength_n->setStyleSheet("color: grey");
 
+    show();
 
 //    connect(ui->creature_list, SIGNAL(itemClicked(QListWidgetItem*)),
 //                this, SLOT(on_creature_list_item_clicked(QListWidgetItem*)));
@@ -95,25 +96,25 @@ void MainWindow::stretchBackground(){
 }
 
 
-void MainWindow::on_startBut_clicked()
-{
-    // Once you have clicked on the start button, the original display is now available to click on.
-    // Except the simulate button, and the creature's properties' selection, as you haven't created any creature yet.
+//void MainWindow::on_startBut_clicked()
+//{
+//    // Once you have clicked on the start button, the original display is now available to click on.
+//    // Except the simulate button, and the creature's properties' selection, as you haven't created any creature yet.
 
-    ui->startBut->setVisible(false);
-    ui->button_prey->setVisible(true);
-    ui->button_pred->setVisible(true);
-    ui->button_plant->setVisible(true);
-    ui->count_pred->setVisible(true);
-    ui->count_prey->setVisible(true);
-    ui->count_plant->setVisible(true);
-    ui->line_1->setVisible(true);
-    ui->line_2->setVisible(true);
-    ui->line_3->setVisible(true);
-    ui->creature_list->setVisible(true);
-    ui->button_delete_all->setVisible(true);
-    ui->button_delete_creature->setVisible(true);
-}
+//    ui->startBut->setVisible(false);
+//    ui->button_prey->setVisible(true);
+//    ui->button_pred->setVisible(true);
+//    ui->button_plant->setVisible(true);
+//    ui->count_pred->setVisible(true);
+//    ui->count_prey->setVisible(true);
+//    ui->count_plant->setVisible(true);
+//    ui->line_1->setVisible(true);
+//    ui->line_2->setVisible(true);
+//    ui->line_3->setVisible(true);
+//    ui->creature_list->setVisible(true);
+//    ui->button_delete_all->setVisible(true);
+//    ui->button_delete_creature->setVisible(true);
+//}
 
 
 void MainWindow::on_button_pred_clicked()
