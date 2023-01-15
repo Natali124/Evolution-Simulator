@@ -133,7 +133,7 @@
        </size>
       </property>
       <property name="title">
-       <string>Choose its properties' parameters:</string>
+       <string/>
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="1" column="0">
