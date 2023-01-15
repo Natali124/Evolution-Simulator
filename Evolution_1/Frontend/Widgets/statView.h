@@ -26,6 +26,7 @@ template<class Being, typename T>
                                                                                                                                                    getterFunc(getterFunc){
                 if(environment != nullptr)
                     connect(environment, &Environment::updated, this, &ParameterDisplay<Being, T>::update);
+                connect(being, &LivingBeing::destroyed, this, &ParameterDisplay<Being, T>::being_destroyed); //this is so dumb, but very necessary as we need to stop updating the widget once the being does not exist anymore
 
                 init_layout( QString::fromStdString(labelText), to_QString( (being->*getterFunc)() ) );
 
@@ -36,11 +37,17 @@ template<class Being, typename T>
             }
 
             void update(){
-                parameterLabel->setText( to_QString( (being->*getterFunc)() ) );
-//                qDebug()<<"updated "<<parameterLabel->text();
+                if(not destroyed)
+                    parameterLabel->setText( to_QString( (being->*getterFunc)() ) );
             }
 
         private:
+            bool destroyed = false;
+            void being_destroyed(QObject* obj){
+                destroyed = true;
+                setStyleSheet("QWidget{color: red}");
+            }
+
             QLabel* label;
             QLabel* parameterLabel;
 
@@ -75,10 +82,13 @@ class StatView : public QWidget{
 
         void update();
 
+        int get_updates(){return updates;}
+
     private:
         LivingBeing* being;
 
         void setTitle(std::string title = "");
+        int updates = 0;
 };
 
 #endif // STATVIEW_H

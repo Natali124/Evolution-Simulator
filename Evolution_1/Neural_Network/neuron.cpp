@@ -1,6 +1,8 @@
 #include "edge.hpp"
 #include "neuron.hpp"
 #include "layer.hpp"
+#include "utils.cpp"
+#include "network.hpp"
 #include <vector>
 using namespace std;
 
@@ -64,6 +66,21 @@ int Neuron:: get_id(){
 double Neuron::get_value(){
     return value;}
 
+int Neuron::get_index(){
+    // returns index of neuron in parent layer, bias_neuron is last index
+
+    int i =  find_index<Neuron*>(parent_layer->get_neurons(),this);
+    if(i!= -1){
+        return i;
+      } else {
+        return parent_layer->size()-1;
+      }
+}
+
+void Neuron::get_full_index(Network* n, int& i, int& j){
+    i = parent_layer->get_index(n);
+    j = this->get_index();
+}
 
 //Setters
 void Neuron::set_next_edges(vector<Edge*> edges){

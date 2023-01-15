@@ -61,3 +61,4 @@ void MainMenu::setBackgroundImage(QString filePath){
     palette.setBrush(QPalette::Window, bkgnd);
     setPalette(palette);
 }
+
