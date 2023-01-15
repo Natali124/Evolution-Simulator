@@ -122,7 +122,7 @@ void MainWindow::on_button_pred_clicked()
 
     // The Simulation button appears, called "simbut" for short, as you can now launch the simulation as you've just created one/some creature(s).
 
-    if (ui->simBut->isVisible() == false) {
+    if ((ui->simBut->isVisible() == false) and (ui->creature_list->count() != 0)) {
         ui->simBut->setVisible(true);
     };
 
@@ -145,15 +145,18 @@ void MainWindow::on_button_prey_clicked()
     }
 
     for (int i = num_prey; i < num_prey+val; i++) {
+        auto creature = new Creature;
         if (i<9) {
-            ui->creature_list->addItem("Herbivore creature 00" + QString::number(i+1));
+            creature->setObjectName("Herbivore creature 00" + QString::number(i+1));
         }
         else if (i<99) {
-            ui->creature_list->addItem("Herbivore creature 0" + QString::number(i+1));
+            creature->setObjectName("Herbivore creature 0" + QString::number(i+1));
         }
         else if (i>99) {
-            ui->creature_list->addItem("Herbivore creature " + QString::number(i+1));
+            creature->setObjectName("Herbivore creature " + QString::number(i+1));
         }
+        auto item = new BeingItem(creature);
+        ui->creature_list->addItem(item);
     }
 
     num_prey += val;
@@ -161,9 +164,10 @@ void MainWindow::on_button_prey_clicked()
 
     // The Simulation button appears, called "simbut" for short, as you can now launch the simulation as you've just created one/some creature(s).
 
-    if (ui->simBut->isVisible() == false) {
+    if ((ui->simBut->isVisible() == false) and (ui->creature_list->count() != 0))  {
         ui->simBut->setVisible(true);
     };
+
     QObject::connect(ui->simBut, &QPushButton::clicked, this, &QWidget::close);
 }
 
@@ -183,15 +187,18 @@ void MainWindow::on_button_plant_clicked()
     }
 
     for (int i = num_plant; i < num_plant+val; i++) {
+        auto plant = new Plant;
         if (i<9) {
-            ui->creature_list->addItem("Plant 00" + QString::number(i+1));
+            plant->setObjectName("Plant 00" + QString::number(i+1));
         }
         else if (i<99) {
-            ui->creature_list->addItem("Plant 0" + QString::number(i+1));
+             plant->setObjectName("Plant 0" + QString::number(i+1));
         }
         else if (i>99) {
-            ui->creature_list->addItem("Plant " + QString::number(i+1));
+            plant->setObjectName("Plant " + QString::number(i+1));
         }
+        auto item = new BeingItem(plant);
+        ui->creature_list->addItem(item);
     }
 
     num_plant += val;
@@ -199,7 +206,7 @@ void MainWindow::on_button_plant_clicked()
 
     // The Simulation button appears, called "simbut" for short, as you can now launch the simulation as you've just created one/some creature(s).
 
-    if (ui->simBut->isVisible() == false) {
+    if ((ui->simBut->isVisible() == false) and (ui->creature_list->count() != 0))  {
         ui->simBut->setVisible(true);
     };
     QObject::connect(ui->simBut, &QPushButton::clicked, this, &QWidget::close);
@@ -218,7 +225,6 @@ void MainWindow::on_button_delete_all_clicked()
 
     // Hide the Simulation button, called "simbut" for short, as you can't launch the simulation with no creatures.
     ui->simBut->setVisible(false);
-    ui->groupBox->setVisible(false);
 }
 
 
@@ -237,7 +243,6 @@ void MainWindow::on_button_delete_creature_clicked()
     int count = ui->creature_list->count();
     if (count == 0) {
         ui->simBut->setVisible(false);
-        ui->groupBox->setVisible(false);
     }
 }
 
@@ -266,9 +271,18 @@ void MainWindow::create_proper_sliders(QListWidgetItem* item) {
     if (being->type == LivingBeing::Type_LB::creature) {
         auto creature = dynamic_cast<Creature*>(being);
         ui->verticalLayout_2->addWidget(new PropertySlider("Size", creature, &Creature::set_size, creature->get_size(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Energy", creature, &Creature::set_Max_energy, creature->get_Max_energy(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider("Max Energy", creature, &Creature::set_Max_energy, creature->get_Max_energy(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider("Max HP", creature, &Creature::set_Max_hp, creature->get_Max_hp(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider("Eye Sight", creature, &Creature::set_eye_sight, creature->get_eye_sight(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider("Visibility", creature, &Creature::set_visibility, creature->get_visibility(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider("Physical Strength", creature, &Creature::set_physical_strength, creature->get_physical_strength(), ui->groupBox));
+        // ui->verticalLayout_2->addWidget(new PropertySlider("Digest time", creature, &Creature::set_digest_time, creature->get_digest_time(), ui->groupBox));
+        // Diet?
     }
     if (being->type == LivingBeing::Type_LB::plant) {
-        // do the same
+        auto plant = dynamic_cast<Plant*>(being);
+        ui->verticalLayout_2->addWidget(new PropertySlider("Size", plant, &Plant::set_size, plant->get_size(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider("Max HP", plant, &Plant::set_Max_hp, plant->get_Max_hp(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider("Reproduction Rate)", plant, &Plant::set_reproduction_rate, plant->get_reproduction_rate(), ui->groupBox));
     }
 }

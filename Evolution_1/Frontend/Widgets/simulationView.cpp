@@ -47,6 +47,9 @@ void SimulationView::init_layout(){
     connect(btn, &QPushButton::clicked, this, &SimulationView::randomize_scene);
     layout->addWidget(btn);
 
+    auto slider = new SimulationSpeedSlider(&timer, leftGroupBox);
+    layout->addWidget(slider);
+
     auto add_omn = new QPushButton(leftGroupBox);
     add_omn->setText("Add Omnivorous Creature");
     connect(add_omn, &QPushButton::clicked, this, &SimulationView::openNewWindow);
@@ -62,8 +65,6 @@ void SimulationView::init_layout(){
     layout->addWidget(add_plant);
 
 
-    auto slider = new SimulationSpeedSlider(&timer, leftGroupBox);
-    layout->addWidget(slider);
 
     auto being_counter = new ParameterDisplay("Number of beings:", environment, &Environment::nr_beings, this, environment);
 
