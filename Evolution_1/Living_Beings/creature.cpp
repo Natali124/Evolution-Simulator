@@ -11,7 +11,7 @@
 #include <map>
 
 using namespace std;
-
+int t=rand()%2;
 Other::Square::Square(): Square(0, 0, 0, 1, 1){
 }
 Other::Square::Square(qreal X, qreal Y, qreal R, qreal W, qreal H): w(W), h(H){
@@ -43,6 +43,7 @@ Creature::Creature(Environment* environment):LivingBeing(environment) {
     // the brain is already constructed by the default constructor in the .h file.
     type = creature;
     found_food = false;
+    species=rand()%3;
 }
 
 Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain): Creature() {
@@ -54,6 +55,7 @@ Creature::Creature(std::map<Enum_parameters, float> parameters, Network brain): 
     this->set_hp(this->get_Max_hp());
     type = creature;
     found_food = false;
+    species=rand()%3;
 }
 
 Creature::~Creature() {}
@@ -89,7 +91,15 @@ void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         path.cubicTo(-5, 32, -5, 42, 0, 35);
         painter->setBrush(Qt::NoBrush);
         painter->drawPath(path);*/
-        painter->drawPixmap(boundingRect().toRect(),QPixmap(":/designs/deer.png"));
+        if(species==1){
+            painter->drawPixmap(boundingRect().toRect(),QPixmap(":/designs/deer.png"));
+        }
+        else if(species==2){
+            painter->drawPixmap(boundingRect().toRect(),QPixmap(":/designs/rabbit.png"));
+        }
+        else{
+            painter->drawPixmap(boundingRect().toRect(),QPixmap(":/designs/gazelle.png"));
+        }
     } else {
         /*painter->setBrush(Qt::gray);
         painter->drawEllipse(QRectF(-25,-25,50,50));
@@ -100,7 +110,15 @@ void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         painter->drawEllipse(QRectF(-10,-15,5,7));
         painter->drawEllipse(QRectF(15,-15,5,7));
         painter->drawEllipse(QRectF(-15,5,30,10));*/
-        painter->drawPixmap(boundingRect().toRect(),QPixmap(":/designs/wolf.png"));
+        if(species==1){
+            painter->drawPixmap(boundingRect().toRect(),QPixmap(":/designs/wolf.png"));
+        }
+        else if(species==2){
+            painter->drawPixmap(boundingRect().toRect(),QPixmap(":/designs/lion.png"));
+        }
+        else{
+            painter->drawPixmap(QRect(-60,-60,120,120),QPixmap(":/designs/tiger.png"));
+        }
     }
 
     LivingBeing::paint(painter, option, widget);
