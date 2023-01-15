@@ -122,7 +122,7 @@ void MainWindow::on_button_pred_clicked()
 
     // The Simulation button appears, called "simbut" for short, as you can now launch the simulation as you've just created one/some creature(s).
 
-    if (ui->simBut->isVisible() == false) {
+    if ((ui->simBut->isVisible() == false) and (ui->creature_list->count() != 0)) {
         ui->simBut->setVisible(true);
     };
 
@@ -161,9 +161,10 @@ void MainWindow::on_button_prey_clicked()
 
     // The Simulation button appears, called "simbut" for short, as you can now launch the simulation as you've just created one/some creature(s).
 
-    if (ui->simBut->isVisible() == false) {
+    if ((ui->simBut->isVisible() == false) and (ui->creature_list->count() != 0))  {
         ui->simBut->setVisible(true);
     };
+
     QObject::connect(ui->simBut, &QPushButton::clicked, this, &QWidget::close);
 }
 
@@ -199,7 +200,7 @@ void MainWindow::on_button_plant_clicked()
 
     // The Simulation button appears, called "simbut" for short, as you can now launch the simulation as you've just created one/some creature(s).
 
-    if (ui->simBut->isVisible() == false) {
+    if ((ui->simBut->isVisible() == false) and (ui->creature_list->count() != 0))  {
         ui->simBut->setVisible(true);
     };
     QObject::connect(ui->simBut, &QPushButton::clicked, this, &QWidget::close);
