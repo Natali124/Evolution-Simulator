@@ -84,7 +84,7 @@ Network* vector_to_network(vector<vector<double>> inpt){
                     crnt_neuron = crnt_layer->get_bias_neuron();}
 
                 vector<Edge*> edges(0);
-                int n = inpt[i+1][0];
+                int n = inpt[i+1][0]; //number of neurons in next layer
                 for(int k = 0; k < n; k++ ){
                     Neuron* next_neuron = next_neurons[k];
                     Edge* new_edge = new Edge(weights_act[2*(n*j+k)+1]/100, crnt_neuron, next_neuron);
