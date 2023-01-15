@@ -52,8 +52,10 @@ void SimulationView::init_layout(){
     connect(add_omn, &QPushButton::clicked, this, &SimulationView::openNewWindow);
     auto add_herb = new QPushButton(leftGroupBox);
     add_herb->setText("Add Herbivorous Creature");
+    connect(add_herb, &QPushButton::clicked, this, &SimulationView::openNewWindow2);
     auto add_plant = new QPushButton(leftGroupBox);
     add_plant->setText("Add Plant");
+    connect(add_plant, &QPushButton::clicked, this, &SimulationView::openNewWindow3);
 
     layout->addWidget(add_omn);
     layout->addWidget(add_herb);
@@ -99,6 +101,45 @@ void SimulationView::init_layout(){
 }
 
 void SimulationView::openNewWindow() {
+    // Create a new window
+    QMainWindow* newWindow = new QMainWindow();
+
+    newWindow->setGeometry(100, 100, 250, 550);
+
+    QVBoxLayout* layout = new QVBoxLayout();
+
+        // Create a QLabel
+    QSlider* slider = new QSlider(newWindow);
+
+        // Add the label to the layout
+    layout->addWidget(slider);
+
+        // Set the layout of the new window
+    newWindow->setLayout(layout);
+    newWindow->show();
+    }
+
+void SimulationView::openNewWindow2() {
+    // Create a new window
+    QMainWindow* newWindow = new QMainWindow();
+
+    newWindow->setGeometry(100, 100, 250, 550);
+
+    QVBoxLayout* layout = new QVBoxLayout();
+
+        // Create a QLabel
+    QSlider* slider = new QSlider(newWindow);
+
+        // Add the label to the layout
+    layout->addWidget(slider);
+
+        // Set the layout of the new window
+    newWindow->setLayout(layout);
+
+    newWindow->show();
+    }
+
+void SimulationView::openNewWindow3() {
     // Create a new window
     QMainWindow* newWindow = new QMainWindow();
 

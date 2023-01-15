@@ -26,6 +26,8 @@ class SimulationView : public QMainWindow{
         void setBackgroundImage(QString filePath);
         void init_layout();
         void openNewWindow();
+        void openNewWindow2();
+        void openNewWindow3();
         void stretchBackground();
         void fitDisplay();
 };
