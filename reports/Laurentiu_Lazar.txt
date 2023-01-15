@@ -18,3 +18,7 @@ Weeks 6,7,8:
 	These past weeks I implemented a window which appears when double clicking a creature and shows different stats. It uses custom labels which are constructed with a getter function. They are also connected with a signal to the environment so that they are updated in real time.
 	I have started to experiment with qt signals and passing functions as parameters in functions in order to achieve this.
 	Next week I plan to implement some sliders to control how parameters influence eachoder for beings in the environment.s
+
+Week 9:
+	This week I did not get to implement set sliders, but I helped Mathilde on implementing the functionality for the start screen - designing a custom slider which sets a creature's certain property, a class extending qlistwidgeitem to hold a being inside a qlist and tieing it all together.
+	There is still some stuff to do regarding that, so next week I plan on finishing and going around the team seeing where help is needed.
