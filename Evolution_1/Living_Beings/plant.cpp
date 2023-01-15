@@ -150,8 +150,7 @@ void Plant::set_hp(double ms){this->hp = ms;}
 double Plant::get_hp() const{return this->hp;}
 double Plant::get_Max_size() const{return this->parameters.at(Max_size);}
 void Plant::set_Max_size(double s) {this->parameters[Max_size]=s;}
-//bool Plant::get_alive() {return this->alive;}
-//void Plant::set_alive(bool b) {this->alive = b;}
+
 
 
 

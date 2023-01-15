@@ -37,9 +37,9 @@ namespace Other {
 }
 
 
-extern int number_creatures;
-extern int number_creatures_alive;
-extern int number_creatures_dead;
+//extern int number_creatures;
+//extern int number_creatures_alive;
+//extern int number_creatures_dead;
 class Creature : public LivingBeing {
 public:
 

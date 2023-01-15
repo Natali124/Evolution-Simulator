@@ -12,8 +12,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     SimulationView menu(new Environment());
-
-    new Environment_Stats(menu);
+    SimulationView* menu_ptr = &menu;
+    new Environment_Stats(menu_ptr);
 
 
     return a.exec();

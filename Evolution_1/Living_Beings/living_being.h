@@ -8,10 +8,10 @@
 #include <iostream>
 #include <vector>
 #include <random>
-
-extern int number_LBs;
-extern int number_LBs_alive;
-extern int number_LBs_dead;
+//counters are now updated in environment.stats
+//extern int number_LBs;
+//extern int number_LBs_alive;
+//extern int number_LBs_dead;
 class LivingBeing : public QGraphicsItem {
 public:
   LivingBeing(); // initializes a living being with alive = true
@@ -41,7 +41,7 @@ public:
   virtual void set_size(double s);
   virtual double get_hp() const;
   virtual void set_hp(double h);
-  bool get_alive() const;
+  bool get_alive();
   void set_alive(bool b);
   void set_scene(Environment *s);
   int get_alive_time();

@@ -4,9 +4,9 @@
 #include <map>
 #include "creature.h"
 
-extern int number_plants;
-extern int number_plants_alive;
-extern int number_plants_dead;
+//extern int number_plants;
+//extern int number_plants_alive;
+//extern int number_plants_dead;
 
 class Plant : public LivingBeing
 {
@@ -46,8 +46,7 @@ public:
     void set_Max_size(double s);
     double get_hp() const;
     void set_hp(double hp);
-    //bool get_alive();
-    //void set_alive(bool b);
+
 
     enum Type_Plant{
     Carbs = 0, Protein = 1 , Slimming = 2 , Allergenic = 3 , Allergenic_Protein = 4 , Allergenic_Carbs = 5 ,
