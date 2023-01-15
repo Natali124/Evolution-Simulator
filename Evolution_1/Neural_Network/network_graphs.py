@@ -37,7 +37,6 @@ def matrix_to_graph(matrix):
     print(layers)
     for i in range(n):
          net_graph.add_nodes_from(layers[i], layer = i)
-    edges = []
     
     for k in range(n-1):
         crnt_layer = matrix[k]
@@ -46,13 +45,11 @@ def matrix_to_graph(matrix):
         
         for i in range(num_neurons):     
             for j in range(next_num_neurons):
-                edges.append((layers[k][i], layers[k+1][j], crnt_layer[2*(next_num_neurons*i+j)+1]//100))
+                net_graph.add_edge(layers[k][i],layers[k+1][j], weight = crnt_layer[2*(next_num_neurons*i+j)+1] )
         bias_name = f'NB({k}): {matrix[n+k+1][num_neurons]}'
         net_graph.add_node(bias_name, layer = k)
         for node in layers[k+1]:
-            edges.append((bias_name, node, crnt_layer[num_neurons*next_num_neurons+1+2*j]//100))
-    net_graph.add_weighted_edges_from(edges)
-    print(net_graph.edges)
+            net_graph.add_edge(bias_name, node, weight = crnt_layer[num_neurons*next_num_neurons+1+2*j])
     return net_graph
 
 
@@ -62,7 +59,7 @@ def print_graph(G):
     plt.figure(figsize=(8, 8))
     labels = nx.get_edge_attributes(G,'weight')
     nx.draw_networkx_edge_labels(G, pos, edge_labels = labels)
-    #nx.draw(G, pos, with_labels=True)
+    nx.draw(G, pos, with_labels = True)
     plt.axis("equal")
     plt.show()
     
