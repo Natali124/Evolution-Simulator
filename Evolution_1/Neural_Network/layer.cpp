@@ -172,6 +172,14 @@ vector<double> Layer::layer_to_vector(){
     return output;}
 
 
+vector<double> Layer::value_vector(){
+      vector<double> output(0);
+      for(Neuron* neuron: neurons){
+          output.push_back(round(neuron->get_value()*100));}
+      if(bias_neuron != nullptr){
+          output.push_back(bias_neuron->get_value());}
+      return output;
+}
 
 // Added for compilation reasons (Vincenzo)
 Layer::~Layer(){

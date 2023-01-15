@@ -45,8 +45,9 @@ public:
     double f_activation(double x);
     void print_edges();
 
-    //Helper function for saving
-    vector<double> layer_to_vector();
+    //Helper functionsfor saving
+    vector<double> layer_to_vector(); //constructs vector containing edges
+    vector<double> value_vector(); //constructs vector containing vaules of neurons
 
 
 private:

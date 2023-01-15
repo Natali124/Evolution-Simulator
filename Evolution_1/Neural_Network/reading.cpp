@@ -16,6 +16,9 @@ vector<vector<double>> file_to_vector(string filename){
     vector<vector<double>> output(0);
 
     while(getline(inpt_file, line)){
+        if(line == "\n"){          //Under empty line just values are saved, so we can stop here
+            break;}
+
         int prev_space = 0;
         int n = line.size();
         vector<double> crnt_line(0);
