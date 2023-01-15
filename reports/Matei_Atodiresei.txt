@@ -5,6 +5,9 @@
 \paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\f0\fs26 \cf0 Week 6 similar to last week I reaserched about the libraries needed to crate graphs and windows as now I also help the frontend crew. I started working on a average function that collects the average
+\f0\fs26 \cf0 Previous weeks: I finished the reproduction function after waiting for the Neural networks team to help me with a function that required making a copy of the parents brain that is necesarry in order to
+create the similar, yet different brain of the offspring. I also started to work in the statistics part of the project that helps the reader see how the creatures evolve and gives a more accurate description of what is
+happening on screen.
+Week 6 similar to last week I reaserched about the libraries needed to crate graphs and windows as now I also help the frontend crew. I started working on a average function that collects the average
 of each parameter of every creature(i will probably split this is up in pray and predators etc) in order to see that the creatures are truly evolving. We contemplated many ways of proving this exact thing and we still
 are not sure if this is the best one but this is the one we settled on.
