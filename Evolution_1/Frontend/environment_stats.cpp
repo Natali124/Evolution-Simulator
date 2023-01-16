@@ -173,7 +173,7 @@ std::map<Creature::Enum_parameters, double> Environment_Stats::average_creatures
         if (type == Creature::creature) {
             Creature* c = dynamic_cast<Creature*>(LB);
             for ( Creature::Enum_parameters param = (Creature::Enum_parameters)0; param != Creature::last; param=(Creature::Enum_parameters)(param+1) ) {
-                param_average[param] = param_average[param] ;//+ c->get_parameter(param);
+                param_average[param] = param_average[param] + c->get_parameter(param);
             }
         }
     }
