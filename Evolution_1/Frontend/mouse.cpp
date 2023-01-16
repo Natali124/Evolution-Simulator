@@ -58,6 +58,7 @@ void Mouse::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
         painter->setBrush(color);
         painter->drawEllipse(-10, -20, 20, 40);
 
+        /*
         // Eyes
         painter->setBrush(Qt::white);
         painter->drawEllipse(-10, -17, 8, 8);
@@ -82,7 +83,7 @@ void Mouse::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
         path.cubicTo(5, 27, 5, 32, 0, 30);
         path.cubicTo(-5, 32, -5, 42, 0, 35);
         painter->setBrush(Qt::NoBrush);
-        painter->drawPath(path);
+        painter->drawPath(path); */
     }
     if(type==plant){
         QPoint p1(-25,-25);
@@ -116,6 +117,8 @@ void Mouse::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
         QPoint p2(25,25);
         painter->setBrush(Qt::gray);
         painter->drawEllipse(QRectF(p1,p2));
+
+        /*
         p1.setX(-20);
         p1.setY(-20);
         p2.setX(-5);
@@ -142,7 +145,7 @@ void Mouse::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
         p1.setY(5);
         p2.setX(15);
         p2.setY(15);
-        painter->drawEllipse(QRectF(p1,p2));
+        painter->drawEllipse(QRectF(p1,p2));*/
     }
 
     //see bounding rect

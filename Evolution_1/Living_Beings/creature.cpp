@@ -15,12 +15,12 @@
 
 
 
-
+int Creature::n_families = 0;
 
 bool Show_Sight = false;
 
 
-Creature::Creature():LivingBeing() {
+Creature::Creature(bool newfamily):LivingBeing() {
 
     //we need a way to differenciate animals and plants
     color = QColorConstants::DarkGray;
@@ -69,6 +69,10 @@ Creature::Creature():LivingBeing() {
 
 
     parameters[eye_sight] = 50;
+    if(newfamily){
+      this->family = Creature::n_families;
+      Creature::n_families++;
+      }
 
 
 }
@@ -144,12 +148,13 @@ void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     }
 
     double K = this->get_size()/600; //size coefficient
-
+    QColor bodycolor = QColor((10001 * family % 256), (1001 * family % 256), (100001 * family % 256), 255);
     if(!get_eat_creature()){
         // Body
-        painter->setBrush(QColor(std::min((int)get_Max_energy(), (int)255), 0, 0, 255)); //for now make it redder the more energy it can have
+        painter->setBrush(bodycolor); //for now make it redder the more energy it can have
         painter->drawEllipse(-10*K, -20*K, 20*K, 40*K);
 
+        /*
         // Eyes
         painter->setBrush(Qt::white);
         painter->drawEllipse(-10*K, -17*K, 8*K, 8*K);
@@ -174,17 +179,18 @@ void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         path.cubicTo(5*K, 27*K, 5*K, 32*K, 0*K, 30*K);
         path.cubicTo(-5*K, 32*K, -5*K, 42*K, 0*K, 35*K);
         painter->setBrush(Qt::NoBrush);
-        painter->drawPath(path);
+        painter->drawPath(path); */
     } else {
-        painter->setBrush(Qt::gray);
+        painter->setBrush(bodycolor);
         painter->drawEllipse(QRectF(-12*K,-12*K,24*K,24*K));
+        /*
         painter->setBrush(Qt::black);
         painter->drawEllipse(QRectF(-10*K,-10*K,7*K,7*K));
         painter->drawEllipse(QRectF(2.5*K,-10*K,7*K,7*K));
         painter->setBrush(Qt::white);
         painter->drawEllipse(QRectF(-5*K,-7.5*K,2.5*K,3.5*K));
         painter->drawEllipse(QRectF(7.5*K,-7.5*K,2.5*K,3.5*K));
-        painter->drawEllipse(QRectF(-7.5*K,2.5*K,15*K,5*K));
+        painter->drawEllipse(QRectF(-7.5*K,2.5*K,15*K,5*K));*/
     }
 
     LivingBeing::paint(painter, option, widget);
@@ -216,6 +222,8 @@ Creature* Creature::reproduction() {
     C->setPos(x(), y());
     C->setRotation(rotation());
     C->move(10, 10); //So that they aren't both exactly at the same place, and wont stay at the same position and do the same things
+
+    C->set_family(this->get_family());
     return C;
 };
 
@@ -362,6 +370,8 @@ void Creature::set_brain(Network* b){brain = b;};
 int Creature::get_last_attack(){return this->last_attack;};
 void Creature::set_last_attack(int i){this->last_attack = i;};
 double Creature::get_parameter(Enum_parameters p){return this->parameters.at(p);};
+void Creature::set_family(int f){this->family = f;};
+int Creature::get_family(){return this->family;};
 
 void Creature::bound_energy_hp() {
     if (get_energy()>get_Max_energy()) {

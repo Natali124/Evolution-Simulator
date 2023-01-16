@@ -41,8 +41,12 @@ namespace Other {
 //extern int number_creatures_alive;
 //extern int number_creatures_dead;
 class Creature : public LivingBeing {
+
+
+
 public:
 
+    static int n_families;
 
     // positive double, positive double, positive double, [0, 1], Bool, Bool, positive double, positive double
     enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, Max_hp, size, last};
@@ -56,7 +60,8 @@ public:
     // CONSTRUCTOR
     // default constructor that creates a creature with random parameters
     // and a default brain
-    Creature();
+    Creature(bool newfamily = true);
+
 
     Creature(Environment *e);
     // non-default constructor that takes a std::map<Enum_parameters, double> and a Network
@@ -149,6 +154,9 @@ public:
     int get_last_attack();
     void set_last_attack(int i);
 
+    void set_family(int f);
+    int get_family();
+
     //this function will be used to detect if two creatures have similar attributes and can be considered as from the same spiecie. This will help us removing some of the problem we had with children eating there parents
     bool same_spiecie(Creature* c);
 
@@ -160,8 +168,7 @@ public:
 protected:
 
     double repro_factor = 0;
-
-
+    int family = 0;
     std::vector<double> Input_saved; //This is what we'll use to make our creature know what it had the previous turn
     Network * brain;
     int see_ray = 9;
