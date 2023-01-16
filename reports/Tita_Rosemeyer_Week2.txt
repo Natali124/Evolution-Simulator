@@ -1,8 +1,0 @@
-This week, I was sick (excused), so I only did the following:
-- managed some small errors 
-- completed activation function as enum
-
-The next week I want to do:
-- Testing the neural Network class manually
-- starting to think about training the network
-- Creating template for Neural Network to use in simulation
