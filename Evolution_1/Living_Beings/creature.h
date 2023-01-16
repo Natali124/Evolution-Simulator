@@ -89,7 +89,7 @@ public:
 
     void eat(LivingBeing &l, double speed);
     void move(double rotation, double distance);
-    void move(double rotation, QPoint displacement);
+    void move(double rotation, QPointF displacement);
 
 
 
