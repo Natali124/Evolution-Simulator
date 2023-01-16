@@ -176,7 +176,58 @@ std::map<Creature::Enum_parameters, double> Environment_Stats::average_creatures
         if (type == Creature::creature) {
             Creature* c = dynamic_cast<Creature*>(LB);
             for ( Creature::Enum_parameters param = (Creature::Enum_parameters)0; param != Creature::last; param=(Creature::Enum_parameters)(param+1) ) {
-                param_average[param] = param_average[param] ;//+ c->get_parameter(param);
+                param_average[param] = param_average[param] + c->get_parameter(param);
+            }
+        }
+    }
+    for ( Creature::Enum_parameters param = (Creature::Enum_parameters)0; param != Creature::last; param=(Creature::Enum_parameters)(param+1) ){
+        param_average[param] = param_average[param] / count ;
+    }
+    return param_average;
+}
+
+std::map<Creature::Enum_parameters, double> Environment_Stats::average_prey(){
+//    enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, Max_hp, size, last};
+    std::map<Creature::Enum_parameters, double> param_average;
+    QList<QGraphicsItem *> list = env->items();
+    QListIterator<QGraphicsItem*> i(list);
+    int count = 0;
+    while (i.hasNext()){
+        LivingBeing* LB = dynamic_cast<LivingBeing*>(i.next());
+        LivingBeing::Type_LB type = LB->get_type();
+        if (type == Creature::creature) {
+            Creature* c = dynamic_cast<Creature*>(LB);
+            if (c->get_eat_plants() == true & c->get_eat_creature() == false){
+                count ++;
+                for ( Creature::Enum_parameters param = (Creature::Enum_parameters)0; param != Creature::last; param=(Creature::Enum_parameters)(param+1) ) {
+                    param_average[param] = param_average[param] + c->get_parameter(param);
+                }
+            }
+        }
+    }
+    for ( Creature::Enum_parameters param = (Creature::Enum_parameters)0; param != Creature::last; param=(Creature::Enum_parameters)(param+1) ){
+        param_average[param] = param_average[param] / count ;
+    }
+    return param_average;
+}
+
+
+std::map<Creature::Enum_parameters, double> Environment_Stats::average_predator(){
+//    enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, Max_hp, size, last};
+    std::map<Creature::Enum_parameters, double> param_average;
+    QList<QGraphicsItem *> list = env->items();
+    QListIterator<QGraphicsItem*> i(list);
+    int count = 0;
+    while (i.hasNext()){
+        LivingBeing* LB = dynamic_cast<LivingBeing*>(i.next());
+        LivingBeing::Type_LB type = LB->get_type();
+        if (type == Creature::creature) {
+            Creature* c = dynamic_cast<Creature*>(LB);
+            if (c->get_eat_plants() == false & c->get_eat_creature() == true){
+                count++;
+                for ( Creature::Enum_parameters param = (Creature::Enum_parameters)0; param != Creature::last; param=(Creature::Enum_parameters)(param+1) ) {
+                    param_average[param] = param_average[param] + c->get_parameter(param);
+                }
             }
         }
     }

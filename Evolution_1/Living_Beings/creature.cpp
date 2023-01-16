@@ -53,7 +53,7 @@ Creature::Creature():LivingBeing() {
     }
 
     //For the input: each vision ray has 3 outputs; then we have 2 times 8 attributes taken into account (at turn t and t-dt); and then two memory variables
-    Network* n = new Network(see_ray*3 + 8*2 + 2, 8+2, 3, 100);
+    Network* n = new Network(see_ray*3 + 8*2 + 2, 2, 1, 100);
     this->brain = n;
 
     //We'll also prepare another vector with all the attributes we'll use after (we want to know the previous parametters in the next turn)
@@ -65,7 +65,7 @@ Creature::Creature():LivingBeing() {
     Input_saved.push_back(this->get_Max_hp());
     Input_saved.push_back(this->get_physical_strength());
     Input_saved.push_back(this->get_eye_sight());
-    Input_saved.push_back(this->get_visibility());
+    Input_saved.push_back(this->rotation());
 
 
     parameters[eye_sight] = 50;
@@ -361,6 +361,7 @@ Network* Creature::get_brain(){return brain;};
 void Creature::set_brain(Network* b){brain = b;};
 int Creature::get_last_attack(){return this->last_attack;};
 void Creature::set_last_attack(int i){this->last_attack = i;};
+double Creature::get_parameter(Enum_parameters p){return this->parameters.at(p);};
 
 void Creature::bound_energy_hp() {
     if (get_energy()>get_Max_energy()) {
@@ -407,12 +408,13 @@ void Creature::decision(std::vector<double> input_vector){
     //std::cout<<input_vector[0]<<" "<<input_vector[1]<<" "<<input_vector[2]<<" "<<input_vector[3]<<" "<<input_vector[4]<<" "<<input_vector[5]<<" "<<input_vector[6]<<" "<<input_vector[7]<<std::endl;
     //We give a value to the memory variables
 
-    double action = *max_element(input_vector.begin(), input_vector.begin()+4);
+    /*double action = *max_element(input_vector.begin(), input_vector.begin()+4);
     int j = 0;
     for (std::vector<double>::iterator i=input_vector.begin(); i!=input_vector.begin()+4; i++){
         if (action==*i) {break;}
         j++;
         }
+    */
     /*if(j==0){
 
         //sleep(*(input_vector.begin()+4) * 200); //sleep for sleep_time
@@ -425,9 +427,9 @@ void Creature::decision(std::vector<double> input_vector){
         // move
     if(j==2){
     else{*/
-        //Here we want to be able to move forward, backward, to rotate left and right
-        double rotation = 2*(*(input_vector.begin()+6))-1;
-        double distance = 2*(*(input_vector.begin()+7))-1;
+        //Here we want to be able to move forward, backward, to rotate left and right, but with some external influence
+        double rotation = (*(input_vector.begin())) * 2 - 1;
+        double distance = (*(input_vector.begin()+1)) * 2 - 1;
         move(rotation, distance);
     //}
 
@@ -542,7 +544,7 @@ void Creature::playstep() {
             Input.push_back(this->get_Max_hp()/K);
             Input.push_back(this->get_physical_strength()/K);
             Input.push_back(this->get_eye_sight()/K);
-            Input.push_back(this->get_visibility()/K);
+            Input.push_back(this->rotation()/K);
             Input.push_back(x());
             Input.push_back(y());
 
@@ -559,7 +561,7 @@ void Creature::playstep() {
             Input_saved.push_back(this->get_Max_hp()/K);
             Input_saved.push_back(this->get_physical_strength()/K);
             Input_saved.push_back(this->get_eye_sight()/K);
-            Input_saved.push_back(this->get_visibility()/K);
+            Input_saved.push_back(this->rotation()/K);
 
             decision(input_vector);
             set_counter_no_sleep(get_counter_no_sleep()+1);  //neither eat/digest or sleep

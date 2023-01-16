@@ -35,6 +35,9 @@ public:
     void set_menu(SimulationView* menu) {this->menu = menu; };
     void set_env(Environment* env) {this->env = env;};
     Environment* get_env() {return env;};
+    std::map<Creature::Enum_parameters, double> average_creatures();
+    std::map<Creature::Enum_parameters, double> average_prey();
+    std::map<Creature::Enum_parameters, double> average_predator();
     int number_LBs;
     int number_LBs_alive;
     int number_LBs_dead;
@@ -44,7 +47,7 @@ public:
     int number_plants;
     int number_plants_alive;
     int number_plants_dead;
-    std::map<Creature::Enum_parameters, double> average_creatures();
+
 
 private:
     SimulationView* menu;
