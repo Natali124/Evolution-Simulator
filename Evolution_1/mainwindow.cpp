@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "Frontend/Widgets/simulationView.h"
 #include "Frontend/startscreen/propertyslider.h"
 #include "ui_mainwindow.h"
 #include "Living_Beings/living_being.h"
@@ -286,3 +287,24 @@ void MainWindow::create_proper_sliders(QListWidgetItem* item) {
         ui->verticalLayout_2->addWidget(new PropertySlider("Reproduction Rate)", plant, &Plant::set_reproduction_rate, plant->get_reproduction_rate(), ui->groupBox));
     }
 }
+
+void MainWindow::on_simBut_clicked()
+{
+    auto environment = new Environment();
+    int n = ui->creature_list->count();
+    for(int i = 0; i < n; i++){
+        auto beingitem = dynamic_cast<BeingItem*>(ui->creature_list->item(i));
+        auto being = beingitem->being;
+        being->environment = environment;
+
+        int maxX = environment->width();
+        int maxY = environment->height();
+        int x = std::rand() % maxX;
+        int y = std::rand() % maxY;
+        being->setPos(x, y);
+
+        environment->addItem(being);
+    }
+    new SimulationView(environment);
+}
+

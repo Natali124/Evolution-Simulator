@@ -55,6 +55,8 @@ private slots:
 
     void create_proper_sliders(QListWidgetItem*);
 
+    void on_simBut_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

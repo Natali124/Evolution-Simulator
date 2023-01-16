@@ -13,7 +13,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    SimulationView menu(new Environment());
+//    SimulationView menu(new Environment());
     MainWindow w; //start screen window
 
 //    auto creature = new Creature;
