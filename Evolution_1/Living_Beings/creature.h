@@ -89,6 +89,10 @@ public:
 
     void eat(LivingBeing &l, double speed);
     void move(double rotation, double distance);
+    void move(double rotation, QPoint displacement);
+
+
+
     void take_dmg(double dmg);
     void attack(); // attack will only be an action, we'll be able to attack even if there isn't anything in front
     void die(); // changes the bool alive to false if necessary ( bool declared in LB)

@@ -344,33 +344,38 @@ this-> physical_strength = physical_strength,
 this-> energy=energy,this->eye_sight= eye_sight,this-> visibility=visibility,this-> brain=brain; };
 */
 
-//input_vector : (sleep, eat, attack, move, sleep_time, eat_time, move_rotate, move_distance, var1, var2)
+//input_vector : (scaling_1, ... , scaling_see_ray, rotation)
 
 void Creature::decision(std::vector<double> input_vector){
     //std::cout<<input_vector[0]<<" "<<input_vector[1]<<" "<<input_vector[2]<<" "<<input_vector[3]<<" "<<input_vector[4]<<" "<<input_vector[5]<<" "<<input_vector[6]<<" "<<input_vector[7]<<std::endl;
     //We give a value to the memory variables
 
-    double action = *max_element(input_vector.begin(), input_vector.begin()+4);
-    int j = 0;
-    for (std::vector<double>::iterator i=input_vector.begin(); i!=input_vector.begin()+4; i++){
-        if (action==*i) {break;}
-        j++;
-        }
-    if(j==0){
-        sleep(*(input_vector.begin()+4) * 200); //sleep for sleep_time
+
+    //Here we want to be able to move forward, backward, to rotate left and right
+    std::vector<QPoint> basis; // we will provide each living being with a basis that will correspond to the rays in See
+    for (int j=0; j < see_ray; j++){
+
+        double theta = (j*2*3.14)/(see_ray) + this->rotation()*(3.14/180);
+        std::cout<< theta << std::endl;
+
+        qreal x_b = cos(theta);
+        qreal y_b = sin(theta);
+        QPoint P(x_b, y_b); //Point representing the displacement with respect to the position of the creature
+        basis.push_back(P);
     }
-    /*if(j==1){
-        LivingBeing* food = find_food();
-        if (get_found_food()) {
-            eat((*food), *(input_vector.begin()+5));}
+    /*for (int i = 0; i < see_ray; i++){
+        std::cout<< (basis.begin() + i)->x() << std::endl;
+    }*/
+    QPoint displacement(0, 0); //displacement vector
+    for (int i = 0; i<see_ray; i++){
+        float scaling = 100* (*(input_vector.begin() + i)) - 50;
+        displacement.setX(displacement.x() + scaling*((basis.begin() + i)->x()) );
+        displacement.setY(displacement.y() + scaling*((basis.begin() + i)->y()) );
+        std::cout << (basis.begin() + i)->x() << std::endl;
     }
-    if(j==2){*/
-    else{
-        //Here we want to be able to move forward, backward, to rotate left and right
-        double rotation = 2*(*(input_vector.begin()+6))-1;
-        double distance = 2*(*(input_vector.begin()+7))-1;
-        move(rotation, distance);
-    }
+    double rotation = 2*(*(input_vector.begin() + see_ray)) - 1;
+
+    move(rotation, displacement);
 
 }
 
@@ -729,6 +734,7 @@ const float _sizecoeff = 0.1; //base value for energy punishment connected with 
 //move function first moves the creature by the distance with respect to angle getrotation from qtgraphicsitem
 //then changes the rotation (so rotation applies only for next movements)
 void Creature::move(double rotation, double distance){
+
     setRotation(this->rotation() + rotation * _dtheta);
 
     setX(this->x() + (distance*_ddistance) * cos(this->rotation()*M_PI/180));
@@ -740,6 +746,18 @@ void Creature::move(double rotation, double distance){
     set_energy(current_energy);
 }
 
+void Creature::move(double rotation, QPoint displacement ){
+    setRotation(this->rotation() + rotation * _dtheta);
+
+    setX(this->x() + displacement.x());
+    setY(this->y() + displacement.y());
+
+    float s = this->size;
+    float current_energy = get_energy();
+    double distance = hypot(displacement.x(), displacement.y());
+    current_energy -= (_ener_rotcoeff * rotation + _ener_movecoeff * distance) * _sizecoeff * s * s; //change of energy depends on rotation, distance travelled and size squared to punish too big animals
+    set_energy(current_energy);
+}
 
 //The description is in the .h file
 bool Creature::same_spiecie(Creature* c){
