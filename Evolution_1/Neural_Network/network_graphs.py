@@ -28,6 +28,8 @@ def layers_num(matrix):
         
          
 def matrix_to_graph(matrix):
+    """RK: For now , the weight of the edges are not divided by 10 as the 
+    drawing function did not seem to be able to display anything smaller than 1"""
 
     n = layers_num(matrix)
     
