@@ -70,7 +70,7 @@ Environment_Stats::Environment_Stats(SimulationView* menu, QWidget *parent): QCh
     chart->addAxis(axisX, Qt::AlignBottom);
     series->attachAxis(axisX);
     QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0,100);
+    axisY->setRange(0,1000);
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 
@@ -129,9 +129,12 @@ void Environment_Stats::update_chart(){
 
     */
 
+    //all charts
     chart = get_chart();
     chart->removeAllSeries();
     QBarSeries *series = new QBarSeries();
+
+    //chart 2
     /*QBarSet *alive = new QBarSet("alive");
     QBarSet *dead = new QBarSet("dead");
     QBarSet *tn = new QBarSet("total_number");
@@ -146,7 +149,7 @@ void Environment_Stats::update_chart(){
     //for now I put random values in proportion because no LBs in the environment
     //but when there will be, prop should have the five numbers n1 ,..,n5 multiplied by 10 to see them more clearly bcse they are ratios between 0 and 1
     //chart3:
-    QBarSet *prop = new QBarSet("proportion of creatures having ...% of their max_hp  (works but needs improvement");
+    QBarSet *prop = new QBarSet("number of creatures having ...% of their max_hp");
     std::vector<double> v = creature_hp_ratio();
     for (std::vector<double>::iterator j=v.begin();j!=v.end(); j++) {
         prop->append((*j)*10);
@@ -197,7 +200,7 @@ std::vector<double> Environment_Stats::creature_hp_ratio() {
             v.push_back(ratio);
         }
     }
-    std::vector<double> res;  //res stores 5 numbers, the proportion of creatures having:
+    std::vector<double> res;  //res stores 5 numbers, the number of creatures having:
     double n1=0;   //between 0 and 20% of max_hp
     double n2=0;   //between 21% and 40% of max_hp
     double n3=0;   //between 41% and 60% of max_hp
@@ -206,27 +209,24 @@ std::vector<double> Environment_Stats::creature_hp_ratio() {
     double total_nb=0;  //total nb of creatures stored in the vector v
     for (std::vector<double>::iterator j=v.begin();j!=v.end(); j++) {
         total_nb++;
-        if (0.0<=(*j)<=0.2){
-            n1+=1;    }
-        else if (0.21<=(*j)<=0.4){
+        //std::cout<< (*j) << std::endl;
+        if (0.0<=(*j)<0.2){
+            n1+=1;}
+        else if (0.2<=(*j)<0.4){
             n2+=1;}
-        else if (0.41<=(*j)<=0.6){
+        else if (0.4<=(*j)<0.6){
             n3+=1;}
-        else if (0.61<=(*j)<=0.8) {
+        else if (0.6<=(*j)<0.8) {
             n4+=1;}
-        else if (0.81<=(*j)<=1.0){
+        else if (0.8<=(*j)<1.0){
             n5+=1;}
     }
-    double n1_f = n1/total_nb;
-    double n2_f = n2/total_nb;
-    double n3_f = n3/total_nb;
-    double n4_f = n4/total_nb;
-    double n5_f = n5/total_nb;
-    res.push_back(n1_f);
-    res.push_back(n2_f);
-    res.push_back(n3_f);
-    res.push_back(n4_f);
-    res.push_back(n5_f);
+    std::cout << total_nb << std::endl;
+    res.push_back(n1);
+    res.push_back(n2);
+    res.push_back(n3);
+    res.push_back(n4);
+    res.push_back(n5);
     return res;
 };
 
