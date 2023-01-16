@@ -27,9 +27,8 @@ void LivingBeing::advance(int step){
 
 QRectF LivingBeing::boundingRect() const
 {
-    qreal adjust = 0.5;
-    return QRectF((-18 - adjust)*get_size()/200, (-22 - adjust)*get_size()/200,
-                  (36 + adjust)*get_size()/200, (60 + adjust)*get_size()/200);
+    //qreal adjust = 0.5;
+    return QRectF(100, 100, 100, 100);
 }
 
 QPainterPath LivingBeing::shape() const
@@ -46,6 +45,7 @@ void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     painter->setBrush(color);
     //I divided by 200 since random the random constructor gives a size between 0 and 200, this might be temprorary values;
     painter->drawEllipse(-5*get_size()/400, -10*get_size()/400, 10*get_size()/400, 20*get_size()/400);
+    painter->drawRect(boundingRect());
 }
 
 

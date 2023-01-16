@@ -77,6 +77,7 @@ public:
     Creature(std::map<Enum_parameters, double>, Network*, Environment *e);
     //This is what we'll use to prevent creatures to spawn one on another
     bool Check_Overlap_Creature(Environment* e);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     ~Creature();
 
     void Eat();

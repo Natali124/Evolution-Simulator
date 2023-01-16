@@ -68,7 +68,7 @@ Creature::Creature():LivingBeing() {
     counter_no_sleep=0;
 
     //For the input: each vision ray has 3 outputs; then we have 2 times 8 attributes taken into account (at turn t and t-dt); and then two memory variables
-    Network* n = new Network(see_ray*3 + 8*2 + 2, see_ray + 1, 1, 10);
+    Network* n = new Network(see_ray*3 + 8*2 + 2, 3, 1, 10);
     this->brain = n;
 
     //We'll also prepare another vector with all the attributes we'll use after (we want to know the previous parametters in the next turn)
@@ -90,6 +90,19 @@ Creature::Creature():LivingBeing() {
 
 }
 
+void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+                        QWidget *widget) {
+    if (parameters[eat_creature]){
+        color = QColor(255, 0, 0, 127);
+    }
+    else {
+        color = QColor(0, 255, 0, 127);
+    }
+    painter->setBrush(color);
+    //I divided by 200 since random the random constructor gives a size between 0 and 200, this might be temprorary values;
+    painter->drawEllipse(-5*get_size()/400, -10*get_size()/400, 10*get_size()/400, 20*get_size()/400);
+    painter->drawRect(boundingRect());
+}
 
 bool Creature::Check_Overlap_Creature(Environment* e){
     QList<QGraphicsItem*> list = e->collidingItems(this);
@@ -350,40 +363,46 @@ void Creature::decision(std::vector<double> input_vector){
     //std::cout<<input_vector[0]<<" "<<input_vector[1]<<" "<<input_vector[2]<<" "<<input_vector[3]<<" "<<input_vector[4]<<" "<<input_vector[5]<<" "<<input_vector[6]<<" "<<input_vector[7]<<std::endl;
     //We give a value to the memory variables
 
-
+    std::cout << 'hi' << std::endl;
     //Here we want to be able to move forward, backward, to rotate left and right
-    std::vector<QPointF> basis; // we will provide each living being with a basis that will correspond to the rays in See
-    for (int j=0; j < see_ray; j++){
+    QList<QGraphicsItem*> neighbours = this->collidingItems();
+    double* max_dist = NULL;
 
-        //double theta = (j*2*3.14)/(see_ray) + this->rotation()*(3.14/180);
-        double theta = (j*2*3.14)/(see_ray);
-        //std::cout << theta << std::endl;
-
-        qreal x_b = cos(theta);
-        qreal y_b = sin(theta);
-        //std::cout << x_b << std::endl;
-        QPointF P(x_b, y_b); //Point representing the displacement with respect to the position of the creature
-        basis.push_back(P);
+    //find close
+    QPointF thiss(this->x(), this->y());
+    QGraphicsItem* closest = NULL;
+    for(int i = 0 ; i < neighbours.size(); i++){
+        QPointF other((*(neighbours.begin() + i))->x(), (*(neighbours.begin() + i))->y() );
+        double dist = hypot((thiss-other).x(), (thiss-other).y());
+        if (max_dist == NULL){
+            *max_dist = dist;
+            closest = *(neighbours.begin() + i);
+        }
+        if (*max_dist > dist) {
+            *max_dist = dist;
+            closest = *(neighbours.begin() + i);
+        }
     }
-    /*for (int i = 0; i < see_ray; i++){
-        std::cout<< (basis.begin() + i)->x() << std::endl;
-    }*/
-    QPointF displacement(0, 0); //displacement vector
-    int count = 0;
-    for (int i = 0; i<see_ray; i++){
-        //std::cout << count << std::endl;
-        float scaling = 2* (*(input_vector.begin() + i)) - 1;
-        displacement.setX(displacement.x() + scaling*((basis.begin() + i)->x()) );
-        displacement.setY(displacement.y() + scaling*((basis.begin() + i)->y()) );
 
-        //std::cout <<  << std::endl;
-        count++;
+    //if isolated
+    if (closest == NULL){
+        double distance = 2*(rand()/(double)RAND_MAX) - 1;
+        double rotation = 2*(rand()/(double)RAND_MAX) - 1;
+
+        move(rotation, distance);
     }
-    //double rotation = 2*(*(input_vector.begin() + see_ray)) - 1;
-    double rotation = 0;
-    move(rotation, displacement);
+
+    //if not isolated
+    else {
+        std::cout << "hey" << std::endl;
+        double disp_x = (*(input_vector.begin()))*(this->x() - closest->x());
+        double disp_y = (*(input_vector.begin() + 1))*(this->y() - closest->y());
+        QPointF displacement(disp_x, disp_y);
+        double rotation = 2*(*(input_vector.begin() + 2)) - 1;
+
+        move(rotation, displacement);
+    }
 }
-
 
 //This is what we'll b e using to eat whatever the LB is touching and can eat
 void Creature::Eat(){
@@ -779,7 +798,7 @@ bool Creature::same_spiecie(Creature* c){
 QRectF Creature::boundingRect() const
 {
     qreal adjust = 0.5;
-    return QRectF((-18 - adjust)*get_size()/200, (-22 - adjust)*get_size()/200,
-                  (36 + adjust)*get_size()/200, (60 + adjust)*get_size()/200);
+    return QRectF((-18 - adjust), (-22 - adjust),
+                  (36 + adjust), (60 + adjust));
 }
 
