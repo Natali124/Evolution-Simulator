@@ -151,7 +151,7 @@ void Environment_Stats::update_chart(){
     //but when there will be, prop should have the five numbers n1 ,..,n5 multiplied by 10 to see them more clearly bcse they are ratios between 0 and 1
     //chart3:
     QBarSet *prop = new QBarSet("number of creatures having ...% of their max_energy");
-    std::vector<double> v = creature_hp_ratio();
+    std::vector<double> v = creature_energy_ratio();
     for (std::vector<double>::iterator j=v.begin();j!=v.end(); j++) {
         prop->append((*j));
         std::cout << (*j) << std::endl;
