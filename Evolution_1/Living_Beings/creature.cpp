@@ -268,7 +268,7 @@ void Creature::die() {
         set_alive(false);
         //here we chose to kill and destroy everything which is dead
 
-        Creature::~Creature();
+        delete this;
     }};
 
 void::Creature::is_eaten(Creature &c) {
