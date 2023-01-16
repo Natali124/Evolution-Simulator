@@ -176,7 +176,7 @@ double relu(double x){return fmax(0, x);};
 double sigmoid2(double x){return (1/(pow(M_E, -x) + 1)) * 2 - 1;};
 
 // map (=dictionary) to get specific function from enum
-map<act_function,function<double(double)>> get_f_activation_from_name = {{Sigmoid,&sigmoid2},{ReLu,&sigmoid2}};
+map<act_function,function<double(double)>> get_f_activation_from_name = {{Sigmoid,&sigmoid},{ReLu,&relu}};
 
 
 double Layer::f_activation(double x){
