@@ -26,4 +26,8 @@ Week 5:\
 Make movable and drawing barrier at the same time.\
 Coded a functionality that allows to kill creatures by touching them.\
 Merging several branches into main to conclude the project.\
-Next week I will try to implement a startscreen.\}
+Next week I will try to implement a startscreen.\
+Week 6:\
+Devise a new system to make creatures move,\
+in order to speed up the learning process and simplify the simulation.\
+Next week I will perfection this system and conclude the project.\}
