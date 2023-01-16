@@ -65,12 +65,15 @@ Environment_Stats::Environment_Stats(SimulationView* menu, QWidget *parent): QCh
     categories << "0 to 20%" << "21% to 40%" << "41% to 60%" << "61% to 80%" << "81% to 100%";
 
     //charts 2,3:
-    QBarCategoryAxis *axisX = new QBarCategoryAxis();
+    QBarCategoryAxis* axisX = new QBarCategoryAxis();
+    set_x_axis(axisX);
     axisX->append(categories);
     chart->addAxis(axisX, Qt::AlignBottom);
     series->attachAxis(axisX);
-    QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0,1000);
+
+    QValueAxis* axisY = new QValueAxis();
+    set_y_axis(axisY);
+    axisY->setRange(0,200);
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 
@@ -78,8 +81,6 @@ Environment_Stats::Environment_Stats(SimulationView* menu, QWidget *parent): QCh
     chart->legend()->setVisible(true);;
     chart->legend()->setAlignment(Qt::AlignBottom);
     this->setRenderHint(QPainter::Antialiasing);
-    update();
-    repaint();
     show();
 
 };
@@ -149,14 +150,16 @@ void Environment_Stats::update_chart(){
     //for now I put random values in proportion because no LBs in the environment
     //but when there will be, prop should have the five numbers n1 ,..,n5 multiplied by 10 to see them more clearly bcse they are ratios between 0 and 1
     //chart3:
-    QBarSet *prop = new QBarSet("number of creatures having ...% of their max_hp");
+    QBarSet *prop = new QBarSet("number of creatures having ...% of their max_energy");
     std::vector<double> v = creature_hp_ratio();
     for (std::vector<double>::iterator j=v.begin();j!=v.end(); j++) {
-        prop->append((*j)*10);
+        prop->append((*j));
+        std::cout << (*j) << std::endl;
     }
     series->append(prop);
-
     chart->addSeries(series);
+    series->attachAxis(get_x_axis());
+    series->attachAxis(get_y_axis());
     update();
 }
 
@@ -238,7 +241,7 @@ std::map<Creature::Enum_parameters, double> Environment_Stats::average_predator(
 }
 
 
-std::vector<double> Environment_Stats::creature_hp_ratio() {
+std::vector<double> Environment_Stats::creature_energy_ratio() {
     std::vector<double> v;    //v stores the ratio of hp/max_hp for each creature
     QList<QGraphicsItem *> list = env->items();
     QListIterator<QGraphicsItem*> i(list);
@@ -247,7 +250,7 @@ std::vector<double> Environment_Stats::creature_hp_ratio() {
         LivingBeing::Type_LB type = LB->get_type();
         if (type == Creature::creature) {
             Creature* c = dynamic_cast<Creature*>(LB);
-            double ratio = (c->get_hp())/(c->get_Max_hp());
+            double ratio = (c->get_energy())/(c->get_Max_energy());
             v.push_back(ratio);
         }
     }
@@ -269,10 +272,10 @@ std::vector<double> Environment_Stats::creature_hp_ratio() {
             n3+=1;}
         else if (0.6<=(*j)<0.8) {
             n4+=1;}
-        else if (0.8<=(*j)<1.0){
+        else if (0.8<=(*j)<=1.0){
             n5+=1;}
     }
-    std::cout << total_nb << std::endl;
+    std::cout <<"total nb of creatures : " << total_nb << std::endl;
     res.push_back(n1);
     res.push_back(n2);
     res.push_back(n3);
