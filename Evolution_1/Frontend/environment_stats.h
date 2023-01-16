@@ -20,18 +20,21 @@
 #include <Living_Beings/plant.h>
 #include <QTimer>
 #include <QTimerEvent>
+#include "Living_Beings/creature.h"
 
 class Environment_Stats : QChartView {
 public:
-    Environment* env;
-    Environment_Stats(SimulationView& menu, QWidget* parent = nullptr);
-    std::vector<double> creature_hp_ratio(SimulationView& menu); //helper vector for creating a graph on the proportion of creatures having
+    Environment_Stats(SimulationView* menu, QWidget* parent = nullptr);
+    std::vector<double> creature_hp_ratio(); //helper vector for creating a graph on the proportion of creatures having
     //certain percentages of hp (their hp/ their max_hp)
     ~Environment_Stats();
     void timerEvent(QTimerEvent *event);
-    QChart *chart {chart = new QChart()};
     void update_chart();
     QChart* get_chart() {return chart;};
+    SimulationView* get_menu() {return menu;};
+    void set_menu(SimulationView* menu) {this->menu = menu; };
+    void set_env(Environment* env) {this->env = env;};
+    Environment* get_env() {return env;};
     int number_LBs;
     int number_LBs_alive;
     int number_LBs_dead;
@@ -41,9 +44,12 @@ public:
     int number_plants;
     int number_plants_alive;
     int number_plants_dead;
-    void average_creatures(SimulationView& menu);
+    std::map<Creature::Enum_parameters, double> average_creatures();
 
-
+private:
+    SimulationView* menu;
+    QChart *chart {chart = new QChart()};
+    Environment* env;
 
 
 };

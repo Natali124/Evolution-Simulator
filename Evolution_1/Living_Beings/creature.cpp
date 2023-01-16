@@ -361,6 +361,7 @@ Network* Creature::get_brain(){return brain;};
 void Creature::set_brain(Network* b){brain = b;};
 int Creature::get_last_attack(){return this->last_attack;};
 void Creature::set_last_attack(int i){this->last_attack = i;};
+double Creature::get_parameter(Enum_parameters p){return this->parameters.at(p);};
 
 void Creature::bound_energy_hp() {
     if (get_energy()>get_Max_energy()) {

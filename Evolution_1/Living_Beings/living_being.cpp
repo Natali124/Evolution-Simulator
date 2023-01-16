@@ -52,7 +52,7 @@ LivingBeing::LivingBeing(){
 
 LivingBeing::~LivingBeing() {};
 
-bool LivingBeing::get_alive() const {return alive;};
+bool LivingBeing::get_alive()  {return alive;};
 void LivingBeing::set_alive(bool b) {this->alive = b;};
 
 
