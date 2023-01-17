@@ -118,8 +118,8 @@ public:
     //Vision is simulated using multiple rays which will start from the creature trying to see an go on multiple dircetion.
     // n >=0 correspond to the number of ray we will use to get the vision.
     //The see function will return a vector of size 3*n containing the distance, the size and hp of the first living_being (only distance for non_living beings) that ta ray collide with.
-    std::vector<double> See(int n);
-    std::vector<double> See(int n, int i); // Auxilary function for See(int)
+    std::vector<LivingBeing*> See(int n);
+    LivingBeing* See(int n, int i); // Auxilary function for See(int)
 
 
     void move_to(LivingBeing* other, double d);
@@ -176,7 +176,7 @@ protected:
     int family = 0;
     std::vector<double> Input_saved; //This is what we'll use to make our creature know what it had the previous turn
     Network * brain;
-    int see_ray = 9;
+    int see_ray = 20;
     bool found_food;//false by default, set to true when found food (plant or creature) and then false again after food is eaten
     double energy;
     double hp;

@@ -57,11 +57,11 @@ Creature::Creature(bool newfamily):LivingBeing() {
     }
 
     //For the input: each vision ray has 3 outputs; then we have 2 times 8 attributes taken into account (at turn t and t-dt); and then two memory variables
-    Network* n = new Network(see_ray*3, 2, 1, 5);
+    Network* n = new Network(3, 2, 1, 5);
     this->brain = n;
 
 
-    parameters[eye_sight] = 50;
+    parameters[eye_sight] = 150;
     if(newfamily){
       this->family = Creature::n_families;
       Creature::n_families++;
@@ -106,6 +106,7 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain,
 }
 
 Creature::~Creature() {
+  std::cout << "I'm dead :(" << std::endl;
   delete this->brain;
 }
 
@@ -209,7 +210,7 @@ void Creature::die() {
         set_alive(false);
         //here we chose to kill and destroy everything which is dead
 
-        delete this;
+        Creature::~Creature();
     }};
 
 
@@ -370,8 +371,7 @@ void Creature::playstep() {
 
         //bouding energy and hp to the max bcse in case of modifications in the previous playstep
         bound_energy_hp();
-        std::vector<double> Input = See(this->see_ray);
-
+        std::vector<double> Input = {0,0,0};
         //std::cout<<"input vector:  ";
         //Other::Cout_Vector(Input);
         std::vector<double> decision_vector = brain->propagate(Input);
@@ -420,24 +420,32 @@ void Creature::move_to(LivingBeing* other, double d){
 
 std::vector<std::tuple<double,LivingBeing*>> Creature::get_closest(int n){
   std::vector<std::tuple<double,LivingBeing*>> info_vec;
-  double w = 500; double h = 500;
+  /*double w = 500; double h = 500;
   QRectF bounding_rect(this->x() -  w/2, this->y() - h/2, w, h); //creates a bounding rect around the creature
-  QList<QGraphicsItem*> close = this->get_scene()->items(bounding_rect); //creates list close of colliding items
+  QList<QGraphicsItem*> close = this->get_scene()->items(bounding_rect); //creates list close of colliding items */
 
   std::vector<double> distances;
 
-  for (QGraphicsItem* item : close){
+  vector<LivingBeing*> close_beings = this->See(this->see_ray);
+  /*for (QGraphicsItem* item : close){
       LivingBeing *L = dynamic_cast<LivingBeing*>(item);
       // if item was possible to cast && if they don't have the same coordinates
       if (L!=nullptr){
 
           double d = distance(this,L);
-          if(d > 0.0001){
+          if(d > 0.01){
             distances.push_back(d);
             info_vec.push_back(std::make_tuple(d,L));
           }
       }
-  }
+  }*/
+  for(LivingBeing* l:close_beings){
+      double d = distance(this,l);
+      if(d > 0.01){
+        distances.push_back(d);
+        info_vec.push_back(std::make_tuple(d,l));
+      }
+    }
   std::vector<std::tuple<double,LivingBeing*>> return_vector;
   if(distances.size() <= n){
       for (int i = 0; i < distances.size(); i++) {
@@ -465,23 +473,23 @@ std::vector<std::tuple<double,LivingBeing*>> Creature::get_closest(int n){
 
 //Vision is simulated using multiple rays which will start from the creature trying to see an go on multiple direction.
 //The see function will return a vector of size 3*n containing the distance, the size and hp of the first living_being (only distance for non_living beings) that ta ray collide with.
-std::vector<double> Creature::See(int n){
-    std::vector<double> v; //Here we'll get all the output, It will be of size n
+std::vector<LivingBeing*> Creature::See(int n){
+    std::vector<LivingBeing*> v; //Here we'll get all the output, It will be of size n
 
     for (int i=0; i<n; i++){
-        std::vector<double> v2 = this->See(n, i);
-        for (std::vector<double>::iterator j=v2.begin(); j!=v2.end(); j++){
-            v.push_back(*j);
-        }
+        LivingBeing* l = this->See(n,i);
+        if(l!= nullptr){
+          v.push_back(l);
+          }
     }
     return v;
 }
 
 //This is an auxiliar function of the See(int) function
-std::vector<double> Creature::See(int n, int i){
+LivingBeing* Creature::See(int n, int i){
     // return a distance score with 0 meaning really close and 256 meaning nothing seen (see only the closest object)
 
-    std::vector<double> v;
+    std::vector<LivingBeing*> v;
     double r=-1;
     double teta = ((i)*2*3.14)/(n) + this->rotation()*(3.14/180);
 
@@ -508,35 +516,7 @@ std::vector<double> Creature::See(int n, int i){
         r = this->get_eye_sight()+1;
     }
 
-    //first is the distance
-    v.push_back(r);
-    //we'll then try a dynamic cast to know what we add after:
-    if (last_seen==nullptr){
-        v.push_back(-1);
-        v.push_back(-1);
-        return v;
-    }
-
-    //we then add size:
-    v.push_back(last_seen->get_size());
-
-
-    //we then add type:
-    Plant* j = dynamic_cast<Plant*>(last_seen);
-    if (j!= nullptr){
-        v.push_back(1);
-    }
-    else{
-        Creature* j = dynamic_cast<Creature*>(last_seen);
-        if (j!= nullptr){
-            v.push_back(2);
-        }
-        else{
-            v.push_back(3);
-        }
-    }
-
-    return v;
+    return last_seen;
 }
 
 
