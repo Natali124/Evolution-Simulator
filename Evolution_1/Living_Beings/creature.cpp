@@ -68,7 +68,7 @@ Creature::Creature():LivingBeing() {
     counter_no_sleep=0;
 
     //For the input: each vision ray has 3 outputs; then we have 2 times 8 attributes taken into account (at turn t and t-dt); and then two memory variables
-    Network* n = new Network(see_ray*3 + 8*2 + 2, see_ray + 1, 1, 10);
+    Network* n = new Network(see_ray*3 + 8*2 -3, see_ray + 1, 2, 10);
     this->brain = n;
 
     //We'll also prepare another vector with all the attributes we'll use after (we want to know the previous parametters in the next turn)
@@ -86,7 +86,7 @@ Creature::Creature():LivingBeing() {
 
     parameters[eat_creature] = true;
     parameters[eat_plants] = true;
-    parameters[eye_sight] = 200;
+    parameters[eye_sight] = 400;
 
 }
 
@@ -365,19 +365,11 @@ void Creature::decision(std::vector<double> input_vector){
         QPointF P(x_b, y_b); //Point representing the displacement with respect to the position of the creature
         basis.push_back(P);
     }
-    /*for (int i = 0; i < see_ray; i++){
-        std::cout<< (basis.begin() + i)->x() << std::endl;
-    }*/
     QPointF displacement(0, 0); //displacement vector
     int count = 0;
     for (int i = 0; i<see_ray; i++){
-        //std::cout << count << std::endl;
         float scaling = 2* (*(input_vector.begin() + i)) - 1;
-        displacement.setX(displacement.x() + scaling*((basis.begin() + i)->x()) );
-        displacement.setY(displacement.y() + scaling*((basis.begin() + i)->y()) );
-
-        //std::cout <<  << std::endl;
-        count++;
+        displacement += scaling*(*(basis.begin() + i));
     }
     //double rotation = 2*(*(input_vector.begin() + see_ray)) - 1;
     double rotation = 0;
@@ -482,11 +474,6 @@ void Creature::playstep() {
             Input.push_back(this->get_Max_energy()/K);
             Input.push_back(this->get_hp()/K);
             Input.push_back(this->get_Max_hp()/K);
-            Input.push_back(this->get_physical_strength()/K);
-            Input.push_back(this->get_eye_sight()/K);
-            Input.push_back(this->get_visibility()/K);
-            Input.push_back(x());
-            Input.push_back(y());
 
             //std::cout<<"input vector:  ";
             //Other::Cout_Vector(Input);
@@ -748,10 +735,10 @@ void Creature::move(double rotation, double distance){
     setX(this->x() + (distance*_ddistance) * cos(this->rotation()*M_PI/180));
     setY(this->y() + (distance*_ddistance) * sin(this->rotation()*M_PI/180));
 
-    //float s = this->size;
-    //float current_energy = get_energy();
-    //current_energy -= (_ener_rotcoeff * rotation + _ener_movecoeff * distance) * _sizecoeff * s * s; //change of energy depends on rotation, distance travelled and size squared to punish too big animals
-    //set_energy(current_energy);
+    float s = this->size;
+    float current_energy = get_energy();
+    current_energy -= (_ener_rotcoeff * rotation + _ener_movecoeff * distance) * _sizecoeff * s * s; //change of energy depends on rotation, distance travelled and size squared to punish too big animals
+    set_energy(current_energy);
 }
 
 void Creature::move(double rotation, QPointF displacement ){

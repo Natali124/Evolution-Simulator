@@ -86,6 +86,7 @@ public:
     // functions to be taken care of by Flavia, Garance, Ruben, Oskar, Pablo's team
 
     virtual std::vector<LivingBeing*> get_close();
+    QPointF direction;
 
     void eat(LivingBeing &l, double speed);
     void move(double rotation, double distance);
