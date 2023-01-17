@@ -4,21 +4,15 @@ class Neuron;
 
 class Edge{
 public:
-    //Constructors & destructor
 
+    //Constructors & destructor
     Edge();
     Edge(double w);
     Edge(Neuron* start, Neuron* end);
     Edge(double w, Neuron* start, Neuron* end);
     ~Edge(){};
 
-    //Specific functions
-
-    void randomize_weight();
-    void print();
-
     //Getters
-
     double get_weight();
     Neuron* get_start_neuron();
     Neuron* get_end_neuron();
@@ -27,11 +21,14 @@ public:
     bool get_activation();
 
     //Setters
-
     void set_weight(double w);
     void set_start_neuron(Neuron* n);
     void set_end_neuron(Neuron* n);
     void set_activation(bool activation);
+
+    //Specific functions
+    void randomize_weight();
+    void print();
 
 private:
     double weight;

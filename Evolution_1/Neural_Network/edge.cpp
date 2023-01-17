@@ -7,6 +7,7 @@
 #include <QRandomGenerator64>
 using namespace std;
 
+// Constructors
 Edge::Edge(){
         weight = 0;
         start_neuron = nullptr;
@@ -24,6 +25,8 @@ Edge::Edge(double w, Neuron* start, Neuron* end):Edge(start,end){
          weight = w;
     }
 
+// Functions
+
 void Edge::randomize_weight(){
         //srand((time(NULL)));
         double r = QRandomGenerator64::global()->generateDouble();
@@ -36,6 +39,8 @@ void Edge::print(){
        throw std::invalid_argument("Edge is missing start and/or end neuron");}
   std::cout << start_neuron->get_id() << " --- " << round(weight*100)/100 << " ---" << end_neuron->get_id() << std::endl;
 }
+
+// Getters & Setters
 
 double Edge::get_weight(){
         return weight;
