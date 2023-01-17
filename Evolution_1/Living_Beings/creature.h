@@ -13,9 +13,7 @@ namespace Other {
     //This is a debugging tool to show vectors, only works if T is a type compatible with std::cout
     template <typename T> void Cout_Vector(std::vector<T> v){
         for (typename std::vector<T>::iterator i = v.begin(); i<v.end(); i++){
-            std::cout<<*i<<" ";
         }
-        std::cout<<std::endl;
     }
 
     //We"ll use this class to detect what's in front of what, as an example it could be used to attack, eat, etc...

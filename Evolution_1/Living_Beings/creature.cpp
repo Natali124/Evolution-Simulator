@@ -363,31 +363,30 @@ void Creature::decision(std::vector<double> input_vector){
     //std::cout<<input_vector[0]<<" "<<input_vector[1]<<" "<<input_vector[2]<<" "<<input_vector[3]<<" "<<input_vector[4]<<" "<<input_vector[5]<<" "<<input_vector[6]<<" "<<input_vector[7]<<std::endl;
     //We give a value to the memory variables
 
-    std::cout << 'hi' << std::endl;
     //Here we want to be able to move forward, backward, to rotate left and right
     QList<QGraphicsItem*> neighbours = this->collidingItems();
-    double* max_dist = NULL;
+    double max_dist = -1;
 
     //find close
     QPointF thiss(this->x(), this->y());
     QGraphicsItem* closest = NULL;
+    if (neighbours.isEmpty()){
+        std::cout << 'ho' << std::endl;
+    }
     for(int i = 0 ; i < neighbours.size(); i++){
         QPointF other((*(neighbours.begin() + i))->x(), (*(neighbours.begin() + i))->y() );
         double dist = hypot((thiss-other).x(), (thiss-other).y());
-        if (max_dist == NULL){
-            *max_dist = dist;
-            closest = *(neighbours.begin() + i);
-        }
-        if (*max_dist > dist) {
-            *max_dist = dist;
+        if (max_dist == -1 || max_dist > dist){
+            double max_dist = dist;
             closest = *(neighbours.begin() + i);
         }
     }
 
     //if isolated
     if (closest == NULL){
-        double distance = 2*(rand()/(double)RAND_MAX) - 1;
-        double rotation = 2*(rand()/(double)RAND_MAX) - 1;
+        std::cout << 'hi' << std::endl;
+        double distance = 6*(rand()/(double)RAND_MAX) - 3;
+        double rotation = 6*(rand()/(double)RAND_MAX) - 3;
 
         move(rotation, distance);
     }
