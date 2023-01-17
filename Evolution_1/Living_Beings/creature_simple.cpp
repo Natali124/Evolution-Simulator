@@ -10,7 +10,7 @@
 #include <map>
 #include <QGraphicsItem>
 #include "environment.h"
-#include <QRandomGenerator>
+
 //using namespace std;
 
 
@@ -18,11 +18,6 @@
 int Creature::n_families = 0;
 
 bool Show_Sight = false;
-const float _dtheta = 20; //base value of the change of rotation - to set maximal rotation range to 10 degrees
-const float _ddistance = 2; //base value of the change of the distance - maximal value of move is 2
-const float _ener_rotcoeff = 0.2; //base value for energy consumption while rotating
-const float _ener_movecoeff = 0.5; //base value for energy consumption while moving
-const float _sizecoeff = 0.1; //base value for energy punishment connected with the size;
 
 
 Creature::Creature(bool newfamily):LivingBeing() {
@@ -163,7 +158,7 @@ Creature* Creature::reproduction() {
     //Network new_brain = network(old brain);
     // modify this function when we can create new networks with inputs
     new_brain->apply_on_all_weights(normal_distrib_random());
-    Creature* C= new Creature(param_new_creature, new_brain, this->get_scene());
+    Creature* C= new Creature(param_new_creature, brain, this->get_scene());
     C->set_scene(this->get_scene());
     C->setPos(x(), y());
     C->setRotation(rotation());
@@ -274,15 +269,9 @@ std::function<double(double)> Creature::normal_distrib_random(){ return [](doubl
 
 void Creature::decision(std::vector<double> input_vector){
 
-        double towards = *(input_vector.begin());
-        double away = *(input_vector.begin()+1);
-        tuple<double,LivingBeing*> closest = get_closest(1)[0];
-        LivingBeing* c = std::get<LivingBeing*>(closest);
-        if(true){
-            move_to(c,_ddistance);
-          } else {
-            move_to(c, -_ddistance);
-          }
+        double rotation = *(input_vector.begin());
+        double distance = *(input_vector.begin()+1);
+        move(rotation, distance);
 
 }
 
@@ -381,87 +370,8 @@ void Creature::playstep() {
         Eat();
 
 
-    ;} else {
-        delete this;
-      }
+    ;}
 };
-
-
-double distance(double ax, double ay, double bx, double by){
-  return (double) sqrt((ax-bx)*(ax-bx) + (ay-by)*(ay-by));
-}
-double distance(LivingBeing* a, LivingBeing* b){
-  float ax = a->x();
-  float ay = a->y();
-  float bx = b->x();
-  float by = b->y();
-  return distance(ax,ay,bx,by);
-}
-
-
-void Creature::move_to(LivingBeing* other, double d){
-
-  double x = this->x(); double y = this->y();
-  double ox; double oy;
-  if(other == nullptr){
-      ox = 1000*QRandomGenerator::global()->generateDouble();
-      oy = 1000*QRandomGenerator::global()->generateDouble();
-    } else {
-     ox = other->x(); oy = other->y();
-    }
-  double r = distance(x,y,ox,oy);
-  setX(x + (d/r)*(ox-x) );
-  setY(y + (d/r)*(oy-y) );
-  float s = this->size;
-  float current_energy = get_energy();
-  current_energy -= _ener_movecoeff * abs(d) * _sizecoeff * s * s; //change of energy depends on rotation, distance travelled and size squared to punish too big animals
-  set_energy(current_energy);
-}
-
-std::vector<std::tuple<double,LivingBeing*>> Creature::get_closest(int n){
-  std::vector<std::tuple<double,LivingBeing*>> info_vec;
-  double w = 500; double h = 500;
-  QRectF bounding_rect(this->x() -  w/2, this->y() - h/2, w, h); //creates a bounding rect around the creature
-  QList<QGraphicsItem*> close = this->get_scene()->items(bounding_rect); //creates list close of colliding items
-
-  std::vector<double> distances;
-
-  for (QGraphicsItem* item : close){
-      LivingBeing *L = dynamic_cast<LivingBeing*>(item);
-      // if item was possible to cast && if they don't have the same coordinates
-      if (L!=nullptr){
-
-          double d = distance(this,L);
-          if(d > 0.0001){
-            distances.push_back(d);
-            info_vec.push_back(std::make_tuple(d,L));
-          }
-      }
-  }
-  std::vector<std::tuple<double,LivingBeing*>> return_vector;
-  if(distances.size() <= n){
-      for (int i = 0; i < distances.size(); i++) {
-           return_vector.push_back(info_vec[i]);
-
-        }
-    } else {
-      std::sort(distances.begin(),distances.end());
-      double cutoff = distances[n-1];
-      for (auto l: info_vec) {
-          if(return_vector.size() == n){
-              return return_vector;
-            }
-          if(std::get<double>(l) <= cutoff){
-              return_vector.push_back(l);
-            }
-        }
-    }
-  while(return_vector.size()<n){
-      return_vector.push_back(std::make_tuple(-1,nullptr));
-    }
-  return return_vector;
-
-}
 
 //Vision is simulated using multiple rays which will start from the creature trying to see an go on multiple direction.
 //The see function will return a vector of size 3*n containing the distance, the size and hp of the first living_being (only distance for non_living beings) that ta ray collide with.
@@ -481,6 +391,7 @@ std::vector<double> Creature::See(int n){
 std::vector<double> Creature::See(int n, int i){
     // return a distance score with 0 meaning really close and 256 meaning nothing seen (see only the closest object)
 
+    //start: x, y; teta = ((i)**2pi)/(n), this will allow us to get the vision ray at good positions.
     std::vector<double> v;
     double r=-1;
     double teta = ((i)*2*3.14)/(n) + this->rotation()*(3.14/180);
@@ -540,7 +451,11 @@ std::vector<double> Creature::See(int n, int i){
 }
 
 
-
+const float _dtheta = 20; //base value of the change of rotation - to set maximal rotation range to 10 degrees
+const float _ddistance = 2; //base value of the change of the distance - maximal value of move is 2
+const float _ener_rotcoeff = 0.2; //base value for energy consumption while rotating
+const float _ener_movecoeff = 0.5; //base value for energy consumption while moving
+const float _sizecoeff = 0.1; //base value for energy punishment connected with the size;
 //move function first moves the creature by the distance with respect to angle getrotation from qtgraphicsitem
 //then changes the rotation (so rotation applies only for next movements)
 void Creature::move(double rotation, double distance){
