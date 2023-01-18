@@ -41,6 +41,8 @@ public:
   virtual void set_size(double s);
   virtual double get_hp() const;
   virtual void set_hp(double h);
+  virtual void set_family(int fam);
+  virtual int get_family();
   bool get_alive();
   void set_alive(bool b);
   void set_scene(Environment *s);
@@ -58,7 +60,6 @@ public:
   virtual void advance(int);
 
   int number_of_steps_since_beginning = 0;
-  int family = -1;
 protected:
   int alive_time = 0;
   Environment *scene;

@@ -36,16 +36,20 @@ void CreatureDisplay::addRandomDot(){
     LivingBeing *being;
 
     double t= QRandomGenerator::global()->generateDouble();
-    if(t<0.3){
+    if(t<0.4){
         Creature* aux = new Creature(environment);
         aux->set_Max_energy( QRandomGenerator::global()->bounded(256) );
         aux->parameters[Creature::eat_creature] = 0;
         aux->parameters[Creature::eat_plants] = 1;
+        aux->i_eat_creatures = 0;
+        aux->i_eat_plants = 1;
         being = aux;
     } else if(t<0.6){
         Creature* aux = new Creature(environment);
         aux->parameters[Creature::eat_creature] = 1;
         aux->parameters[Creature::eat_plants] = 0;
+        aux->i_eat_creatures = 1;
+        aux->i_eat_plants = 0;
         being = aux;
     } else{ //for now this isn't possible
         being = new Plant(environment);

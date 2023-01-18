@@ -13,10 +13,11 @@
 #include <QRandomGenerator>
 //using namespace std;
 
-const int repro_cost_predator = 20;// cost of reproduction of predators (20 = 1x food)
+const int repro_cost_predator = 80;// cost of reproduction of predators (20 = 1x food)
 const int repro_cost_prey = 40; // cost of reproduction of predators (20 = 1x food)
 const double seeing_rect = 500; // size of rectangle in which creatures see
 const int repro_cool_down = 50; // how many steps between reproductions
+const double _predator_speed_bonus = -0.5; // gives predators 50% more speed
 
 int Creature::n_families = 0;
 
@@ -233,8 +234,8 @@ std::vector<LivingBeing*> Creature::get_close(){
 void Creature::die() {
     bool starved = false;
 
-    // probability of starving after not eating for s steps, for s=0: approx. 0, for s = 200: approx 0.5, for s = 400: approx 1, follows sigmoid function
-    double x = ((get_counter_no_eat()/20) -10);
+    // probability of starving after not eating for s steps, for s=0: approx. 0, for s = 400: approx 0.5, for s = 800: approx 1, follows sigmoid function
+    double x = ((get_counter_no_eat()/40) -10);
     x = 1/(pow(M_E, -x) + 1);
     double p = QRandomGenerator::global()->generateDouble();
     if(p < x){
@@ -334,10 +335,11 @@ void Creature::decision(std::vector<double> input_vector,LivingBeing* c){
 
 
         double towards = input_vector[0];
+        double speed = _ddistance *(1 + _predator_speed_bonus* (int)(i_eat_creatures));
         if(towards > 0.5){
-            move_to(c,_ddistance);
+            move_to(c,speed);
           } else {
-            move_to(c, -_ddistance);
+            move_to(c,-speed);
           }
 
 }
@@ -346,13 +348,6 @@ void Creature::decision(std::vector<double> input_vector,LivingBeing* c){
 //This is what we'll b e using to eat whatever the LB is touching and can eat
 void Creature::Eat(){
     QList<QGraphicsItem*> list = get_scene()->collidingItems(this);
-
-
-
-
-
-
-
     foreach(QGraphicsItem* i , list){
 
         Plant *j = dynamic_cast<Plant*>(i);
@@ -369,7 +364,7 @@ void Creature::Eat(){
                 if( k->family == this->family){
                    return;
                   }
-                return; // for now, predators don't eat each other
+
                 if (k->get_size() <= this->get_size()){
                     ate = true;
                     k->set_alive(false);
@@ -443,7 +438,6 @@ vector<double> Creature::get_params(LivingBeing* l){
     }
   vector<double> v;
   v.push_back(l->get_size()/this->get_size());
-  int l_t = l->get_type();
   int can_eat_me = 0;
   int can_eat_it = 0;
   Creature* c = dynamic_cast<Creature*>(l);
@@ -456,7 +450,7 @@ vector<double> Creature::get_params(LivingBeing* l){
     }
   v.push_back(can_eat_me);
   v.push_back(can_eat_it);
-  v.push_back((int) (l->family == this->family));
+  v.push_back((int) (l->get_family() == this->family));
   return v;
 }
 
@@ -507,14 +501,14 @@ std::vector<std::tuple<double,LivingBeing*>> Creature::get_closest(int n){
   for (QGraphicsItem* item : close){
       LivingBeing *L = dynamic_cast<LivingBeing*>(item);
       // if item was possible to cast && if they don't have the same coordinates
-      if (L!=nullptr && L->family != this->family){ // doesn't see it's own family (otherwise would just stay there)
-          if(L->family != -1){
-              std::cout << "I see someone (not a plant)" << std::endl;
+
+      if (L!=nullptr && L->get_family() != family){ // doesn't see it's own family (otherwise would just stay there)
+          if(i_eat_plants || L->get_type() != plant){
+            double d = distance(this,L);
+            if(d > 0.001){
+              distances.push_back(d);
+              info_vec.push_back(std::make_tuple(d,L));
             }
-          double d = distance(this,L);
-          if(d > 0.001){
-            distances.push_back(d);
-            info_vec.push_back(std::make_tuple(d,L));
           }
       }
   }
