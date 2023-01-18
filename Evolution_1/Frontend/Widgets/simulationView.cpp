@@ -39,7 +39,10 @@ void SimulationView::init_layout(){
     leftGroupBox->setLayout(layout);
 
     auto btn = new QPushButton(leftGroupBox);
-    btn->setText("Test - Spawn 300 creatures");
+    QString Spawn("Spawn ");
+    QString number(QString::number(initial_number_of_lb));
+    QString LB(" random living beings");
+    btn->setText(Spawn + number + LB);
     connect(btn, &QPushButton::clicked, this, &SimulationView::randomize_scene);
     layout->addWidget(btn);
 
