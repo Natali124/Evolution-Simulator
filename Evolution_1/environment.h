@@ -24,6 +24,14 @@ class Environment : public QGraphicsScene
             }
             //std::cout << event->scenePos().x() << " " << event->scenePos().y() << std::endl;
         }
+        int predators_nb = 0;
+        int preys_nb = 0;
+        int plants_nb = 0;
+
+        int max_predators_nb = 150;
+        int max_preys_nb = 150;
+        int max_plants_nb = 250;
+
     private:
         qreal simulation_step = 7;
         qreal min_step = 0.3, max_step = 10;

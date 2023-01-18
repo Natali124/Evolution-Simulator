@@ -11,8 +11,6 @@
 #include <QGraphicsItem>
 #include "environment.h"
 #include <QRandomGenerator>
-//using namespace std;
-
 
 
 int Creature::n_families = 0;
@@ -110,6 +108,15 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain,
 }
 
 Creature::~Creature() {
+
+    this->scene->removeItem(this);
+    if (get_eat_creature()){
+        this->scene->predators_nb -=1 ;
+    }
+    else {
+        std::cout << "hey" << std::endl;
+        this->scene->preys_nb -= 1;
+    }
   //delete this->brain;
 }
 
@@ -211,13 +218,12 @@ std::vector<LivingBeing*> Creature::get_close(){
 
 
 void Creature::die() {
-
     if (get_counter_no_eat()>250 || (!this->get_alive()) || (this->get_hp() < 0) ) {
         set_alive(false);
-        //here we chose to kill and destroy everything which is dead
-
         //Creature::~Creature();
-    }};
+    }
+
+};
 
 
 
@@ -292,7 +298,6 @@ void Creature::decision(std::vector<double> input_vector,LivingBeing* c){
           } else {
             move_to(c, -_ddistance);
           }
-
 }
 
 
@@ -302,20 +307,38 @@ void Creature::Eat(){
 
     if (get_eat_creature() && repro_factor>=20){
         repro_factor -= 20;
-        if (true){
-            Creature* c = reproduction();
-            this->get_scene()->addItem(c);
+        if (get_eat_creature()){
+            if (this->scene->predators_nb < this->scene->max_predators_nb){
+                Creature* c = reproduction();
+                this->scene->addItem(c);
+                this->scene->predators_nb += 1;
+            }
+        }
+        else {
+            if (this->scene->preys_nb < this->scene->max_preys_nb){
+                Creature* c = reproduction();
+                this->scene->addItem(c);
+                this->scene->preys_nb += 1;
+            }
         }
     }
     else if (repro_factor>=60){
         repro_factor -= 60;
-        if (true){
-            Creature* c = reproduction();
-            this->get_scene()->addItem(c);
+        if (eat_creature){
+            if (this->scene->predators_nb < this->scene->max_predators_nb){
+                Creature* c = reproduction();
+                this->scene->addItem(c);
+                this->scene->predators_nb += 1;
+            }
+        }
+        if (!!eat_creature){
+            if (this->scene->preys_nb < this->scene->max_preys_nb){
+                Creature* c = reproduction();
+                this->scene->addItem(c);
+                this->scene->preys_nb += 1;
+            }
         }
     }
-
-
 
 
 
@@ -412,7 +435,7 @@ void Creature::playstep() {
 
 
     ;} else {
-        delete this;
+        Creature::~Creature();
       }
 };
 

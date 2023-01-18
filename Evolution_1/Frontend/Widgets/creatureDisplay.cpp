@@ -41,14 +41,17 @@ void CreatureDisplay::addRandomDot(){
         aux->set_Max_energy( QRandomGenerator::global()->bounded(256) );
         aux->parameters[Creature::eat_creature] = 0;
         aux->parameters[Creature::eat_plants] = 1;
+        this->environment->preys_nb += 1;
         being = aux;
     } else if(t==4){
         Creature* aux = new Creature(environment);
         aux->parameters[Creature::eat_creature] = 1;
         aux->parameters[Creature::eat_plants] = 0;
+        this->environment->predators_nb += 1;
         being = aux;
     } else{ //for now this isn't possible
         being = new Plant(environment);
+        this->environment->plants_nb += 1;
     }
 
     being->setPos(x, y);

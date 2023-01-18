@@ -7,9 +7,6 @@
 #include <QGraphicsScene>
 #include "mainwindow.h"
 
-int predators_count;
-int preys_count;
-int plant_count;
 
 int main(int argc, char *argv[])
 {

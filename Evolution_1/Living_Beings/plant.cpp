@@ -41,6 +41,7 @@ Plant::Plant(std::map<Enum_parameters, double> parameters, Environment *e): Plan
 }
 
 Plant::~Plant() {
+    this->scene->plants_nb -= 1;
     N_Plants-=1;
 };
 
@@ -109,6 +110,7 @@ void Plant::is_eaten(Creature &c) {
     set_size(get_size() - size_coef );
     double dmg_coef = 0.25*(c.get_hp()/get_hp());
     take_dmg(dmg_coef);
+
 }
 
 
@@ -267,13 +269,14 @@ void Plant::playstep() {    // random values for increasing hp, random weight of
 
 
 
-    repro_factor += ((QRandomGenerator::global()->generate()*250)/N_Plants -1);
+    repro_factor += ((QRandomGenerator::global()->generate()*250)/this->scene->plants_nb -1);
 
     if (repro_factor>=500){
         repro_factor -= 500;
-        if (N_Plants<250 && QRandomGenerator::global()->generateDouble() <0.5){
+        if (this->scene->plants_nb < this->scene->max_plants_nb && QRandomGenerator::global()->generateDouble() <0.5){
             Plant* p = reproduction();
             this->get_scene()->addItem(p);
+            this->scene->plants_nb += 1;
         }
     }
 
