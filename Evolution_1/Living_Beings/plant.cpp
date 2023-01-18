@@ -21,6 +21,7 @@ Plant::Plant():LivingBeing(){
     }
     type = plant;
     this->set_hp(this->get_Max_hp());
+
     }
 
 
@@ -51,7 +52,8 @@ Plant::Plant(double reproduction_rate) {
     type = plant; }
 */
 
-
+void Plant::set_family(int i){};
+int Plant::get_family(){return -1;};
 void Plant::die() {
     if ((!this->get_alive()) || (this->get_hp() <= 0) ) {
 
@@ -267,15 +269,27 @@ void Plant::playstep() {    // random values for increasing hp, random weight of
 
 
 
-    repro_factor += ((QRandomGenerator::global()->generate()*250)/N_Plants -1);
+    repro_factor += max(0.0,((QRandomGenerator::global()->generateDouble()*200)/N_Plants -1)) * 100;
 
     if (repro_factor>=500){
         repro_factor -= 500;
-        if (N_Plants<250 && QRandomGenerator::global()->generateDouble() <0.5){
+        if (N_Plants<200 && QRandomGenerator::global()->generateDouble() <0.6){
             Plant* p = reproduction();
             this->get_scene()->addItem(p);
         }
     }
+    /*
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std:exponential_distribution<double> e(N_Plants/100);
+    repro_factor += (int) (e(gen) * 1000);
+    if (repro_factor>=100){
+        repro_factor -= 100;
+        if (N_Plants<250){
+            Plant* p = reproduction();
+            this->get_scene()->addItem(p);
+        }
+    }*/
 
     increase_alive_time();
     double growing_coef = 0.25 * get_Max_size()/get_size();
@@ -301,7 +315,13 @@ Plant* Plant::reproduction(){
         param_new_plant.insert(std::pair<Enum_parameters, float>(param, val));
     }
     Plant* p = new Plant(param_new_plant, this->get_scene());
-    p->setPos(this->x() + 20*QRandomGenerator::global()->generateDouble(),this->y()+20*QRandomGenerator::global()->generateDouble());
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::normal_distribution<double> d(0, 20);
+    if(d(gen) == d(gen)){
+        std::cout << "Bad random :(" << std::endl;
+      }
+    p->setPos(this->x() + d(gen),this->y()+d(gen));
 
     //(The only moment a plant can use this is when it's borned)
     //PACMAN, when touching a border, the creature is TPed on the other side, however this is not exactly how the border of pacman works... (is is continuous)

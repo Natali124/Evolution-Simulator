@@ -79,7 +79,8 @@ public:
     void allergenic_carbs(Creature &c);// ++ energy, - strength and - eye_sight
     void slimming_protein(Creature &c);//++ strength , - energy and - visibility
     void slimming_carbs(Creature &c);// ++ energy, - strength and - visibility
-
+    int get_family();
+    void set_family(int i);
     QRectF boundingRect() const;
 
 protected:
