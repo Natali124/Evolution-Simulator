@@ -324,14 +324,14 @@ void Creature::Eat(){
     }
     else if (repro_factor>=60){
         repro_factor -= 60;
-        if (eat_creature){
+        if (get_eat_creature()){
             if (this->scene->predators_nb < this->scene->max_predators_nb){
                 Creature* c = reproduction();
                 this->scene->addItem(c);
                 this->scene->predators_nb += 1;
             }
         }
-        if (!!eat_creature){
+        else{
             if (this->scene->preys_nb < this->scene->max_preys_nb){
                 Creature* c = reproduction();
                 this->scene->addItem(c);
