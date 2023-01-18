@@ -16,6 +16,16 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
 
 set(TS_FILES Evolution_1_en_GB.ts)
 
+#python trying
+#find_package(PythonLibs REQUIRED)
+#include_directories(${PYTHON_INCLUDE_DIRS})
+#find_package (Python COMPONENTS Interpreter Development)
+#set(Python_INCLUDE_DIRS "/opt/anaconda3/envs/python37/include/python3.7m")
+#set(Python_LIBRARY "/opt/anaconda3/envs/python37/lib/python3.7")
+
+find_package(PythonLibs REQUIRED)
+include_directories(${PYTHON_INCLUDE_DIRS})
+
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
@@ -38,6 +48,8 @@ set(PROJECT_SOURCES
         Neural_Network/neuron.cpp
         Neural_Network/neuron.hpp
         Neural_Network/utils.cpp
+        Neural_Network/test_python_integration.cpp
+        Neural_Network/test
         Frontend/mouse.h
         Frontend/mouse.cpp
         Frontend/Widgets/simulationViewWidgets.h
@@ -85,6 +97,7 @@ else()
 endif()
 
 target_link_libraries(Evolution_1 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+#target_link_libraries(Evolution_1 PRIVATE Qt${PYTHON_INCLUDE_DIRS})
 
 set_target_properties(Evolution_1 PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

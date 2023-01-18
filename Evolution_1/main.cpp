@@ -6,6 +6,10 @@
 #include <iostream>
 #include <math.h>
 #include <mainwindow.h>
+#include <stdio.h>
+#include <conio.h>
+#include <Python.h>
+
 
 int main(int argc, char *argv[])
 {
@@ -13,6 +17,11 @@ int main(int argc, char *argv[])
     SimulationView menu(new Environment());
     MainWindow w; //start screen window
     w.show();
+
+    Py.Initialize();
+    PyRun_SimpleString("print('hello from python')");
+    Py.Finilize();
+
 
     return a.exec();
 }
