@@ -267,15 +267,27 @@ void Plant::playstep() {    // random values for increasing hp, random weight of
 
 
 
-    repro_factor += ((QRandomGenerator::global()->generate()*250)/N_Plants -1);
+    repro_factor += max(0.0,((QRandomGenerator::global()->generateDouble()*200)/N_Plants -1)) * 75;
 
     if (repro_factor>=500){
         repro_factor -= 500;
-        if (N_Plants<250 && QRandomGenerator::global()->generateDouble() <0.5){
+        if (N_Plants<200 && QRandomGenerator::global()->generateDouble() <0.5){
             Plant* p = reproduction();
             this->get_scene()->addItem(p);
         }
     }
+    /*
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std:exponential_distribution<double> e(N_Plants/100);
+    repro_factor += (int) (e(gen) * 1000);
+    if (repro_factor>=100){
+        repro_factor -= 100;
+        if (N_Plants<250){
+            Plant* p = reproduction();
+            this->get_scene()->addItem(p);
+        }
+    }*/
 
     increase_alive_time();
     double growing_coef = 0.25 * get_Max_size()/get_size();
