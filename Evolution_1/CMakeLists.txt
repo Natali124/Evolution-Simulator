@@ -37,6 +37,8 @@ set(PROJECT_SOURCES
         Neural_Network/network.hpp
         Neural_Network/neuron.cpp
         Neural_Network/neuron.hpp
+        Neural_Network/nn_evolution.cpp
+        Neural_Network/nn_evolution.hpp
         Frontend/mouse.h
         Frontend/mouse.cpp
         Frontend/Widgets/simulationViewWidgets.h

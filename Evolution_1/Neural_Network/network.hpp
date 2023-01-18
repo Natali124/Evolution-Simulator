@@ -3,7 +3,11 @@
 #include <iostream>
 #include <string>
 
+
+void vector_to_file(vector<vector<double>> inpt, string filename);
 #pragma once
+
+
 
 class Network{ //network with 3 layers
 
@@ -23,8 +27,7 @@ public:
     //getters:
     Layer* get_input_layer();
     Layer* get_output_layer();
-
-    std::vector <Layer*> get_hidden_layers();
+    vector <Layer*> get_hidden_layers();
     int size();
 
     //setters:
@@ -40,9 +43,8 @@ public:
     void add_layer(int i, int n_nodes, act_function f_activation);
     void remove_layer();
     void propagate();
-
-    void apply_on_all_edges(std::function<void(Edge&)> edge_function);
-    void apply_on_all_weights(std::function<double(double)> weight_function);
+    void apply_on_all_edges(function<void(Edge&)> edge_function);
+    void apply_on_all_weights(function<double(double)> weight_function);
     Network* copy();
     Layer* operator[](int i);
     Network* reproduce();
@@ -53,10 +55,8 @@ public:
     void print_values();
 
     //Saving
-
-    std::vector<std::vector<double>> network_to_vector();
-    void network_to_file(std::string filename);
-
+    vector<vector<double>> network_to_vector();
+    void network_to_file(string filename);
 
 
 
@@ -65,6 +65,5 @@ private:
     Layer* input_layer;
     vector <Layer*> hidden_layers;
 };
-
 
 
