@@ -96,7 +96,7 @@ public:
     double get_parameter(Enum_parameters p);
     LivingBeing* find_food();
     //in decision we check if there is actually food (bool found_food) before eating
-    void decision(std::vector<double>input_vector); //takes as input vector given by the nn,
+    void decision(std::vector<double>input_vector, LivingBeing* c); //takes as input vector given by the nn, and the closest living being it sees (may be null pointer)
                                               //for given parameters (see .cpp) and takes a decision given the biggest one
     void sleep(int delta_t);//called by decision to decide to sleep for a time delta_t
     void sleep_step();//sleeps for one step : += energy and -= sleep_time
@@ -121,7 +121,7 @@ public:
     std::vector<double> See(int n);
     std::vector<double> See(int n, int i); // Auxilary function for See(int)
 
-
+    vector<double> get_params(LivingBeing* l);
     void move_to(LivingBeing* other, double d);
     std::vector<std::tuple<double,LivingBeing*>> get_closest(int n); // get the closest n things to the creature (distance, size, type, family)
 
@@ -167,8 +167,9 @@ public:
     void normal_distrib_random_edge(Edge& edge);
     std::function<double(double)>normal_distrib_random();
     QRectF boundingRect() const;
-
-
+    bool i_eat_plants;
+    bool i_eat_creatures;
+    double my_size;
 protected:
 
     LivingBeing* closest = nullptr;

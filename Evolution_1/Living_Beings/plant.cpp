@@ -5,7 +5,7 @@
 #include<cmath>
 
 
-
+#include <QRandomGenerator>
 int N_Plants = 0;
 //int number_plants = 0;
 //int number_plants_alive = 0;
@@ -267,11 +267,11 @@ void Plant::playstep() {    // random values for increasing hp, random weight of
 
 
 
-    repro_factor+=rand()%5;
+    repro_factor += ((QRandomGenerator::global()->generate()*250)/N_Plants -1);
 
     if (repro_factor>=500){
         repro_factor -= 500;
-        if (N_Plants<250){
+        if (N_Plants<250 && QRandomGenerator::global()->generateDouble() <0.5){
             Plant* p = reproduction();
             this->get_scene()->addItem(p);
         }
@@ -301,7 +301,7 @@ Plant* Plant::reproduction(){
         param_new_plant.insert(std::pair<Enum_parameters, float>(param, val));
     }
     Plant* p = new Plant(param_new_plant, this->get_scene());
-    p->setPos(this->x() + 200*(double)rand()/(double)(RAND_MAX),this->y()+200*(double)rand()/(double)(RAND_MAX));
+    p->setPos(this->x() + 20*QRandomGenerator::global()->generateDouble(),this->y()+20*QRandomGenerator::global()->generateDouble());
 
     //(The only moment a plant can use this is when it's borned)
     //PACMAN, when touching a border, the creature is TPed on the other side, however this is not exactly how the border of pacman works... (is is continuous)

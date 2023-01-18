@@ -58,6 +58,7 @@ public:
   virtual void advance(int);
 
   int number_of_steps_since_beginning = 0;
+  int family = -1;
 protected:
   int alive_time = 0;
   Environment *scene;
