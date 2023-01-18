@@ -1,7 +1,5 @@
 #include "nn_evolution.hpp"
-#include "network.hpp"
 #include <QRandomGenerator>
-#include <functional>
 
 // Comparison function to sort the vector elements
 // by second element of tuples
@@ -12,7 +10,7 @@ bool sortbysec(tuple<Network*, double> a,
 }
 
 vector<double> want_func(vector<double> in){
-  // default function that the network is supposed to replicate
+  // function that we want to emulate with the neural network
   return in;
 }
 double loss(vector<double> got, vector<double> expected){
@@ -20,16 +18,13 @@ double loss(vector<double> got, vector<double> expected){
   if(got.size() == expected.size()){
     double sum = 0;
     for(int i = 0; i < got.size(); i++){
-        if(expected[i]!= -1){
-           // -1 if value is not important / 0 loss
-          sum += pow(expected[i]-got[i],2);
-        }
+      sum += pow(expected[i]-got[i],2);
       }
     //cout << sum << endl;
     return sum;
    }
-}
 
+}
 double get_loss(Network* nn, vector<double> input, vector<double> expected){
   // get loss of a network for a given input and expected vector
   return loss(nn->propagate(input),expected);
@@ -47,7 +42,7 @@ vector<vector<double>> get_random_vectors(int n_vectors, int size_vectors){
   return inputs;
 }
 
-double do_step(vector<Network*> &networks, int n, int tests,  double r, int n_in, int n_out, function<vector<double>(vector<double>)> test_function){
+double do_step(vector<Network*> &networks, int n, int tests,  double r, int n_in, int n_out){
   // Do one step of the evolution, return average loss
 
   // initializing network dictionary with loss
@@ -60,7 +55,7 @@ double do_step(vector<Network*> &networks, int n, int tests,  double r, int n_in
   vector<vector<double>> inputs = get_random_vectors(tests,n_in);
   vector<vector<double>> expecteds = vector<vector<double>>(tests);
   for (int i = 0; i < tests; i++ ) {
-    expecteds[i] = test_function(inputs[i]);
+    expecteds[i] = want_func(inputs[i]);
     }
 
   // getting loss for every test
@@ -109,7 +104,7 @@ double do_step(vector<Network*> &networks, int n, int tests,  double r, int n_in
    return avg_loss;
 }
 
-void run_evolution(int n, double r, double tests, int n_in, int n_out, int n_gen, int print_every, int n_hidden_layers, int n_neurons_in_hidden, std::function<vector<double>(vector<double>)> test_function){
+void run_evolution(int n, double r, double tests, int n_in, int n_out, int n_gen, int print_every){
 //  int n = 100; // number of networks
 //  double r = 10; // number of children per network
 //  double tests = 10; // number of test vectors per generation
@@ -117,34 +112,13 @@ void run_evolution(int n, double r, double tests, int n_in, int n_out, int n_gen
 //  int n_out = n_in; // size of output vectors (has to coincide with output of want_func!)
 //  int n_gen = 1000; // number of generations
 //  int print_every = 10; // prints average loss of generation every print_every-th generation
-//  int n_hidden_layers = 1; // number of hidden layers in network
-//  int n_neurons_in_hidden = 5; //number of neurons in each hidden layer
-//  std::function<vector<double>(vector<double>)> test_function // test (goal) function -> has to take input of size n_in and give output of size n_out, puts -1 in output neurons if value can be arbitrary
-
-  // Check if function works with correct arguments:
-  vector<vector<double>> test_vectors = get_random_vectors(10,n_in);
-  for (vector<double> vector : test_vectors) {
-      try {
-        std::vector<double> out = test_function(vector);
-        if(out.size() != n_out){
-          std::cout << "test_function gives output of size " << out.size() << " instead of expected size " << n_out<< std::endl;
-          throw std::invalid_argument("test_function gives output of size: " + to_string(out.size()) + " instead of expected size: " + to_string(n_out));
-          }
-      } catch (...) {
-          throw std::invalid_argument("test_function does not compile or has incorrect output size");;
-      }
-
-    }
-
-  // initialize n random networks
   vector<Network*> networks = vector<Network*>(0);
   for (int i = 0; i < n; ++i) {
-      networks.push_back(new Network(n_in,n_out,n_hidden_layers,n_neurons_in_hidden));
+      networks.push_back(new Network(n_in,n_out,2,7));
     }
 
-  // run evolution
   for (int gen = 0; gen < n_gen; ++gen) {
-      double avg_loss = do_step(networks,n,tests,r,n_in,n_out, test_function);
+      double avg_loss = do_step(networks,n,tests,r,n_in,n_out);
       if(gen % print_every == 0){
       cout << "Generation " << gen << ": Avg. Loss = " << avg_loss << endl;
         }

@@ -5,39 +5,11 @@
 #include <iostream>
 #include <math.h>
 #include <QGraphicsScene>
-#include "Neural_Network/nn_evolution.hpp"
-#include <QRandomGenerator>
+#include "mainwindow.h"
 
-
-const double _my_size = 0.2;
-vector<double> test_function(vector<double> in){
-    // test function, assumes n_in to be 3 (size, can_eat_me, can_eat_it) and n_out to be 1 (>0.5 = move towards /  < 0.5 = move away)
-    double size = in[0];
-    double can_eat_me = in[1];
-    double can_eat_it = in[2];
-    //cout << "in: ["<< size << "," << can_eat_me << "," << can_eat_it << "]"<< endl;
-    if(size == -1){
-        return {-1};
-      }
-    if(can_eat_me > 0.5){
-      if(can_eat_it > 0.5){
-          return {double (_my_size > size)};
-        } else {
-          return {0};
-        }
-      } else {
-        if(can_eat_it > 0.5){
-            if(double (4*_my_size > size)){
-                return {1};
-              } else {
-                return {-1};
-              }
-          } else {
-            return {-1};
-          }
-      }
-}
-
+int predators_count;
+int preys_count;
+int plant_count;
 
 int main(int argc, char *argv[])
 {

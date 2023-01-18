@@ -150,26 +150,15 @@ vector<double> Layer::layer_to_vector(){
 /* Each layer will be saved as follows: for each edge, the weght and the activation is stored.
  The last number of the vector is the activation function*/
     vector<double> output(0);
-    int n = neurons.size();
-    output.push_back(n);
-
     for(Neuron* neuron: neurons){
         for(Edge* edge: neuron->get_next_edges()){
-            output.push_back(round(edge->get_weight()*100));
+            output.push_back(edge->get_weight());
+
             if (edge->get_activation()){
              output.push_back(0);}
             else{
                 output.push_back(1);}}}
-    Neuron* neuron = bias_neuron;
-    for(Edge* edge: neuron->get_next_edges()){
-        output.push_back(round(edge->get_weight()*100));
-        if (edge->get_activation()){
-         output.push_back(0);}
-        else{
-            output.push_back(1);}}
-
-    output.push_back(f_activation_name);
-    return output;}
+    output.push_back(f_activation_name);}
 
 
 
@@ -184,6 +173,7 @@ Layer::~Layer(){
 // define activation functions, same name as in enum act_function, but all lowercase
 double sigmoid(double x){return 1/(pow(M_E, -x) + 1);};
 double relu(double x){return fmax(0, x);};
+double sigmoid2(double x){return (1/(pow(M_E, -x) + 1)) * 2 - 1;};
 
 // map (=dictionary) to get specific function from enum
 map<act_function,function<double(double)>> get_f_activation_from_name = {{Sigmoid,&sigmoid},{ReLu,&relu}};

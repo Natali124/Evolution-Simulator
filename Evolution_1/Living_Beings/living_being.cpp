@@ -62,8 +62,6 @@ void LivingBeing::set_alive(bool b) {this->alive = b;};
 
 
 
-
-
 LivingBeing* LivingBeing::reproduction(){return nullptr;};
 
 void LivingBeing::is_eaten(LivingBeing &c){};
@@ -75,5 +73,3 @@ void LivingBeing::set_hp(double h){};
 void LivingBeing::set_scene(Environment *s){scene=s;};
 Environment* LivingBeing::get_scene() const {return scene;};
 
-void LivingBeing::set_family(int fam){};
-int LivingBeing::get_family(){return -1;};

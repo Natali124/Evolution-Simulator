@@ -13,43 +13,16 @@
 #include <QRandomGenerator>
 //using namespace std;
 
-const int repro_cost_predator = 80;// cost of reproduction of predators (20 = 1x food)
-const int repro_cost_prey = 40; // cost of reproduction of predators (20 = 1x food)
-const double seeing_rect = 500; // size of rectangle in which creatures see
-const int repro_cool_down = 50; // how many steps between reproductions
-const double _predator_speed_bonus = -0.5; // gives predators 50% more speed
-const float _ddistance = 2; //base value of the change of the distance
+
 
 int Creature::n_families = 0;
 
-// not used right now
 bool Show_Sight = false;
 const float _dtheta = 20; //base value of the change of rotation - to set maximal rotation range to 10 degrees
+const float _ddistance = 2; //base value of the change of the distance - maximal value of move is 2
 const float _ener_rotcoeff = 0.2; //base value for energy consumption while rotating
 const float _ener_movecoeff = 0.5; //base value for energy consumption while moving
 const float _sizecoeff = 0.1; //base value for energy punishment connected with the size;
-
-
-void Creature::stay_in_bounds(){
-  //PACMAN, when touching a border, the creature is Teleported to the other side
-  if (this->x()<0){
-      setX(500+x());
-      setY(500-y());
-  }
-  if (this->y()<0){
-      setX(500-x());
-      setY(500+y());
-  }
-  if (this->x()>500){
-      setX(500-x());
-      setY(500-y());
-  }
-  if (this->y()>500){
-      setX(500-x());
-      setY(500-y());
-
-  }
-}
 
 
 Creature::Creature(bool newfamily):LivingBeing() {
@@ -88,7 +61,7 @@ Creature::Creature(bool newfamily):LivingBeing() {
     }
 
     //For the input: each vision ray has 3 outputs; then we have 2 times 8 attributes taken into account (at turn t and t-dt); and then two memory variables
-    Network* n = new Network(4, 1, 1, 4);
+    Network* n = new Network(3, 1, 1, 2);
     this->brain = n;
 
 
@@ -185,9 +158,15 @@ Creature* Creature::reproduction() {
     param_new_creature[eat_creature]=parameters[eat_creature];
     param_new_creature[eat_plants]=parameters[eat_plants];
 
-    // Reproduce current brain
-    Network* new_brain = brain->reproduce();
 
+    //Copy of current brain
+    Network* new_brain = brain->copy();
+
+
+
+    //Network new_brain = network(old brain);
+    // modify this function when we can create new networks with inputs
+    new_brain->apply_on_all_weights(normal_distrib_random());
     Creature* C= new Creature(param_new_creature, new_brain, this->get_scene());
     C->i_eat_creatures = this->i_eat_creatures;
     C->i_eat_plants = this->i_eat_plants;
@@ -195,7 +174,7 @@ Creature* Creature::reproduction() {
     C->set_scene(this->get_scene());
     C->setPos(x(), y());
     C->setRotation(rotation());
-    C->move(5, 5); //So that they aren't both exactly at the same place, and wont stay at the same position and do the same things
+    C->move(10, 10); //So that they aren't both exactly at the same place, and wont stay at the same position and do the same things
 
     C->set_family(this->get_family());
     return C;
@@ -232,19 +211,12 @@ std::vector<LivingBeing*> Creature::get_close(){
 
 
 void Creature::die() {
-    bool starved = false; // see if starved to death (random)
 
-    // probability of starving after not eating for s steps, for s=0: approx. 0, for s = 400: approx 0.5, for s = 800: approx 1, follows sigmoid function
-    double x = ((get_counter_no_eat()/40) -10);
-    x = 1/(pow(M_E, -x) + 1);
-    double p = QRandomGenerator::global()->generateDouble();
-    if(p < x){
-        starved = true;
-      }
-
-    if (starved|| (!this->get_alive()) || (this->get_hp() < 0) ) {
-        // actually die
+    if (get_counter_no_eat()>250 || (!this->get_alive()) || (this->get_hp() < 0) ) {
         set_alive(false);
+        //here we chose to kill and destroy everything which is dead
+
+        //Creature::~Creature();
     }};
 
 
@@ -292,82 +264,89 @@ void Creature::bound_energy_hp() {
         set_hp(get_Max_hp());}
 }
 
-void Creature::try_reproduce(){
-    // reproduces if possible
+std::function<double(double)> Creature::normal_distrib_random(){ return [](double weight){
+    //takes an weight of an edge and has a 10% percent chance to modify the weight according to the normal distribuition.
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std:exponential_distribution<double> e(4);
 
-    if(counter_no_reproduction <repro_cool_down){
-        // if still in cooldown, return
-        return;}
-    // check if can reproduce
-    bool reproduce = false;
-    if (get_eat_creature() && repro_factor>=repro_cost_predator){
-          repro_factor -= repro_cost_predator;
-          reproduce = true;
-      }
-     else if (repro_factor>=repro_cost_prey){
-          repro_factor -= repro_cost_prey;
-          reproduce = true;
-      }
+    double p_cut_off = e(gen);
+    double p =QRandomGenerator::global()->generateDouble();
+    if (p < p_cut_off){
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::normal_distribution<double> d(weight, 10);
+        weight = d(gen);
+    }
+    return weight;
+};}
 
 
-    // actually reproduce, if possible
-    if(reproduce){
-        Creature* c = this->reproduction();
-        this->get_scene()->addItem(c);
-        counter_no_reproduction = 0;
-      }
-}
-
+//input_vector : (rotation, distance)
 
 void Creature::decision(std::vector<double> input_vector,LivingBeing* c){
-        // takes action based on decision vector
 
         double towards = input_vector[0];
-        double speed = _ddistance *(1 + _predator_speed_bonus* (int)(i_eat_creatures));
         if(towards > 0.5){
-            move_to(c,speed);
+            move_to(c,_ddistance);
           } else {
-            move_to(c,-speed);
+            move_to(c, -_ddistance);
           }
 
 }
 
+
+//This is what we'll b e using to eat whatever the LB is touching and can eat
 void Creature::Eat(){
-    // Determines what happens when creatures collide
     QList<QGraphicsItem*> list = get_scene()->collidingItems(this);
 
+    if (get_eat_creature() && repro_factor>=20){
+        repro_factor -= 20;
+        if (true){
+            Creature* c = reproduction();
+            this->get_scene()->addItem(c);
+        }
+    }
+    else if (repro_factor>=60){
+        repro_factor -= 60;
+        if (true){
+            Creature* c = reproduction();
+            this->get_scene()->addItem(c);
+        }
+    }
+
+
+
+
+
     foreach(QGraphicsItem* i , list){
+
         Plant *j = dynamic_cast<Plant*>(i);
         Creature *k = dynamic_cast<Creature*>(i);
         bool ate = false;
         if (j != nullptr && this->get_eat_plants()){
-            // j is plant and this can eat plants
-            ate = true;
-            j->set_alive(false);
-            j->die();
+          ate = true;
+          j->set_alive(false);
+          j->die();
         }
         if ( k != nullptr && this->get_eat_creature()){
-            // if this is a predator and k is a creature
 
-            if(k->get_eat_creature()){ // if creature k is a predator
+            if(k->get_eat_creature()){
                 if( k->family == this->family){
-                    // if same family, nothing happens (no cannibalism)
                    return;
                   }
-
                 if (k->get_size() <= this->get_size()){
-                    // this wins and eats k
                     ate = true;
                     k->set_alive(false);
                     k->die();
                 } else {
-                    // creature k wins and eats this
                     this->set_alive(false);
+                    //k->set_energy(get_Max_energy());
                     k->repro_factor += 20;
                     k->set_counter_no_eat(0);
                     die();
                   }
-              } else { // creature k is a prey
+              } else {
                 double r = (double) QRandomGenerator::global()->generateDouble();
                 r*=4;//Creature can at most eat something 4 times bigger
                 if (r>(k->get_size())/(get_size())){
@@ -378,7 +357,8 @@ void Creature::Eat(){
               }
         }
         if(ate ){
-          repro_factor+=20; //increase reproduction factor (can only reproduce if eats)
+          //set_energy(get_Max_energy());
+          repro_factor+=20;
           set_counter_no_eat(0);
           }
     }
@@ -388,70 +368,82 @@ void Creature::Eat(){
 
 
 void Creature::playstep() {
-    this->stay_in_bounds(); // make sure we stay in borders
 
+    //PACMAN, when touching a border, the creature is TPed on the other side, however this is not exactly how the border of pacman works... (is is continuous)
+    if (this->x()<0){
+        setX(500+x());
+        setY(500-y());
+    }
+    if (this->y()<0){
+        setX(500-x());
+        setY(500+y());
+    }
+    if (this->x()>500){
+        setX(500-x());
+        setY(500-y());
+    }
+    if (this->y()>500){
+        setX(500-x());
+        setY(500-y());
+
+    }
+
+
+
+    increase_alive_time();
     die();   // actually dies only if it should (alive and hp<=0)
 
+
     if (get_alive()){
-        try_reproduce(); // reproduce if possible
+
         //bouding energy and hp to the max bcse in case of modifications in the previous playstep
         bound_energy_hp();
-
-        // get closest being (for now only very closest one)
         LivingBeing*  closest_being = std::get<LivingBeing*>(get_closest(1)[0]);
 
         std::vector<double> Input =get_params(closest_being);
 
-        // get decision_vector from brain
+        //std::cout<<"input vector:  ";
+        //Other::Cout_Vector(Input);
         std::vector<double> decision_vector = brain->propagate(Input);
 
-        counter_no_reproduction++;
-        repro_factor = max(0.0, repro_factor-4); // lose some reproduction factor
-        decision(decision_vector, closest_being); // take decision with regards to closest being
+        decision(decision_vector, closest_being);
         set_counter_no_eat(get_counter_no_eat()+1);
-        Eat(); // if colliding with something, eat or die
+        Eat();
+
+
     ;} else {
-        delete this; // deletes itself if dead
+        delete this;
       }
 };
 
 vector<double> Creature::get_params(LivingBeing* l){
-  // turn Living being into paramter for neural network
-  // (size coefficient [1/200,200], can_eat_me {0,1}, can_eat_it {0,1}, same_family {0,1})
   if (l== nullptr){
-      // if no living being, fill vector with -1
-      return {-1,-1,-1,-1};
+      return {-1,-1,-1};
     }
-  vector<double> v; // vector to store parameters
-
-  v.push_back(l->get_size()/this->get_size()); // quotient of sizes (<1 -> this creature is bigger than l)
-
-  int can_eat_me = 0; // 1 if l can eat this
-  int can_eat_it = 0; // 1 if this can eat l
-  Creature* c = dynamic_cast<Creature*>(l);
-  if(c!= nullptr){
+  vector<double> v;
+  v.push_back(l->get_size());
+  int l_t = l->get_type();
+  int my_t = this->get_type();
+  int can_eat_me = 0;
+  int can_eat_it = 0;
+  if(l_t == 2){
       //if l_t is creature
+      Creature* c = dynamic_cast<Creature*>(l);
       can_eat_me = (int) c->get_eat_creature();
       can_eat_it = (int) this->get_eat_creature();
     } else {
       can_eat_it = (int) this->get_eat_plants();
     }
-
-  // add the parameters
   v.push_back(can_eat_me);
   v.push_back(can_eat_it);
-
-  v.push_back((int) (l->get_family() == this->family)); // 1 if same family -> always 0 right now, as blind to own family members
   return v;
 }
 
 
 double distance(double ax, double ay, double bx, double by){
-  // distance between points (ax, ay) and (bx,by)
   return (double) sqrt((ax-bx)*(ax-bx) + (ay-by)*(ay-by));
 }
 double distance(LivingBeing* a, LivingBeing* b){
-  // distance between Living beings a and b
   float ax = a->x();
   float ay = a->y();
   float bx = b->x();
@@ -461,11 +453,13 @@ double distance(LivingBeing* a, LivingBeing* b){
 
 
 void Creature::move_to(LivingBeing* other, double d){
-  // move the distance d towards the living being "other"
+
+  if(dynamic_cast<Plant*>(other) != nullptr){
+      //std::cout<<"I move to a plant!" << std::endl;
+    }
   double x = this->x(); double y = this->y();
   double ox; double oy;
   if(other == nullptr){
-      // if no target is given, move randomly
       ox = 1000*QRandomGenerator::global()->generateDouble();
       oy = 1000*QRandomGenerator::global()->generateDouble();
     } else {
@@ -474,13 +468,15 @@ void Creature::move_to(LivingBeing* other, double d){
   double r = distance(x,y,ox,oy);
   setX(x + (d/r)*(ox-x) );
   setY(y + (d/r)*(oy-y) );
-  this->stay_in_bounds();
+  float s = this->size;
+  float current_energy = get_energy();
+  current_energy -= _ener_movecoeff * abs(d) * _sizecoeff * s * s; //change of energy depends on rotation, distance travelled and size squared to punish too big animals
+  set_energy(current_energy);
 }
 
 std::vector<std::tuple<double,LivingBeing*>> Creature::get_closest(int n){
-  // returns the n closest living being seen (predators don't see plants, everyone is blind to their own family)
   std::vector<std::tuple<double,LivingBeing*>> info_vec;
-  double w = seeing_rect; double h = seeing_rect;
+  double w = 1000; double h = 1000;
   QRectF bounding_rect(this->x() -  w/2, this->y() - h/2, w, h); //creates a bounding rect around the creature
   QList<QGraphicsItem*> close = this->get_scene()->items(bounding_rect); //creates list close of colliding items
 
@@ -489,14 +485,11 @@ std::vector<std::tuple<double,LivingBeing*>> Creature::get_closest(int n){
   for (QGraphicsItem* item : close){
       LivingBeing *L = dynamic_cast<LivingBeing*>(item);
       // if item was possible to cast && if they don't have the same coordinates
-
-      if (L!=nullptr && L->get_family() != family){ // doesn't see it's own family (otherwise would just stay there)
-          if(i_eat_plants || L->get_type() != plant){
-            double d = distance(this,L);
-            if(d > 0.001){
-              distances.push_back(d);
-              info_vec.push_back(std::make_tuple(d,L));
-            }
+      if (L!=nullptr && L->family != this->family){
+          double d = distance(this,L);
+          if(d > 0.001){
+            distances.push_back(d);
+            info_vec.push_back(std::make_tuple(d,L));
           }
       }
   }
@@ -524,6 +517,101 @@ std::vector<std::tuple<double,LivingBeing*>> Creature::get_closest(int n){
   return return_vector;
 
 }
+
+//Vision is simulated using multiple rays which will start from the creature trying to see an go on multiple direction.
+//The see function will return a vector of size 3*n containing the distance, the size and hp of the first living_being (only distance for non_living beings) that ta ray collide with.
+std::vector<double> Creature::See(int n){
+    std::vector<double> v; //Here we'll get all the output, It will be of size n
+
+    for (int i=0; i<n; i++){
+        std::vector<double> v2 = this->See(n, i);
+        for (std::vector<double>::iterator j=v2.begin(); j!=v2.end(); j++){
+            v.push_back(*j);
+        }
+    }
+    return v;
+}
+
+//This is an auxiliar function of the See(int) function
+std::vector<double> Creature::See(int n, int i){
+    // return a distance score with 0 meaning really close and 256 meaning nothing seen (see only the closest object)
+
+    std::vector<double> v;
+    double r=-1;
+    double teta = ((i)*2*3.14)/(n) + this->rotation()*(3.14/180);
+
+
+    //lenght is vision
+    QGraphicsLineItem*  Ray = new QGraphicsLineItem(0, 0, this->get_eye_sight() * cos(teta), this->get_eye_sight() * sin(teta));
+
+    QList<QGraphicsItem*> list = get_scene()->collidingItems(Ray);
+
+    LivingBeing* last_seen  = nullptr;
+    foreach(QGraphicsItem* i , list)
+    {
+        double* R = new double(pow(pow(i->x(), 2) + pow(i->y(), 2), 0.5));
+        if (r == -1 || *R <r){
+            r = *R;
+            last_seen = dynamic_cast<LivingBeing*>(i);;
+        }
+        delete R;
+    }
+    delete Ray;
+
+    //We rescall r for easier learning:
+    if (r ==-1){
+        r = this->get_eye_sight()+1;
+    }
+
+    //first is the distance
+    v.push_back(r);
+    //we'll then try a dynamic cast to know what we add after:
+    if (last_seen==nullptr){
+        v.push_back(-1);
+        v.push_back(-1);
+        return v;
+    }
+
+    //we then add size:
+    v.push_back(last_seen->get_size());
+
+
+    //we then add type:
+    Plant* j = dynamic_cast<Plant*>(last_seen);
+    if (j!= nullptr){
+        v.push_back(1);
+    }
+    else{
+        Creature* j = dynamic_cast<Creature*>(last_seen);
+        if (j!= nullptr){
+            v.push_back(2);
+        }
+        else{
+            v.push_back(3);
+        }
+    }
+
+    return v;
+}
+
+
+
+//move function first moves the creature by the distance with respect to angle getrotation from qtgraphicsitem
+//then changes the rotation (so rotation applies only for next movements)
+void Creature::move(double rotation, double distance){
+    setRotation(this->rotation() + rotation * _dtheta);
+    float w = get_scene()->width();
+    float h = get_scene()->height();
+
+    setX(fmod(this->x() + (distance*_ddistance) * cos(this->rotation()*M_PI/180 - M_PI/2),w));
+    setY(fmod(this->y() + (distance*_ddistance) * sin(this->rotation()*M_PI/180 - M_PI/2),h));
+
+    float s = this->size;
+    float current_energy = get_energy();
+    current_energy -= (_ener_rotcoeff * rotation + _ener_movecoeff * distance) * _sizecoeff * s * s; //change of energy depends on rotation, distance travelled and size squared to punish too big animals
+    set_energy(current_energy);
+}
+
 
 QRectF Creature::boundingRect() const
 {
