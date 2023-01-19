@@ -50,6 +50,7 @@ set(PROJECT_SOURCES
         Neural_Network/utils.cpp
         Neural_Network/test_python_integration.cpp
         Neural_Network/test
+        results.txt
         Frontend/mouse.h
         Frontend/mouse.cpp
         Frontend/Widgets/simulationViewWidgets.h
