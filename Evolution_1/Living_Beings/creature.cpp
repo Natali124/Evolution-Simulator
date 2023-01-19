@@ -23,7 +23,6 @@ int Creature::n_families = 0;
 
 bool Show_Sight = false;
 const float _dtheta = 20; //base value of the change of rotation - to set maximal rotation range to 10 degrees
-const float _ddistance = 2; //base value of the change of the distance - maximal value of move is 2
 const float _ener_rotcoeff = 0.2; //base value for energy consumption while rotating
 const float _ener_movecoeff = 0.5; //base value for energy consumption while moving
 const float _sizecoeff = 0.1; //base value for energy punishment connected with the size;
