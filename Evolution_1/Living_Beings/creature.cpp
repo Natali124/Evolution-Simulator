@@ -23,7 +23,7 @@ bool Show_Sight = false;
 Creature::Creature():LivingBeing() {
 
     //we need a way to differenciate animals and plants
-    color = QColorConstants::DarkGray;
+    color = QColorConstants::DarkGray; //Not used
     // in the iteration param refers to an int into Enum_parameters (which does not include the value last)
     for (Enum_parameters param = (Enum_parameters)0 ; param != last; param=(Enum_parameters)(param+1)) {
         double val = abs(1+(double)rand()/(double)(RAND_MAX)*200); // val is the random value that we will assign to val
@@ -147,7 +147,7 @@ void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 
     if(!get_eat_creature()){
         // Body
-        painter->setBrush(QColor(std::min((int)get_Max_energy(), (int)255), 0, 0, 255)); //for now make it redder the more energy it can have
+        painter->setBrush(QColor(get_energy()/get_Max_energy()*255, (get_hp()/get_Max_hp())*255, 0, 255)); //for now make it redder the more energy it can have
         painter->drawEllipse(-10*K, -20*K, 20*K, 40*K);
 
         // Eyes
@@ -164,7 +164,7 @@ void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         painter->drawEllipse(QRectF(4.0*K, -17*K, 4*K, 4*K));
 
         // Ears
-        painter->setBrush(get_scene()->collidingItems(this).isEmpty() ? Qt::darkYellow : Qt::red);
+        painter->setBrush(Qt::darkYellow);
         painter->drawEllipse(-17*K, -12*K, 16*K, 16*K);
         painter->drawEllipse(1*K, -12*K, 16*K, 16*K);
 
@@ -176,7 +176,7 @@ void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         painter->setBrush(Qt::NoBrush);
         painter->drawPath(path);
     } else {
-        painter->setBrush(Qt::gray);
+        painter->setBrush(QColor(get_energy()/get_Max_energy()*255, (get_hp()/get_Max_hp())*255, 0, 255));
         painter->drawEllipse(QRectF(-12*K,-12*K,24*K,24*K));
         painter->setBrush(Qt::black);
         painter->drawEllipse(QRectF(-10*K,-10*K,7*K,7*K));
@@ -473,7 +473,7 @@ void Creature::Eat(){
         if (this->get_eat_creature() && k != nullptr && (!k->get_eat_creature())){
             if (k->get_alive_time()>50){
                 double r = (double)rand()/(double)RAND_MAX;
-                r*=4;//Creature can at most eat something 4 times bigger
+                r*=5;//Creature can at most eat something 5 times bigger
                 if (r>(k->get_size())/(get_size())){
                     k->set_hp(-1);
                     k->die();
@@ -594,7 +594,7 @@ void Creature::check_if_lack() {
         //set_physical_strength(0.95*get_physical_strength());
         //set_energy(0.95*get_energy());
     }
-    else if (get_counter_no_eat()>=2500 && !get_eat_creature()) {
+    else if (get_counter_no_eat()>=1500) {
         set_hp(get_hp()-get_Max_hp()/100);
 
         //set_physical_strength(0.95*get_physical_strength());
@@ -742,7 +742,10 @@ std::vector<double> Creature::See(int n, int i){
 
 
     //lenght is vision
-    QGraphicsLineItem*  Ray = new QGraphicsLineItem(0, 0, this->get_eye_sight() * cos(teta), this->get_eye_sight() * sin(teta));
+    //QGraphicsLineItem*  Ray = new QGraphicsLineItem(0, 0, this->get_eye_sight() * cos(teta), this->get_eye_sight() * sin(teta));
+    QGraphicsRectItem*  Ray = new QGraphicsRectItem(0, 0, 1, get_eye_sight()/2); //This will help to always have collisions between rays and some creture close in front
+    Ray->setRotation(teta);
+
 
     QList<QGraphicsItem*> list = get_scene()->collidingItems(Ray);
 
@@ -767,8 +770,8 @@ std::vector<double> Creature::See(int n, int i){
     v.push_back(r);
     //we'll then try a dynamic cast to know what we add after:
     if (last_seen==nullptr){
-        v.push_back(-1);
-        v.push_back(-1);
+        v.push_back(0);
+        v.push_back(0);
         return v;
     }
 
@@ -779,15 +782,15 @@ std::vector<double> Creature::See(int n, int i){
     //we then add type:
     Plant* j = dynamic_cast<Plant*>(last_seen);
     if (j!= nullptr){
-        v.push_back(1);
+        v.push_back(-100);
     }
     else{
         Creature* j = dynamic_cast<Creature*>(last_seen);
         if (j!= nullptr){
-            v.push_back(2);
+            v.push_back(100);
         }
         else{
-            v.push_back(3);
+            v.push_back(200);
         }
     }
 
@@ -801,8 +804,8 @@ std::vector<double> Creature::See(int n, int i){
 const float _dtheta = 20; //base value of the change of rotation - to set maximal rotation range to 10 degrees
 const float _ddistance = 2; //base value of the change of the distance - maximal value of move is 2
 const float _ener_rotcoeff = 0.2; //base value for energy consumption while rotating
-const float _ener_movecoeff = 0.5; //base value for energy consumption while moving
-const float _sizecoeff = 0.1; //base value for energy punishment connected with the size;
+const float _ener_movecoeff = 0.05; //base value for energy consumption while moving
+const float _sizecoeff = 0.01; //base value for energy punishment connected with the size;
 //move function first moves the creature by the distance with respect to angle getrotation from qtgraphicsitem
 //then changes the rotation (so rotation applies only for next movements)
 void Creature::move(double rotation, double distance){
@@ -810,12 +813,12 @@ void Creature::move(double rotation, double distance){
     float w = get_scene()->width();
     float h = get_scene()->height();
 
-    setX(fmod(this->x() + (distance*_ddistance) * cos(this->rotation()*M_PI/180 - M_PI/2),w));
-    setY(fmod(this->y() + (distance*_ddistance) * sin(this->rotation()*M_PI/180 - M_PI/2),h));
+    setX(fmod(this->x() + (distance*_ddistance) * cos(this->rotation()*M_PI/180 + M_PI/2),w));
+    setY(fmod(this->y() + (distance*_ddistance) * sin(this->rotation()*M_PI/180 + M_PI/2),h));
 
     float s = this->size;
     float current_energy = get_energy();
-    current_energy -= (_ener_rotcoeff * rotation + _ener_movecoeff * distance) * _sizecoeff * s * s; //change of energy depends on rotation, distance travelled and size squared to punish too big animals
+    current_energy -= (_ener_rotcoeff * abs(rotation) + _ener_movecoeff * abs(distance)) * _sizecoeff * s * s; //change of energy depends on rotation, distance travelled and size squared to punish too big animals
     set_energy(current_energy);
 }
 
@@ -837,3 +840,20 @@ QRectF Creature::boundingRect() const
                   (36 + adjust)*get_size()/200, (60 + adjust)*get_size()/200);
 }
 
+
+
+QString Creature::name_param(Creature::Enum_parameters param)
+{
+    switch(param)
+    {
+        case physical_strength: return "Physical Strength";
+        case Max_energy: return "Maximum Energy";
+        case eye_sight: return "Eye Sight";
+        case visibility: return "Visibility";
+        case eat_creature: return "Eat Creature";
+        case eat_plants: return "Eat Plants";
+        case Max_hp: return "Maximum HP";
+        case size: return "Size";
+        case last: return "";
+    }
+}
