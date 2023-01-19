@@ -15,6 +15,7 @@ class SimulationView : public QMainWindow{
             display.environment->clear();
             for(int i = 0; i < 20; i ++)
                 display.addRandomDot();
+            emit environment->updated();
         }
         virtual void resizeEvent(QResizeEvent*);
         Environment* environment;
@@ -24,7 +25,9 @@ class SimulationView : public QMainWindow{
         CreatureDisplay display;
         void setBackgroundImage(QString filePath);
         void init_layout();
-
+        void openNewWindow();
+        void openNewWindow2();
+        void openNewWindow3();
         void stretchBackground();
         void fitDisplay();
 };

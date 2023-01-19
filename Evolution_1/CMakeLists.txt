@@ -53,6 +53,9 @@ set(PROJECT_SOURCES
         Frontend/Widgets/environmentTimer.cpp
         Frontend/Widgets/statView.h
         Frontend/Widgets/statView.cpp
+        barrier.h barrier.cpp
+        Frontend/startscreen.h Frontend/startscreen.cpp Frontend/startscreen.ui
+        Frontend/startscreen/propertyslider.h Frontend/startscreen/propertyslider.cpp Frontend/startscreen/propertyslider.ui
         ${TS_FILES}
 )
 

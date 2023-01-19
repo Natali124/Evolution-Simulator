@@ -1,3 +1,4 @@
+#include "Frontend/Widgets/statView.h"
 #include "Frontend/resources.h"
 #include "simulationViewWidgets.h"
 #include "Frontend/Widgets/simulationView.h"
@@ -34,7 +35,10 @@ void SimulationView::setBackgroundImage(QString filePath){
 void SimulationView::init_layout(){
 
     //left half
-    auto leftGroupBox = new QGroupBox("Control Panel");
+    auto left_widget = new QWidget(this);
+    auto left_layout = new QVBoxLayout;
+
+    auto leftGroupBox = new QGroupBox("Control Panel", left_widget);
     auto layout = new QVBoxLayout;
     leftGroupBox->setLayout(layout);
 
@@ -46,11 +50,32 @@ void SimulationView::init_layout(){
     auto slider = new SimulationSpeedSlider(&timer, leftGroupBox);
     layout->addWidget(slider);
 
+    auto add_omn = new QPushButton(leftGroupBox);
+    add_omn->setText("Add Omnivorous Creature");
+    connect(add_omn, &QPushButton::clicked, this, &SimulationView::openNewWindow);
+    auto add_herb = new QPushButton(leftGroupBox);
+    add_herb->setText("Add Herbivorous Creature");
+    connect(add_herb, &QPushButton::clicked, this, &SimulationView::openNewWindow2);
+    auto add_plant = new QPushButton(leftGroupBox);
+    add_plant->setText("Add Plant");
+    connect(add_plant, &QPushButton::clicked, this, &SimulationView::openNewWindow3);
+
+    layout->addWidget(add_omn);
+    layout->addWidget(add_herb);
+    layout->addWidget(add_plant);
+
+
+
+    auto being_counter = new ParameterDisplay("Number of beings:", environment, &Environment::nr_beings, this, environment);
 
     layout->addStretch();
     QSizePolicy spLeft(QSizePolicy::Preferred, QSizePolicy::Preferred);
     spLeft.setHorizontalStretch(1);
-    leftGroupBox->setSizePolicy(spLeft);
+    left_widget->setSizePolicy(spLeft);
+
+    left_layout->addWidget(leftGroupBox);
+    left_layout->addWidget(being_counter);
+    left_widget->setLayout(left_layout);
     //-------------------------------------------------------------
 
     //right half
@@ -65,7 +90,8 @@ void SimulationView::init_layout(){
 
     //----------bringing them together-----------------------------
     auto mainLayout = new QHBoxLayout;
-    mainLayout->addWidget(leftGroupBox);
+//    mainLayout->addWidget(leftGroupBox);
+    mainLayout->addWidget(left_widget);
     mainLayout->addWidget(rightGroupBox);
     //-------------------------------------------------------------
 
@@ -74,6 +100,65 @@ void SimulationView::init_layout(){
     setCentralWidget(central);
     central->setLayout(mainLayout);
 }
+
+void SimulationView::openNewWindow() {
+    // Create a new window
+    QMainWindow* newWindow = new QMainWindow();
+
+    newWindow->setGeometry(100, 100, 250, 550);
+
+    QVBoxLayout* layout = new QVBoxLayout();
+
+        // Create a QLabel
+    QSlider* slider = new QSlider(newWindow);
+
+        // Add the label to the layout
+    layout->addWidget(slider);
+
+        // Set the layout of the new window
+    newWindow->setLayout(layout);
+    newWindow->show();
+    }
+
+void SimulationView::openNewWindow2() {
+    // Create a new window
+    QMainWindow* newWindow = new QMainWindow();
+
+    newWindow->setGeometry(100, 100, 250, 550);
+
+    QVBoxLayout* layout = new QVBoxLayout();
+
+        // Create a QLabel
+    QSlider* slider = new QSlider(newWindow);
+
+        // Add the label to the layout
+    layout->addWidget(slider);
+
+        // Set the layout of the new window
+    newWindow->setLayout(layout);
+
+    newWindow->show();
+    }
+
+void SimulationView::openNewWindow3() {
+    // Create a new window
+    QMainWindow* newWindow = new QMainWindow();
+
+    newWindow->setGeometry(100, 100, 250, 550);
+
+    QVBoxLayout* layout = new QVBoxLayout();
+
+        // Create a QLabel
+    QSlider* slider = new QSlider(newWindow);
+
+        // Add the label to the layout
+    layout->addWidget(slider);
+
+        // Set the layout of the new window
+    newWindow->setLayout(layout);
+
+    newWindow->show();
+    }
 
 void SimulationView::resizeEvent(QResizeEvent *evt)
 {
