@@ -35,8 +35,7 @@ def matrix_to_graph(matrix):
     
     net_graph = nx.DiGraph()
     
-    layers = [[f'N({k}, {i}): {matrix[n+k+1][i]}' for i in range(matrix[k][0])] for k in range(n)]
-    print(layers)
+    layers = [[f'({k}, {i}): {matrix[n+k+1][i]}' for i in range(matrix[k][0])] for k in range(n)]
     for i in range(n):
          net_graph.add_nodes_from(layers[i], layer = i)
     
@@ -47,24 +46,41 @@ def matrix_to_graph(matrix):
         
         for i in range(num_neurons):     
             for j in range(next_num_neurons):
-                net_graph.add_edge(layers[k][i],layers[k+1][j], weight = crnt_layer[2*(next_num_neurons*i+j)+1] )
-        bias_name = f'NB({k}): {matrix[n+k+1][num_neurons]}'
+                net_graph.add_edge(layers[k][i],layers[k+1][j], weight = crnt_layer[2*(next_num_neurons*i+j)+1], activation = crnt_layer[2*(next_num_neurons*i+j)+2] )
+        bias_name = f'B({k}): {matrix[n+k+1][num_neurons]}'
         net_graph.add_node(bias_name, layer = k)
         for node in layers[k+1]:
-            net_graph.add_edge(bias_name, node, weight = crnt_layer[num_neurons*next_num_neurons+1+2*j])
+            net_graph.add_edge(bias_name, node, weight = crnt_layer[num_neurons*next_num_neurons+1+2*j], activation = crnt_layer[num_neurons*next_num_neurons+1+2*j+1])
     return net_graph
 
 
-def print_graph(G):
+subset_color = [
+    "gold",
+    "violet",
+    "limegreen",
+    "darkorange",
+]
+
+def print_graph(G, filename = None):
  
     pos = nx.multipartite_layout(G, subset_key="layer")
-    plt.figure(figsize=(8, 8))
+    plt.figure(figsize=(10, 10))
+    nodes_color = [subset_color[data["layer"]] for v, data in G.nodes(data=True)]
+    edges_color = ['black' if not G[u][v]['activation'] else 'red' for u,v in G.edges]
     labels = nx.get_edge_attributes(G,'weight')
     nx.draw_networkx_edge_labels(G, pos, edge_labels = labels)
-    nx.draw(G, pos, with_labels = True)
+    nx.draw(G, pos, node_color = nodes_color, edge_color=edges_color, with_labels = True, node_size = 500)
     plt.axis("equal")
+    if filename is not None:
+        plt.savefig(filename)
     plt.show()
     
+
+    
+def inpt_to_graph(filename, output = None):
+    matrix = file_to_matrix(filename)
+    G = matrix_to_graph(matrix)
+    print_graph(G, output)
 
             
                 
