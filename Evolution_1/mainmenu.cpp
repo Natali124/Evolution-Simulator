@@ -6,7 +6,7 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include <QBoxLayout>
-#include <QtGui>
+
 
 MainMenu::MainMenu(QWidget *parent) : QMainWindow(parent), display(CreatureDisplay(this)){
 

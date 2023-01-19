@@ -1,7 +1,6 @@
 #include "environment.h"
 #include "Living_Beings/creature.h"
 #include "math.h"
-#include <QtGui>
 
 CreatureDisplay::CreatureDisplay(QWidget *parent) : QGraphicsView(parent), _scene(){
     QBrush brush(QPixmap(":/backgrounds/images/cobblestone.jpg"));

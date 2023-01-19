@@ -3,8 +3,8 @@
 #include <QApplication>
 #include <QGraphicsScene>
 #include <iostream>
-#include <QtGui>
 #include <math.h>
+#include <QTime>
 
 int main(int argc, char *argv[])
 {
