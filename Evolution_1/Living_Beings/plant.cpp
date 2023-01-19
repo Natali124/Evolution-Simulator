@@ -35,8 +35,8 @@ Plant::Plant(std::map<Enum_parameters, double> parameters, Environment *e): Plan
     if (this->get_size()>200){
         this->set_size(200);
     }
-    else if (this->get_size()<5){
-        this->set_size(5);
+    else if (this->get_size()<20){
+        this->set_size(20); //we need plants to be pretty big in order for prey to survive
     }
 }
 

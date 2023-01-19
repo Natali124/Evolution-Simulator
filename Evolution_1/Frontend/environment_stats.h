@@ -43,6 +43,7 @@ public:
     std::map<Creature::Enum_parameters, double> average_creatures();
     std::map<Creature::Enum_parameters, double> average_prey();
     std::map<Creature::Enum_parameters, double> average_predator();
+    void average_lifespan(int age);
     int number_LBs;
     int number_LBs_alive;
     int number_LBs_dead;
@@ -52,6 +53,8 @@ public:
     int number_plants;
     int number_plants_alive;
     int number_plants_dead;
+    int last_50_ages[50];
+    int number_ages = 0;
 
 
 private:
@@ -69,6 +72,11 @@ public:
     //std::vector<double> creature_energy_ratio(); //helper vector for creating a graph on the proportion of creatures having
     ~Environment_Stats2();
     //void timerEvent(QTimerEvent *event);
+class Average_param : QChartView {
+public:
+    Average_param(SimulationView* menu, QWidget* parent = nullptr);
+    ~Average_param();
+    void timerEvent(QTimerEvent *event);
     void update_chart();
     QChart* get_chart() {return chart;};
     SimulationView* get_menu() {return menu;};
@@ -92,6 +100,22 @@ private:
     QAbstractAxis* x_axis;
     QAbstractAxis* y_axis;
 
+    void set_series(QLineSeries *series) {this->series = series;};
+    QLineSeries* get_series() {return series;};
+    int get_t() {return t;};
+    void set_t(int t){this->t=t;};
+    void increase_t() {t++;};
+    double get_size_avg();
+
+
+private:
+    SimulationView* menu;
+    QChart *chart {chart = new QChart()};
+    Environment* env;
+    QAbstractAxis* x_axis;
+    QAbstractAxis* y_axis;
+    QLineSeries* series ;
+    int t;
 
 };
 
