@@ -43,6 +43,7 @@ public:
     std::map<Creature::Enum_parameters, double> average_creatures();
     std::map<Creature::Enum_parameters, double> average_prey();
     std::map<Creature::Enum_parameters, double> average_predator();
+    void average_lifespan(int age);
     int number_LBs;
     int number_LBs_alive;
     int number_LBs_dead;
@@ -52,6 +53,8 @@ public:
     int number_plants;
     int number_plants_alive;
     int number_plants_dead;
+    int last_50_ages[50];
+    int number_ages = 0;
 
 
 private:

@@ -240,6 +240,22 @@ std::map<Creature::Enum_parameters, double> Environment_Stats::average_predator(
     return param_average;
 }
 
+void Environment_Stats::average_lifespan(int age){
+    if (number_ages == 49) {
+        last_50_ages[49] = age;
+        number_ages = 0;
+        int sum = 0;
+        for(int i = 0; i < 50 ; i++){
+              sum+= last_50_ages[i];
+           }
+        sum = sum / 50;
+
+    }
+    else {
+        last_50_ages[number_ages] = age;
+        number_ages++;
+    }
+}
 
 std::vector<double> Environment_Stats::creature_energy_ratio() {
     std::vector<double> v;    //v stores the ratio of hp/max_hp for each creature
