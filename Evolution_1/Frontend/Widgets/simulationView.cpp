@@ -7,6 +7,9 @@
 #include <QBoxLayout>
 #include <QWidget>
 #include <QGroupBox>
+#include "omni_win.h"
+#include "herb_win.h"
+#include "plant_win.h"
 
 SimulationView::SimulationView(Environment *environment, QWidget *parent) : QMainWindow(parent),
                                                                 display(environment, this),
@@ -48,11 +51,13 @@ void SimulationView::init_layout(){
 
     auto add_omn = new QPushButton(leftGroupBox);
     add_omn->setText("Add Omnivorous Creature");
-    connect(add_omn, &QPushButton::clicked, this, &SimulationView::openNewWindow);
+    connect(add_omn, &QPushButton::clicked, this, &SimulationView::openOmniWindow);
     auto add_herb = new QPushButton(leftGroupBox);
     add_herb->setText("Add Herbivorous Creature");
+    connect(add_herb, &QPushButton::clicked, this, &SimulationView::openHerbWindow);
     auto add_plant = new QPushButton(leftGroupBox);
     add_plant->setText("Add Plant");
+    connect(add_plant, &QPushButton::clicked, this, &SimulationView::openPlantWindow);
 
     layout->addWidget(add_omn);
     layout->addWidget(add_herb);
@@ -87,24 +92,80 @@ void SimulationView::init_layout(){
     central->setLayout(mainLayout);
 }
 
-void SimulationView::openNewWindow() {
+void SimulationView::openOmniWindow() {
     // Create a new window
-    QMainWindow* newWindow = new QMainWindow();
+//    QMainWindow* newWindow = new QMainWindow();
 
-    newWindow->setGeometry(100, 100, 250, 550);
+//    newWindow->setGeometry(100, 100, 250, 550);
 
-    QVBoxLayout* layout = new QVBoxLayout();
+//    QVBoxLayout* layout = new QVBoxLayout();
 
-        // Create a QLabel
-    QSlider* slider = new QSlider(newWindow);
+//        // Create a QLabel
+//    QSlider* slider = new QSlider(newWindow);
 
-        // Add the label to the layout
-    layout->addWidget(slider);
+//        // Add the label to the layout
+//    layout->addWidget(slider);
 
-        // Set the layout of the new window
-    newWindow->setLayout(layout);
+//        // Set the layout of the new window
+//    newWindow->setLayout(layout);
+     //newWindow->show();
 
-    newWindow->show();
+     omni_win omnwin;
+     omnwin.setModal(true);
+     omnwin.exec();
+    //omnwin =new omni_win(this);
+    //omnwin->show();
+    }
+void SimulationView::openHerbWindow() {
+    // Create a new window
+//    QMainWindow* newWindow = new QMainWindow();
+
+//    newWindow->setGeometry(100, 100, 250, 550);
+
+//    QVBoxLayout* layout = new QVBoxLayout();
+
+//        // Create a QLabel
+//    QSlider* slider = new QSlider(newWindow);
+
+//        // Add the label to the layout
+//    layout->addWidget(slider);
+
+//        // Set the layout of the new window
+//    newWindow->setLayout(layout);
+     //newWindow->show();
+
+     herb_win herbwin;
+     herbwin.setModal(true);
+     herbwin.exec();
+    //omnwin =new omni_win(this);
+    //omnwin->show();
+    }
+void SimulationView::openPlantWindow() {
+    // Create a new window
+//    QMainWindow* newWindow = new QMainWindow();
+
+//    newWindow->setGeometry(100, 100, 250, 550);
+
+//    QVBoxLayout* layout = new QVBoxLayout();
+
+//        // Create a QLabel
+//    QSlider* slider = new QSlider(newWindow);
+
+//        // Add the label to the layout
+//    layout->addWidget(slider);
+
+//        // Set the layout of the new window
+//    newWindow->setLayout(layout);
+     //newWindow->show();
+
+//     plant_win omnwin;
+//     omnwin.setModal(true);
+//     omnwin.exec();
+    //omnwin =new omni_win(this);
+    //omnwin->show();
+    Plant_win plantwin;
+    plantwin.setModal(true);
+    plantwin.exec();
     }
 
 void SimulationView::resizeEvent(QResizeEvent *evt)

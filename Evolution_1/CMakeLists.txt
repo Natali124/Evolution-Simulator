@@ -21,6 +21,15 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        omni_win.h
+        omni_win.cpp
+        omni_win.ui
+        herb_win.h
+        herb_win.cpp
+        herb_win.ui
+        plant_win.h
+        plant_win.cpp
+        plant_win.ui
         environment.h
         environment.cpp
         Living_Beings/living_being.h
