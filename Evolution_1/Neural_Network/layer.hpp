@@ -37,7 +37,7 @@ public:
     act_function get_activation_function(); // Get the activation function
     int get_index(Network* n); // index of layer in network (0 = input_layer, ...)
 
-    
+
     //Other functions
     Neuron* operator[](int i); // implement [] access operator for Layer
     void fully_connect(Layer* prev_layer); //fully connects Layer to previous layer, randomized weights
@@ -46,7 +46,7 @@ public:
     void print_edges();
 
     //Helper function for saving
-    vector<double> layer_to_vector();
+    std::vector<double> layer_to_vector();
 
 
 private:
@@ -58,4 +58,4 @@ private:
 };
 
 
- 
+

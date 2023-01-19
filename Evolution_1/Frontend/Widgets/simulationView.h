@@ -13,13 +13,14 @@ class SimulationView : public QMainWindow{
         CreatureDisplay* getDisplay(){ return &display; }
         void randomize_scene(){ // placeholder
             display.environment->clear();
-            for(int i = 0; i < 300; i ++)
+            for(int i = 0; i < initial_number_of_lb; i ++)
                 display.addRandomDot();
         }
         virtual void resizeEvent(QResizeEvent*);
         Environment* environment;
         Environment* get_environment() {return environment;};
         EnvironmentTimer timer;
+        int initial_number_of_lb = 50;
 
     private:
         CreatureDisplay display;

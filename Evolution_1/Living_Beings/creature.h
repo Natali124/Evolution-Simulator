@@ -164,9 +164,6 @@ public:
     //this function will be used to detect if two creatures have similar attributes and can be considered as from the same spiecie. This will help us removing some of the problem we had with children eating there parents
     bool same_spiecie(Creature* c);
 
-    void try_reproduce();
-
-    void stay_in_bounds();
     void normal_distrib_random_edge(Edge& edge);
     std::function<double(double)>normal_distrib_random();
     QRectF boundingRect() const;
@@ -175,7 +172,6 @@ public:
     double my_size;
 protected:
 
-    int counter_no_reproduction=0;
     LivingBeing* closest = nullptr;
     double repro_factor = 0;
     int family = 0;

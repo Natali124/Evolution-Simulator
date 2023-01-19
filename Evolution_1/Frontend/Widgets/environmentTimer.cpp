@@ -12,6 +12,7 @@ EnvironmentTimer::EnvironmentTimer(Environment *environment) : environment(envir
 void EnvironmentTimer::Slot()
 {
     environment->advance();
+    std::cout << this->environment->preys_nb << std::endl;
 }
 void EnvironmentTimer::start(){
     // milisec - 33fps

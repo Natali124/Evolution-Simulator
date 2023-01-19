@@ -1,6 +1,6 @@
 #pragma once
 
-class Neuron; 
+class Neuron;
 
 class Edge{
 public:

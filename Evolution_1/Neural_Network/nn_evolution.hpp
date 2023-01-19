@@ -1,10 +1,4 @@
-#pragma once
-#include <tuple>
-#include <vector>
-#include <functional>
-using namespace std;
-class Network;
-
+#include "network.hpp"
 
 bool sortbysec(tuple<Network*, double> a,
                tuple<Network*, double> b);
@@ -17,6 +11,6 @@ double get_loss(Network* nn, vector<double> input, vector<double> expected);
 
 vector<vector<double>> get_random_vectors(int n_vectors, int size_vectors);
 
-double do_step(vector<Network*> &networks, int n, int tests,  double r, int n_in, int n_out, function<vector<double>(vector<double>)> test_function);
+double do_step(vector<Network*> &networks, int n, int tests,  double r, int n_in, int n_out);
 
-void run_evolution(int n = 100, double r = 10, double tests = 10, int n_in = 5, int n_out = 5, int n_gen = 1000, int print_every = 10, int n_hidden_layers = 1, int n_neurons_in_hidden = 5, function<vector<double>(vector<double>)> test_function = want_func);
+void run_evolution(int n = 100, double r = 10, double tests = 10, int n_in = 5, int n_out = 5, int n_gen = 1000, int print_every = 10);

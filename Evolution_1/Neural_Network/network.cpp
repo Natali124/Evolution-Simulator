@@ -29,7 +29,7 @@ Network::Network(bool randomize){
     if (randomize){ randomize_edges(); }
 }
 Network::Network(int n_input, int n_output, int n_hidden_layers, int n_neurons_in_hidden){
-    // Constructor with number of input, output, hidden layers, neurons in hidden_layers, randomizes edges
+    // Constructor with number of input, output, hidden layers, neurons in hidden_layers
     input_layer = new Layer(n_input);
     vector<Layer*> v = vector<Layer*>(0);
     for(int i = 0; i<n_hidden_layers; i++){
@@ -68,7 +68,6 @@ vector <Layer*> Network::get_hidden_layers(){
 int Network::size(){
   return hidden_layers.size() +2;
 }
-
 //setters:
 void Network::set_input_layer(Layer* input_layer){
     this->input_layer = input_layer;
@@ -233,24 +232,24 @@ Network* Network::copy(){
 void Network::print_adj_list(){
 
     vector<Neuron*> neurons =  input_layer->get_neurons();
-    
+
     cout << "Input layer \n";
 
     for(auto& neuron: neurons){
         cout << neuron->get_id() << ": ";
-        vector<Edge*> crnt_edges = neuron->get_next_edges();    
+        vector<Edge*> crnt_edges = neuron->get_next_edges();
         for(Edge* edge: crnt_edges){
             cout<<edge->get_end_neuron_id() << " ";}
         cout<<"\n";
     }
 
-    
+
     int counter = 1;
     for(Layer* crnt_layer: hidden_layers){
         neurons = crnt_layer->get_neurons();
 
         cout << "Hidden layer "<< counter<< "\n";
-        
+
         for(Neuron* neuron: neurons){
 
             cout << neuron->get_id() << ": ";
@@ -310,17 +309,20 @@ void Network:: print_values(){
 
 //Helper function for saving network
 
+template <typename T> void vector_to_file(vector<vector<T>> inpt, string filename){
+    /*Form of filename should be filename.txt (or pdf or however you want to save your file*/
+
+        std::ofstream outfile (filename.c_str());
+
+        for(vector<double> vect: inpt){
+            for(double elm: vect){
+                outfile << elm << " ";
+            }
+            outfile<<"\n";}}
+
 void vector_to_file(vector<vector<double>> inpt, string filename){
 /*Form of filename should be filename.txt (or pdf or however you want to save your file*/
-  /*Form of filename should be filename.txt (or pdf or however you want to save your file)*/
-
-      std::ofstream outfile (filename.c_str());
-
-      for(vector<double> vect: inpt){
-          for(double elm: vect){
-              outfile << elm << " ";
-          }
-          outfile<<"\n";}}
+    vector_to_file(inpt, filename);}
 
 
 //Saving
@@ -330,12 +332,7 @@ vector<vector<double>> Network:: network_to_vector(){
     output.push_back(input_layer->layer_to_vector());
     for(Layer* hidden: hidden_layers){
         output.push_back(hidden->layer_to_vector());}
-    int otpt_layer_size = output_layer->get_neurons().size();
-    vector<double> otpt_layer(0);
-    otpt_layer.push_back(otpt_layer_size);
-    otpt_layer.push_back(output_layer->get_activation_function());
-    output.push_back(otpt_layer);
-    return output;}
+     return output;}
 
 void Network::network_to_file(string filename){
      vector<vector<double>> network_vect = this->network_to_vector();
@@ -343,34 +340,22 @@ void Network::network_to_file(string filename){
 
 
 
-// Functions for reproduction
-double _p_cut_off = 0.5; // cut_off (chance of a single edge being changed)
-const double _norm_var = 5; // variance of normal distr. used for reproduction
+
 
 double norm_distr_random(double x){
-  //takes a value x and has a _p_cut_off chance to modify x according to the normal distribuition.
-  double p =QRandomGenerator::global()->generateDouble();
-  if (p < _p_cut_off){
-      std::random_device rd;
-      std::mt19937 gen(rd());
-      std::normal_distribution<double> d(x, _norm_var);
-      x = d(gen);
-  }
+  double p = (double) QRandomGenerator64::global()->generateDouble();
+  if(p<0.5){
+    std::random_device rd;
+    std:mt19937 gen(rd());
+    std::normal_distribution<double> d(x,0.2);
+    x = d(gen);
+    }
   return x;
-
 }
 
-// reproduction of the Neural Network
 
 Network* Network::reproduce(){
   Network* nn = this->copy();
-
-  // set chance of single edge being changed according to exponential distribution
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std:exponential_distribution<double> e(10);
-  _p_cut_off = e(gen);
-
   nn->apply_on_all_weights(norm_distr_random);
   return nn;
 }
