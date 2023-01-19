@@ -840,3 +840,20 @@ QRectF Creature::boundingRect() const
                   (36 + adjust)*get_size()/200, (60 + adjust)*get_size()/200);
 }
 
+
+
+QString Creature::name_param(Creature::Enum_parameters param)
+{
+    switch(param)
+    {
+        case physical_strength: return "Physical Strength";
+        case Max_energy: return "Maximum Energy";
+        case eye_sight: return "Eye Sight";
+        case visibility: return "Visibility";
+        case eat_creature: return "Eat Creature";
+        case eat_plants: return "Eat Plants";
+        case Max_hp: return "Maximum HP";
+        case size: return "Size";
+        case last: return "";
+    }
+}

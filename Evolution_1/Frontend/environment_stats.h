@@ -63,7 +63,40 @@ private:
 
 };
 
+class Average_param : QChartView {
+public:
+    Average_param(SimulationView* menu, QWidget* parent = nullptr);
+    ~Average_param();
+    void timerEvent(QTimerEvent *event);
+    void update_chart();
+    QChart* get_chart() {return chart;};
+    SimulationView* get_menu() {return menu;};
+    void set_menu(SimulationView* menu) {this->menu = menu; };
+    void set_env(Environment* env) {this->env = env;};
+    void set_x_axis(QAbstractAxis* x_axis) {this->x_axis =x_axis;};
+    QAbstractAxis* get_x_axis() {return x_axis;};
+    void set_y_axis(QAbstractAxis* y_axis) {this->y_axis =y_axis;};
+    QAbstractAxis* get_y_axis() {return y_axis;};
+    Environment* get_env() {return env;};
+    std::map<Creature::Enum_parameters, double> average_creatures();
+    void set_series(QLineSeries *series) {this->series = series;};
+    QLineSeries* get_series() {return series;};
+    int get_t() {return t;};
+    void set_t(int t){this->t=t;};
+    void increase_t() {t++;};
+    double get_size_avg();
 
+
+private:
+    SimulationView* menu;
+    QChart *chart {chart = new QChart()};
+    Environment* env;
+    QAbstractAxis* x_axis;
+    QAbstractAxis* y_axis;
+    QLineSeries* series {series = new QLineSeries()};
+    int t;
+
+};
 
 #endif // ENVIRONMENT_STATS_H
 
