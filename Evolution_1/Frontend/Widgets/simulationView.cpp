@@ -12,9 +12,11 @@ SimulationView::SimulationView(Environment *environment, QWidget *parent) : QMai
                                                                 display(environment, this),
                                                                 environment(environment),
                                                                 timer(EnvironmentTimer(environment)){
-
+    QMainWindow::setMouseTracking(true);
     setWindowTitle("Evolution Simulator");
     init_layout();
+
+
 
     // This order of events is necessary because the initial layout of all the elements will not be
     // calculated properly if the window is not shown in the beggining.

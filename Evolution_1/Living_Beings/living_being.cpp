@@ -14,7 +14,7 @@ void LivingBeing::playstep(){
 }
 
 void LivingBeing::advance(int step){
-    if (!step)
+    if (!step or Paused)
         return;
 
     playstep(); //Ruben's group function

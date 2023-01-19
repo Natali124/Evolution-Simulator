@@ -4,12 +4,16 @@
 #include "Living_Beings/plant.h"
 #include "Frontend/resources.h"
 #include <QRandomGenerator>
+#include <QMainWindow>
 
 CreatureDisplay::CreatureDisplay(Environment* env, QWidget *parent) : QGraphicsView(parent), environment(env){
     parentWindow = parent;
 
     QBrush brush(QPixmap(DISPLAY_BACKGROUND_LINK));
     environment->setBackgroundBrush(brush);
+
+
+
 
     environment->setSceneRect(0, 0, 500, 500);
 

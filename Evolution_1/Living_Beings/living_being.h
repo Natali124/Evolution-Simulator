@@ -59,6 +59,7 @@ public:
 
   int number_of_steps_since_beginning = 0;
 protected:
+  bool Paused = false;
   int alive_time = 0;
   Environment *scene;
 };
