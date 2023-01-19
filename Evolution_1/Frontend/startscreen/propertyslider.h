@@ -19,13 +19,16 @@ public:
 
     ~PropertySlider();
 
+    void update();
+    void randomise();
+    void reset();
+
 private:
     Ui::PropertySlider *ui;
     LivingBeing* being;
     void (Creature::*creatureSetterFunc)(float);
     void (Plant   ::   *plantSetterFunc)(float);
     void init(QString text, float init_value);
-    void update();
 };
 
 #endif // PROPERTYSLIDER_H

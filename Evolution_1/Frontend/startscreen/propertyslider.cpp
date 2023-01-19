@@ -1,7 +1,7 @@
 #include "propertyslider.h"
 #include "Living_Beings/living_being.h"
 #include "ui_propertyslider.h"
-
+#include <QRandomGenerator>
 
 PropertySlider::PropertySlider(QString text, Creature* being, void (Creature::*setterFunc)(float), float init_value, QWidget *parent) :
     QWidget(parent),
@@ -54,4 +54,12 @@ void PropertySlider::update(){
     }
 
     qDebug()<<being->get_size();
+}
+
+void PropertySlider::randomise() {
+   ui->horizontalSlider->setValue(QRandomGenerator::global()->bounded(200));
+}
+
+void PropertySlider::reset() {
+   ui->horizontalSlider->setValue(0);
 }

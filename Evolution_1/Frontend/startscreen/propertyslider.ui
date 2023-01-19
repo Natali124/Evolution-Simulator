@@ -18,16 +18,32 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="label">
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>&quot;Property&quot;</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinBox"/>
+      <widget class="QSpinBox" name="spinBox">
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="maximum">
+        <number>200</number>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QSlider" name="horizontalSlider">
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="maximum">
+        <number>200</number>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>

@@ -227,6 +227,10 @@ void MainWindow::on_button_delete_all_clicked()
 
     // Hide the Simulation button, called "simbut" for short, as you can't launch the simulation with no creatures.
     ui->simBut->setVisible(false);
+    clearsliders();
+    ui->button_rdm->setVisible(false);
+    ui->button_reset->setVisible(false);
+
 }
 
 
@@ -239,6 +243,9 @@ void MainWindow::on_button_delete_creature_clicked()
 
     QListWidgetItem *it = ui->creature_list->takeItem(ui->creature_list->currentRow());
         delete it;
+    clearsliders();
+    ui->button_rdm->setVisible(false);
+    ui->button_reset->setVisible(false);
 
     // If the user used this button to delete all creatures from his list, then we hide the Simulation button, called "simbut" for short, as you can't launch the simulation with no creatures.
 
@@ -249,27 +256,9 @@ void MainWindow::on_button_delete_creature_clicked()
 }
 
 
-void MainWindow::on_button_rdm_clicked()
-{
-
-    // Once you have clicked on the "Random" button, called button_rdm, the properties of your selected creature will be put at random values.
-
-}
-
-
-void MainWindow::on_button_reset_clicked()
-{
-
-    // Once you have clicked on the "Reset" button, called button_reset, all the properties of your selected creature will be set back to zero.
-
-}
-
 void MainWindow::create_proper_sliders(QListWidgetItem* item) {
     auto being = dynamic_cast<BeingItem*>(item)->being;
-    auto list = findChildren<PropertySlider*>("Property Slider");
-    for (auto i = list.begin(); i != list.end(); i++) {
-        (*i)->deleteLater();
-    }
+    clearsliders();
     if (being->type == LivingBeing::Type_LB::creature) {
         auto creature = dynamic_cast<Creature*>(being);
         ui->verticalLayout_2->addWidget(new PropertySlider("Size", creature, &Creature::set_size, creature->get_size(), ui->groupBox));
@@ -279,13 +268,18 @@ void MainWindow::create_proper_sliders(QListWidgetItem* item) {
         ui->verticalLayout_2->addWidget(new PropertySlider("Visibility", creature, &Creature::set_visibility, creature->get_visibility(), ui->groupBox));
         ui->verticalLayout_2->addWidget(new PropertySlider("Physical Strength", creature, &Creature::set_physical_strength, creature->get_physical_strength(), ui->groupBox));
         // ui->verticalLayout_2->addWidget(new PropertySlider("Digest time", creature, &Creature::set_digest_time, creature->get_digest_time(), ui->groupBox));
-        // Diet?
     }
     if (being->type == LivingBeing::Type_LB::plant) {
         auto plant = dynamic_cast<Plant*>(being);
         ui->verticalLayout_2->addWidget(new PropertySlider("Size", plant, &Plant::set_size, plant->get_size(), ui->groupBox));
         ui->verticalLayout_2->addWidget(new PropertySlider("Max HP", plant, &Plant::set_Max_hp, plant->get_Max_hp(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Reproduction Rate)", plant, &Plant::set_reproduction_rate, plant->get_reproduction_rate(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider("Reproduction Rate", plant, &Plant::set_reproduction_rate, plant->get_reproduction_rate(), ui->groupBox));
+    }
+    auto list = findChildren<QWidget*>("Property Slider");
+    for (auto i = list.begin(); i != list.end(); i++) {
+        auto slider = dynamic_cast<PropertySlider*>(*i);
+        connect(ui->button_rdm, &QPushButton::clicked, slider, &PropertySlider::randomise);
+        connect(ui->button_reset, &QPushButton::clicked, slider, &PropertySlider::reset);
     }
 }
 
@@ -309,3 +303,10 @@ void MainWindow::on_simBut_clicked()
     new SimulationView(environment);
 }
 
+void MainWindow::clearsliders()
+{
+    auto list = findChildren<PropertySlider*>("Property Slider");
+    for (auto i = list.begin(); i != list.end(); i++) {
+        (*i)->deleteLater();
+    }
+}

@@ -45,17 +45,15 @@ private slots:
 
     void on_button_plant_clicked();
 
-    void on_button_rdm_clicked();
-
     void on_button_delete_all_clicked();
-
-    void on_button_reset_clicked();
 
     void on_button_delete_creature_clicked();
 
     void create_proper_sliders(QListWidgetItem*);
 
     void on_simBut_clicked();
+
+    void clearsliders();
 
 private:
     Ui::MainWindow *ui;
