@@ -93,7 +93,7 @@ private:
     Environment* env;
     QAbstractAxis* x_axis;
     QAbstractAxis* y_axis;
-    QLineSeries* series {series = new QLineSeries()};
+    QLineSeries* series ;
     int t;
 
 };

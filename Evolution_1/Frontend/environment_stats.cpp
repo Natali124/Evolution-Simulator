@@ -292,7 +292,7 @@ Average_param::Average_param(SimulationView* menu, QWidget *parent): QChartView(
     set_t(0);
     set_menu(menu);
     set_env( menu->get_environment());
-    startTimer(10000);
+    startTimer(5000);
 
     /*//Creating the graph
     static std::map<Creature::Enum_parameters, QLineSeries*> series;
@@ -305,7 +305,7 @@ Average_param::Average_param(SimulationView* menu, QWidget *parent): QChartView(
                 chart->addSeries(lineSeries);
             }
     */
-    series = get_series();
+    QLineSeries* series = new QLineSeries();
     chart = get_chart();
     setChart(chart);
     chart->addSeries(series);
@@ -313,21 +313,24 @@ Average_param::Average_param(SimulationView* menu, QWidget *parent): QChartView(
 
     QValueAxis* axisX = new QValueAxis();
     set_x_axis(axisX);
+    axisX->setMax(50);
     chart->addAxis(axisX, Qt::AlignBottom);
     series->attachAxis(axisX);
 
     QValueAxis* axisY = new QValueAxis();
     set_y_axis(axisY);
     axisY->setRange(0,200);
+    axisX->setTitleText("1 unit : 1 update per 5 sec");
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 
-    chart->setTitle("Average of the parameters over time");
-
+    chart->setTitle("Evolution of the average size of predators/ preys");
+    set_series(series);
     //all charts:
     chart->legend()->setVisible(true);;
     chart->legend()->setAlignment(Qt::AlignBottom);
     this->setRenderHint(QPainter::Antialiasing);
+    update();
     show();
 
 };
@@ -361,7 +364,6 @@ void Average_param::timerEvent(QTimerEvent *event) {
 
 void Average_param::update_chart(){
     increase_t();
-
     chart = get_chart();
     series = get_series();
     series->append(get_t(), get_size_avg());
