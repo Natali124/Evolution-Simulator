@@ -6,4 +6,5 @@
         <file>images/grass.jpg</file>
         <file>images/nature-outdoor-forest-background_1308-54338.jpg</file>
     </qresource>
+    <qresource prefix="/"/>
 </RCC>
