@@ -18,7 +18,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>0</width>
+    <width>500</width>
     <height>0</height>
    </size>
   </property>
@@ -27,23 +27,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="8" column="0" colspan="16">
-     <widget class="Line" name="line_3">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QSpinBox" name="count_prey">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-     </widget>
-    </item>
     <item row="2" column="1">
      <widget class="QPushButton" name="button_prey">
       <property name="sizePolicy">
@@ -57,7 +40,7 @@
       </property>
      </widget>
     </item>
-    <item row="9" column="0" colspan="16">
+    <item row="8" column="0" colspan="7">
      <widget class="QPushButton" name="simBut">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -76,7 +59,20 @@
       </property>
      </widget>
     </item>
-    <item row="7" column="0" colspan="5">
+    <item row="0" column="2" rowspan="7">
+     <widget class="Line" name="line_1">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0" colspan="2">
      <widget class="QPushButton" name="button_delete_all">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -102,48 +98,16 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
-     <widget class="QSpinBox" name="count_prey">
+    <item row="0" column="5" rowspan="7">
+     <widget class="Line" name="line_2">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="maximum">
-       <number>999</number>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0" colspan="2">
-     <widget class="QPushButton" name="button_delete_all">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>Delete All</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="0" colspan="7">
-     <widget class="QPushButton" name="simBut">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>SIMULATE</string>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
       </property>
      </widget>
     </item>
@@ -157,26 +121,6 @@
       </property>
       <property name="text">
        <string>Add plant</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QPushButton" name="button_prey">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>Add herbivore creature</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="0" colspan="7">
-     <widget class="Line" name="line_3">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
@@ -238,8 +182,15 @@
       </layout>
      </widget>
     </item>
-    <item row="4" column="0">
-     <widget class="QSpinBox" name="count_plant">
+    <item row="6" column="3">
+     <widget class="QPushButton" name="button_delete_creature">
+      <property name="text">
+       <string>Delete Creature</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QSpinBox" name="count_prey">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -251,36 +202,23 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="5" rowspan="8">
-     <widget class="Line" name="line_1">
+    <item row="7" column="0" colspan="7">
+     <widget class="Line" name="line_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QSpinBox" name="count_plant">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="6" rowspan="7" colspan="5">
-     <widget class="QGroupBox" name="groupBox_2">
-      <property name="title">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="14" rowspan="8">
-     <widget class="Line" name="line_2">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
+      <property name="maximum">
+       <number>999</number>
       </property>
      </widget>
     </item>
@@ -297,19 +235,6 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="2" rowspan="7">
-     <widget class="Line" name="line_1">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="3" rowspan="6">
      <widget class="QListWidget" name="creature_list">
       <property name="sizePolicy">
@@ -320,26 +245,6 @@
       </property>
      </widget>
     </item>
-    <item row="6" column="3">
-     <widget class="QPushButton" name="button_delete_creature">
-      <property name="text">
-       <string>Delete Creature</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="5" rowspan="7">
-     <widget class="Line" name="line_2">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
-    </item>
    </layout>
    <zorder>creature_list</zorder>
    <zorder>line_1</zorder>
@@ -347,16 +252,14 @@
    <zorder>line_3</zorder>
    <zorder>groupBox</zorder>
    <zorder>button_delete_all</zorder>
-   <zorder>simBut</zorder>
-   <zorder>button_delete_creature</zorder>
-   <zorder>groupBox_2</zorder>
-   <zorder>startBut</zorder>
-   <zorder>count_pred</zorder>
-   <zorder>count_prey</zorder>
-   <zorder>count_plant</zorder>
    <zorder>button_pred</zorder>
+   <zorder>count_prey</zorder>
    <zorder>button_prey</zorder>
+   <zorder>count_pred</zorder>
    <zorder>button_plant</zorder>
+   <zorder>count_plant</zorder>
+   <zorder>button_delete_creature</zorder>
+   <zorder>simBut</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -364,7 +267,7 @@
      <x>0</x>
      <y>0</y>
      <width>1100</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
@@ -372,22 +275,6 @@
  </widget>
  <resources/>
  <connections>
-  <connection>
-   <sender>creature_list</sender>
-   <signal>itemClicked(QListWidgetItem*)</signal>
-   <receiver>button_rdm</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>335</x>
-     <y>221</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>950</x>
-     <y>376</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>simBut</sender>
    <signal>clicked()</signal>
@@ -401,22 +288,6 @@
     <hint type="destinationlabel">
      <x>549</x>
      <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>creature_list</sender>
-   <signal>itemClicked(QListWidgetItem*)</signal>
-   <receiver>button_reset</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>399</x>
-     <y>249</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>700</x>
-     <y>376</y>
     </hint>
    </hints>
   </connection>

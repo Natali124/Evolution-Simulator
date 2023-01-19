@@ -6,14 +6,6 @@
 #include <cstdlib>
 #include <QGraphicsScene>
 #include <iostream>
-#include <QListWidget>
-
-class ListWidget : public QListWidget
-{
-public:
-    bool operator<(const QListWidgetItem &other) const;
-};
-
 #include "Living_Beings/living_being.h"
 #include "environment.h"
 #include "qlistwidget.h"
@@ -28,6 +20,17 @@ class BeingItem : public QListWidgetItem{
 
     public:
         LivingBeing* being;
+        bool operator<(const QListWidgetItem &other) const { // for sorting the items
+            QStringList list1 = text().split(' ');
+            QStringList list2 = other.text().split(' ');
+            int n1 = list1.takeLast().toInt();
+            int n2 = list2.takeLast().toInt();
+            QString w1 = list1.join(' ');
+            QString w2 = list2.join(' ');
+            if(w1 != w2) //sort by the name first
+                return w1 < w2;
+            return n1 < n2; // and then by the number at the end
+        }
 };
 
 class MainWindow : public QMainWindow

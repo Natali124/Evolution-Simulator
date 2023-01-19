@@ -13,14 +13,6 @@ int num_prey = 0;
 int num_plant = 0;
 int active_creature;
 
-bool ListWidget::operator<(const QListWidgetItem &other) const
-{
-
-                std::cout << other.text().toStdString() << " " << other.text().toStdString() << std::endl;
-                return other.text().toFloat() < other.text().toFloat();
-
-
-}
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -57,10 +49,11 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     show();
 
-    //connect(creature_list2, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(on_creature_list_item_clicked(QListWidgetItem*)));
-
+//    connect(ui->creature_list, SIGNAL(itemClicked(QListWidgetItem*)),
+//                this, SLOT(on_creature_list_item_clicked(QListWidgetItem*)));
 
 }
+
 
 MainWindow::~MainWindow()
 {
@@ -105,7 +98,7 @@ void MainWindow::on_button_pred_clicked()
     // Their name'll be "omnivorous creature" + "number of the omnivorous creature created".
 
     int val = ui->count_pred->value();
-    qDebug() << "Omnivorous creature:" << val;
+//    qDebug() << "Omnivorous creature:" << val;
 
     if (num_pred+val > 999) {
         val = 999-num_pred;
@@ -113,30 +106,20 @@ void MainWindow::on_button_pred_clicked()
 
     for (int i = num_pred; i < num_pred+val; i++) {
         auto creature = new Creature;
-        if (i<9) {
-            creature->setObjectName("Omnivorous creature 00" + QString::number(i+1));
-        }
-        else if (i<99) {
-            creature->setObjectName("Omnivorous creature 0" + QString::number(i+1));
-        }
-        else if (i>99) {
-            creature->setObjectName("Omnivorous creature " + QString::number(i+1));
-        }
+        creature->setObjectName("Omnivorous creature " + QString::number(i+1));
         creature->parameters[Creature::eat_creature] = 1;
         auto item = new BeingItem(creature);
         ui->creature_list->addItem(item);
     }
 
     num_pred += val;
-
+    ui->creature_list->sortItems();
 
     // The Simulation button appears, called "simbut" for short, as you can now launch the simulation as you've just created one/some creature(s).
 
     if ((ui->simBut->isVisible() == false) and (ui->creature_list->count() != 0)) {
         ui->simBut->setVisible(true);
     };
-
-    QObject::connect(ui->simBut, &QPushButton::clicked, this, &QWidget::close);
 }
 
 
@@ -148,7 +131,7 @@ void MainWindow::on_button_prey_clicked()
     // Their name'll be "herbivore creature" + "number of the herbivore creature created".
 
     int val = ui->count_prey->value();
-    qDebug() << "Herbivore creature:" << val;
+//    qDebug() << "Herbivore creature:" << val;
 
     if (num_prey+val > 999) {
         val = 999-num_prey;
@@ -156,21 +139,13 @@ void MainWindow::on_button_prey_clicked()
 
     for (int i = num_prey; i < num_prey+val; i++) {
         auto creature = new Creature;
-        if (i<9) {
-            creature->setObjectName("Herbivore creature 00" + QString::number(i+1));
-        }
-        else if (i<99) {
-            creature->setObjectName("Herbivore creature 0" + QString::number(i+1));
-        }
-        else if (i>99) {
-            creature->setObjectName("Herbivore creature " + QString::number(i+1));
-        }
+        creature->setObjectName("Herbivore creature " + QString::number(i+1));
         auto item = new BeingItem(creature);
         ui->creature_list->addItem(item);
     }
 
     num_prey += val;
-
+    ui->creature_list->sortItems();
 
     // The Simulation button appears, called "simbut" for short, as you can now launch the simulation as you've just created one/some creature(s).
 
@@ -178,7 +153,6 @@ void MainWindow::on_button_prey_clicked()
         ui->simBut->setVisible(true);
     };
 
-    QObject::connect(ui->simBut, &QPushButton::clicked, this, &QWidget::close);
 }
 
 
@@ -190,7 +164,7 @@ void MainWindow::on_button_plant_clicked()
     // Their name'll be "plant" + "number of the plant created".
 
     int val = ui->count_plant->value();
-    qDebug() << "Plants:" << val;
+//    qDebug() << "Plants:" << val;
 
     if (num_plant+val > 999) {
         val = 999-num_plant;
@@ -198,39 +172,26 @@ void MainWindow::on_button_plant_clicked()
 
     for (int i = num_plant; i < num_plant+val; i++) {
         auto plant = new Plant;
-        if (i<9) {
-            plant->setObjectName("Plant 00" + QString::number(i+1));
-        }
-        else if (i<99) {
-             plant->setObjectName("Plant 0" + QString::number(i+1));
-        }
-        else if (i>99) {
-            plant->setObjectName("Plant " + QString::number(i+1));
-        }
+        plant->setObjectName("Plant " + QString::number(i+1));
         auto item = new BeingItem(plant);
         ui->creature_list->addItem(item);
     }
 
     num_plant += val;
-
+    ui->creature_list->sortItems();
 
     // The Simulation button appears, called "simbut" for short, as you can now launch the simulation as you've just created one/some creature(s).
 
     if ((ui->simBut->isVisible() == false) and (ui->creature_list->count() != 0))  {
         ui->simBut->setVisible(true);
     };
-    QObject::connect(ui->simBut, &QPushButton::clicked, this, &QWidget::close);
 }
 
 
 void MainWindow::on_button_delete_all_clicked()
 {
+
     // Once you have clicked on the "Delete All" button, all creatures (plants, omnivorous or herbivore) will be deleted from creature_list.
-        ListWidget* creature_list = ui->groupBox_2->findChild<ListWidget*>();
-        creature_list->clear();
-        num_pred = 0;
-        num_plant = 0;
-        num_prey = 0;
 
     ui->creature_list->clear();
     num_pred = 0;
@@ -265,6 +226,7 @@ void MainWindow::on_button_delete_creature_clicked()
     if (count == 0) {
         ui->simBut->setVisible(false);
     }
+}
 
 
 void MainWindow::create_proper_sliders(QListWidgetItem* item) {
