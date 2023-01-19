@@ -473,7 +473,7 @@ void Creature::Eat(){
         if (this->get_eat_creature() && k != nullptr && (!k->get_eat_creature())){
             if (k->get_alive_time()>50){
                 double r = (double)rand()/(double)RAND_MAX;
-                r*=4;//Creature can at most eat something 4 times bigger
+                r*=5;//Creature can at most eat something 5 times bigger
                 if (r>(k->get_size())/(get_size())){
                     k->set_hp(-1);
                     k->die();
@@ -770,8 +770,8 @@ std::vector<double> Creature::See(int n, int i){
     v.push_back(r);
     //we'll then try a dynamic cast to know what we add after:
     if (last_seen==nullptr){
-        v.push_back(-1);
-        v.push_back(-1);
+        v.push_back(0);
+        v.push_back(0);
         return v;
     }
 
@@ -782,15 +782,15 @@ std::vector<double> Creature::See(int n, int i){
     //we then add type:
     Plant* j = dynamic_cast<Plant*>(last_seen);
     if (j!= nullptr){
-        v.push_back(1);
+        v.push_back(-100);
     }
     else{
         Creature* j = dynamic_cast<Creature*>(last_seen);
         if (j!= nullptr){
-            v.push_back(2);
+            v.push_back(100);
         }
         else{
-            v.push_back(3);
+            v.push_back(200);
         }
     }
 
