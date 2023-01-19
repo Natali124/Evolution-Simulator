@@ -66,6 +66,7 @@ private:
 
 };
 
+class Environment_Stats2 : QChartView {
 public:
     Environment_Stats2(SimulationView* menu, QWidget* parent = nullptr);
     //std::vector<double> creature_energy_ratio(); //helper vector for creating a graph on the proportion of creatures having
