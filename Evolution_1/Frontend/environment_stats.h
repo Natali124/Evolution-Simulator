@@ -43,6 +43,7 @@ public:
     std::map<Creature::Enum_parameters, double> average_creatures();
     std::map<Creature::Enum_parameters, double> average_prey();
     std::map<Creature::Enum_parameters, double> average_predator();
+    void average_lifespan(int age);
     int number_LBs;
     int number_LBs_alive;
     int number_LBs_dead;
@@ -52,11 +53,33 @@ public:
     int number_plants;
     int number_plants_alive;
     int number_plants_dead;
+    int last_50_ages[50];
+    int number_ages = 0;
 
 
 private:
     SimulationView* menu;
     QChart *chart {chart = new QChart()};
+    Environment* env;
+    QAbstractAxis* x_axis;
+    QAbstractAxis* y_axis;
+
+};
+
+public:
+    Environment_Stats2(SimulationView* menu, QWidget* parent = nullptr);
+    //std::vector<double> creature_energy_ratio(); //helper vector for creating a graph on the proportion of creatures having
+    ~Environment_Stats2();
+    //void timerEvent(QTimerEvent *event);
+    std::map<Creature::Enum_parameters, double> average_prey();
+    std::map<Creature::Enum_parameters, double> average_predator();
+    qreal x_val;
+    qreal y_val;
+
+
+private:
+    SimulationView* menu;
+    QChart *chart;
     Environment* env;
     QAbstractAxis* x_axis;
     QAbstractAxis* y_axis;
