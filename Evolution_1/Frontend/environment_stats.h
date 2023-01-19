@@ -43,6 +43,7 @@ public:
     std::map<Creature::Enum_parameters, double> average_creatures();
     std::map<Creature::Enum_parameters, double> average_prey();
     std::map<Creature::Enum_parameters, double> average_predator();
+    void average_lifespan(int age);
     int number_LBs;
     int number_LBs_alive;
     int number_LBs_dead;
@@ -52,11 +53,36 @@ public:
     int number_plants;
     int number_plants_alive;
     int number_plants_dead;
+    int last_50_ages[50];
+    int number_ages = 0;
 
 
 private:
     SimulationView* menu;
     QChart *chart {chart = new QChart()};
+    Environment* env;
+    QAbstractAxis* x_axis;
+    QAbstractAxis* y_axis;
+
+};
+
+class Environment_Stats2 : QChartView {
+public:
+    Environment_Stats2(SimulationView* menu, QWidget* parent = nullptr);
+    //std::vector<double> creature_energy_ratio(); //helper vector for creating a graph on the proportion of creatures having
+    ~Environment_Stats2();
+    //void timerEvent(QTimerEvent *event);
+    void update_chart();
+    QChart* get_chart() {return chart;};
+    std::map<Creature::Enum_parameters, double> average_prey();
+    std::map<Creature::Enum_parameters, double> average_predator();
+    qreal x_val;
+    qreal y_val;
+
+
+private:
+    SimulationView* menu;
+    QChart *chart;
     Environment* env;
     QAbstractAxis* x_axis;
     QAbstractAxis* y_axis;
@@ -79,12 +105,14 @@ public:
     QAbstractAxis* get_y_axis() {return y_axis;};
     Environment* get_env() {return env;};
     std::map<Creature::Enum_parameters, double> average_creatures();
-    void set_series(QLineSeries *series) {this->series = series;};
-    QLineSeries* get_series() {return series;};
+    void set_series_prey(QLineSeries *series) {this->series_prey = series;};
+    QLineSeries* get_series_predator() {return series_predator;};
+    void set_series_predator(QLineSeries *series) {this->series_predator = series;};
+    QLineSeries* get_series_prey() {return series_prey;};
     int get_t() {return t;};
     void set_t(int t){this->t=t;};
     void increase_t() {t++;};
-    double get_size_avg();
+    std::vector<double> get_size_avg();
 
 
 private:
@@ -93,7 +121,8 @@ private:
     Environment* env;
     QAbstractAxis* x_axis;
     QAbstractAxis* y_axis;
-    QLineSeries* series {series = new QLineSeries()};
+    QLineSeries* series_prey ;
+    QLineSeries* series_predator ;
     int t;
 
 };

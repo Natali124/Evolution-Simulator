@@ -7,7 +7,7 @@
 
 
 int LivingBeing::get_alive_time(){return this->alive_time;}
-void LivingBeing::increase_alive_time(){if (alive_time<10000){alive_time++;}}
+void LivingBeing::increase_alive_time(){if (alive_time<100000){alive_time++;}}
 
 void LivingBeing::playstep(){
     setRotation(rotation() + 7);
