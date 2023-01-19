@@ -16,6 +16,7 @@ int active_creature;
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
+//    setAttribute(Qt::WA_DeleteOnClose); // very important - delete the object from memory when the window is closed
     // only the start button is visible.
     QString back(":/backgrounds/images/nature-outdoor-forest-background_1308-54338.jpg");
     ui->setupUi(this);
