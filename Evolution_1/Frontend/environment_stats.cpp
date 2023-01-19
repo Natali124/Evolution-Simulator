@@ -284,4 +284,81 @@ std::vector<double> Environment_Stats::creature_energy_ratio() {
     return res;
 };
 
+Environment_Stats2::Environment_Stats2(SimulationView* menu, QWidget *parent): QChartView(parent) {
+
+    //set_menu(menu);
+    //set_env( menu->get_environment());
+    //startTimer(10000); //please do not remove this otherwise the chart will not update
+
+    chart = get_chart();
+    setChart(chart);
+    chart->setTitle("Dynamic chart of the average lifetime of the last 50 that died");
+
+    QValueAxis *axisX = new QValueAxis();
+    QValueAxis *axisY = new QValueAxis();
+
+    QLineSeries *LB_series = new QLineSeries();
+    QLineSeries *Creature_series = new QLineSeries();
+    QLineSeries *Plant_series = new QLineSeries();
+
+    chart->addSeries(LB_series);
+    chart->addSeries(Creature_series);
+    chart->addSeries(Plant_series);
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+
+    QPen plant(Qt::green);
+    plant.setWidth(3);
+    Plant_series->setPen(plant);
+    //Plant_series->append();
+
+    QPen creature(Qt::red);
+    creature.setWidth(3);
+    Creature_series->setPen(creature);
+    //Creature_series->append();
+
+    QPen LB(Qt::blue);
+    creature.setWidth(3);
+    LB_series->setPen(LB);
+    //LB_series->append();
+
+    //QStringList categories;
+    //categories << "0 to 20%" << "21% to 40%" << "41% to 60%" << "61% to 80%" << "81% to 100%";
+
+    //QBarCategoryAxis* axisX = new QBarCategoryAxis();
+    //axisX->append(categories);
+    chart->addAxis(axisX, Qt::AlignBottom);
+    chart->addAxis(axisY, Qt::AlignLeft);
+    Plant_series->attachAxis(axisX);
+    Plant_series->attachAxis(axisY);
+    Creature_series->attachAxis(axisX);
+    Creature_series->attachAxis(axisY);
+    LB_series->attachAxis(axisX);
+    LB_series->attachAxis(axisY);
+
+    axisY->setRange(0,500);
+    axisX->setRange(0, 10);
+    //all charts:
+    chart->legend()->setVisible(true);;
+    chart->legend()->setAlignment(Qt::AlignBottom);
+    this->setRenderHint(QPainter::Antialiasing);
+    chart->show();
+
+};
+
+
+
+void Environment_Stats2::update_chart(){
+    //get the data from matei's average function
+    //series->append(prop);
+    //chart->addSeries(series);
+    //series->attachAxis(get_x_axis());
+    //series->attachAxis(get_y_axis());
+    update();
+}
+
+Environment_Stats2::~Environment_Stats2() {};
+
+
+
+
 

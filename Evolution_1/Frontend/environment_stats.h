@@ -63,7 +63,37 @@ private:
 
 };
 
+class Environment_Stats2 : QChartView {
+public:
+    Environment_Stats2(SimulationView* menu, QWidget* parent = nullptr);
+    //std::vector<double> creature_energy_ratio(); //helper vector for creating a graph on the proportion of creatures having
+    ~Environment_Stats2();
+    //void timerEvent(QTimerEvent *event);
+    void update_chart();
+    QChart* get_chart() {return chart;};
+    SimulationView* get_menu() {return menu;};
+    void set_menu(SimulationView* menu) {this->menu = menu; };
+    void set_env(Environment* env) {this->env = env;};
+    void set_x_axis(QAbstractAxis* x_axis) {this->x_axis =x_axis;};
+    QAbstractAxis* get_x_axis() {return x_axis;};
+    void set_y_axis(QAbstractAxis* y_axis) {this->y_axis =y_axis;};
+    QAbstractAxis* get_y_axis() {return y_axis;};
+    Environment* get_env() {return env;};
+    std::map<Creature::Enum_parameters, double> average_creatures();
+    std::map<Creature::Enum_parameters, double> average_prey();
+    std::map<Creature::Enum_parameters, double> average_predator();
+    qreal x_val;
+    qreal y_val;
 
+private:
+    SimulationView* menu;
+    QChart *chart;
+    Environment* env;
+    QAbstractAxis* x_axis;
+    QAbstractAxis* y_axis;
+
+
+};
 
 #endif // ENVIRONMENT_STATS_H
 
