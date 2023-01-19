@@ -115,6 +115,7 @@ void MainWindow::on_button_pred_clicked()
         else if (i>99) {
             creature->setObjectName("Omnivorous creature " + QString::number(i+1));
         }
+        creature->parameters[Creature::eat_creature] = 1;
         auto item = new BeingItem(creature);
         ui->creature_list->addItem(item);
     }
