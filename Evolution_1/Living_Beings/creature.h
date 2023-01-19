@@ -108,7 +108,7 @@ public:
     // DATA MEMBERS
     std::map<Enum_parameters, double> parameters;
     std::map<Enum_parameters, double> base_parameters; //Those are the parameters we use for reproduction
-
+    static QString name_param(Creature::Enum_parameters param);
 
     //Vision is simulated using multiple rays which will start from the creature trying to see an go on multiple dircetion.
     // n >=0 correspond to the number of ray we will use to get the vision.

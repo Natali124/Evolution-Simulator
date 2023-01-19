@@ -81,7 +81,7 @@ Environment_Stats::Environment_Stats(SimulationView* menu, QWidget *parent): QCh
     chart->legend()->setVisible(true);;
     chart->legend()->setAlignment(Qt::AlignBottom);
     this->setRenderHint(QPainter::Antialiasing);
-    show();
+    //show();
 
 };
 
@@ -164,6 +164,7 @@ void Environment_Stats::update_chart(){
 }
 
 
+
 Environment_Stats::~Environment_Stats() {};
 
 std::map<Creature::Enum_parameters, double> Environment_Stats::average_creatures(){
@@ -243,7 +244,7 @@ std::map<Creature::Enum_parameters, double> Environment_Stats::average_predator(
 
 std::vector<double> Environment_Stats::creature_energy_ratio() {
     std::vector<double> v;    //v stores the ratio of hp/max_hp for each creature
-    QList<QGraphicsItem *> list = env->items();
+    QList<QGraphicsItem *> list = get_env()->items();
     QListIterator<QGraphicsItem*> i(list);
     while (i.hasNext()) {
         LivingBeing* LB = dynamic_cast<LivingBeing*>(i.next());
@@ -285,3 +286,88 @@ std::vector<double> Environment_Stats::creature_energy_ratio() {
 };
 
 
+
+/// AVERAGE PARAMETERS
+Average_param::Average_param(SimulationView* menu, QWidget *parent): QChartView(parent) {
+    set_t(0);
+    set_menu(menu);
+    set_env( menu->get_environment());
+    startTimer(3000);
+
+    /*//Creating the graph
+    static std::map<Creature::Enum_parameters, QLineSeries*> series;
+    //creates a different series for each parameter
+    for (Creature::Enum_parameters param = (Creature::Enum_parameters)0; param != Creature::last; param=(Creature::Enum_parameters)(param+1))
+            {
+                QLineSeries *lineSeries = new QLineSeries();
+                lineSeries->setName(Creature::name_param(param));
+                series[param] = lineSeries;
+                chart->addSeries(lineSeries);
+            }
+    */
+    series = get_series();
+    chart = get_chart();
+    setChart(chart);
+
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+
+    QValueAxis* axisX = new QValueAxis();
+    set_x_axis(axisX);
+    chart->addAxis(axisX, Qt::AlignBottom);
+    series->attachAxis(axisX);
+
+    QValueAxis* axisY = new QValueAxis();
+    set_y_axis(axisY);
+    axisY->setRange(0,200);
+    chart->addAxis(axisY, Qt::AlignLeft);
+    series->attachAxis(axisY);
+
+    chart->setTitle("Average of the parameters over time");
+
+    //all charts:
+    chart->legend()->setVisible(true);;
+    chart->legend()->setAlignment(Qt::AlignBottom);
+    this->setRenderHint(QPainter::Antialiasing);
+    show();
+
+};
+
+double Average_param::get_size_avg(){
+    //enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, Max_hp, size, last};
+    QList<QGraphicsItem *> list = get_env()->items();
+    QListIterator<QGraphicsItem*> i(list);
+    int counter = 0;
+    double Size = 0;
+    while(i.hasNext()){
+        LivingBeing* LB = dynamic_cast<LivingBeing*>(i.next());
+        LivingBeing::Type_LB type = LB->get_type();
+        if (type == Creature::creature) {
+            Creature* c = dynamic_cast<Creature*>(LB);
+            counter++;
+            Size += c->get_size();
+        }
+    }
+    return Size/counter;
+}
+
+
+Average_param::~Average_param() {};
+
+void Average_param::timerEvent(QTimerEvent *event) {
+    //std::cout << "timer event received" <<std::endl;
+    update_chart();
+}
+
+
+void Average_param::update_chart(){
+    increase_t();
+
+    chart = get_chart();
+    series = get_series();
+    chart->removeAllSeries();
+    series->append(get_t(), get_size_avg());
+    chart->addSeries(series);
+    series->attachAxis(get_x_axis());
+    series->attachAxis(get_y_axis());
+    update();
+}
