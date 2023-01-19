@@ -305,27 +305,36 @@ Average_param::Average_param(SimulationView* menu, QWidget *parent): QChartView(
                 chart->addSeries(lineSeries);
             }
     */
-    QLineSeries* series = new QLineSeries();
+    QLineSeries* series_prey = new QLineSeries();
+    series_prey->setName("preys");
+    series_prey->setColor("green");
+    series_predator->setName("predators");
+    series_predator->setColor("red");
+    QLineSeries* series_predator = new QLineSeries();
     chart = get_chart();
     setChart(chart);
-    chart->addSeries(series);
+    chart->addSeries(series_prey);
+    chart->addSeries(series_predator);
     chart->setAnimationOptions(QChart::SeriesAnimations);
 
     QValueAxis* axisX = new QValueAxis();
     set_x_axis(axisX);
     axisX->setMax(50);
     chart->addAxis(axisX, Qt::AlignBottom);
-    series->attachAxis(axisX);
+    series_prey->attachAxis(axisX);
+    series_predator->attachAxis(axisX);
 
     QValueAxis* axisY = new QValueAxis();
     set_y_axis(axisY);
     axisY->setRange(0,200);
     axisX->setTitleText("1 unit : 1 update per 5 sec");
     chart->addAxis(axisY, Qt::AlignLeft);
-    series->attachAxis(axisY);
+    series_prey->attachAxis(axisY);
+    series_predator->attachAxis(axisY);
 
     chart->setTitle("Evolution of the average size of predators/ preys");
-    set_series(series);
+    set_series_prey(series_prey);
+    set_series_predator(series_predator);
     //all charts:
     chart->legend()->setVisible(true);;
     chart->legend()->setAlignment(Qt::AlignBottom);
@@ -335,22 +344,33 @@ Average_param::Average_param(SimulationView* menu, QWidget *parent): QChartView(
 
 };
 
-double Average_param::get_size_avg(){
+std::vector<double> Average_param::get_size_avg(){ //returns a vector of doubles: 1st item is avg size of the preys, second is for predators
     //enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, Max_hp, size, last};
+    std::vector<double> v;
     QList<QGraphicsItem *> list = get_env()->items();
     QListIterator<QGraphicsItem*> i(list);
-    int counter = 0;
-    double Size = 0;
+    int counter_prey = 0;
+    int counter_predator = 0;
+    double Size_prey = 0;
+    double Size_predator = 0;
     while(i.hasNext()){
         LivingBeing* LB = dynamic_cast<LivingBeing*>(i.next());
         LivingBeing::Type_LB type = LB->get_type();
         if (type == Creature::creature) {
             Creature* c = dynamic_cast<Creature*>(LB);
-            counter++;
-            Size += c->get_size();
+            if (c->get_eat_plants()){
+                counter_prey++;
+                Size_prey += c->get_size();
+            }
+            if (c->get_eat_creature()){
+                counter_predator++;
+                Size_predator += c->get_size();
+            }
         }
     }
-    return Size/counter;
+    v.push_back(Size_prey/counter_prey);
+    v.push_back(Size_predator/counter_predator);
+    return v;
 }
 
 
@@ -365,7 +385,9 @@ void Average_param::timerEvent(QTimerEvent *event) {
 void Average_param::update_chart(){
     increase_t();
     chart = get_chart();
-    series = get_series();
-    series->append(get_t(), get_size_avg());
+    series_prey = get_series_prey();
+    series_prey->append(get_t(), *(get_size_avg().begin()));
+    series_predator = get_series_predator();
+    series_predator->append(get_t(), *(get_size_avg().begin()+1));
     update();
 }

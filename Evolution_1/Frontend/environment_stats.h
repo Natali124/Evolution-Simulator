@@ -79,12 +79,14 @@ public:
     QAbstractAxis* get_y_axis() {return y_axis;};
     Environment* get_env() {return env;};
     std::map<Creature::Enum_parameters, double> average_creatures();
-    void set_series(QLineSeries *series) {this->series = series;};
-    QLineSeries* get_series() {return series;};
+    void set_series_prey(QLineSeries *series) {this->series_prey = series;};
+    QLineSeries* get_series_predator() {return series_predator;};
+    void set_series_predator(QLineSeries *series) {this->series_predator = series;};
+    QLineSeries* get_series_prey() {return series_prey;};
     int get_t() {return t;};
     void set_t(int t){this->t=t;};
     void increase_t() {t++;};
-    double get_size_avg();
+    std::vector<double> get_size_avg();
 
 
 private:
@@ -93,7 +95,8 @@ private:
     Environment* env;
     QAbstractAxis* x_axis;
     QAbstractAxis* y_axis;
-    QLineSeries* series ;
+    QLineSeries* series_prey ;
+    QLineSeries* series_predator ;
     int t;
 
 };
