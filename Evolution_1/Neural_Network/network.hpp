@@ -58,6 +58,7 @@ public:
     //Saving
     vector<vector<double>> network_to_vector();
     void network_to_file(string filename);
+    //Rk: it can be a good idea to add a path when creating the file.
 
 
 
