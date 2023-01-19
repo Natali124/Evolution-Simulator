@@ -72,6 +72,8 @@ public:
     //std::vector<double> creature_energy_ratio(); //helper vector for creating a graph on the proportion of creatures having
     ~Environment_Stats2();
     //void timerEvent(QTimerEvent *event);
+    void update_chart();
+    QChart* get_chart() {return chart;};
     std::map<Creature::Enum_parameters, double> average_prey();
     std::map<Creature::Enum_parameters, double> average_predator();
     qreal x_val;

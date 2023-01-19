@@ -364,7 +364,7 @@ Environment_Stats2::Environment_Stats2(SimulationView* menu, QWidget *parent): Q
 
 
 
-void Environment_Stats2::update_chart(){
+/*void Environment_Stats2::update_chart(){
     //get the data from matei's average function
     //series->append(prop);
     //chart->addSeries(series);
@@ -372,6 +372,7 @@ void Environment_Stats2::update_chart(){
     //series->attachAxis(get_y_axis());
     update();
 }
+*/
 
 Environment_Stats2::~Environment_Stats2() {};
 
@@ -399,11 +400,11 @@ Average_param::Average_param(SimulationView* menu, QWidget *parent): QChartView(
             }
     */
     QLineSeries* series_prey = new QLineSeries();
+    QLineSeries* series_predator = new QLineSeries();
     series_prey->setName("preys");
     series_prey->setColor("green");
     series_predator->setName("predators");
     series_predator->setColor("red");
-    QLineSeries* series_predator = new QLineSeries();
     chart = get_chart();
     setChart(chart);
     chart->addSeries(series_prey);
@@ -455,7 +456,7 @@ std::vector<double> Average_param::get_size_avg(){ //returns a vector of doubles
                 counter_prey++;
                 Size_prey += c->get_size();
             }
-            if (c->get_eat_creature()){
+            else if (c->get_eat_creature()){
                 counter_predator++;
                 Size_predator += c->get_size();
             }
