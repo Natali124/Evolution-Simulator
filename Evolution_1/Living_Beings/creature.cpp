@@ -13,11 +13,11 @@
 #include <QRandomGenerator>
 //using namespace std;
 
-const int repro_cost_predator = 80;// cost of reproduction of predators (20 = 1x food)
+const int repro_cost_predator = 40;// cost of reproduction of predators (20 = 1x food)
 const int repro_cost_prey = 40; // cost of reproduction of predators (20 = 1x food)
 const double seeing_rect = 500; // size of rectangle in which creatures see
 const int repro_cool_down = 50; // how many steps between reproductions
-const double _predator_speed_bonus = -0.5; // gives predators 50% more speed
+const double _predator_speed_bonus = 0.001; // gives predators 50% more speed
 const float _ddistance = 2; //base value of the change of the distance
 
 int Creature::n_families = 0;
@@ -193,9 +193,8 @@ Creature* Creature::reproduction() {
     C->i_eat_plants = this->i_eat_plants;
     C->my_size = max(0.0,min(200.0,normal_distrib(this->my_size, 10)));;
     C->set_scene(this->get_scene());
-    C->setPos(x(), y());
+    C->setPos(x() + 5, y() + 5);
     C->setRotation(rotation());
-    C->move(5, 5); //So that they aren't both exactly at the same place, and wont stay at the same position and do the same things
 
     C->set_family(this->get_family());
     return C;
