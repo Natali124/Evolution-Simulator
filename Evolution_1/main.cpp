@@ -23,6 +23,9 @@ int main(int argc, char *argv[])
     //  int n_gen = 1000; // number of generations
     //  int print_every = 10; // prints average loss of generation every print_every-th generation
 
-    run_evolution_in_file(10, 10, 10, 5, 5, 10, 10, "Users\natal\Documents\GitHub\Evolution-Simulator\Evolution_1\results1.txt");
+    run_evolution_in_file(100, 10, 10, 5, 5, 1000, 10, "results100.txt");
+    run_evolution_in_file(100, 10, 10, 10, 10, 1000, 10, "results100_1.txt");
+    run_evolution_in_file(50, 10, 10, 5, 5, 1000, 10, "results50.txt");
+    run_evolution_in_file(50, 10, 10, 10, 10, 1000, 10, "results50_1.txt");
     return 0;
 }

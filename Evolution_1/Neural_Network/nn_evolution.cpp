@@ -136,8 +136,7 @@ void run_evolution_in_file(int n, double r, double tests, int n_in, int n_out, i
 //  int n_gen = 1000; // number of generations
 //  int print_every = 10; // prints average loss of generation every print_every-th generation
   ofstream outfile (filename.c_str());
-  outfile << "hello";
-  /*
+  outfile << n << endl << r << endl << tests << endl << n_in << endl << n_out <<endl << n_gen << endl << print_every <<endl;
   vector<Network*> networks = vector<Network*>(0);
   for (int i = 0; i < n; ++i) {
       networks.push_back(new Network(n_in,n_out,2,7));
@@ -145,7 +144,7 @@ void run_evolution_in_file(int n, double r, double tests, int n_in, int n_out, i
   for (int gen = 0; gen < n_gen; ++gen) {
       double avg_loss = do_step(networks,n,tests,r,n_in,n_out);
       if(gen % print_every == 0){
-      strm << "Generation " << gen << ": Avg. Loss = " << avg_loss << endl;
+      outfile << "Generation: " << gen << " Avg.Loss: " << avg_loss << endl;
         }
-    }*/
+    }
 }
