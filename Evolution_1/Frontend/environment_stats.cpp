@@ -81,7 +81,7 @@ Environment_Stats::Environment_Stats(SimulationView* menu, QWidget *parent): QCh
     chart->legend()->setVisible(true);;
     chart->legend()->setAlignment(Qt::AlignBottom);
     this->setRenderHint(QPainter::Antialiasing);
-    //show();
+    show();
 
 };
 
@@ -292,7 +292,7 @@ Average_param::Average_param(SimulationView* menu, QWidget *parent): QChartView(
     set_t(0);
     set_menu(menu);
     set_env( menu->get_environment());
-    startTimer(3000);
+    startTimer(10000);
 
     /*//Creating the graph
     static std::map<Creature::Enum_parameters, QLineSeries*> series;
@@ -308,7 +308,7 @@ Average_param::Average_param(SimulationView* menu, QWidget *parent): QChartView(
     series = get_series();
     chart = get_chart();
     setChart(chart);
-
+    chart->addSeries(series);
     chart->setAnimationOptions(QChart::SeriesAnimations);
 
     QValueAxis* axisX = new QValueAxis();
@@ -364,10 +364,6 @@ void Average_param::update_chart(){
 
     chart = get_chart();
     series = get_series();
-    chart->removeAllSeries();
     series->append(get_t(), get_size_avg());
-    chart->addSeries(series);
-    series->attachAxis(get_x_axis());
-    series->attachAxis(get_y_axis());
     update();
 }
