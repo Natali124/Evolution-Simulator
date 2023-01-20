@@ -50,12 +50,14 @@ void SimulationView::init_layout(){
     auto btn = new QPushButton(leftGroupBox);
     btn->setText("Test - Spawn 20 creatures");
     connect(btn, &QPushButton::clicked, this, &SimulationView::randomize_scene);
-    layout->addWidget(btn);
     btn->setStyleSheet("color: black; background_color: white");
+    layout->addWidget(btn);
+
 
     auto slider = new SimulationSpeedSlider(&timer, leftGroupBox);
+    slider->setStyleSheet("color: white; background_color: white");
     layout->addWidget(slider);
-    slider->setStyleSheet("color: black; background_color: white");
+
 
     auto add_omn = new QPushButton(leftGroupBox);
     add_omn->setText("Add Omnivorous Creature");
