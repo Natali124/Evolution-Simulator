@@ -14,9 +14,14 @@ class startscreen : public QMainWindow
 public:
     explicit startscreen(QWidget *parent = nullptr);
     ~startscreen();
+    virtual void resizeEvent(QResizeEvent*);
 
 private slots:
+    void setBackgroundImage(QString filePath);
     void on_StartBut_clicked();
+    void stretchBackground();
+
+
 
 private:
     Ui::startscreen *ui;
