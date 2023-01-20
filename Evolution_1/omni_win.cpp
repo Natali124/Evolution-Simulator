@@ -32,12 +32,12 @@ omni_win::omni_win(QWidget *parent) :
     ui->eyesight_c->setStyleSheet("color: black; background-color: white");
     ui->energy_c->setStyleSheet("color: black; background-color: white");
 
-    ui->strength_l->setStyleSheet("color: black; background-color: white");
-    ui->visibility_l->setStyleSheet("color: black; background-color: white");
-    ui->size_l->setStyleSheet("color: black; background-color: white");
-    ui->health_l->setStyleSheet("color: black; background-color: white");
-    ui->eyesight_l->setStyleSheet("color: black; background-color: white");
-    ui->energy_l->setStyleSheet("color: black; background-color: white");
+    ui->strength_l->setStyleSheet("color: black");
+    ui->visibility_l->setStyleSheet("color: black");
+    ui->size_l->setStyleSheet("color: black");
+    ui->health_l->setStyleSheet("color: black");
+    ui->eyesight_l->setStyleSheet("color: black");
+    ui->energy_l->setStyleSheet("color: black");
 
     ui->strength_s->setStyleSheet("color: black; background-color: white");
     ui->visibility_s->setStyleSheet("color: black; background-color: white");

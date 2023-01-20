@@ -31,19 +31,13 @@ Plant_win::Plant_win(QWidget *parent) :
     ui->eyesight_c->setStyleSheet("color: black; background-color: white");
     ui->energy_c->setStyleSheet("color: black; background-color: white");
 
-    ui->strength_l->setStyleSheet("color: black; background-color: white");
-    ui->visibility_l->setStyleSheet("color: black; background-color: white");
-    ui->size_l->setStyleSheet("color: black; background-color: white");
-    ui->health_l->setStyleSheet("color: black; background-color: white");
-    ui->eyesight_l->setStyleSheet("color: black; background-color: white");
-    ui->energy_l->setStyleSheet("color: black; background-color: white");
+    ui->strength_l->setStyleSheet("color: black");
+    ui->visibility_l->setStyleSheet("color: black");
+    ui->size_l->setStyleSheet("color: black");
+    ui->health_l->setStyleSheet("color: black");
+    ui->eyesight_l->setStyleSheet("color: black");
+    ui->energy_l->setStyleSheet("color: black");
 
-    ui->strength_s->setStyleSheet("color: black; background-color: white");
-    ui->visibility_s->setStyleSheet("color: black; background-color: white");
-    ui->size_s->setStyleSheet("color: black; background-color: white");
-    ui->health_s->setStyleSheet("color: black; background-color: white");
-    ui->eyesight_s->setStyleSheet("color: black; background-color: white");
-    ui->energy_s->setStyleSheet("color: black; background-color: white");
 
     ui->add_plant1->setStyleSheet("color: black; background-color: white");
     ui->groupBox->setStyleSheet("color: black");
