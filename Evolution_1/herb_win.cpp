@@ -24,6 +24,30 @@ herb_win::herb_win(QWidget *parent) :
     connect(ui->size_c, SIGNAL(valueChanged(int)),ui->size_s,SLOT(setValue(int)) );
     connect(ui->size_s,SIGNAL(valueChanged(int)),ui->size_c,SLOT(setValue(int)) );
 
+    ui->strength_c->setStyleSheet("color: black; background_color: white");
+    ui->visibility_c->setStyleSheet("color: black; background_color: white");
+    ui->size_c->setStyleSheet("color: black; background_color: white");
+    ui->health_c->setStyleSheet("color: black; background_color: white");
+    ui->eyesight_c->setStyleSheet("color: black; background_color: white");
+    ui->energy_c->setStyleSheet("color: black; background_color: white");
+
+    ui->strength_l->setStyleSheet("color: black; background_color: white");
+    ui->visibility_l->setStyleSheet("color: black; background_color: white");
+    ui->size_l->setStyleSheet("color: black; background_color: white");
+    ui->health_l->setStyleSheet("color: black; background_color: white");
+    ui->eyesight_l->setStyleSheet("color: black; background_color: white");
+    ui->energy_l->setStyleSheet("color: black; background_color: white");
+
+    ui->strength_s->setStyleSheet("color: black; background_color: white");
+    ui->visibility_s->setStyleSheet("color: black; background_color: white");
+    ui->size_s->setStyleSheet("color: black; background_color: white");
+    ui->health_s->setStyleSheet("color: black; background_color: white");
+    ui->eyesight_s->setStyleSheet("color: black; background_color: white");
+    ui->energy_s->setStyleSheet("color: black; background_color: white");
+
+    ui->add_herbi->setStyleSheet("color: black; background_color: white");
+    ui->groupBox->setStyleSheet("color: black; background_color: white");
+
     QString back(":/backgrounds/images/gradient_1.jpg");
     setBackgroundImage(back);
 }
