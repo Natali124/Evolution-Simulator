@@ -44,6 +44,7 @@ void SimulationView::init_layout(){
     auto leftGroupBox = new QGroupBox("Control Panel", left_widget);
     auto layout = new QVBoxLayout;
     leftGroupBox->setLayout(layout);
+    leftGroupBox->setStyleSheet("color: black");
 
     auto btn = new QPushButton(leftGroupBox);
     btn->setText("Test - Spawn 20 creatures");
@@ -92,7 +93,7 @@ void SimulationView::init_layout(){
 
     //right half
     auto rightGroupBox = new QGroupBox("Display");
-    rightGroupBox->setStyleSheet("border:1px solid rgb(0, 255, 0); ");
+    rightGroupBox->setStyleSheet("color: black; border:1px solid rgb(0, 255, 0);");
     display.setParent(rightGroupBox);
 
     QSizePolicy spRight(QSizePolicy::Preferred, QSizePolicy::Preferred);
