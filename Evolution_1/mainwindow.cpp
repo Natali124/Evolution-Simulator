@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->setupUi(this);
     setBackgroundImage(back);
     QPalette pal = QPalette();
-    pal.setColor(QPalette::Window, Qt::black);
+    pal.setColor(QPalette::Window, Qt::transparent);
 
     ui->simBut->setPalette(pal);
     ui->button_rdm->setPalette(pal);
@@ -35,6 +35,19 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->count_pred->setPalette(pal);
     ui->count_plant->setPalette(pal);
     ui->count_pred->setPalette(pal);
+
+    ui->button_plant->setStyleSheet("color: white; background-color: grey");
+    ui->button_pred->setStyleSheet("color: white; background-color: grey");
+    ui->button_prey->setStyleSheet("color: white; background-color: grey");
+    ui->button_delete_all->setStyleSheet("color: white; background-color: grey");
+    ui->button_delete_creature->setStyleSheet("color: white; background-color: grey");
+    ui->count_plant->setStyleSheet("color: black; background-color: white");
+    ui->count_pred->setStyleSheet("color: black; background-color: white");
+    ui->count_prey->setStyleSheet("color: black; background-color: white");
+
+    ui->button_reset->setStyleSheet("color: white; background-color: grey; font-weight:bold");
+    ui->button_rdm->setStyleSheet("color: white; background-color: grey; font-weight:bold");
+    ui->simBut->setStyleSheet("color: white; background-color: grey; font-weight:bold");
 
     ui->simBut->setVisible(false);
     ui->button_rdm->setVisible(false);
