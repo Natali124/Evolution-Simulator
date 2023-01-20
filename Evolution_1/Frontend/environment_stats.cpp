@@ -426,7 +426,7 @@ Alive_perc::Alive_perc(SimulationView* menu, QWidget *parent): QChartView(parent
     series_predator->attachAxis(axisY);
     series_plant->attachAxis(axisY);
 
-    chart->setTitle("Percentage of alive predators, preys and plants among Living Beings");
+    chart->setTitle("Evolution of the percentage of alive predators, preys and plants among Living Beings");
     set_series_prey(series_prey);
     set_series_predator(series_predator);
     set_series_plant(series_plant);
