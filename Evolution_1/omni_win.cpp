@@ -3,13 +3,12 @@
 #include "ui_omni_win.h"
 #include <QRandomGenerator>
 
-
-float c_size = 0;
-float energy = 0;
-float health = 0;
-float eyesight = 0;
-float visibility = 0;
-float strength = 0;
+float c_size_omni = 0;
+float energy_omni = 0;
+float health_omni = 0;
+float eyesight_omni = 0;
+float visibility_omni = 0;
+float strength_omni = 0;
 
 omni_win::omni_win(Environment *environment, QWidget *parent) :
     QDialog(parent),
@@ -121,22 +120,22 @@ void omni_win::on_add_omnitrix_clicked()
     omni->parameters[Creature::eat_creature] = 1;
     omni->environment = environment;
 
-    c_size += ui->size_c->value();
-    energy += ui->energy_c->value();
-    health += ui->health_c->value();
-    eyesight += ui->eyesight_c->value();
-    visibility += ui->visibility_c->value();
-    strength += ui->strength_c->value();
+    c_size_omni += ui->size_c->value();
+    energy_omni += ui->energy_c->value();
+    health_omni += ui->health_c->value();
+    eyesight_omni += ui->eyesight_c->value();
+    visibility_omni += ui->visibility_c->value();
+    strength_omni += ui->strength_c->value();
 
 
-    omni->set_size(c_size);
-    omni->set_Max_energy(energy);
-    omni->set_energy(energy);
-    omni->set_Max_hp(health);
-    omni->set_hp(health);
-    omni->set_eye_sight(eyesight);
-    omni->set_visibility(visibility);
-    omni->set_physical_strength(strength);
+    omni->set_size(c_size_omni);
+    omni->set_Max_energy(energy_omni);
+    omni->set_energy(energy_omni);
+    omni->set_Max_hp(health_omni);
+    omni->set_hp(health_omni);
+    omni->set_eye_sight(eyesight_omni);
+    omni->set_visibility(visibility_omni);
+    omni->set_physical_strength(strength_omni);
 
     int maxX = environment->width();
     int maxY = environment->height();
@@ -147,12 +146,12 @@ void omni_win::on_add_omnitrix_clicked()
 
     environment->addItem(omni);
 
-    c_size = 0;
-    energy = 0;
-    health = 0;
-    eyesight = 0;
-    visibility = 0;
-    strength = 0;
+    c_size_omni = 0;
+    energy_omni = 0;
+    health_omni = 0;
+    eyesight_omni = 0;
+    visibility_omni = 0;
+    strength_omni = 0;
 
     this->close();
 }
