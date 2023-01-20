@@ -34,7 +34,22 @@ void herb_win::setBackgroundImage(QString filePath){
     palette.setBrush(QPalette::Window, bkgnd);
     setPalette(palette);
 }
+void herb_win::resizeEvent(QResizeEvent *evt)
+{
+    stretchBackground();
+    //fitDisplay();
 
+    QDialog::resizeEvent(evt); //call base implementation
+}
+
+void herb_win::stretchBackground(){
+    QString back(":/backgrounds/images/gradient_1.jpg");
+    QPixmap bkgnd(back);
+    bkgnd = bkgnd.scaled(size(), Qt::IgnoreAspectRatio);
+    QPalette p = palette();
+    p.setBrush(QPalette::Window, bkgnd);
+    setPalette(p);
+}
 
 herb_win::~herb_win()
 {
