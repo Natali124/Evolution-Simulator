@@ -35,6 +35,15 @@ void PropertySlider::init(QString text, float init_value){
     ui->label->setText(text);
     ui->spinBox->setValue((int)init_value);
     connect(ui->spinBox, &QSpinBox::valueChanged, this, &PropertySlider::update);
+
+    QPalette pal = QPalette();
+    pal.setColor(QPalette::Window, Qt::black);
+
+    ui->horizontalSlider->setPalette(pal);
+    ui->spinBox->setPalette(pal);
+    ui->label->setFrameShape(QFrame::Box);
+    ui->label->setStyleSheet("");
+    ui->label->setStyleSheet("background-color: rgb(0,0,0)");
 }
 
 void PropertySlider::update(){

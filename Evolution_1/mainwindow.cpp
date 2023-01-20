@@ -21,29 +21,24 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     QString back(":/backgrounds/images/nature-outdoor-forest-background_1308-54338.jpg");
     ui->setupUi(this);
     setBackgroundImage(back);
+    QPalette pal = QPalette();
+    pal.setColor(QPalette::Window, Qt::black);
+
+    ui->simBut->setPalette(pal);
+    ui->button_rdm->setPalette(pal);
+    ui->button_reset->setPalette(pal);
+    ui->button_delete_all->setPalette(pal);
+    ui->button_delete_creature->setPalette(pal);
+    ui->button_plant->setPalette(pal);
+    ui->button_pred->setPalette(pal);
+    ui->button_prey->setPalette(pal);
+    ui->count_pred->setPalette(pal);
+    ui->count_plant->setPalette(pal);
+    ui->count_pred->setPalette(pal);
+
     ui->simBut->setVisible(false);
     ui->button_rdm->setVisible(false);
     ui->button_reset->setVisible(false);
-
-//    ui->groupBox->setVisible(true);
-
-//    ui->groupBox->setStyleSheet("color: white; font-weight:bold; font-size:20pt");
-//    ui->P_strength_t->setStyleSheet("color: white; font-weight:bold");
-//    ui->max_energy_t->setStyleSheet("color: white; font-weight:bold");
-//    ui->max_energy_n->setStyleSheet("color: grey");
-//    ui->eye_sight_t->setStyleSheet("color: white; font-weight:bold");
-//    ui->eye_sight_n->setStyleSheet("color: grey");
-//    ui->visibility_t->setStyleSheet("color: white; font-weight:bold");
-//    ui->visibility_n->setStyleSheet("color: grey");
-//    ui->max_health_t->setStyleSheet("color: white; font-weight:bold");
-//    ui->max_health_n->setStyleSheet("color: grey");
-//    ui->size_t->setStyleSheet("color: white; font-weight:bold");
-//    ui->size_n->setStyleSheet("color: grey");
-
-
-//    ui->button_reset->setStyleSheet("color: black");
-//    ui->button_rdm->setStyleSheet("color: black");
-//    ui->P_strength_n->setStyleSheet("color: grey");
 
     connect(ui->creature_list, &QListWidget::itemClicked, this, &MainWindow::create_proper_sliders);
 

@@ -29,7 +29,7 @@
      <item>
       <widget class="QSpinBox" name="spinBox">
        <property name="autoFillBackground">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="maximum">
         <number>200</number>
@@ -39,7 +39,7 @@
      <item>
       <widget class="QSlider" name="horizontalSlider">
        <property name="autoFillBackground">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="maximum">
         <number>200</number>
