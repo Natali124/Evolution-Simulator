@@ -41,7 +41,10 @@ omni_win::omni_win(QWidget *parent) :
     ui->energy_l->setStyleSheet("color: black");
 
     ui->add_omnitrix->setStyleSheet("color: black; background-color: white");
+    ui->randbut->setStyleSheet("color: black; background-color: white");
+    ui->resetbut->setStyleSheet("color: black; background-color: white");
     ui->groupBox->setStyleSheet("color: black");
+
 
 
 

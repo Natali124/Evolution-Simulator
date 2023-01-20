@@ -36,6 +36,7 @@ Plant_win::Plant_win(Environment *environment, QWidget *parent) :
 
     ui->add_plant1->setStyleSheet("color: black; background-color: white");
     ui->randbut->setStyleSheet("color: black; background-color: white");
+    ui->resetbut->setStyleSheet("color: black; background-color: white");
     ui->groupBox->setStyleSheet("color: black");
 
     QString back(":/backgrounds/images/gradient_1.jpg");
