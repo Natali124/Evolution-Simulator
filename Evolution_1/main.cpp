@@ -14,6 +14,6 @@ int main(int argc, char *argv[])
     SimulationView menu(new Environment());
     SimulationView* menu_ptr = &menu;
     //new Environment_Stats(menu_ptr);
-    new Average_param(menu_ptr);
+    new Average_size(menu_ptr);
     return a.exec();
 }

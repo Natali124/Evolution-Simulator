@@ -89,10 +89,10 @@ private:
 
 };
 
-class Average_param : QChartView {
+class Average_size : QChartView {
 public:
-    Average_param(SimulationView* menu, QWidget* parent = nullptr);
-    ~Average_param();
+    Average_size(SimulationView* menu, QWidget* parent = nullptr);
+    ~Average_size();
     void timerEvent(QTimerEvent *event);
     void update_chart();
     QChart* get_chart() {return chart;};
@@ -107,6 +107,8 @@ public:
     std::map<Creature::Enum_parameters, double> average_creatures();
     void set_series_prey(QLineSeries *series) {this->series_prey = series;};
     QLineSeries* get_series_predator() {return series_predator;};
+    void set_series_plant(QLineSeries *series) {this->series_plant = series;};
+    QLineSeries* get_series_plant() {return series_plant;};
     void set_series_predator(QLineSeries *series) {this->series_predator = series;};
     QLineSeries* get_series_prey() {return series_prey;};
     int get_t() {return t;};
@@ -123,6 +125,7 @@ private:
     QAbstractAxis* y_axis;
     QLineSeries* series_prey ;
     QLineSeries* series_predator ;
+    QLineSeries* series_plant;
     int t;
 
 };
