@@ -1,9 +1,17 @@
 #include "plant_win.h"
+#include "Living_Beings/plant.h"
 #include "ui_plant_win.h"
 #include <QRandomGenerator>
+#include "Frontend/Widgets/simulationView.h"
+#include "mainwindow.h"
 
-Plant_win::Plant_win(QWidget *parent) :
+float p_size = 0;
+float max_hp = 0;
+float reproduction = 0;
+
+Plant_win::Plant_win(Environment *environment, QWidget *parent) :
     QDialog(parent),
+    environment(environment),
     ui(new Ui::Plant_win)
 {
     ui->setupUi(this);
@@ -76,5 +84,37 @@ void Plant_win::on_resetbut_clicked()
     ui->size_s->setValue(0);
     ui->health_s->setValue(0);
     ui->reproduction_s->setValue(0);
+}
+
+void Plant_win::on_add_plant1_clicked()
+{
+    auto plant = new Plant;
+    plant->setObjectName("Plant x");
+    plant->environment = environment;
+
+    p_size += ui->size_c->value();
+    max_hp += ui->health_c->value();
+    reproduction += ui->reproduction_c->value();
+
+    plant->set_size(p_size);
+    plant->set_Max_hp(max_hp);
+    plant->set_hp(max_hp);
+    plant->set_reproduction_rate(reproduction);
+
+    int maxX = environment->width();
+    int maxY = environment->height();
+    int x = std::rand() % maxX;
+    int y = std::rand() % maxY;
+    plant->setPos(x, y);
+
+
+    environment->addItem(plant);
+
+    p_size = 0;
+    max_hp = 0;
+    reproduction = 0;
+
+    this->close();
+
 }
 

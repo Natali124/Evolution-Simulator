@@ -269,6 +269,7 @@ void MainWindow::create_proper_sliders(QListWidgetItem* item) {
 void MainWindow::on_simBut_clicked()
 {
     auto environment = new Environment();
+
     int n = ui->creature_list->count();
     for(int i = 0; i < n; i++){
         auto beingitem = dynamic_cast<BeingItem*>(ui->creature_list->item(i));

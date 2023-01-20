@@ -187,7 +187,7 @@ void SimulationView::openPlantWindow() {
 //     omnwin.exec();
     //omnwin =new omni_win(this);
     //omnwin->show();
-    Plant_win plantwin;
+    Plant_win plantwin(environment);
     plantwin.setModal(true);
     plantwin.exec();
     }
