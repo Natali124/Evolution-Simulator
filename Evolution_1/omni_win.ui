@@ -27,21 +27,21 @@
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="10" column="1">
-       <widget class="QSpinBox" name="health_c">
+       <widget class="QSpinBox" name="visibility_c">
         <property name="maximum">
          <number>200</number>
         </property>
        </widget>
       </item>
       <item row="11" column="0">
-       <widget class="QLabel" name="size_l">
+       <widget class="QLabel" name="strength_l">
         <property name="text">
-         <string>Size</string>
+         <string>Strength</string>
         </property>
        </widget>
       </item>
       <item row="6" column="2">
-       <widget class="QSlider" name="strength_s">
+       <widget class="QSlider" name="size_s">
         <property name="maximum">
          <number>200</number>
         </property>
@@ -51,28 +51,28 @@
        </widget>
       </item>
       <item row="8" column="0">
+       <widget class="QLabel" name="health_l">
+        <property name="text">
+         <string>Health</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="size_l">
+        <property name="text">
+         <string>Size</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0">
        <widget class="QLabel" name="eyesight_l">
         <property name="text">
          <string>Eye Sight</string>
         </property>
        </widget>
       </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="strength_l">
-        <property name="text">
-         <string>Strength</string>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="0">
-       <widget class="QLabel" name="visibility_l">
-        <property name="text">
-         <string>Visibility</string>
-        </property>
-       </widget>
-      </item>
       <item row="10" column="2">
-       <widget class="QSlider" name="health_s">
+       <widget class="QSlider" name="visibility_s">
         <property name="maximum">
          <number>200</number>
         </property>
@@ -82,7 +82,7 @@
        </widget>
       </item>
       <item row="6" column="1">
-       <widget class="QSpinBox" name="strength_c">
+       <widget class="QSpinBox" name="size_c">
         <property name="maximum">
          <number>200</number>
         </property>
@@ -106,21 +106,21 @@
        </widget>
       </item>
       <item row="8" column="1">
-       <widget class="QSpinBox" name="eyesight_c">
+       <widget class="QSpinBox" name="health_c">
         <property name="maximum">
          <number>200</number>
         </property>
        </widget>
       </item>
       <item row="10" column="0">
-       <widget class="QLabel" name="health_l">
+       <widget class="QLabel" name="visibility_l">
         <property name="text">
-         <string>Health</string>
+         <string>Visibility</string>
         </property>
        </widget>
       </item>
       <item row="8" column="2">
-       <widget class="QSlider" name="eyesight_s">
+       <widget class="QSlider" name="health_s">
         <property name="maximum">
          <number>200</number>
         </property>
@@ -130,7 +130,7 @@
        </widget>
       </item>
       <item row="11" column="1">
-       <widget class="QSpinBox" name="size_c">
+       <widget class="QSpinBox" name="strength_c">
         <property name="maximum">
          <number>200</number>
         </property>
@@ -144,14 +144,14 @@
        </widget>
       </item>
       <item row="9" column="1">
-       <widget class="QSpinBox" name="visibility_c">
+       <widget class="QSpinBox" name="eyesight_c">
         <property name="maximum">
          <number>200</number>
         </property>
        </widget>
       </item>
       <item row="9" column="2">
-       <widget class="QSlider" name="visibility_s">
+       <widget class="QSlider" name="eyesight_s">
         <property name="maximum">
          <number>200</number>
         </property>
@@ -161,7 +161,7 @@
        </widget>
       </item>
       <item row="11" column="2">
-       <widget class="QSlider" name="size_s">
+       <widget class="QSlider" name="strength_s">
         <property name="maximum">
          <number>200</number>
         </property>
