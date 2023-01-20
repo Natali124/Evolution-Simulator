@@ -1,9 +1,19 @@
 #include "omni_win.h"
+#include "Living_Beings/creature.h"
 #include "ui_omni_win.h"
 #include <QRandomGenerator>
 
-omni_win::omni_win(QWidget *parent) :
+
+float c_size = 0;
+float energy = 0;
+float health = 0;
+float eyesight = 0;
+float visibility = 0;
+float strength = 0;
+
+omni_win::omni_win(Environment *environment, QWidget *parent) :
     QDialog(parent),
+    environment(environment),
     ui(new Ui::omni_win)
 {
     ui->setupUi(this);
@@ -101,5 +111,49 @@ void omni_win::on_resetbut_clicked()
     ui->visibility_s->setValue(0);
     ui->energy_s->setValue(0);
     ui->eyesight_s->setValue(0);
+}
+
+
+void omni_win::on_add_omnitrix_clicked()
+{
+    auto omni = new Creature;
+    omni->setObjectName("Omnivore x");
+    omni->parameters[Creature::eat_creature] = 1;
+    omni->environment = environment;
+
+    c_size += ui->size_c->value();
+    energy += ui->energy_c->value();
+    health += ui->health_c->value();
+    eyesight += ui->eyesight_c->value();
+    visibility += ui->visibility_c->value();
+    strength += ui->strength_c->value();
+
+
+    omni->set_size(c_size);
+    omni->set_Max_energy(energy);
+    omni->set_energy(energy);
+    omni->set_Max_hp(health);
+    omni->set_hp(health);
+    omni->set_eye_sight(eyesight);
+    omni->set_visibility(visibility);
+    omni->set_physical_strength(strength);
+
+    int maxX = environment->width();
+    int maxY = environment->height();
+    int x = std::rand() % maxX;
+    int y = std::rand() % maxY;
+    omni->setPos(x, y);
+
+
+    environment->addItem(omni);
+
+    c_size = 0;
+    energy = 0;
+    health = 0;
+    eyesight = 0;
+    visibility = 0;
+    strength = 0;
+
+    this->close();
 }
 

@@ -2,7 +2,6 @@
 #define PLANT_WIN_H
 
 #include <QDialog>
-
 #include "environment.h"
 
 namespace Ui {

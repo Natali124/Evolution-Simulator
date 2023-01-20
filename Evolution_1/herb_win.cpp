@@ -1,9 +1,18 @@
 #include "herb_win.h"
+#include "Living_Beings/creature.h"
 #include "ui_herb_win.h"
 #include <QRandomGenerator>
 
-herb_win::herb_win(QWidget *parent) :
+float c_size = 0;
+float energy = 0;
+float health = 0;
+float eyesight = 0;
+float visibility = 0;
+float strength = 0;
+
+herb_win::herb_win(Environment *environment, QWidget *parent) :
     QDialog(parent),
+    environment(environment),
     ui(new Ui::herb_win)
 {
     ui->setupUi(this);
@@ -95,5 +104,49 @@ void herb_win::on_resetbut_clicked()
     ui->visibility_s->setValue(0);
     ui->energy_s->setValue(0);
     ui->eyesight_s->setValue(0);
+}
+
+
+void herb_win::on_add_herbi_clicked()
+{
+    auto herbi = new Creature;
+    herbi->setObjectName("Herbivore x");
+    herbi->environment = environment;
+
+    c_size += ui->size_c->value();
+    energy += ui->energy_c->value();
+    health += ui->health_c->value();
+    eyesight += ui->eyesight_c->value();
+    visibility += ui->visibility_c->value();
+    strength += ui->strength_c->value();
+
+
+    herbi->set_size(c_size);
+    herbi->set_Max_energy(energy);
+    herbi->set_energy(energy);
+    herbi->set_Max_hp(health);
+    herbi->set_hp(health);
+    herbi->set_eye_sight(eyesight);
+    herbi->set_visibility(visibility);
+    herbi->set_physical_strength(strength);
+
+    int maxX = environment->width();
+    int maxY = environment->height();
+    int x = std::rand() % maxX;
+    int y = std::rand() % maxY;
+    herbi->setPos(x, y);
+
+
+    environment->addItem(herbi);
+
+    c_size = 0;
+    energy = 0;
+    health = 0;
+    eyesight = 0;
+    visibility = 0;
+    strength = 0;
+
+    this->close();
+
 }
 

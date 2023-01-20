@@ -133,7 +133,7 @@ void SimulationView::openOmniWindow() {
 //    newWindow->setLayout(layout);
      //newWindow->show();
 
-     omni_win omnwin;
+     omni_win omnwin(environment);
      omnwin.setModal(true);
      omnwin.exec();
     //omnwin =new omni_win(this);
@@ -157,7 +157,7 @@ void SimulationView::openHerbWindow() {
 //    newWindow->setLayout(layout);
      //newWindow->show();
 
-     herb_win herbwin;
+     herb_win herbwin(environment);
      herbwin.setModal(true);
      herbwin.exec();
     //omnwin =new omni_win(this);
