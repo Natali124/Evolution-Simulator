@@ -82,7 +82,7 @@ omni_win::~omni_win()
     delete ui;
 }
 
-void omni_win::on_pushButton_clicked()
+void omni_win::on_randbut_clicked()
 {
     ui->size_s->setValue(QRandomGenerator::global()->bounded(200));
     ui->health_s->setValue(QRandomGenerator::global()->bounded(200));
@@ -93,7 +93,7 @@ void omni_win::on_pushButton_clicked()
 }
 
 
-void omni_win::on_pushButton_2_clicked()
+void omni_win::on_resetbut_clicked()
 {
     ui->size_s->setValue(0);
     ui->health_s->setValue(0);

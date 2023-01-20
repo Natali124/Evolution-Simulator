@@ -76,7 +76,7 @@ herb_win::~herb_win()
     delete ui;
 }
 
-void herb_win::on_pushButton_clicked()
+void herb_win::on_randbut_clicked()
 {
     ui->size_s->setValue(QRandomGenerator::global()->bounded(200));
     ui->health_s->setValue(QRandomGenerator::global()->bounded(200));
@@ -87,7 +87,7 @@ void herb_win::on_pushButton_clicked()
 }
 
 
-void herb_win::on_pushButton_2_clicked()
+void herb_win::on_resetbut_clicked()
 {
     ui->size_s->setValue(0);
     ui->health_s->setValue(0);

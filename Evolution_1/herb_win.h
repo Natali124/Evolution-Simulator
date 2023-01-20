@@ -17,9 +17,10 @@ public:
     virtual void resizeEvent(QResizeEvent*);
 
 private slots:
-    void on_pushButton_clicked();
 
-    void on_pushButton_2_clicked();
+    void on_randbut_clicked();
+
+    void on_resetbut_clicked();
 
 private:
     Ui::herb_win *ui;
