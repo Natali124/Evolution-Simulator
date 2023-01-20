@@ -45,6 +45,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->count_pred->setStyleSheet("color: black; background-color: white");
     ui->count_prey->setStyleSheet("color: black; background-color: white");
 
+    ui->creature_list->setStyleSheet("color: black; background-color: white");
+
     ui->button_reset->setStyleSheet("color: white; background-color: grey; font-weight:bold");
     ui->button_rdm->setStyleSheet("color: white; background-color: grey; font-weight:bold");
     ui->simBut->setStyleSheet("color: white; background-color: grey; font-weight:bold");
