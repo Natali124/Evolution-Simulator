@@ -23,12 +23,12 @@
 #include <QTimerEvent>
 #include "Living_Beings/creature.h"
 
-class Environment_Stats : QChartView {
+class Energy_perc : QChartView {
 public:
-    Environment_Stats(SimulationView* menu, QWidget* parent = nullptr);
+    Energy_perc(SimulationView* menu, QWidget* parent = nullptr);
     std::vector<double> creature_energy_ratio(); //helper vector for creating a graph on the proportion of creatures having
-    //certain percentages of hp (their hp/ their max_hp)
-    ~Environment_Stats();
+    //certain percentages of hp (their hp/ their max_energy)
+    ~Energy_perc();
     void timerEvent(QTimerEvent *event);
     void update_chart();
     QChart* get_chart() {return chart;};
@@ -40,10 +40,6 @@ public:
     void set_y_axis(QAbstractAxis* y_axis) {this->y_axis =y_axis;};
     QAbstractAxis* get_y_axis() {return y_axis;};
     Environment* get_env() {return env;};
-    std::map<Creature::Enum_parameters, double> average_creatures();
-    std::map<Creature::Enum_parameters, double> average_prey();
-    std::map<Creature::Enum_parameters, double> average_predator();
-    void average_lifespan(int age);
     int number_LBs;
     int number_LBs_alive;
     int number_LBs_dead;
@@ -53,8 +49,20 @@ public:
     int number_plants;
     int number_plants_alive;
     int number_plants_dead;
-    int last_50_ages[50];
-    int number_ages = 0;
+
+
+
+    void set_series_prey_min(QLineSeries *series) {this->series_prey_min = series;};
+    QLineSeries* get_series_prey_min() {return series_prey_min;};
+    void set_series_prey_plus(QLineSeries *series) {this->series_prey_plus = series;};
+    QLineSeries* get_series_prey_plus() {return series_prey_plus;};
+    void set_series_predator_min(QLineSeries *series) {this->series_predator_min = series;};
+    QLineSeries* get_series_predator_min() {return series_predator_min;};
+    void set_series_predator_plus(QLineSeries *series) {this->series_predator_plus = series;};
+    QLineSeries* get_series_predator_plus() {return series_predator_plus;};
+    int get_t() {return t;};
+    void set_t(int t){this->t=t;};
+    void increase_t() {t++;};
 
 
 private:
@@ -63,6 +71,11 @@ private:
     Environment* env;
     QAbstractAxis* x_axis;
     QAbstractAxis* y_axis;
+    QLineSeries* series_prey_min ;
+    QLineSeries* series_prey_plus;
+    QLineSeries* series_predator_min;
+    QLineSeries* series_predator_plus;
+    int t;
 
 };
 
@@ -78,6 +91,9 @@ public:
     std::map<Creature::Enum_parameters, double> average_predator();
     qreal x_val;
     qreal y_val;
+    int last_50_ages[50];
+    int number_ages = 0;
+    void average_lifespan(int age);
 
 
 private:

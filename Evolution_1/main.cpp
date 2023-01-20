@@ -13,7 +13,9 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     SimulationView menu(new Environment());
     SimulationView* menu_ptr = &menu;
-    //new Environment_Stats(menu_ptr);
-    new Average_size(menu_ptr);
+
+    //choose only one graph to display, otherwise it is too heavy and crashes!
+    new Energy_perc(menu_ptr);
+    //new Average_size(menu_ptr);
     return a.exec();
 }
