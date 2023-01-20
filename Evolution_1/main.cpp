@@ -43,7 +43,5 @@ int main(int argc, char *argv[])
     SimulationView menu(new Environment());
     SimulationView* menu_ptr = &menu;
     new Environment_Stats(menu_ptr);
-
-
     return a.exec();
 }

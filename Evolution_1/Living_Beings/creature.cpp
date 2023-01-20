@@ -10,6 +10,7 @@
 #include <map>
 #include <QGraphicsItem>
 #include "environment.h"
+#include <QGraphicsColorizeEffect>
 #include <QRandomGenerator>
 //using namespace std;
 
@@ -93,12 +94,18 @@ Creature::Creature(bool newfamily):LivingBeing() {
 
 
     parameters[eye_sight] = 50;
+    effect = new QGraphicsColorizeEffect;
+    QColor bodycolor = QColor((10001 * family % 256), (1001 * family % 256), (100001 * family % 256), 255);
     if(newfamily){
       this->family = Creature::n_families;
-      Creature::n_families++;
+      Creature::n_families++; 
+      effect->setColor(QColor((10001 * family % 256), (1001 * family % 256), (100001 * family % 256), 255));
+      this->setGraphicsEffect(effect);
       }
-
-
+    else{
+        effect->setColor(Qt::transparent);
+        this->setGraphicsEffect(effect);
+    }
 }
 
 
@@ -114,6 +121,9 @@ Creature::Creature(Environment* e): Creature(){
     if (Check_Overlap_Creature(e)){
         set_alive(false);
     }
+    effect = new QGraphicsColorizeEffect;
+    effect->setColor(QColor((10001 * family % 256), (1001 * family % 256), (100001 * family % 256), 255));
+    this->setGraphicsEffect(effect);
 }
 
 
@@ -132,7 +142,6 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain,
     }
 
     parameters[eye_sight] = 50;
-
 
 }
 
@@ -160,25 +169,36 @@ void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     }
 
     double K = this->get_size()/600; //size coefficient
-    QColor bodycolor = QColor((10001 * family % 256), (1001 * family % 256), (100001 * family % 256), 255);
     if(!get_eat_creature()){
-        // Body
-        painter->setBrush(bodycolor); //for now make it redder the more energy it can have
-        painter->drawEllipse(-10*K, -20*K, 20*K, 40*K);
+
+        if(family%2==1){
+            painter->drawImage(boundingRect().toRect(),deer);
+        }
+        else{
+            painter->drawImage(boundingRect().toRect(),gazelle);
+        }
 
     } else {
-        painter->setBrush(bodycolor);
-        painter->drawEllipse(QRectF(-12*K,-12*K,24*K,24*K));
+        if(family%2==1){
+            painter->drawImage(boundingRect().toRect(),wolf);
+        }
+        else{
+            painter->drawImage(boundingRect().toRect(),lion);
+        }
+
+
     }
 
     LivingBeing::paint(painter, option, widget);
 }
 
 Creature* Creature::reproduction() {
+
     std::map<Enum_parameters, double> param_new_creature;
     for ( Enum_parameters param = (Enum_parameters)0; param != last; param=(Enum_parameters)(param+1) ) {
         double val = max(0.0,min(200.0,normal_distrib(parameters[param], 10))); // 0.1 is arbitrary value
         param_new_creature.insert(std::pair<Enum_parameters, double>(param, val));
+
     }
 
     //Creature can change from prey to predators, and the reverse
@@ -281,7 +301,11 @@ void Creature::set_brain(Network* b){brain = b;};
 int Creature::get_last_attack(){return this->last_attack;};
 void Creature::set_last_attack(int i){this->last_attack = i;};
 double Creature::get_parameter(Enum_parameters p){return this->parameters.at(p);};
-void Creature::set_family(int f){this->family = f;};
+void Creature::set_family(int f){
+    effect = new QGraphicsColorizeEffect;
+    effect->setColor(QColor((10001 * f % 256), (1001 * f % 256), (100001 * f % 256), 255));
+    this->setGraphicsEffect(effect);
+    this->family = f;};
 int Creature::get_family(){return this->family;};
 
 void Creature::bound_energy_hp() {

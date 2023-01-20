@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <QGraphicsColorizeEffect>
 
 
 //This namespace will be used in order to have some more object to use:
@@ -193,6 +194,12 @@ protected:
     int counter_no_eat;    //initialized at 0
     //if necessary, counters are increased in playstep or digest-step or sleep_step and set to 0 in sleep_step or eat or digest_step
     int last_attack;
+    QImage deer=QImage(":/designs/deer.png");
+    QImage gazelle=QImage(":/designs/gazelle.png");
+    QImage lion=QImage(":/designs/lion.png");
+    QImage wolf=QImage(":/designs/wolf.png");
+    QGraphicsColorizeEffect *effect;
+    QColor bodycolor;
 };
 
 
