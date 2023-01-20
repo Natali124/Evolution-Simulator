@@ -27,7 +27,7 @@ class Energy_perc : QChartView {
 public:
     Energy_perc(SimulationView* menu, QWidget* parent = nullptr);
     std::vector<double> creature_energy_ratio(); //helper vector for creating a graph on the proportion of creatures having
-    //certain percentages of hp (their hp/ their max_energy)
+    //certain percentages of energy (their energy/ their max_energy)
     ~Energy_perc();
     void timerEvent(QTimerEvent *event);
     void update_chart();

@@ -15,7 +15,9 @@ int main(int argc, char *argv[])
     SimulationView* menu_ptr = &menu;
 
     //choose only one graph to display, otherwise it is too heavy and crashes!
-    new Energy_perc(menu_ptr);
-    //new Average_size(menu_ptr);
+    new Energy_perc(menu_ptr);  // predators and preys are treated as independent groups. Plots the percentage of preys/predators
+    //having less/ more than or equal to  half of their max energy
+
+    //new Average_size(menu_ptr); //Plots the average size of plants, preys and predators
     return a.exec();
 }

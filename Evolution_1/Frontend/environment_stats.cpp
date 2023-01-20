@@ -47,7 +47,7 @@ Energy_perc::Energy_perc(SimulationView* menu, QWidget *parent): QChartView(pare
     series_predator_min->attachAxis(axisY);
     series_predator_plus->attachAxis(axisY);
 
-    chart->setTitle("Evolution of the percentage of predators/preys/plants having less/more than half of their max energy");
+    chart->setTitle("Evolution of the percentage of predators/preys having less/more than half of their max energy");
     set_series_prey_min(series_prey_min);
     set_series_prey_plus(series_prey_plus);
     set_series_predator_min(series_predator_min);
