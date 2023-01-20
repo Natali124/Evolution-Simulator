@@ -13,7 +13,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    a.setStyle("fusion");
+    a.setStyle("Fusion");
 //    SimulationView menu(new Environment());
     new startscreen;
     //MainWindow w; //start screen window

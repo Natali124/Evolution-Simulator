@@ -40,14 +40,12 @@ void PropertySlider::init(QString text, float init_value){
 //    pal.setColor(QPalette::Window, Qt::transparent);
 
     //ui->horizontalSlider->setPalette(pal);
-    //ui->horizontalSlider->setStyleSheet("color: grey; border: none");
-    ui->horizontalSlider->setStyleSheet("QSlider::handle:horizontal {color: black; border: none; background-color: grey;}");
-    ui->horizontalSlider->setStyleSheet("color: grey; border: none");
+    ui->horizontalSlider->setStyleSheet("border:none ; height: 13px");
     //ui->spinBox->setPalette(pal)
     ui->spinBox->setStyleSheet("color: black; background-color: white");
     ui->label->setFrameShape(QFrame::Box);
     ui->label->setAlignment(Qt::AlignCenter);
-    ui->label->setStyleSheet("border: none; background-color: grey");
+    ui->label->setStyleSheet("color: white; border: none; background-color: grey");
 }
 
 void PropertySlider::update(){
