@@ -1,5 +1,6 @@
 #include "omni_win.h"
 #include "ui_omni_win.h"
+#include <QRandomGenerator>
 
 omni_win::omni_win(QWidget *parent) :
     QDialog(parent),
@@ -77,3 +78,25 @@ omni_win::~omni_win()
 {
     delete ui;
 }
+
+void omni_win::on_pushButton_clicked()
+{
+    ui->size_s->setValue(QRandomGenerator::global()->bounded(200));
+    ui->health_s->setValue(QRandomGenerator::global()->bounded(200));
+    ui->strength_s->setValue(QRandomGenerator::global()->bounded(200));
+    ui->visibility_s->setValue(QRandomGenerator::global()->bounded(200));
+    ui->energy_s->setValue(QRandomGenerator::global()->bounded(200));
+    ui->eyesight_s->setValue(QRandomGenerator::global()->bounded(200));
+}
+
+
+void omni_win::on_pushButton_2_clicked()
+{
+    ui->size_s->setValue(0);
+    ui->health_s->setValue(0);
+    ui->strength_s->setValue(0);
+    ui->visibility_s->setValue(0);
+    ui->energy_s->setValue(0);
+    ui->eyesight_s->setValue(0);
+}
+

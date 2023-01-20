@@ -16,6 +16,11 @@ public:
     ~omni_win();
     virtual void resizeEvent(QResizeEvent*);
 
+private slots:
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
+
 private:
     Ui::omni_win *ui;
     void setBackgroundImage(QString filePath);

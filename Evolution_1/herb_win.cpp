@@ -1,5 +1,6 @@
 #include "herb_win.h"
 #include "ui_herb_win.h"
+#include <QRandomGenerator>
 
 herb_win::herb_win(QWidget *parent) :
     QDialog(parent),
@@ -72,3 +73,25 @@ herb_win::~herb_win()
 {
     delete ui;
 }
+
+void herb_win::on_pushButton_clicked()
+{
+    ui->size_s->setValue(QRandomGenerator::global()->bounded(200));
+    ui->health_s->setValue(QRandomGenerator::global()->bounded(200));
+    ui->strength_s->setValue(QRandomGenerator::global()->bounded(200));
+    ui->visibility_s->setValue(QRandomGenerator::global()->bounded(200));
+    ui->energy_s->setValue(QRandomGenerator::global()->bounded(200));
+    ui->eyesight_s->setValue(QRandomGenerator::global()->bounded(200));
+}
+
+
+void herb_win::on_pushButton_2_clicked()
+{
+    ui->size_s->setValue(0);
+    ui->health_s->setValue(0);
+    ui->strength_s->setValue(0);
+    ui->visibility_s->setValue(0);
+    ui->energy_s->setValue(0);
+    ui->eyesight_s->setValue(0);
+}
+

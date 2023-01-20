@@ -16,6 +16,11 @@ public:
     ~Plant_win();
     virtual void resizeEvent(QResizeEvent*);
 
+private slots:
+    void on_randbut_clicked();
+
+    void on_resetbut_clicked();
+
 private:
     Ui::Plant_win *ui;
     void setBackgroundImage(QString filePath);

@@ -1,5 +1,6 @@
 #include "plant_win.h"
 #include "ui_plant_win.h"
+#include <QRandomGenerator>
 
 Plant_win::Plant_win(QWidget *parent) :
     QDialog(parent),
@@ -26,6 +27,7 @@ Plant_win::Plant_win(QWidget *parent) :
 
 
     ui->add_plant1->setStyleSheet("color: black; background-color: white");
+    ui->randbut->setStyleSheet("color: black; background-color: white");
     ui->groupBox->setStyleSheet("color: black");
 
     QString back(":/backgrounds/images/gradient_1.jpg");
@@ -55,7 +57,24 @@ void Plant_win::stretchBackground(){
     setPalette(p);
 }
 
+
 Plant_win::~Plant_win()
 {
     delete ui;
 }
+
+void Plant_win::on_randbut_clicked()
+{
+    ui->size_s->setValue(QRandomGenerator::global()->bounded(200));
+    ui->health_s->setValue(QRandomGenerator::global()->bounded(200));
+    ui->reproduction_s->setValue(QRandomGenerator::global()->bounded(200));
+}
+
+
+void Plant_win::on_resetbut_clicked()
+{
+    ui->size_s->setValue(0);
+    ui->health_s->setValue(0);
+    ui->reproduction_s->setValue(0);
+}
+
