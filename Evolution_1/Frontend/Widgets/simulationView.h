@@ -4,6 +4,7 @@
 #include "Frontend/Widgets/simulationViewWidgets.h"
 #include <QMainWindow>
 #include <QTimer>
+#include "omni_win.h"
 
 //main window for displaying the game
 class SimulationView : public QMainWindow{
@@ -25,11 +26,13 @@ class SimulationView : public QMainWindow{
         CreatureDisplay display;
         void setBackgroundImage(QString filePath);
         void init_layout();
-        void openNewWindow();
-        void openNewWindow2();
-        void openNewWindow3();
+        void openOmniWindow();
+        void openHerbWindow();
+        void openPlantWindow();
         void stretchBackground();
         void fitDisplay();
+        //omni_win *omnwin;
+
 };
 
 #endif // MAINMENU_H
