@@ -38,13 +38,6 @@ herb_win::herb_win(QWidget *parent) :
     ui->eyesight_l->setStyleSheet("color: black");
     ui->energy_l->setStyleSheet("color: black");
 
-    ui->strength_s->setStyleSheet("color: black; background-color: white");
-    ui->visibility_s->setStyleSheet("color: black; background-color: white");
-    ui->size_s->setStyleSheet("color: black; background-color: white");
-    ui->health_s->setStyleSheet("color: black; background-color: white");
-    ui->eyesight_s->setStyleSheet("color: black; background-color: white");
-    ui->energy_s->setStyleSheet("color: black; background-color: white");
-
     ui->add_herbi->setStyleSheet("color: black; background-color: white");
     ui->groupBox->setStyleSheet("color: black");
 

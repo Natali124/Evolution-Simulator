@@ -38,7 +38,6 @@ Plant_win::Plant_win(QWidget *parent) :
     ui->eyesight_l->setStyleSheet("color: black");
     ui->energy_l->setStyleSheet("color: black");
 
-
     ui->add_plant1->setStyleSheet("color: black; background-color: white");
     ui->groupBox->setStyleSheet("color: black");
 
