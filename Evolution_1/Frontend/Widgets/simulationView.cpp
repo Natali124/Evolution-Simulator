@@ -44,42 +44,40 @@ void SimulationView::init_layout(){
     auto leftGroupBox = new QGroupBox("Control Panel", left_widget);
     auto layout = new QVBoxLayout;
     leftGroupBox->setLayout(layout);
-    leftGroupBox->setStyleSheet("color: black; background_color: white");
-    left_widget->setStyleSheet("color: black; background_color: white");
 
     auto btn = new QPushButton(leftGroupBox);
     btn->setText("Test - Spawn 20 creatures");
     connect(btn, &QPushButton::clicked, this, &SimulationView::randomize_scene);
-    btn->setStyleSheet("color: black; background_color: white");
+    btn->setStyleSheet("color: black; background-color: white");
     layout->addWidget(btn);
 
 
     auto slider = new SimulationSpeedSlider(&timer, leftGroupBox);
-    slider->setStyleSheet("color: white; background_color: white");
+    slider->setStyleSheet("color: black");
     layout->addWidget(slider);
 
 
     auto add_omn = new QPushButton(leftGroupBox);
     add_omn->setText("Add Omnivorous Creature");
     connect(add_omn, &QPushButton::clicked, this, &SimulationView::openOmniWindow);
-    add_omn->setStyleSheet("color: black; background_color: white");
+    add_omn->setStyleSheet("color: black; background-color: white");
 
     auto add_herb = new QPushButton(leftGroupBox);
     add_herb->setText("Add Herbivorous Creature");
     connect(add_herb, &QPushButton::clicked, this, &SimulationView::openHerbWindow);
-    add_herb->setStyleSheet("color: black; background_color: white");
+    add_herb->setStyleSheet("color: black; background-color: white");
 
     auto add_plant = new QPushButton(leftGroupBox);
     add_plant->setText("Add Plant");
     connect(add_plant, &QPushButton::clicked, this, &SimulationView::openPlantWindow);
-    add_plant->setStyleSheet("color: black; background_color: white");
+    add_plant->setStyleSheet("color: black; background-color: white");
 
     layout->addWidget(add_omn);
     layout->addWidget(add_herb);
     layout->addWidget(add_plant);
 
     auto being_counter = new ParameterDisplay("Number of beings:", environment, &Environment::nr_beings, this, environment);
-    being_counter->setStyleSheet("color: black; background_color: white");
+    being_counter->setStyleSheet("color: black");
 
 
     layout->addStretch();
