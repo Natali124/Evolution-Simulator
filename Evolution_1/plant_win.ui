@@ -23,7 +23,7 @@
       <item row="5" column="2">
        <widget class="QSlider" name="size_s">
         <property name="maximum">
-         <number>100</number>
+         <number>200</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -33,7 +33,7 @@
       <item row="4" column="2">
        <widget class="QSlider" name="health_s">
         <property name="maximum">
-         <number>100</number>
+         <number>200</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -43,7 +43,7 @@
       <item row="3" column="2">
        <widget class="QSlider" name="visibility_s">
         <property name="maximum">
-         <number>100</number>
+         <number>200</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -53,7 +53,7 @@
       <item row="1" column="2">
        <widget class="QSlider" name="energy_s">
         <property name="maximum">
-         <number>100</number>
+         <number>200</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -63,14 +63,14 @@
       <item row="4" column="1">
        <widget class="QSpinBox" name="health_c">
         <property name="maximum">
-         <number>100</number>
+         <number>200</number>
         </property>
        </widget>
       </item>
       <item row="5" column="1">
        <widget class="QSpinBox" name="size_c">
         <property name="maximum">
-         <number>100</number>
+         <number>200</number>
         </property>
        </widget>
       </item>
@@ -98,7 +98,7 @@
       <item row="0" column="2">
        <widget class="QSlider" name="strength_s">
         <property name="maximum">
-         <number>100</number>
+         <number>200</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -115,14 +115,14 @@
       <item row="3" column="1">
        <widget class="QSpinBox" name="visibility_c">
         <property name="maximum">
-         <number>100</number>
+         <number>200</number>
         </property>
        </widget>
       </item>
       <item row="2" column="2">
        <widget class="QSlider" name="eyesight_s">
         <property name="maximum">
-         <number>100</number>
+         <number>200</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -139,21 +139,21 @@
       <item row="0" column="1">
        <widget class="QSpinBox" name="strength_c">
         <property name="maximum">
-         <number>100</number>
+         <number>200</number>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
        <widget class="QSpinBox" name="energy_c">
         <property name="maximum">
-         <number>100</number>
+         <number>200</number>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
        <widget class="QSpinBox" name="eyesight_c">
         <property name="maximum">
-         <number>100</number>
+         <number>200</number>
         </property>
        </widget>
       </item>

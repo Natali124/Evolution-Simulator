@@ -14,10 +14,12 @@ class omni_win : public QDialog
 public:
     explicit omni_win(QWidget *parent = nullptr);
     ~omni_win();
+    virtual void resizeEvent(QResizeEvent*);
 
 private:
     Ui::omni_win *ui;
     void setBackgroundImage(QString filePath);
+    void stretchBackground();
 };
 
 

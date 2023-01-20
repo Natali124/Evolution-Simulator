@@ -28,6 +28,7 @@ omni_win::omni_win(QWidget *parent) :
     QString back(":/backgrounds/images/gradient_1.jpg");
     setBackgroundImage(back);
 }
+
 void omni_win::setBackgroundImage(QString filePath){
     QPixmap bkgnd = QPixmap(filePath);
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
@@ -36,6 +37,22 @@ void omni_win::setBackgroundImage(QString filePath){
     setPalette(palette);
 }
 
+void omni_win::resizeEvent(QResizeEvent *evt)
+{
+    stretchBackground();
+    //fitDisplay();
+
+    QDialog::resizeEvent(evt); //call base implementation
+}
+
+void omni_win::stretchBackground(){
+    QString back(":/backgrounds/images/gradient_1.jpg");
+    QPixmap bkgnd(back);
+    bkgnd = bkgnd.scaled(size(), Qt::IgnoreAspectRatio);
+    QPalette p = palette();
+    p.setBrush(QPalette::Window, bkgnd);
+    setPalette(p);
+}
 
 omni_win::~omni_win()
 {

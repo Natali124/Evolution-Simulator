@@ -14,10 +14,12 @@ class herb_win : public QDialog
 public:
     explicit herb_win(QWidget *parent = nullptr);
     ~herb_win();
+    virtual void resizeEvent(QResizeEvent*);
 
 private:
     Ui::herb_win *ui;
     void setBackgroundImage(QString filePath);
+    void stretchBackground();
 };
 
 #endif // HERB_WIN_H
