@@ -384,3 +384,111 @@ void Average_size::update_chart(){
     series_plant->append(get_t(), get_size_avg()[2]);
     update();
 }
+
+
+Alive_perc::Alive_perc(SimulationView* menu, QWidget *parent): QChartView(parent) {
+    set_t(0);
+    set_menu(menu);
+    set_env( menu->get_environment());
+    startTimer(5000);
+
+    QLineSeries* series_prey = new QLineSeries();
+    QLineSeries* series_predator = new QLineSeries();
+    QLineSeries* series_plant = new QLineSeries();
+
+    series_prey->setName("preys");
+    series_prey->setColor("orange");
+    series_predator->setName("predators");
+    series_predator->setColor("red");
+    series_plant->setColor("green");
+    series_plant->setName("plants");
+    chart = get_chart();
+    setChart(chart);
+    chart->addSeries(series_prey);
+    chart->addSeries(series_predator);
+    chart->addSeries(series_plant);
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+
+    QValueAxis* axisX = new QValueAxis();
+    set_x_axis(axisX);
+    axisX->setMax(50);
+    chart->addAxis(axisX, Qt::AlignBottom);
+    series_prey->attachAxis(axisX);
+    series_predator->attachAxis(axisX);
+    series_plant->attachAxis(axisX);
+
+    QValueAxis* axisY = new QValueAxis();
+    set_y_axis(axisY);
+    axisY->setRange(0,100);
+    axisX->setTitleText("1 unit : 1 update per 5 sec");
+    chart->addAxis(axisY, Qt::AlignLeft);
+    series_prey->attachAxis(axisY);
+    series_predator->attachAxis(axisY);
+    series_plant->attachAxis(axisY);
+
+    chart->setTitle("Percentage of alive predators, preys and plants among Living Beings");
+    set_series_prey(series_prey);
+    set_series_predator(series_predator);
+    set_series_plant(series_plant);
+    chart->legend()->setVisible(true);;
+    chart->legend()->setAlignment(Qt::AlignBottom);
+    this->setRenderHint(QPainter::Antialiasing);
+    update();
+    show();
+
+};
+
+std::vector<double> Alive_perc::get_alive_perc(){ //returns a vector of doubles: 1st item is avg size of the preys, second is for predators,
+    // third is for plants
+    std::vector<double> v;
+    QList<QGraphicsItem *> list = get_env()->items();
+    QListIterator<QGraphicsItem*> i(list);
+    int counter_prey = 0;
+    int counter_predator = 0;
+    int counter_plant =0;
+    int counter_LB =0;
+    while(i.hasNext()){
+        counter_LB++;
+        LivingBeing* LB = dynamic_cast<LivingBeing*>(i.next());
+        LivingBeing::Type_LB type = LB->get_type();
+        if (type == Creature::creature) {
+            Creature* c = dynamic_cast<Creature*>(LB);
+            if (c->get_eat_plants()){
+                counter_prey++;
+            }
+            else if (c->get_eat_creature()){
+                counter_predator++;
+            }
+        }
+        else if (type== Plant::plant) {
+            Plant* p = dynamic_cast<Plant*>(LB);
+            counter_plant++;
+        }
+    }
+    v.push_back((100*counter_prey)/counter_LB);
+    v.push_back((100*counter_predator)/counter_LB);
+    v.push_back((100*counter_plant)/counter_LB);
+    return v;
+}
+
+
+Alive_perc::~Alive_perc() {};
+
+void Alive_perc::timerEvent(QTimerEvent *event) {
+    //std::cout << "timer event received" <<std::endl;
+    update_chart();
+}
+
+
+void Alive_perc::update_chart(){
+    increase_t();
+    chart = get_chart();
+    series_prey = get_series_prey();
+    series_prey->append(get_t(), get_alive_perc()[0]);
+    series_predator = get_series_predator();
+    series_predator->append(get_t(), get_alive_perc()[1]);
+    series_plant = get_series_plant();
+    series_plant->append(get_t(), get_alive_perc()[2]);
+    update();
+}
+

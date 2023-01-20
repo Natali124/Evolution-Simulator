@@ -40,17 +40,6 @@ public:
     void set_y_axis(QAbstractAxis* y_axis) {this->y_axis =y_axis;};
     QAbstractAxis* get_y_axis() {return y_axis;};
     Environment* get_env() {return env;};
-    int number_LBs;
-    int number_LBs_alive;
-    int number_LBs_dead;
-    int number_creatures;
-    int number_creatures_alive;
-    int number_creatures_dead;
-    int number_plants;
-    int number_plants_alive;
-    int number_plants_dead;
-
-
 
     void set_series_prey_min(QLineSeries *series) {this->series_prey_min = series;};
     QLineSeries* get_series_prey_min() {return series_prey_min;};
@@ -131,6 +120,48 @@ public:
     void set_t(int t){this->t=t;};
     void increase_t() {t++;};
     std::vector<double> get_size_avg();
+
+
+private:
+    SimulationView* menu;
+    QChart *chart {chart = new QChart()};
+    Environment* env;
+    QAbstractAxis* x_axis;
+    QAbstractAxis* y_axis;
+    QLineSeries* series_prey ;
+    QLineSeries* series_predator ;
+    QLineSeries* series_plant;
+    int t;
+
+};
+
+
+class Alive_perc : QChartView {
+public:
+    Alive_perc(SimulationView* menu, QWidget* parent = nullptr);
+    ~Alive_perc();
+    void timerEvent(QTimerEvent *event);
+    void update_chart();
+    QChart* get_chart() {return chart;};
+    SimulationView* get_menu() {return menu;};
+    void set_menu(SimulationView* menu) {this->menu = menu; };
+    void set_env(Environment* env) {this->env = env;};
+    void set_x_axis(QAbstractAxis* x_axis) {this->x_axis =x_axis;};
+    QAbstractAxis* get_x_axis() {return x_axis;};
+    void set_y_axis(QAbstractAxis* y_axis) {this->y_axis =y_axis;};
+    QAbstractAxis* get_y_axis() {return y_axis;};
+    Environment* get_env() {return env;};
+    std::map<Creature::Enum_parameters, double> average_creatures();
+    void set_series_prey(QLineSeries *series) {this->series_prey = series;};
+    QLineSeries* get_series_predator() {return series_predator;};
+    void set_series_plant(QLineSeries *series) {this->series_plant = series;};
+    QLineSeries* get_series_plant() {return series_plant;};
+    void set_series_predator(QLineSeries *series) {this->series_predator = series;};
+    QLineSeries* get_series_prey() {return series_prey;};
+    int get_t() {return t;};
+    void set_t(int t){this->t=t;};
+    void increase_t() {t++;};
+    std::vector<double> get_alive_perc();
 
 
 private:
