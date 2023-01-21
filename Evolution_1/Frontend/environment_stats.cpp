@@ -125,152 +125,6 @@ std::vector<double> Energy_perc::creature_energy_ratio() {
     return v;
 }
 
-Environment_Stats2::Environment_Stats2(SimulationView* menu, QWidget *parent): QChartView(parent) {
-
-    //set_menu(menu);
-    //set_env( menu->get_environment());
-    //startTimer(10000); //please do not remove this otherwise the chart will not update
-
-    chart = get_chart();
-    setChart(chart);
-    chart->setTitle("Dynamic chart of the average lifetime of the last 50 that died");
-
-    QValueAxis *axisX = new QValueAxis();
-    QValueAxis *axisY = new QValueAxis();
-
-    QLineSeries *LB_series = new QLineSeries();
-    QLineSeries *Creature_series = new QLineSeries();
-    QLineSeries *Plant_series = new QLineSeries();
-
-    chart->addSeries(LB_series);
-    chart->addSeries(Creature_series);
-    chart->addSeries(Plant_series);
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-
-    QPen plant(Qt::green);
-    plant.setWidth(3);
-    Plant_series->setPen(plant);
-    //Plant_series->append();
-
-    QPen creature(Qt::red);
-    creature.setWidth(3);
-    Creature_series->setPen(creature);
-    //Creature_series->append();
-
-    QPen LB(Qt::blue);
-    creature.setWidth(3);
-    LB_series->setPen(LB);
-    //LB_series->append();
-
-    //QStringList categories;
-    //categories << "0 to 20%" << "21% to 40%" << "41% to 60%" << "61% to 80%" << "81% to 100%";
-
-    //QBarCategoryAxis* axisX = new QBarCategoryAxis();
-    //axisX->append(categories);
-    chart->addAxis(axisX, Qt::AlignBottom);
-    chart->addAxis(axisY, Qt::AlignLeft);
-    Plant_series->attachAxis(axisX);
-    Plant_series->attachAxis(axisY);
-    Creature_series->attachAxis(axisX);
-    Creature_series->attachAxis(axisY);
-    LB_series->attachAxis(axisX);
-    LB_series->attachAxis(axisY);
-
-    axisY->setRange(0,500);
-    axisX->setRange(0, 10);
-    //all charts:
-    chart->legend()->setVisible(true);;
-    chart->legend()->setAlignment(Qt::AlignBottom);
-    this->setRenderHint(QPainter::Antialiasing);
-    chart->show();
-
-};
-
-
-void Environment_Stats2::average_lifespan(int age){
-    if (number_ages == 49) {
-        last_50_ages[49] = age;
-        number_ages = 0;
-        int sum = 0;
-        for(int i = 0; i < 50 ; i++){
-              sum+= last_50_ages[i];
-           }
-        sum = sum / 50;
-
-    }
-    else {
-        last_50_ages[number_ages] = age;
-        number_ages++;
-    }
-}
-
-
-std::map<Creature::Enum_parameters, double> Environment_Stats2::average_prey(){
-//    enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, Max_hp, size, last};
-    std::map<Creature::Enum_parameters, double> param_average;
-    QList<QGraphicsItem *> list = env->items();
-    QListIterator<QGraphicsItem*> i(list);
-    int count = 0;
-    while (i.hasNext()){
-        LivingBeing* LB = dynamic_cast<LivingBeing*>(i.next());
-        LivingBeing::Type_LB type = LB->get_type();
-        if (type == Creature::creature) {
-            Creature* c = dynamic_cast<Creature*>(LB);
-            if (c->get_eat_plants() == true & c->get_eat_creature() == false){
-                count ++;
-                for ( Creature::Enum_parameters param = (Creature::Enum_parameters)0; param != Creature::last; param=(Creature::Enum_parameters)(param+1) ) {
-                    param_average[param] = param_average[param] + c->get_parameter(param);
-                }
-            }
-        }
-    }
-    for ( Creature::Enum_parameters param = (Creature::Enum_parameters)0; param != Creature::last; param=(Creature::Enum_parameters)(param+1) ){
-        param_average[param] = param_average[param] / count ;
-    }
-    return param_average;
-}
-
-
-std::map<Creature::Enum_parameters, double> Environment_Stats2::average_predator(){
-//    enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, Max_hp, size, last};
-    std::map<Creature::Enum_parameters, double> param_average;
-    QList<QGraphicsItem *> list = env->items();
-    QListIterator<QGraphicsItem*> i(list);
-    int count = 0;
-    while (i.hasNext()){
-        LivingBeing* LB = dynamic_cast<LivingBeing*>(i.next());
-        LivingBeing::Type_LB type = LB->get_type();
-        if (type == Creature::creature) {
-            Creature* c = dynamic_cast<Creature*>(LB);
-            if (c->get_eat_plants() == false & c->get_eat_creature() == true){
-                count++;
-                for ( Creature::Enum_parameters param = (Creature::Enum_parameters)0; param != Creature::last; param=(Creature::Enum_parameters)(param+1) ) {
-                    param_average[param] = param_average[param] + c->get_parameter(param);
-                }
-            }
-        }
-    }
-    for ( Creature::Enum_parameters param = (Creature::Enum_parameters)0; param != Creature::last; param=(Creature::Enum_parameters)(param+1) ){
-        param_average[param] = param_average[param] / count ;
-    }
-    return param_average;
-}
-
-
-/*void Environment_Stats2::update_chart(){
-    //get the data from matei's average function
-    //series->append(prop);
-    //chart->addSeries(series);
-    //series->attachAxis(get_x_axis());
-    //series->attachAxis(get_y_axis());
-    update();
-}
-*/
-
-Environment_Stats2::~Environment_Stats2() {};
-
-
-
 
 
 
@@ -491,4 +345,155 @@ void Alive_perc::update_chart(){
     series_plant->append(get_t(), get_alive_perc()[2]);
     update();
 }
+
+//Average Lifetime
+Lifetime::Lifetime(SimulationView* menu, QWidget *parent): QChartView(parent) {
+
+    set_menu(menu);
+    set_env( menu->get_environment());
+    startTimer(1000); //please do not remove this otherwise the chart will not update
+
+    chart = get_chart();
+    setChart(chart);
+    chart->setTitle("Dynamic chart of the average lifetime of the last 50 that died");
+
+
+
+    QLineSeries *Prey_series = new QLineSeries();
+    QLineSeries *Predator_series = new QLineSeries();
+    QLineSeries *Plant_series = new QLineSeries();
+
+
+    Prey_series->setName("Preys");
+    Prey_series->setColor("orange");
+    Predator_series->setName("Predators");
+    Predator_series->setColor("red");
+    Plant_series->setColor("green");
+    Plant_series->setName("Plants");
+
+    chart->addSeries(Prey_series);
+    chart->addSeries(Predator_series);
+    chart->addSeries(Plant_series);
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+
+    QValueAxis *axisX = new QValueAxis();
+    QValueAxis *axisY = new QValueAxis();
+    this ->x_axis = axisX;
+    this->y_axis = axisY;
+    axisX->setTitleText("1 unit : Update every 50 new dead living beings");
+    chart->addAxis(axisX, Qt::AlignBottom);
+    chart->addAxis(axisY, Qt::AlignLeft);
+    Prey_series->attachAxis(axisX);
+    Prey_series->attachAxis(axisY);
+    Predator_series->attachAxis(axisX);
+    Predator_series->attachAxis(axisY);
+    Plant_series->attachAxis(axisX);
+    Plant_series->attachAxis(axisY);Q_PROPERTY(type name READ name WRITE setName NOTIFY nameChanged)
+    axisY->setRange(0,500);
+    axisX->setRange(0, 100);
+
+    set_series_prey(Prey_series);
+    set_series_predator(Predator_series);
+    set_series_plant(Plant_series);
+
+    chart->legend()->setVisible(true);;
+    chart->legend()->setAlignment(Qt::AlignBottom);
+    //this->setRenderHint(QPainter::Antialiasing);
+    show();
+
+};
+
+
+void Lifetime::average_lifespan(int age){
+    if (number_ages == 49) {
+        last_50_ages[49] = age;
+        number_ages = 0;
+        int sum = 0;
+        for(int i = 0; i < 50 ; i++){
+              sum+= last_50_ages[i];
+           }
+        sum = sum / 50;
+
+    }
+    else {
+        last_50_ages[number_ages] = age;
+        number_ages++;
+    }
+}
+
+
+std::map<Creature::Enum_parameters, double> Lifetime::average_prey(){
+//    enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, Max_hp, size, last};
+    std::map<Creature::Enum_parameters, double> param_average;
+    QList<QGraphicsItem *> list = env->items();
+    QListIterator<QGraphicsItem*> i(list);
+    int count = 0;
+    while (i.hasNext()){
+        LivingBeing* LB = dynamic_cast<LivingBeing*>(i.next());
+        LivingBeing::Type_LB type = LB->get_type();
+        if (type == Creature::creature) {
+            Creature* c = dynamic_cast<Creature*>(LB);
+            if (c->get_eat_plants() == true & c->get_eat_creature() == false){
+                count ++;
+                for ( Creature::Enum_parameters param = (Creature::Enum_parameters)0; param != Creature::last; param=(Creature::Enum_parameters)(param+1) ) {
+                    param_average[param] = param_average[param] + c->get_parameter(param);
+                }
+            }
+        }
+    }
+    for ( Creature::Enum_parameters param = (Creature::Enum_parameters)0; param != Creature::last; param=(Creature::Enum_parameters)(param+1) ){
+        param_average[param] = param_average[param] / count ;
+    }
+    return param_average;
+}
+
+
+std::map<Creature::Enum_parameters, double> Lifetime::average_predator(){
+//    enum Enum_parameters{ physical_strength, Max_energy, eye_sight, visibility, eat_creature, eat_plants, Max_hp, size, last};
+    std::map<Creature::Enum_parameters, double> param_average;
+    QList<QGraphicsItem *> list = env->items();
+    QListIterator<QGraphicsItem*> i(list);
+    int count = 0;
+    while (i.hasNext()){
+        LivingBeing* LB = dynamic_cast<LivingBeing*>(i.next());
+        LivingBeing::Type_LB type = LB->get_type();
+        if (type == Creature::creature) {
+            Creature* c = dynamic_cast<Creature*>(LB);
+            if (c->get_eat_plants() == false & c->get_eat_creature() == true){
+                count++;
+                for ( Creature::Enum_parameters param = (Creature::Enum_parameters)0; param != Creature::last; param=(Creature::Enum_parameters)(param+1) ) {
+                    param_average[param] = param_average[param] + c->get_parameter(param);
+                }
+            }
+        }
+    }
+    for ( Creature::Enum_parameters param = (Creature::Enum_parameters)0; param != Creature::last; param=(Creature::Enum_parameters)(param+1) ){
+        param_average[param] = param_average[param] / count ;
+    }
+    return param_average;
+}
+
+void Lifetime::timerEvent(QTimerEvent *event) {
+    //std::cout << "timer event received" <<std::endl;
+    update_chart();
+}
+
+void Lifetime::update_chart(){
+    //get the data from matei's average function
+    chart = get_chart();
+    temp ++;
+    Prey_series = get_series_prey();
+    Prey_series->append(temp, 10);
+    Predator_series = get_series_predator();
+    Predator_series->append(temp, 20);
+    Plant_series = get_series_plant();
+    Plant_series->append(temp, 50);
+    update();
+}
+
+Lifetime::~Lifetime() {};
+
+
+
+
 

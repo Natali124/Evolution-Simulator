@@ -68,29 +68,46 @@ private:
 
 };
 
-class Environment_Stats2 : QChartView {
+class Lifetime : QChartView {
 public:
-    Environment_Stats2(SimulationView* menu, QWidget* parent = nullptr);
+    Lifetime(SimulationView* menu, QWidget* parent = nullptr);
     //std::vector<double> creature_energy_ratio(); //helper vector for creating a graph on the proportion of creatures having
-    ~Environment_Stats2();
-    //void timerEvent(QTimerEvent *event);
+    ~Lifetime();
+    void timerEvent(QTimerEvent *event);
+    void set_menu(SimulationView* menu) {this->menu = menu; };
+    void set_env(Environment* env) {this->env = env;};
     void update_chart();
     QChart* get_chart() {return chart;};
+
+    void set_series_prey(QLineSeries *series) {this->Prey_series = series;};
+    QLineSeries* get_series_prey() {return Prey_series;};
+
+    void set_series_predator(QLineSeries *series) {this->Predator_series = series;};
+    QLineSeries* get_series_predator() {return Predator_series;};
+
+    void set_series_plant(QLineSeries *series) {this->Plant_series = series;};
+    QLineSeries* get_series_plant() {return Plant_series;};
+
+
     std::map<Creature::Enum_parameters, double> average_prey();
     std::map<Creature::Enum_parameters, double> average_predator();
     qreal x_val;
     qreal y_val;
+    qreal temp = 0;
     int last_50_ages[50];
     int number_ages = 0;
     void average_lifespan(int age);
 
-
 private:
     SimulationView* menu;
-    QChart *chart;
+    QChart *chart {chart = new QChart()};
     Environment* env;
     QAbstractAxis* x_axis;
     QAbstractAxis* y_axis;
+    QLineSeries *Predator_series;
+    QLineSeries *Prey_series;
+    QLineSeries *Plant_series;
+
 
 };
 
