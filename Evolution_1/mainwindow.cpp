@@ -16,6 +16,12 @@ int active_creature;
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
+
+    /*This function is a constructor for the MainWindow class, it creates an instance of the MainWindow
+     class and sets up the user interface. It sets the background image, sets the palette for various buttons
+    and widgets, and sets the style sheet for the buttons and widgets. It also makes certain buttons and widgets
+    invisible and connects the 'creature_list' widget with the 'create_proper_sliders' function. */
+
     setAttribute(Qt::WA_DeleteOnClose); // very important - delete the object from memory when the window is closed
     // only the start button is visible.
     QString back(":/backgrounds/images/nature-outdoor-forest-background_1308-54338.jpg");
@@ -73,6 +79,8 @@ MainWindow::~MainWindow()
 
 
 void MainWindow::setBackgroundImage(QString filePath){
+
+    //Sets the background image on the window.
     QPixmap bkgnd = QPixmap(filePath);
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
@@ -83,6 +91,8 @@ void MainWindow::setBackgroundImage(QString filePath){
 
 void MainWindow::resizeEvent(QResizeEvent *evt)
 {
+    //Stretches background when resizing window.
+
     stretchBackground();
     //fitDisplay();
 
@@ -91,6 +101,8 @@ void MainWindow::resizeEvent(QResizeEvent *evt)
 
 
 void MainWindow::stretchBackground(){
+    //This functions make sure the background stretches when you resize the mainwindow.
+
     QString back(":/backgrounds/images/nature-outdoor-forest-background_1308-54338.jpg");
     QPixmap bkgnd(back);
     bkgnd = bkgnd.scaled(size(), Qt::IgnoreAspectRatio);
@@ -245,19 +257,19 @@ void MainWindow::create_proper_sliders(QListWidgetItem* item) {
     ui->groupBox->setTitle("Change properties for " + being->objectName());
     if (being->type == LivingBeing::Type_LB::creature) {
         auto creature = dynamic_cast<Creature*>(being);
-        ui->verticalLayout_2->addWidget(new PropertySlider("Size", creature, &Creature::set_size, creature->get_size(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Max Energy", creature, &Creature::set_Max_energy, creature->get_Max_energy(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Max HP", creature, &Creature::set_Max_hp, creature->get_Max_hp(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Eye Sight", creature, &Creature::set_eye_sight, creature->get_eye_sight(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Visibility", creature, &Creature::set_visibility, creature->get_visibility(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Physical Strength", creature, &Creature::set_physical_strength, creature->get_physical_strength(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Size ", creature, &Creature::set_size, creature->get_size(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Max Energy ", creature, &Creature::set_Max_energy, creature->get_Max_energy(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Max HP ", creature, &Creature::set_Max_hp, creature->get_Max_hp(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Eye Sight ", creature, &Creature::set_eye_sight, creature->get_eye_sight(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Visibility ", creature, &Creature::set_visibility, creature->get_visibility(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Physical Strength ", creature, &Creature::set_physical_strength, creature->get_physical_strength(), ui->groupBox));
         // ui->verticalLayout_2->addWidget(new PropertySlider("Digest time", creature, &Creature::set_digest_time, creature->get_digest_time(), ui->groupBox));
     }
     if (being->type == LivingBeing::Type_LB::plant) {
         auto plant = dynamic_cast<Plant*>(being);
-        ui->verticalLayout_2->addWidget(new PropertySlider("Size", plant, &Plant::set_size, plant->get_size(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Max HP", plant, &Plant::set_Max_hp, plant->get_Max_hp(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Reproduction Rate", plant, &Plant::set_reproduction_rate, plant->get_reproduction_rate(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Size ", plant, &Plant::set_size, plant->get_size(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Max HP ", plant, &Plant::set_Max_hp, plant->get_Max_hp(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Reproduction Rate ", plant, &Plant::set_reproduction_rate, plant->get_reproduction_rate(), ui->groupBox));
     }
     auto list = findChildren<QWidget*>("Property Slider");
     for (auto i = list.begin(); i != list.end(); i++) {

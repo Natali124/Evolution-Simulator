@@ -105,6 +105,9 @@
       <property name="autoFillBackground">
        <bool>true</bool>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
       <property name="maximum">
        <number>999</number>
       </property>
@@ -224,6 +227,9 @@
       <property name="autoFillBackground">
        <bool>true</bool>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
       <property name="maximum">
        <number>999</number>
       </property>
@@ -246,6 +252,12 @@
       </property>
       <property name="autoFillBackground">
        <bool>true</bool>
+      </property>
+      <property name="frame">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
       <property name="maximum">
        <number>999</number>

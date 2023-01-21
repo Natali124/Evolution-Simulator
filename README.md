@@ -43,7 +43,6 @@ Flavia Grasso
 Garance Perrot
 laurentiu lazar
 Lorenzo De Giovanni
-Mathilde Cros
 Natali Gogishvili
 Oskar Dąbkowski
 Pablo Bertaud-Velten
@@ -56,3 +55,4 @@ laurentiu lazar
 Lorenzo De Giovanni
 Victor Mihaila
 Vincenzo Politelli
+Mathilde Cros
