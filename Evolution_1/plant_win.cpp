@@ -4,11 +4,12 @@
 #include <QRandomGenerator>
 #include "Frontend/Widgets/simulationView.h"
 #include "mainwindow.h"
-
+//these variables allow us to save the values of the sliders to a specific being
 float p_size = 0;
 float max_hp = 0;
 float reproduction = 0;
-
+/*This function is a constructor for a class "plant_win" that inherits from QDialog.
+It sets up connections between UI elements, sets the stylesheet for various UI elements and sets the background image for the dialog.*/
 Plant_win::Plant_win(Environment *environment, QWidget *parent) :
     QDialog(parent),
     environment(environment),
@@ -42,6 +43,7 @@ Plant_win::Plant_win(Environment *environment, QWidget *parent) :
     QString back(":/backgrounds/images/gradient_1.jpg");
     setBackgroundImage(back);
 }
+//This function sets a background image of the window
 void Plant_win::setBackgroundImage(QString filePath){
     QPixmap bkgnd = QPixmap(filePath);
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
@@ -49,6 +51,7 @@ void Plant_win::setBackgroundImage(QString filePath){
     palette.setBrush(QPalette::Window, bkgnd);
     setPalette(palette);
 }
+//This function stretches the background to the size of the window
 void Plant_win::resizeEvent(QResizeEvent *evt)
 {
     stretchBackground();
@@ -56,7 +59,7 @@ void Plant_win::resizeEvent(QResizeEvent *evt)
 
     QDialog::resizeEvent(evt); //call base implementation
 }
-
+//Scales the background to the window through resizes
 void Plant_win::stretchBackground(){
     QString back(":/backgrounds/images/gradient_1.jpg");
     QPixmap bkgnd(back);
@@ -71,7 +74,8 @@ Plant_win::~Plant_win()
 {
     delete ui;
 }
-
+/*This function is called when the "randomise" button in the window is clicked.
+It sets random values between 0-200 to the various parameters of the plants.*/
 void Plant_win::on_randbut_clicked()
 {
     ui->size_s->setValue(QRandomGenerator::global()->bounded(200));
@@ -79,14 +83,14 @@ void Plant_win::on_randbut_clicked()
     ui->reproduction_s->setValue(QRandomGenerator::global()->bounded(200));
 }
 
-
+//This function is called when the "reset" button in the window is clicked; it resets the various parameters of the plants to 0.
 void Plant_win::on_resetbut_clicked()
 {
     ui->size_s->setValue(0);
     ui->health_s->setValue(0);
     ui->reproduction_s->setValue(0);
 }
-
+//Function creates a new plant and adds it to environment with selected parameters during ongoing simulation.
 void Plant_win::on_add_plant1_clicked()
 {
     auto plant = new Plant;
