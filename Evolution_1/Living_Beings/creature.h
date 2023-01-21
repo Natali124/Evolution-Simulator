@@ -97,7 +97,7 @@ public:
     double get_parameter(Enum_parameters p);
     LivingBeing* find_food();
     //in decision we check if there is actually food (bool found_food) before eating
-    void decision(std::vector<double>input_vector, LivingBeing* c); //takes as input vector given by the nn, and the closest living being it sees (may be null pointer)
+    void decision(std::vector<double>input_vector, vector<LivingBeing*> c); //takes as input vector given by the nn, and the closest living beings it sees (may be null pointers)
                                               //for given parameters (see .cpp) and takes a decision given the biggest one
     void sleep(int delta_t);//called by decision to decide to sleep for a time delta_t
     void sleep_step();//sleeps for one step : += energy and -= sleep_time

@@ -16,12 +16,17 @@
 
 const int repro_cost_predator = 40;// cost of reproduction of predators (20 = 1x food)
 const int repro_cost_prey = 20; // cost of reproduction of predators (20 = 1x food)
-const int food_value_plant = 40;
-const int food_value_animal = 60;
+const int food_value_plant = 20;
+const int food_value_animal = 40;
 const double seeing_rect = 500; // size of rectangle in which creatures see
 const int repro_cool_down = 20; // how many steps between reproductions
-const double _predator_speed_bonus = -0.1; // gives predators more / less speed
+const double _predator_speed_bonus = 0; // gives predators more / less speed
 const float _ddistance = 2; //base value of the change of the distance
+const double starving_rate = 0.2; // rate of starving, 0 = no starving, 1 = starving very quickly
+
+const int _n_closest_visible = 2;
+const int n_input = 4*_n_closest_visible;
+const int n_output = _n_closest_visible;
 
 int Creature::n_families = 0;
 
@@ -91,7 +96,7 @@ Creature::Creature(bool newfamily):LivingBeing() {
     }
 
     //For the input: each vision ray has 3 outputs; then we have 2 times 8 attributes taken into account (at turn t and t-dt); and then two memory variables
-    Network* n = new Network(4, 1, 1, 4);
+    Network* n = new Network(n_input,n_output, 1, n_input);
     this->brain = n;
 
 
@@ -170,7 +175,7 @@ void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         painter->drawEllipse(-this->get_eye_sight()/2, -this->get_eye_sight()/2, this->get_eye_sight(), this->get_eye_sight());
     }
 
-    double K = this->get_size()/600; //size coefficient
+    double K = this->get_size()/1000; //size coefficient
     if(!get_eat_creature()){
 
         if(family%2==1){
@@ -255,8 +260,8 @@ std::vector<LivingBeing*> Creature::get_close(){
 void Creature::die() {
     bool starved = false; // see if starved to death (random)
 
-    // probability of starving after not eating for s steps, for s=0: approx. 0, for s = 400: approx 0.5, for s = 800: approx 1, follows sigmoid function
-    double x = ((get_counter_no_eat()/50) -10);
+    // probability of starving after not eating for s steps, follows sigmoid function
+    double x = ((get_counter_no_eat()*starving_rate/20) -10);
     x = 1/(pow(M_E, -x) + 1);
     double p = QRandomGenerator::global()->generateDouble();
     if(p < x){
@@ -344,15 +349,23 @@ void Creature::try_reproduce(){
 }
 
 
-void Creature::decision(std::vector<double> input_vector,LivingBeing* c){
+void Creature::decision(std::vector<double> input_vector,vector<LivingBeing*> c){
         // takes action based on decision vector
-
-        double towards = input_vector[0];
+        double towards = 0.5;
+        double index = 0;
+        for (int i = 0; i < input_vector.size(); i++) {
+            double magnitude = input_vector[i];
+            if(towards == -1 or abs(magnitude -0.5)>abs(towards-0.5)){
+                index = i;
+                towards = magnitude;
+              }
+          }
+        LivingBeing* target = c[index];
         double speed = _ddistance *(1 + _predator_speed_bonus* (int)(i_eat_creatures));
         if(towards > 0.5){
-            move_to(c,speed);
+            move_to(target,speed);
           } else {
-            move_to(c,-speed);
+            move_to(target,-speed);
           }
 
 }
@@ -374,15 +387,15 @@ void Creature::Eat(){
         }
         if ( k != nullptr && this->get_eat_creature()){
             // if this is a predator and k is a creature
-            double r = (double) QRandomGenerator::global()->generateDouble(); //random variable to decide who wins fight
-            double size_quotient = (k->get_size())/(get_size());
+
             if(k->get_eat_creature()){ // if creature k is a predator
                 if( k->family == this->family){
                     // if same family, nothing happens (no cannibalism)
                    return;
                   }
-
-                if (r > size_quotient - 0.5 ){
+                double r = (double) QRandomGenerator::global()->generateDouble(); //random variable to decide who wins fight
+                double p = (double) QRandomGenerator::global()->generateDouble();
+                if (r*this->get_size() > p*k->get_size() ){
                     // this wins and eats k
                     ate = true;
                     repro_factor += food_value_animal;
@@ -396,7 +409,8 @@ void Creature::Eat(){
                     die();
                   }
               } else { // creature k is a prey
-
+                double r = (double) QRandomGenerator::global()->generateDouble(); //random variable to decide who wins fight
+                double size_quotient = (k->get_size())/(get_size());
                 //Creature can at most eat something 4 times bigger
                 if (4*r>size_quotient){
                     // this wins and eats k
@@ -423,20 +437,32 @@ void Creature::playstep() {
 
     if (get_alive()){
         try_reproduce(); // reproduce if possible
+
         //bouding energy and hp to the max bcse in case of modifications in the previous playstep
         bound_energy_hp();
 
         // get closest being (for now only very closest one)
-        LivingBeing*  closest_being = std::get<LivingBeing*>(get_closest(1)[0]);
+        std::vector<std::tuple<double,LivingBeing*>> closest = get_closest(_n_closest_visible);
+        vector<LivingBeing*> closest_beings;
+        vector<double> input_vector;
+        for (auto t : closest) {
+            LivingBeing* being = std::get<LivingBeing*>(t);
+            for (double param : get_params(being)) {
+                input_vector.push_back(param);
+              }
+            //input_vector.push_back(std::get<double>(t));
+            closest_beings.push_back(std::get<LivingBeing*>(t));
+          }
 
-        std::vector<double> Input =get_params(closest_being);
+
+
 
         // get decision_vector from brain
-        std::vector<double> decision_vector = brain->propagate(Input);
+        std::vector<double> decision_vector = brain->propagate(input_vector);
 
         counter_no_reproduction++;
         repro_factor = max(0.0, repro_factor-4); // lose some reproduction factor
-        decision(decision_vector, closest_being); // take decision with regards to closest being
+        decision(decision_vector, closest_beings); // take decision with regards to closest being
         set_counter_no_eat(get_counter_no_eat()+1);
         Eat(); // if colliding with something, eat or die
     ;} else {
@@ -519,7 +545,7 @@ std::vector<std::tuple<double,LivingBeing*>> Creature::get_closest(int n){
       LivingBeing *L = dynamic_cast<LivingBeing*>(item);
       // if item was possible to cast && if they don't have the same coordinates
 
-      if (L!=nullptr ){ //&& L->get_family() != family){ // doesn't see it's own family (otherwise would just stay there)
+      if (L!=nullptr && L->get_family() != family){ // doesn't see it's own family (otherwise would just stay there)
           if(i_eat_plants || L->get_type() != plant){ // predators don't see plants
             double d = distance(this,L);
             if(d > 0.001){
