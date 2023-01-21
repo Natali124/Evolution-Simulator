@@ -28,6 +28,8 @@ SimulationView::SimulationView(Environment *environment, QWidget *parent) : QMai
 }
 
 void SimulationView::setBackgroundImage(QString filePath){
+    //Sets the background image on the window.
+
     QPixmap bkgnd = QPixmap(filePath);
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
@@ -197,6 +199,8 @@ void SimulationView::openPlantWindow() {
 
 void SimulationView::resizeEvent(QResizeEvent *evt)
 {
+    //Stretches background when resizing window.
+
     stretchBackground();
     fitDisplay();
 
@@ -204,6 +208,8 @@ void SimulationView::resizeEvent(QResizeEvent *evt)
 }
 
 void SimulationView::stretchBackground(){
+    //This functions make sure the background stretches when you resize the mainwindow.
+
     QPixmap bkgnd(BACKGROUND_IMAGE_LINK);
     bkgnd = bkgnd.scaled(size(), Qt::IgnoreAspectRatio);
     QPalette p = palette();
