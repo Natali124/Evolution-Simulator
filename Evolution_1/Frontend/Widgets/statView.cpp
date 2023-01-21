@@ -6,10 +6,6 @@
 StatView::StatView(LivingBeing* being, QWidget* parent) : QWidget(parent),
                                                           being(being){
     setTitle();
-    setAttribute(Qt::WA_DeleteOnClose); // very important - delete the object from memory when the window is closed
-    setWindowFlags(Qt::WindowStaysOnTopHint); // so that it stays on top of the simulation and doesn't get lost
-
-    connect(being->environment, &Environment::updated, this, &StatView::update);
 
     auto layout = new QVBoxLayout;
 
@@ -47,8 +43,6 @@ StatView::StatView(LivingBeing* being, QWidget* parent) : QWidget(parent),
             break;
     }
 
-    auto nr_updated = new ParameterDisplay("Simulation steps monitored:", this, &StatView::get_updates, this, being->environment); layout->addWidget(nr_updated);
-
     layout->addStretch();
     setLayout(layout);
 
@@ -68,4 +62,6 @@ void StatView::setTitle(std::string title){
     setWindowTitle( QString::fromStdString(title) );
 }
 
-void StatView::update(){ updates ++; }
+void StatView::update(){
+
+}

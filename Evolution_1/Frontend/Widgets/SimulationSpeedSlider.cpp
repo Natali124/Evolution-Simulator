@@ -15,7 +15,7 @@ SimulationSpeedSlider::SimulationSpeedSlider(EnvironmentTimer* timer, QWidget* p
 
     button->setText("⏵");
     slider->setMinimum(0);
-    slider->setMaximum(100);   
+    slider->setMaximum(100);
     connect(slider, &QSlider::valueChanged, this, &SimulationSpeedSlider::updateInterval);
     connect(button, &QToolButton::clicked, this, &SimulationSpeedSlider::handleToggle);
 

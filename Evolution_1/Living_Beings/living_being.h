@@ -8,8 +8,7 @@
 #include <random>
 
 
-class LivingBeing : public QGraphicsObject {
-    Q_OBJECT
+class LivingBeing : public QGraphicsItem {
 public:
   LivingBeing(Environment* environment = nullptr); // initializes a living being with alive = true
   ~LivingBeing();

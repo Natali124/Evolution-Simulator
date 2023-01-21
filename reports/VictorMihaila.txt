@@ -15,6 +15,3 @@ Next week I plan on creating these designs in some other way that I am yet to fi
 
 Week 6:
 This week I edited some pictures make their background transparent anmd changed their colour to keep visual clarity between preys and predators and then I replaced the old designs with these photos. I also modified the bounding rectangles of the living beings to better fit these new designs so they will move properly during the animation (not leave trails). Next week I will probably work with the rest of the team on combining all teh different parts of the project.
-
-Week 7:
-This week I added 2 more models for both preys and predators and edited them to add transparent backgrounds and edit some colors to improve visual clarity. I also added an attribute to randomize which model is displayed for testing purposes. Next week I will do whatever is necessary to finalize the project. 

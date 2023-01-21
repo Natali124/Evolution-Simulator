@@ -15,7 +15,8 @@ void LivingBeing::playstep(){
 }
 
 void LivingBeing::advance(int phase){
-    if (!phase) //this is because a graphics scene.advance() first calls advance on all its items with phase 0, indicating that an update will happen soon, and then with phase 1
+
+    if (!phase)
         return;
 
     // skip the playstep function for now as it crashes the program
@@ -29,8 +30,8 @@ void LivingBeing::advance(int phase){
 QRectF LivingBeing::boundingRect() const
 {
     qreal adjust = 0.5;
-    return QRectF(-30 - adjust, -30 - adjust,
-                  60 + adjust, 60 + adjust);
+    return QRectF(-18 - adjust, -22 - adjust,
+                  36 + adjust, 60 + adjust);
 }
 
 QPainterPath LivingBeing::shape() const
@@ -58,15 +59,16 @@ void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 
 //spawns a window showing being's stats
 void LivingBeing::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
-    new StatView(this);
+    auto view = new StatView(this);
 }
+
+
 
 LivingBeing::LivingBeing(Environment* environment) : environment(environment){
     alive = true;
     type = none;
 }
-LivingBeing::~LivingBeing(){
-}
+LivingBeing::~LivingBeing(){}
 
 
 

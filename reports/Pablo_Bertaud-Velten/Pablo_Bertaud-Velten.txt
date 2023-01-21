@@ -20,8 +20,4 @@ This week I created a bew branch called Frontend_Statistics to work on the stats
 Week 5:\
 
 This week I worked on the Statistics part of the project, implementing counters for different types of species, as well as a counter for steps in the simulation. I am also currently trying to implement the advance() function to update the charts when the environment changes (birht, death, etc). I also implemented a common die() member function for animals and plants, simplifying the code a bit. The goal now is to manage to solve all the issues associated to the stats window and the link it makes with the rest of the simulation.
-
-
-Week 6:
-This week I worked some more on the Statistics part, by implementing a function which counts the living beings, creatures and plants. I also merged the branch Temp_Living_Being into the branch Living_Being_Oriented to simplify the actions of the teams, as this was causing various subgroups to be working simultaneously on different versions of the project although with a common goal in mind. I also created new dedicated files for the statistics part of the project, in order to make things more compartimentalized and clear.
 }

@@ -1,10 +1,5 @@
 #include "mainwindow.h"
-#include "Frontend/Widgets/simulationView.h"
-#include "Frontend/startscreen/propertyslider.h"
 #include "ui_mainwindow.h"
-#include "Living_Beings/living_being.h"
-#include "Living_Beings/creature.h"
-#include "Living_Beings/plant.h"
 
 #include <QRandomGenerator>
 
@@ -16,48 +11,48 @@ int active_creature;
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
-    setAttribute(Qt::WA_DeleteOnClose); // very important - delete the object from memory when the window is closed
     // only the start button is visible.
     QString back(":/backgrounds/images/nature-outdoor-forest-background_1308-54338.jpg");
     ui->setupUi(this);
     setBackgroundImage(back);
-    QPalette pal = QPalette();
-    pal.setColor(QPalette::Window, Qt::transparent);
-
-    ui->simBut->setPalette(pal);
-    ui->button_rdm->setPalette(pal);
-    ui->button_reset->setPalette(pal);
-    ui->button_delete_all->setPalette(pal);
-    ui->button_delete_creature->setPalette(pal);
-    ui->button_plant->setPalette(pal);
-    ui->button_pred->setPalette(pal);
-    ui->button_prey->setPalette(pal);
-    ui->count_pred->setPalette(pal);
-    ui->count_plant->setPalette(pal);
-    ui->count_pred->setPalette(pal);
-
-    ui->button_plant->setStyleSheet("color: white; background-color: grey");
-    ui->button_pred->setStyleSheet("color: white; background-color: grey");
-    ui->button_prey->setStyleSheet("color: white; background-color: grey");
-    ui->button_delete_all->setStyleSheet("color: white; background-color: grey");
-    ui->button_delete_creature->setStyleSheet("color: white; background-color: grey");
-    ui->count_plant->setStyleSheet("color: black; background-color: white");
-    ui->count_pred->setStyleSheet("color: black; background-color: white");
-    ui->count_prey->setStyleSheet("color: black; background-color: white");
-
-    ui->creature_list->setStyleSheet("color: black; background-color: white");
-
-    ui->button_reset->setStyleSheet("color: white; background-color: grey; font-weight:bold");
-    ui->button_rdm->setStyleSheet("color: white; background-color: grey; font-weight:bold");
-    ui->simBut->setStyleSheet("color: white; background-color: grey; font-weight:bold");
-
     ui->simBut->setVisible(false);
-    ui->button_rdm->setVisible(false);
-    ui->button_reset->setVisible(false);
 
-    connect(ui->creature_list, &QListWidget::itemClicked, this, &MainWindow::create_proper_sliders);
+    ui->button_prey->setVisible(false);
+    ui->button_pred->setVisible(false);
+    ui->button_plant->setVisible(false);
+    ui->button_delete_all->setVisible(false);
+    ui->button_delete_creature->setVisible(false);
 
-    show();
+    ui->count_pred->setVisible(false);
+    ui->count_prey->setVisible(false);
+    ui->count_plant->setVisible(false);
+
+    ui->line_1->setVisible(false);
+    ui->line_2->setVisible(false);
+    ui->line_3->setVisible(false);
+
+    ui->creature_list->setVisible(false);
+
+    ui->groupBox->setVisible(false);
+    ui->groupBox->setStyleSheet("color: white; font-weight:bold; font-size:20pt");
+    ui->P_strength_t->setStyleSheet("color: white; font-weight:bold");
+    ui->max_energy_t->setStyleSheet("color: white; font-weight:bold");
+    ui->max_energy_n->setStyleSheet("color: grey");
+    ui->eye_sight_t->setStyleSheet("color: white; font-weight:bold");
+    ui->eye_sight_n->setStyleSheet("color: grey");
+    ui->visibility_t->setStyleSheet("color: white; font-weight:bold");
+    ui->visibility_n->setStyleSheet("color: grey");
+    ui->max_health_t->setStyleSheet("color: white; font-weight:bold");
+    ui->max_health_n->setStyleSheet("color: grey");
+    ui->size_t->setStyleSheet("color: white; font-weight:bold");
+    ui->size_n->setStyleSheet("color: grey");
+
+
+    ui->button_reset->setStyleSheet("color: black");
+    ui->button_rdm->setStyleSheet("color: black");
+    ui->P_strength_n->setStyleSheet("color: grey");
+
+
 
 //    connect(ui->creature_list, SIGNAL(itemClicked(QListWidgetItem*)),
 //                this, SLOT(on_creature_list_item_clicked(QListWidgetItem*)));
@@ -68,7 +63,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete env;
 }
 
 
@@ -100,6 +94,27 @@ void MainWindow::stretchBackground(){
 }
 
 
+void MainWindow::on_startBut_clicked()
+{
+    // Once you have clicked on the start button, the original display is now available to click on.
+    // Except the simulate button, and the creature's properties' selection, as you haven't created any creature yet.
+
+    ui->startBut->setVisible(false);
+    ui->button_prey->setVisible(true);
+    ui->button_pred->setVisible(true);
+    ui->button_plant->setVisible(true);
+    ui->count_pred->setVisible(true);
+    ui->count_prey->setVisible(true);
+    ui->count_plant->setVisible(true);
+    ui->line_1->setVisible(true);
+    ui->line_2->setVisible(true);
+    ui->line_3->setVisible(true);
+    ui->creature_list->setVisible(true);
+    ui->button_delete_all->setVisible(true);
+    ui->button_delete_creature->setVisible(true);
+}
+
+
 void MainWindow::on_button_pred_clicked()
 {
 
@@ -108,18 +123,10 @@ void MainWindow::on_button_pred_clicked()
     // Their name'll be "omnivorous creature" + "number of the omnivorous creature created".
 
     int val = ui->count_pred->value();
-//    qDebug() << "Omnivorous creature:" << val;
-
-    if (num_pred+val > 999) {
-        val = 999-num_pred;
-    }
+    qDebug() << "Omnivorous creature:" << val;
 
     for (int i = num_pred; i < num_pred+val; i++) {
-        auto creature = new Creature;
-        creature->setObjectName("Omnivorous creature " + QString::number(i+1));
-        creature->parameters[Creature::eat_creature] = 1;
-        auto item = new BeingItem(creature);
-        ui->creature_list->addItem(item);
+        ui->creature_list->addItem("Omnivorous creature " + QString::number(i+1));
     }
 
     num_pred += val;
@@ -127,9 +134,11 @@ void MainWindow::on_button_pred_clicked()
 
     // The Simulation button appears, called "simbut" for short, as you can now launch the simulation as you've just created one/some creature(s).
 
-    if ((ui->simBut->isVisible() == false) and (ui->creature_list->count() != 0)) {
+    if (ui->simBut->isVisible() == false) {
         ui->simBut->setVisible(true);
     };
+
+    QObject::connect(ui->simBut, &QPushButton::clicked, this, &QWidget::close);
 }
 
 
@@ -141,17 +150,10 @@ void MainWindow::on_button_prey_clicked()
     // Their name'll be "herbivore creature" + "number of the herbivore creature created".
 
     int val = ui->count_prey->value();
-//    qDebug() << "Herbivore creature:" << val;
-
-    if (num_prey+val > 999) {
-        val = 999-num_prey;
-    }
+    qDebug() << "Herbivore creature:" << val;
 
     for (int i = num_prey; i < num_prey+val; i++) {
-        auto creature = new Creature;
-        creature->setObjectName("Herbivore creature " + QString::number(i+1));
-        auto item = new BeingItem(creature);
-        ui->creature_list->addItem(item);
+        ui->creature_list->addItem("Herbivore creature " + QString::number(i+1));
     }
 
     num_prey += val;
@@ -159,10 +161,10 @@ void MainWindow::on_button_prey_clicked()
 
     // The Simulation button appears, called "simbut" for short, as you can now launch the simulation as you've just created one/some creature(s).
 
-    if ((ui->simBut->isVisible() == false) and (ui->creature_list->count() != 0))  {
+    if (ui->simBut->isVisible() == false) {
         ui->simBut->setVisible(true);
     };
-
+    QObject::connect(ui->simBut, &QPushButton::clicked, this, &QWidget::close);
 }
 
 
@@ -174,17 +176,10 @@ void MainWindow::on_button_plant_clicked()
     // Their name'll be "plant" + "number of the plant created".
 
     int val = ui->count_plant->value();
-//    qDebug() << "Plants:" << val;
-
-    if (num_plant+val > 999) {
-        val = 999-num_plant;
-    }
+    qDebug() << "Plants:" << val;
 
     for (int i = num_plant; i < num_plant+val; i++) {
-        auto plant = new Plant;
-        plant->setObjectName("Plant " + QString::number(i+1));
-        auto item = new BeingItem(plant);
-        ui->creature_list->addItem(item);
+        ui->creature_list->addItem("Plant " + QString::number(i+1));
     }
 
     num_plant += val;
@@ -192,9 +187,10 @@ void MainWindow::on_button_plant_clicked()
 
     // The Simulation button appears, called "simbut" for short, as you can now launch the simulation as you've just created one/some creature(s).
 
-    if ((ui->simBut->isVisible() == false) and (ui->creature_list->count() != 0))  {
+    if (ui->simBut->isVisible() == false) {
         ui->simBut->setVisible(true);
     };
+    QObject::connect(ui->simBut, &QPushButton::clicked, this, &QWidget::close);
 }
 
 
@@ -210,10 +206,7 @@ void MainWindow::on_button_delete_all_clicked()
 
     // Hide the Simulation button, called "simbut" for short, as you can't launch the simulation with no creatures.
     ui->simBut->setVisible(false);
-    clearsliders();
-    ui->button_rdm->setVisible(false);
-    ui->button_reset->setVisible(false);
-
+    ui->groupBox->setVisible(false);
 }
 
 
@@ -226,75 +219,56 @@ void MainWindow::on_button_delete_creature_clicked()
 
     QListWidgetItem *it = ui->creature_list->takeItem(ui->creature_list->currentRow());
         delete it;
-    clearsliders();
-    ui->button_rdm->setVisible(false);
-    ui->button_reset->setVisible(false);
 
     // If the user used this button to delete all creatures from his list, then we hide the Simulation button, called "simbut" for short, as you can't launch the simulation with no creatures.
 
     int count = ui->creature_list->count();
     if (count == 0) {
         ui->simBut->setVisible(false);
+        ui->groupBox->setVisible(false);
     }
 }
 
 
-void MainWindow::create_proper_sliders(QListWidgetItem* item) {
-    auto being = dynamic_cast<BeingItem*>(item)->being;
-    clearsliders();
-    ui->groupBox->setTitle("Change properties for " + being->objectName());
-    if (being->type == LivingBeing::Type_LB::creature) {
-        auto creature = dynamic_cast<Creature*>(being);
-        ui->verticalLayout_2->addWidget(new PropertySlider("Size", creature, &Creature::set_size, creature->get_size(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Max Energy", creature, &Creature::set_Max_energy, creature->get_Max_energy(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Max HP", creature, &Creature::set_Max_hp, creature->get_Max_hp(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Eye Sight", creature, &Creature::set_eye_sight, creature->get_eye_sight(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Visibility", creature, &Creature::set_visibility, creature->get_visibility(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Physical Strength", creature, &Creature::set_physical_strength, creature->get_physical_strength(), ui->groupBox));
-        // ui->verticalLayout_2->addWidget(new PropertySlider("Digest time", creature, &Creature::set_digest_time, creature->get_digest_time(), ui->groupBox));
-    }
-    if (being->type == LivingBeing::Type_LB::plant) {
-        auto plant = dynamic_cast<Plant*>(being);
-        ui->verticalLayout_2->addWidget(new PropertySlider("Size", plant, &Plant::set_size, plant->get_size(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Max HP", plant, &Plant::set_Max_hp, plant->get_Max_hp(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Reproduction Rate", plant, &Plant::set_reproduction_rate, plant->get_reproduction_rate(), ui->groupBox));
-    }
-    auto list = findChildren<QWidget*>("Property Slider");
-    for (auto i = list.begin(); i != list.end(); i++) {
-        auto slider = dynamic_cast<PropertySlider*>(*i);
-        connect(ui->button_rdm, &QPushButton::clicked, slider, &PropertySlider::randomise);
-        connect(ui->button_reset, &QPushButton::clicked, slider, &PropertySlider::reset);
-    }
-    ui->button_rdm->setVisible(true);
-    ui->button_reset->setVisible(true);
-}
-
-void MainWindow::on_simBut_clicked()
+void MainWindow::on_button_rdm_clicked()
 {
-    auto environment = new Environment();
 
-    int n = ui->creature_list->count();
-    for(int i = 0; i < n; i++){
-        auto beingitem = dynamic_cast<BeingItem*>(ui->creature_list->item(i));
-        auto being = beingitem->being;
-        being->environment = environment;
+    // Once you have clicked on the "Random" button, called button_rdm, the properties of your selected creature will be put at random values.
 
-        int maxX = environment->width();
-        int maxY = environment->height();
-        int x = std::rand() % maxX;
-        int y = std::rand() % maxY;
-        being->setPos(x, y);
+    ui->eat_creature->setCheckState(Qt::Unchecked);
+    ui->eat_plant->setCheckState(Qt::Unchecked);
+    ui->P_strength_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
+    ui->eye_sight_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
+    ui->max_energy_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
+    ui->size_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
+    ui->max_health_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
+    ui->visibility_n->setValue(((int) QRandomGenerator::global()->generate()) % 101);
 
-        environment->addItem(being);
+    int val = ((int) QRandomGenerator::global()->generate()) % 3;
+    if (val == 0) {
+        ui->eat_creature->setCheckState(Qt::Checked);
     }
-    new SimulationView(environment);
+    else if (val == 1) {
+        ui->eat_creature->setCheckState(Qt::Checked);
+        ui->eat_plant->setCheckState(Qt::Checked);
+    }
+    else if (val == 2) {
+        ui->eat_plant->setCheckState(Qt::Checked);
+    }
 }
 
-void MainWindow::clearsliders()
+
+void MainWindow::on_button_reset_clicked()
 {
-    auto list = findChildren<PropertySlider*>("Property Slider");
-    for (auto i = list.begin(); i != list.end(); i++) {
-        (*i)->deleteLater();
-    }
-    ui->groupBox->setTitle("");
+
+    // Once you have clicked on the "Reset" button, called button_reset, all the properties of your selected creature will be set back to zero.
+
+    ui->eat_creature->setCheckState(Qt::Unchecked);
+    ui->eat_plant->setCheckState(Qt::Unchecked);
+    ui->P_strength_n->setValue(0);
+    ui->eye_sight_n->setValue(0);
+    ui->max_energy_n->setValue(0);
+    ui->size_n->setValue(0);
+    ui->max_health_n->setValue(0);
+    ui->visibility_n->setValue(0);
 }

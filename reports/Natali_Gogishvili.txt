@@ -9,16 +9,8 @@ Worked on Network class. Added/implemented functions, getters, setters, default 
 
 Week 3:
 
-Set up main function/cpp.main file in neural networks branch for testing neural networks. Worked on testing Edge class (testing every functiion/constructor), identified error sources in networks/layers classes.
+Set up main function/cpp.main file in neural networks branch for testing neural networks. Worked on testing Edge class, identified errors in networks/layers classes.
 
 Week 4:
 
-Worked on bugs (fixing randomization function, etc.). Note: since my laptop ran out of battery, I was working with Anja and Tita on it. During the TD I worked on implementing constructor for Network class that one of the groups requested and testing some of the functions.
-
-Week 5:
-
-I could not build the code using my computer. I identified that the problem was that there was not Qt's library for randomization on my computer. I tried to update it/add packages using Qt maintenance, but nothing worked (TAs were also trying to help). I was trying to fix it for several days, since downloading packages always took time but it still did not work. I have both Ubuntu and Windows on my computer. Since it did not work on Ubuntu, in the end I downloaded Qt, GitHub desktop, etc. on Windows and continued working from there. Because of this problem I do not have any commits for this week.
-
-Week 6:
-
-I was trying to integrate QuickQanva in our project for network visualizations for the presentation. I tried it in several ways but it did not work. I met with my subteam several days after to talk about this issue and we decided to instead do it through Python library NetworkX.
+Worked on bugs (fixing randomization function, etc.). Note: since my laptop ran out of battery, I was working with Anja and Tita on it.

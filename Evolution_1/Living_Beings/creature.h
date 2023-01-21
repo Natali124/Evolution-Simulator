@@ -135,7 +135,7 @@ protected:
     float sleep_time;
     int digest_time;
     vector<float> food_attributes; // food attributes of what the creature is currently digesting
-    int species;
+
 };
 
 
