@@ -457,7 +457,7 @@ std::map<Creature::Enum_parameters, double> Lifetime::average_predator(){
 }
 int Lifetime::average_ls_prey(){
     int results[2];
-    std::cout<<"I HAVE BEEEEEEEEEEEEEEEEEEN  CALLED"<<std::endl;
+//    std::cout<<"I HAVE BEEEEEEEEEEEEEEEEEEN  CALLED"<<std::endl;
     QList<QGraphicsItem *> list = env->items();
     QListIterator<QGraphicsItem*> i(list);
     while (i.hasNext()){
