@@ -355,7 +355,7 @@ Lifetime::Lifetime(SimulationView* menu, QWidget *parent): QChartView(parent) {
 
     chart = get_chart();
     setChart(chart);
-    chart->setTitle("Dynamic chart of the average lifetime of the last 50 that died");
+    chart->setTitle("Graph of the average lifespan of the last N living beings that died");
 
 
 
@@ -380,7 +380,6 @@ Lifetime::Lifetime(SimulationView* menu, QWidget *parent): QChartView(parent) {
     QValueAxis *axisY = new QValueAxis();
     this ->x_axis = axisX;
     this->y_axis = axisY;
-    axisX->setTitleText("Graph of the average lifespan of the last N living beings that died");
     chart->addAxis(axisX, Qt::AlignBottom);
     chart->addAxis(axisY, Qt::AlignLeft);
     Prey_series->attachAxis(axisX);
