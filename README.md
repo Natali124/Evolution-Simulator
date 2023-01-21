@@ -8,7 +8,7 @@ Preys and predators have neural networks that allow them to take decisions.
 Format: Name, Trello, Git.
 Anja Matic 
 @anjamatic02
-Arjun B
+Arjun Bommadevara
 @arjun_b03
 Atodiresei Matei
 @atodireseimatei
@@ -50,7 +50,7 @@ Pablo Bertaud-Velten
 Tita Rosemeyer
 
 ### Frontend
-Arjun B
+Arjun Bommadevara
 Atodiresei Matei
 laurentiu lazar
 Lorenzo De Giovanni
