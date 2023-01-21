@@ -77,7 +77,7 @@ void SimulationView::init_layout(){
     layout->addWidget(add_herb);
     layout->addWidget(add_plant);
 
-    auto being_counter = new ParameterDisplay("Number of beings:", environment, &Environment::nr_beings, this, environment);
+    auto being_counter = new ParameterDisplay("Entity count:", environment, &Environment::nr_beings, this, environment);
     being_counter->setStyleSheet("color: black");
 
 
