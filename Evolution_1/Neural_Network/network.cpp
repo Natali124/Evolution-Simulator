@@ -322,11 +322,10 @@ void Network:: print_values(){
 
 void vector_to_file(vector<vector<double>> inpt, string filename){
 /*Form of filename should be filename.txt (or pdf or however you want to save your file*/
-  /*Form of filename should be filename.txt (or pdf or however you want to save your file)*/
 
       std::ofstream outfile (filename.c_str());
 
-      for(vector<double> vect: inpt){
+      for(auto&& vect: inpt){
           for(double elm: vect){
               outfile << elm << " ";
           }
@@ -336,15 +335,26 @@ void vector_to_file(vector<vector<double>> inpt, string filename){
 //Saving
 
 vector<vector<double>> Network:: network_to_vector(){
+    //saving edges of each layer to the next
     vector<vector<double>> output(0);
     output.push_back(input_layer->layer_to_vector());
     for(Layer* hidden: hidden_layers){
         output.push_back(hidden->layer_to_vector());}
+
+    //Output layer has no outgoing edges, we only save number of nerons and avctivation functions
     int otpt_layer_size = output_layer->get_neurons().size();
     vector<double> otpt_layer(0);
     otpt_layer.push_back(otpt_layer_size);
     otpt_layer.push_back(output_layer->get_activation_function());
     output.push_back(otpt_layer);
+
+    //Saving the values of the neurons
+    output.push_back(vector<double>(0)); //to create empty line in the file
+    output.push_back(input_layer->value_vector());
+    for(Layer* hidden: hidden_layers){
+        output.push_back(hidden->value_vector());}
+    output.push_back(output_layer->value_vector());
+
     return output;}
 
 void Network::network_to_file(string filename){
@@ -352,22 +362,35 @@ void Network::network_to_file(string filename){
      vector_to_file(network_vect, filename);}
 
 
-
+// Functions for reproduction
+double _p_cut_off = 0.5; // cut_off (chance of a single edge being changed)
+const double _norm_var = 0.2; // variance of normal distr. used for reproduction
 
 double norm_distr_random(double x){
-  double p = (double) QRandomGenerator64::global()->generateDouble();
-  if(p<0.5){
-    std::random_device rd;
-    std:mt19937 gen(rd());
-    std::normal_distribution<double> d(x,0.2);
-    x = d(gen);
-    }
+  //takes a value x and has a _p_cut_off chance to modify x according to the normal distribuition.
+  double p =QRandomGenerator::global()->generateDouble();
+  if (p < _p_cut_off){
+      std::random_device rd;
+      std::mt19937 gen(rd());
+      std::normal_distribution<double> d(x, _norm_var);
+      x = d(gen);
+  }
   return x;
+
 }
 
+// reproduction of the Neural Network
 
 Network* Network::reproduce(){
   Network* nn = this->copy();
+
+  // set chance of single edge being changed according to exponential distribution
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std:exponential_distribution<double> e(10);
+  _p_cut_off = e(gen);
+
   nn->apply_on_all_weights(norm_distr_random);
   return nn;
 }
+

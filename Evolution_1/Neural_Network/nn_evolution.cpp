@@ -1,5 +1,7 @@
+#pragma once
 #include "nn_evolution.hpp"
 #include "network.hpp"
+#include <fstream>
 #include <QRandomGenerator>
 
 // Comparison function to sort the vector elements
@@ -24,7 +26,6 @@ double loss(vector<double> got, vector<double> expected){
     //cout << sum << endl;
     return sum;
    }
-
 }
 double get_loss(Network* nn, vector<double> input, vector<double> expected){
   // get loss of a network for a given input and expected vector
@@ -124,4 +125,30 @@ void run_evolution(int n, double r, double tests, int n_in, int n_out, int n_gen
       cout << "Generation " << gen << ": Avg. Loss = " << avg_loss << endl;
         }
     }
+}
+
+void run_evolution_in_file(int n, double r, double tests, int n_in, int n_out, int n_gen, int print_every, string filename){
+//  int n = 100; // number of networks
+//  double r = 10; // number of children per network
+//  double tests = 10; // number of test vectors per generation
+//  int n_in = 5; // size of input vectors
+//  int n_out = n_in; // size of output vectors (has to coincide with output of want_func!)
+//  int n_gen = 1000; // number of generations
+//  int print_every = 10; // prints average loss of generation every print_every-th generation
+  ofstream outfile (filename.c_str());
+  cout << "Writing: "<< filename <<endl;
+  outfile << n << endl << r << endl << tests << endl << n_in << endl << n_out <<endl << n_gen << endl << print_every <<endl;
+  vector<Network*> networks = vector<Network*>(0);
+  for (int i = 0; i < n; ++i) {
+      networks.push_back(new Network(n_in,n_out,2,7));
+    }
+  for (int gen = 0; gen < n_gen; ++gen) {
+      double avg_loss = do_step(networks,n,tests,r,n_in,n_out);
+      if(gen % print_every == 0){
+      //cout << "Generation: " << gen << " Avg.Loss: " << avg_loss << endl;
+      outfile << "Generation: " << gen << " Avg.Loss: " << avg_loss << endl;
+        }
+    }
+  cout << "Finished!" << endl;
+
 }
