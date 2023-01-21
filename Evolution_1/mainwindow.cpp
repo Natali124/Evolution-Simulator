@@ -18,6 +18,11 @@ int num_plant = 0;
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
 
+    /*This function is a constructor for the MainWindow class, it creates an instance of the MainWindow
+     class and sets up the user interface. It sets the background image, sets the palette for various buttons
+    and widgets, and sets the style sheet for the buttons and widgets. It also makes certain buttons and widgets
+    invisible and connects the 'creature_list' widget with the 'create_proper_sliders' function. */
+
     setAttribute(Qt::WA_DeleteOnClose); // very important - delete the object from memory when the window is closed
 
     QString back(":/backgrounds/images/nature-outdoor-forest-background_1308-54338.jpg");
@@ -92,6 +97,8 @@ void MainWindow::setBackgroundImage(QString filePath){
 void MainWindow::resizeEvent(QResizeEvent *evt)
 {
 
+    //Stretches background when resizing window.
+
     stretchBackground();
     //fitDisplay();
 
@@ -100,6 +107,8 @@ void MainWindow::resizeEvent(QResizeEvent *evt)
 
 
 void MainWindow::stretchBackground(){
+
+    //This functions make sure the background stretches when you resize the mainwindow.
 
     QString back(":/backgrounds/images/nature-outdoor-forest-background_1308-54338.jpg");
     QPixmap bkgnd(back);

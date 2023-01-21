@@ -17,6 +17,9 @@ startscreen::startscreen(QWidget *parent) :
 }
 
 void startscreen::setBackgroundImage(QString filePath){
+
+    //Sets the background image on the window.
+
     QPixmap bkgnd = QPixmap(filePath);
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
@@ -33,6 +36,8 @@ startscreen::~startscreen()
 
 void startscreen::resizeEvent(QResizeEvent *evt)
 {
+    //This functions make sure the background stretches when you resize the mainwindow.
+
     stretchBackground();
     //fitDisplay();
 
@@ -41,6 +46,9 @@ void startscreen::resizeEvent(QResizeEvent *evt)
 
 
 void startscreen::stretchBackground(){
+
+    //Stretches background when resizing window.
+
     QString back(":/backgrounds/images/nature-outdoor-forest-background_1308-54338.jpg");
     QPixmap bkgnd(back);
     bkgnd = bkgnd.scaled(size(), Qt::IgnoreAspectRatio);
