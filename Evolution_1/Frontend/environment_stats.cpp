@@ -365,7 +365,7 @@ Lifetime::Lifetime(SimulationView* menu, QWidget *parent): QChartView(parent) {
 
 
     Prey_series->setName("Preys");
-    Prey_series->setColor("orange");
+    Prey_series->setColor("purple");
     Predator_series->setName("Predators");
     Predator_series->setColor("red");
     Plant_series->setColor("green");
@@ -380,7 +380,7 @@ Lifetime::Lifetime(SimulationView* menu, QWidget *parent): QChartView(parent) {
     QValueAxis *axisY = new QValueAxis();
     this ->x_axis = axisX;
     this->y_axis = axisY;
-    axisX->setTitleText("1 unit : Update every 50 new dead living beings");
+    axisX->setTitleText("Graph of the average lifespan of the last N living beings that died");
     chart->addAxis(axisX, Qt::AlignBottom);
     chart->addAxis(axisY, Qt::AlignLeft);
     Prey_series->attachAxis(axisX);
@@ -389,8 +389,8 @@ Lifetime::Lifetime(SimulationView* menu, QWidget *parent): QChartView(parent) {
     Predator_series->attachAxis(axisY);
     Plant_series->attachAxis(axisX);
     Plant_series->attachAxis(axisY);Q_PROPERTY(type name READ name WRITE setName NOTIFY nameChanged)
-    axisY->setRange(0,500);
-    axisX->setRange(0, 100);
+    axisY->setRange(0,1500);
+    axisX->setRange(0, 400);
 
     set_series_prey(Prey_series);
     set_series_predator(Predator_series);
@@ -404,22 +404,6 @@ Lifetime::Lifetime(SimulationView* menu, QWidget *parent): QChartView(parent) {
 };
 
 
-void Lifetime::average_lifespan(int age){
-    if (number_ages == 49) {
-        last_50_ages[49] = age;
-        number_ages = 0;
-        int sum = 0;
-        for(int i = 0; i < 50 ; i++){
-              sum+= last_50_ages[i];
-           }
-        sum = sum / 50;
-
-    }
-    else {
-        last_50_ages[number_ages] = age;
-        number_ages++;
-    }
-}
 
 
 std::map<Creature::Enum_parameters, double> Lifetime::average_prey(){
@@ -472,6 +456,52 @@ std::map<Creature::Enum_parameters, double> Lifetime::average_predator(){
     }
     return param_average;
 }
+int Lifetime::average_ls_prey(){
+    int results[2];
+    std::cout<<"I HAVE BEEEEEEEEEEEEEEEEEEN  CALLED"<<std::endl;
+    QList<QGraphicsItem *> list = env->items();
+    QListIterator<QGraphicsItem*> i(list);
+    while (i.hasNext()){
+        LivingBeing* LB = dynamic_cast<LivingBeing*>(i.next());
+        LivingBeing::Type_LB type = LB->get_type();
+        if (type == Creature::creature) {
+            Creature* c = dynamic_cast<Creature*>(LB);
+            return c->get_average_ls_prey();
+//            results[1] = c->get_average_ls_predator();
+//            return results;
+        }
+    }
+}
+
+int Lifetime::average_ls_predator(){
+    int results[2];
+//    std::cout<<"I HAVE BEEEEEEEEEEEEEEEEEEN  CALLED"<<std::endl;
+    QList<QGraphicsItem *> list = env->items();
+    QListIterator<QGraphicsItem*> i(list);
+    while (i.hasNext()){
+        LivingBeing* LB = dynamic_cast<LivingBeing*>(i.next());
+        LivingBeing::Type_LB type = LB->get_type();
+        if (type == Creature::creature) {
+            Creature* c = dynamic_cast<Creature*>(LB);
+            return c->get_average_ls_predator();
+        }
+    }
+}
+int Lifetime::average_ls_plant(){
+    int results[2];
+//    std::cout<<"I HAVE BEEEEEEEEEEEEEEEEEEN  CALLED"<<std::endl;
+    QList<QGraphicsItem *> list = env->items();
+    QListIterator<QGraphicsItem*> i(list);
+    while (i.hasNext()){
+        LivingBeing* LB = dynamic_cast<LivingBeing*>(i.next());
+        LivingBeing::Type_LB type = LB->get_type();
+        if (type != Plant::plant) {
+            Plant* c = dynamic_cast<Plant*>(LB);
+            return c->get_average_ls_plant();
+        }
+    }
+}
+
 
 void Lifetime::timerEvent(QTimerEvent *event) {
     //std::cout << "timer event received" <<std::endl;
@@ -483,11 +513,11 @@ void Lifetime::update_chart(){
     chart = get_chart();
     temp ++;
     Prey_series = get_series_prey();
-    Prey_series->append(temp, 10);
+    Prey_series->append(temp, average_ls_prey());
     Predator_series = get_series_predator();
-    Predator_series->append(temp, 20);
+    Predator_series->append(temp, average_ls_predator());
     Plant_series = get_series_plant();
-    Plant_series->append(temp, 50);
+    Plant_series->append(temp, average_ls_plant());
     update();
 }
 

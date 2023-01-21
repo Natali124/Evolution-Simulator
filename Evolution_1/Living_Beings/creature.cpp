@@ -88,6 +88,53 @@ Creature::Creature(Environment* e): Creature(){
     }
 }
 
+void Creature::average_lifespan_calculator_prey(int age,int generation_size){
+//    std::cout<<"number_ages"<<number_ages_prey<<std::endl;
+//    for (int i = 0 ; i < number_ages_prey;i ++){
+//        std::cout<<"last_50_ages position "<<i<<" is "<<last_ages_prey[i]<<std::endl;
+//    }
+    if (number_ages_prey == generation_size - 1) {
+        last_ages_prey[generation_size - 1] = age;
+        number_ages_prey = 0;
+        int sum = 0;
+        for(int i = 0; i < generation_size; i++){
+              sum+= last_ages_prey[i];
+           }
+        sum = sum / generation_size;
+        average_ls_prey = sum;
+    }
+    else {
+        last_ages_prey[number_ages_prey] = age;
+        number_ages_prey++;
+    }
+}
+
+void Creature::average_lifespan_calculator_predator(int age, int generation_size){
+    if (number_ages_predator == generation_size - 1) {
+        last_ages_predator[generation_size - 1] = age;
+        number_ages_predator = 0;
+        int sum = 0;
+        for(int i = 0; i < generation_size; i++){
+              sum+= last_ages_predator[i];
+           }
+        sum = sum / generation_size;
+        average_ls_predator = sum;
+    }
+    else {
+        last_ages_predator[number_ages_predator] = age;
+        number_ages_predator++;
+    }
+}
+
+
+int Creature::get_average_ls_prey(){
+//    std::cout<<"I HAVE BEEN CALLED"<<average_ls_prey<<std::endl;
+    return average_ls_prey;
+}
+
+int Creature::get_average_ls_predator(){
+    return average_ls_predator;
+}
 
 
 Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain, Environment* e): Creature(e) {
@@ -265,6 +312,12 @@ void Creature::attack(){
 
 void Creature::die() {
     if ((!this->get_alive()) || (this->get_hp() < 0) ) {
+        if (this->get_eat_creature() == false && this->get_eat_plants() == true){
+            average_lifespan_calculator_prey(this->get_alive_time(),20);
+        }
+        if (this->get_eat_creature() == true && this->get_eat_plants() == false){
+            average_lifespan_calculator_predator(this->get_alive_time(),8);
+        }
         set_alive(false);
         //here we chose to kill and destroy everything which is dead
 

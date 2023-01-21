@@ -54,7 +54,7 @@ Plant::Plant(double reproduction_rate) {
 
 void Plant::die() {
     if ((!this->get_alive()) || (this->get_hp() <= 0) ) {
-
+        average_lifespan_calculator(this->get_alive_time(),30);
         set_alive(false);
         //here we chose to kill and destroy everything which is dead
         delete this;
@@ -111,6 +111,28 @@ void Plant::is_eaten(Creature &c) {
     take_dmg(dmg_coef);
 }
 
+void Plant::average_lifespan_calculator(int age, int generation_size){
+    if (number_ages == generation_size - 1) {
+        last_ages[generation_size - 1] = age;
+        number_ages = 0;
+        int sum = 0;
+        for(int i = 0; i < generation_size; i++){
+              sum+= last_ages[i];
+           }
+        sum = sum / generation_size;
+        average_ls = sum;
+    }
+    else {
+        last_ages[number_ages] = age;
+        number_ages++;
+    }
+}
+
+
+int Plant::get_average_ls_plant(){
+//    std::cout<<"I HAVE BEEN CALLED"<<average_ls_prey<<std::endl;
+    return average_ls;
+}
 
 void Plant::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     painter->setBrush(Qt::white);

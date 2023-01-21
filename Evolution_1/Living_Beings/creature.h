@@ -37,6 +37,8 @@ namespace Other {
 }
 
 
+
+
 //extern int number_creatures;
 //extern int number_creatures_alive;
 //extern int number_creatures_dead;
@@ -148,6 +150,18 @@ public:
     void set_brain(Network* b);
     int get_last_attack();
     void set_last_attack(int i);
+    inline static int last_ages_prey[20];
+    inline static int number_ages_prey = 0;
+    inline static int average_ls_prey = 0;
+    int get_average_ls_prey();
+    void average_lifespan_calculator_prey(int age, int generation_size);
+
+    inline static int last_ages_predator[20];
+    inline static int number_ages_predator = 0;
+    inline static int average_ls_predator = 0;
+    int get_average_ls_predator();
+    void average_lifespan_calculator_predator(int age,int generation_size);
+
 
     //this function will be used to detect if two creatures have similar attributes and can be considered as from the same spiecie. This will help us removing some of the problem we had with children eating there parents
     bool same_spiecie(Creature* c);

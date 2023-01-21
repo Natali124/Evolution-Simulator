@@ -91,12 +91,15 @@ public:
 
     std::map<Creature::Enum_parameters, double> average_prey();
     std::map<Creature::Enum_parameters, double> average_predator();
+    int average_ls();
+    int average_ls_predator();
+    int average_ls_prey();
+    int average_ls_plant();
+
     qreal x_val;
     qreal y_val;
     qreal temp = 0;
-    int last_50_ages[50];
-    int number_ages = 0;
-    void average_lifespan(int age);
+
 
 private:
     SimulationView* menu;

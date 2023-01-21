@@ -47,6 +47,12 @@ public:
     double get_hp() const;
     void set_hp(double hp);
 
+    inline static int last_ages[20];
+    inline static int number_ages = 0;
+    inline static int average_ls = 0;
+    int get_average_ls_plant();
+    void average_lifespan_calculator(int age, int generation_size);
+
 
     enum Type_Plant{
     Carbs = 0, Protein = 1 , Slimming = 2 , Allergenic = 3 , Allergenic_Protein = 4 , Allergenic_Carbs = 5 ,

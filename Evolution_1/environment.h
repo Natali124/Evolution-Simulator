@@ -23,6 +23,8 @@ class Environment : public QGraphicsScene
         QGraphicsItem* last_touched = nullptr; // last living being that was touched by a mousePressEvent
 
 
+
+
     private:
 
         void mousePressEvent(QGraphicsSceneMouseEvent *event){
