@@ -1,21 +1,80 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2636
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;}
-{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
-{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\deftab720
-\pard\pardeftab720\partightenfactor0
+Week 1:
+Last week I completed the following tasks:
+- added initial class definitions
+- Completed layer class
+- implemented apply_to_all_edges and apply_to_all_weights in Network class
+- implemented passing function as an argument
+- merged branches Network and Main and managed errors coming from that
+- created UML diagram for classes Network, Edge, Layer and Neuron
+Next week I will work on:
+- completing the Network class
+- testing the Network class by initiating a simple example
+- checking the example manually by computing input and output
 
-\f0\fs26 \cf0 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Last week I completed the following tasks:\
-- added initial class definitions\
-- Completed layer class\
-- implemented apply_to_all_edges and apply_to_all_weights in Network class\
-- implemented passing function as an argument\
-- merged branches Network and Main and managed errors coming from that\
-- created UML diagram for classes Network, Edge, Layer and Neuron\
-\
-Next week I will work on:\
-- completing the Network class\
-- testing the Network class by initiating a simple example\
-- checking the example manually by computing input and output}
+
+Week 2:
+This week, I was sick (excused), so I only did the following:
+- managed some small errors 
+- completed activation function as enum
+The next week I want to do:
+- Testing the neural Network class manually
+- starting to think about training the network
+- Creating template for Neural Network to use in simulation
+
+Week 3:
+This week I worked on the following:
+- changed constructors in Layer, Neuron, Network to work with new keyword
+- added Destructors to Layer, Neuron, Network
+- tested Layer class functions
+- updated UML diagram of Layer, Neuron, Network and Edge
+Next week I plan to work on the following:
+- fix errors in randomize_edges() function of neural network
+- test network::propagate() 
+- review memory usage, maybe change destructors to free more memory
+
+Week 4:
+This week I worked on the following:
+Implemented helpful functions for Network::copy():
+- implemented [] operator for Network class
+- added "utils.cpp" file where I implemented find_index template function to get index of element in given vector
+- implemented get_index for Layer class to get index of Layer in given Network 
+- implemented get_index for Neuron class to get index of Neuron in parent network
+- implemented get_full_index for Neuron to get 2d index of Neuron in given Network
+- implemented copy_edge() function (help function to use for Network::copy())
+- Finally implemented Network::copy() that creates a copy of the Network to be used in reproduction. 
+  This creates a new Network object (and new Neuron, Layer and Edges objects) and only copies values
+  and connections. 
+- tested network::copy()
+Next week I plan to work on the following:
+- fix possible errors in saving and reconstructing of networks (implemented by Anja M. and Natali G.)
+- test if neural network evolution works as intended by implementing a simple reward function and using 
+  reproduction function (from Matei A. and Tudor C.) to run several generations of neural networks and 
+  weeding out the worst performing models to hopefully create a model that maximizes the simple reward function
+
+Week 5:
+This week I worked on the following:
+- Implemented an evolution focused on just the neural network to test functionality for a given "goal-function"
+	-> copied Network::reproduce() from reproduction team
+	-> implemented loss functions to calculate loss between given and expected output vector
+	-> implemented do_step function that 
+		-> evaluates networks on random input vectors
+		-> deletes the worst performing networks
+		-> reproduces remaining networks 
+		-> calculates average loss
+	-> implemented run_evolution that runs for some generations and prints average losses (with variable parameters)
+- tested the evolution and varied parameters to find "sweet spot"
+- Debugged and finished the Network-to-file and file-to-network functions with Anja Matic (which took quite a long time and is not done yet)
+Next week I plan to work on the following:
+- Resolve the last few build errors still present 
+- work on presentation of the network (maybe using QuickCanava? -> need to install and read documentation)
+
+Weel 6:
+This week I worked on the following:
+- resolved errors from the Network-to-file and file-to-network functions 
+  (build errors, it worked on Anja's computer, but not on ours, so it was quite a pain to figure out the issue)
+- merged with main and resolved merge errors (which was quite complicated and took a lot trial and error)
+- had a meeting to plan out the presentation of the Network (realized by Anja Matic)
+Next week I plan to work on the following:
+- improve reproduction and decision making of creatures by varying parameters
+- work on presentation of results of the NN team (evolution of network, ...)
+- create a variation of the main application with simplified decision making to see if evolution improves
