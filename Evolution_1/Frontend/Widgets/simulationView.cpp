@@ -136,6 +136,7 @@ void SimulationView::openOmniWindow() {
      omni_win omnwin(environment);
      omnwin.setModal(true);
      omnwin.exec();
+     emit environment->updated();
     //omnwin =new omni_win(this);
     //omnwin->show();
     }
@@ -160,6 +161,7 @@ void SimulationView::openHerbWindow() {
      herb_win herbwin(environment);
      herbwin.setModal(true);
      herbwin.exec();
+     emit environment->updated();
     //omnwin =new omni_win(this);
     //omnwin->show();
     }
@@ -190,6 +192,7 @@ void SimulationView::openPlantWindow() {
     Plant_win plantwin(environment);
     plantwin.setModal(true);
     plantwin.exec();
+    emit environment->updated();
     }
 
 void SimulationView::resizeEvent(QResizeEvent *evt)
