@@ -364,7 +364,7 @@ void Network::network_to_file(string filename){
 
 // Functions for reproduction
 double _p_cut_off = 0.5; // cut_off (chance of a single edge being changed)
-const double _norm_var = 5; // variance of normal distr. used for reproduction
+const double _norm_var = 0.2; // variance of normal distr. used for reproduction
 
 double norm_distr_random(double x){
   //takes a value x and has a _p_cut_off chance to modify x according to the normal distribuition.
