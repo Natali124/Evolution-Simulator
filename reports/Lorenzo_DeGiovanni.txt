@@ -7,5 +7,19 @@ We also were able to understand how to implement a background picture, by attach
 However, we still have not understood how to layer said picture, hence this is what I will be focusing on next week, as well as connecting the slider to the buttons.
 
 Week 2 
-We redesigned the layout of the buttons page, connecting the counters with the buttons
-and now when selecting the amount of predators, preys or plants to add into the simulation it opens a widget with the ability to scroll for each added variable
+We redesigned the layout of the buttons page, connecting the counters with the buttons and now when selecting the amount of predators, preys or plants to add into the simulation it opens a widget with the ability to scroll for each added variable.
+
+Week 3
+This week Arjun and I worked on the list, where once we click the button, its adds the number of creatures/plants shown on the counter to the list that shows all the creatures and plants, and this list can be scrolled through. We also understood how to scale the buttons and sliders within the choose your parameters window. After the break, I will hopefully be able to fix my QT issues and work on my own computer, and continue to work on the aesthetics of the window.
+
+Week 4
+This week I edited the button layout to adjust the visuals to both dark mode and light mode users, I set and stretched the current background on our start window and parameter editing window, I also connected the 'simulate' button to close the parameter window when clicked so that it would display the SimulationView window. For next week, I plan to try and fix the listing issue that has been limiting the continuation of our work for some time, as it doesnt allow us to attribute indiviual parameter values to a specific creature.
+
+Week 5
+This week I made some more edits to adjust the layout to fit all types of users, I also managed to fix a big issue we were having which was that the list created would add creatures lexographically instead of numerically, i.e. It would order Omnivore 10 as smaller than Omnivore 2. This now needs to be connected to the parameter sliders which Mathilde has been working on. I also began to work on the SimulationView window, and connected the add Omnivore button to opening a new window, to which I added a new slider and tried to understand how to move forward through implementing the necessary buttons. For the following week I aim to understand what the best way to move forward is with the add new creature buttons in SimulationView, in order to eventually be able to implement creatures during the ongoing simulation.
+
+Week 6
+This week I implemented and designed a new UI window for each button in the SimulationView window with the purpose of being able to add a new Omnivore, Herbivore or Plant during the simulation. Within the new window I implemented sliders which are connected to each parameter of the specific being. I managed to scale these windows and implement scaled and sretchable backgrounds. In the next and final week, I hope to finalize the last edits and most importantly understand how to give the buttons their purpose; to add creatures to the environment.
+
+Week 7
+This week I managed to connect the add new creature button in Simulation View to actually add a new being in the environment with the selected parameters. I also did some final edits on the layout of SimulationView window and the add creature windows. As well as aligning all the parameters with backend.
