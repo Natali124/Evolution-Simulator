@@ -2,14 +2,15 @@
 #include "Living_Beings/creature.h"
 #include "ui_herb_win.h"
 #include <QRandomGenerator>
-
+//these variables allow us to save the values of the sliders to a specific being
 float c_size = 0;
 float energy = 0;
 float health = 0;
 float eyesight = 0;
 float visibility = 0;
 float strength = 0;
-
+/*This function is a constructor for a class "herb_win" that inherits from QDialog.
+It sets up connections between UI elements, sets the stylesheet for various UI elements and sets the background image for the dialog.*/
 herb_win::herb_win(Environment *environment, QWidget *parent) :
     QDialog(parent),
     environment(environment),
@@ -56,6 +57,7 @@ herb_win::herb_win(Environment *environment, QWidget *parent) :
     QString back(":/backgrounds/images/gradient_1.jpg");
     setBackgroundImage(back);
 }
+//This function sets a background image of the window
 void herb_win::setBackgroundImage(QString filePath){
     QPixmap bkgnd = QPixmap(filePath);
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
@@ -63,6 +65,7 @@ void herb_win::setBackgroundImage(QString filePath){
     palette.setBrush(QPalette::Window, bkgnd);
     setPalette(palette);
 }
+//This function stretches the background to the size of the window
 void herb_win::resizeEvent(QResizeEvent *evt)
 {
     stretchBackground();
@@ -70,7 +73,7 @@ void herb_win::resizeEvent(QResizeEvent *evt)
 
     QDialog::resizeEvent(evt); //call base implementation
 }
-
+//Scales the background to the window through resizes
 void herb_win::stretchBackground(){
     QString back(":/backgrounds/images/gradient_1.jpg");
     QPixmap bkgnd(back);
@@ -84,7 +87,8 @@ herb_win::~herb_win()
 {
     delete ui;
 }
-
+/*This function is called when the "randomise" button in the window is clicked.
+It sets random values between 0-200 to the various parameters of the creatures.*/
 void herb_win::on_randbut_clicked()
 {
     ui->size_s->setValue(QRandomGenerator::global()->bounded(200));
@@ -95,7 +99,7 @@ void herb_win::on_randbut_clicked()
     ui->eyesight_s->setValue(QRandomGenerator::global()->bounded(200));
 }
 
-
+//This function is called when the "reset" button in the window is clicked. It resets the various parameters of the creatures to 0.
 void herb_win::on_resetbut_clicked()
 {
     ui->size_s->setValue(0);
@@ -106,7 +110,7 @@ void herb_win::on_resetbut_clicked()
     ui->eyesight_s->setValue(0);
 }
 
-
+//Function creates a new herbivore creature and adds it to environment with selected parameters during ongoing simulation.
 void herb_win::on_add_herbi_clicked()
 {
     auto herbi = new Creature;

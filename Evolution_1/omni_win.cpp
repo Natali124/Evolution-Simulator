@@ -2,14 +2,15 @@
 #include "Living_Beings/creature.h"
 #include "ui_omni_win.h"
 #include <QRandomGenerator>
-
+//these variables allow us to save the values of the sliders to a specific being
 float c_size_omni = 0;
 float energy_omni = 0;
 float health_omni = 0;
 float eyesight_omni = 0;
 float visibility_omni = 0;
 float strength_omni = 0;
-
+/*This function is a constructor for a class "omni_win" that inherits from QDialog.
+It sets up connections between UI elements, sets the stylesheet for various UI elements and sets the background image for the dialog.*/
 omni_win::omni_win(Environment *environment, QWidget *parent) :
     QDialog(parent),
     environment(environment),
@@ -60,7 +61,7 @@ omni_win::omni_win(Environment *environment, QWidget *parent) :
     QString back(":/backgrounds/images/gradient_1.jpg");
     setBackgroundImage(back);
 }
-
+//This function sets a background image of the window
 void omni_win::setBackgroundImage(QString filePath){
     QPixmap bkgnd = QPixmap(filePath);
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
@@ -68,7 +69,7 @@ void omni_win::setBackgroundImage(QString filePath){
     palette.setBrush(QPalette::Window, bkgnd);
     setPalette(palette);
 }
-
+//This function stretches the background to the size of the window
 void omni_win::resizeEvent(QResizeEvent *evt)
 {
     stretchBackground();
@@ -76,7 +77,7 @@ void omni_win::resizeEvent(QResizeEvent *evt)
 
     QDialog::resizeEvent(evt); //call base implementation
 }
-
+//Scales the background to the window through resizes
 void omni_win::stretchBackground(){
     QString back(":/backgrounds/images/gradient_1.jpg");
     QPixmap bkgnd(back);
@@ -90,7 +91,8 @@ omni_win::~omni_win()
 {
     delete ui;
 }
-
+/*This function is called when the "randomise" button in the window is clicked.
+It sets random values between 0-200 to the various parameters of the creatures.*/
 void omni_win::on_randbut_clicked()
 {
     ui->size_s->setValue(QRandomGenerator::global()->bounded(200));
@@ -101,7 +103,7 @@ void omni_win::on_randbut_clicked()
     ui->eyesight_s->setValue(QRandomGenerator::global()->bounded(200));
 }
 
-
+//This function is called when the "reset" button in the window is clicked. It resets the various parameters of the creatures to 0.
 void omni_win::on_resetbut_clicked()
 {
     ui->size_s->setValue(0);
@@ -112,7 +114,7 @@ void omni_win::on_resetbut_clicked()
     ui->eyesight_s->setValue(0);
 }
 
-
+//Function creates a new omnivore creature and adds it to environment with selected parameters during ongoing simulation.
 void omni_win::on_add_omnitrix_clicked()
 {
     auto omni = new Creature;
