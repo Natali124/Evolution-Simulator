@@ -16,7 +16,7 @@ int active_creature;
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
-//    setAttribute(Qt::WA_DeleteOnClose); // very important - delete the object from memory when the window is closed
+    setAttribute(Qt::WA_DeleteOnClose); // very important - delete the object from memory when the window is closed
     // only the start button is visible.
     QString back(":/backgrounds/images/nature-outdoor-forest-background_1308-54338.jpg");
     ui->setupUi(this);
@@ -242,6 +242,7 @@ void MainWindow::on_button_delete_creature_clicked()
 void MainWindow::create_proper_sliders(QListWidgetItem* item) {
     auto being = dynamic_cast<BeingItem*>(item)->being;
     clearsliders();
+    ui->groupBox->setTitle("Change properties for " + being->objectName());
     if (being->type == LivingBeing::Type_LB::creature) {
         auto creature = dynamic_cast<Creature*>(being);
         ui->verticalLayout_2->addWidget(new PropertySlider("Size", creature, &Creature::set_size, creature->get_size(), ui->groupBox));
@@ -264,6 +265,8 @@ void MainWindow::create_proper_sliders(QListWidgetItem* item) {
         connect(ui->button_rdm, &QPushButton::clicked, slider, &PropertySlider::randomise);
         connect(ui->button_reset, &QPushButton::clicked, slider, &PropertySlider::reset);
     }
+    ui->button_rdm->setVisible(true);
+    ui->button_reset->setVisible(true);
 }
 
 void MainWindow::on_simBut_clicked()
@@ -293,4 +296,5 @@ void MainWindow::clearsliders()
     for (auto i = list.begin(); i != list.end(); i++) {
         (*i)->deleteLater();
     }
+    ui->groupBox->setTitle("");
 }
