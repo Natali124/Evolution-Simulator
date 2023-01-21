@@ -16,17 +16,23 @@
 
 const int repro_cost_predator = 40;// cost of reproduction of predators (20 = 1x food)
 const int repro_cost_prey = 20; // cost of reproduction of predators (20 = 1x food)
-const int food_value_plant = 20;
-const int food_value_animal = 40;
+const int food_value_plant = 20; // value of a plant to be added to repro_factor upon consumption
 const double seeing_rect = 500; // size of rectangle in which creatures see
-const int repro_cool_down = 20; // how many steps between reproductions
+const int repro_cool_down = 50; // how many steps between reproductions
 const double _predator_speed_bonus = 0; // gives predators more / less speed
 const float _ddistance = 2; //base value of the change of the distance
 const double starving_rate = 0.2; // rate of starving, 0 = no starving, 1 = starving very quickly
+const int repro_factor_decrease = 4; // decrease of repro_factor per step
 
-const int _n_closest_visible = 2;
-const int n_input = 4*_n_closest_visible;
-const int n_output = _n_closest_visible;
+
+const bool allow_cannibalism = false; // allow creatures of same family to eat each other?
+const bool can_see_own_family = false; // can creatures see their own family?
+const bool preds_can_see_plants = true; // can predators see plants?
+const bool kill_overlapping = false; // kill overlapping preys?
+
+const int _n_closest_visible = 2; //number of closest visible beings
+const int n_input = 4*_n_closest_visible; //size of input vector to neural network
+const int n_output = _n_closest_visible; // size of output vector of neural network
 
 int Creature::n_families = 0;
 
@@ -41,20 +47,20 @@ const float _sizecoeff = 0.1; //base value for energy punishment connected with 
 void Creature::stay_in_bounds(){
   //PACMAN, when touching a border, the creature is Teleported to the other side
   if (this->x()<0){
-      setX(500+x());
+      setX(-x());
       setY(y());
   }
   if (this->y()<0){
       setX(x());
-      setY(500+y());
+      setY(-y());
   }
   if (this->x()>500){
-      setX(x()-500);
+      setX(1000-x());
       setY(y());
   }
   if (this->y()>500){
       setX(x());
-      setY(y()-500);
+      setY(1000-y());
 
   }
 }
@@ -220,7 +226,7 @@ Creature* Creature::reproduction() {
     C->i_eat_plants = this->i_eat_plants;
     C->my_size = max(0.0,min(200.0,normal_distrib(this->my_size, 10)));;
     C->set_scene(this->get_scene());
-    C->setPos(x() + 5, y() + 5);
+    C->setPos(x() + 10, y() + 10);
     C->setRotation(rotation());
 
     C->set_family(this->get_family());
@@ -308,6 +314,7 @@ void Creature::set_brain(Network* b){brain = b;};
 int Creature::get_last_attack(){return this->last_attack;};
 void Creature::set_last_attack(int i){this->last_attack = i;};
 double Creature::get_parameter(Enum_parameters p){return this->parameters.at(p);};
+
 void Creature::set_family(int f){
     effect = new QGraphicsColorizeEffect;
     effect->setColor(QColor((10001 * f % 256), (1001 * f % 256), (100001 * f % 256), 255));
@@ -351,23 +358,25 @@ void Creature::try_reproduce(){
 
 void Creature::decision(std::vector<double> input_vector,vector<LivingBeing*> c){
         // takes action based on decision vector
-        double towards = 0.5;
-        double index = 0;
+        double towards = -1; // saves most "extrem" decision toward ( =1) or away (=0) from something
+        double index = 0; // save index of being we want to move towards / away from
         for (int i = 0; i < input_vector.size(); i++) {
             double magnitude = input_vector[i];
             if(towards == -1 or abs(magnitude -0.5)>abs(towards-0.5)){
+                // if magnitude at this index is farther away from 0.5, this is our new target
                 index = i;
                 towards = magnitude;
               }
           }
-        LivingBeing* target = c[index];
-        double speed = _ddistance *(1 + _predator_speed_bonus* (int)(i_eat_creatures));
+        LivingBeing* target = c[index]; // target to move towards / away from
 
         double x = 3.25-2.5/(pow(M_E, -double(this->get_size())/40) + 1);
-        double speed = _ddistance *(1 + _predator_speed_bonus* (int)(i_eat_creatures))*x;//oskar
+        double speed = _ddistance *(1 + _predator_speed_bonus* (int)(i_eat_creatures))*x; // speed is inversely correlated to size
         if(towards > 0.5){
+            // move towards target
             move_to(target,speed);
           } else {
+            // move away from target
             move_to(target,-speed);
           }
 
@@ -392,7 +401,7 @@ void Creature::Eat(){
             // if this is a predator and k is a creature
 
             if(k->get_eat_creature()){ // if creature k is a predator
-                if( k->family == this->family){
+                if( !allow_cannibalism && k->family == this->family){
                     // if same family, nothing happens (no cannibalism)
                    return;
                   }
@@ -423,7 +432,19 @@ void Creature::Eat(){
                     k->die();
                 }
               }
-        }
+        } else if(k != nullptr && kill_overlapping){
+            // if this is a herbivore and k is a creature
+            double r = (double) QRandomGenerator::global()->generateDouble(); //random variable to decide who wins fight
+            double p = (double) QRandomGenerator::global()->generateDouble();
+
+            if(r * this->get_size() > p*k->get_size()){
+                this->set_alive(false);
+                this->die();
+              } else {
+                k->set_alive(false);
+                k->die();
+              }
+          }
         if(ate ){
           set_counter_no_eat(0);
           }
@@ -464,7 +485,7 @@ void Creature::playstep() {
         std::vector<double> decision_vector = brain->propagate(input_vector);
 
         counter_no_reproduction++;
-        repro_factor = max(0.0, repro_factor-4); // lose some reproduction factor
+        repro_factor = max(0.0, repro_factor-repro_factor_decrease); // lose some reproduction factor
         decision(decision_vector, closest_beings); // take decision with regards to closest being
         set_counter_no_eat(get_counter_no_eat()+1);
         Eat(); // if colliding with something, eat or die
@@ -522,23 +543,18 @@ void Creature::move_to(LivingBeing* other, double d){
   // move the distance d towards the living being "other"
   double x = this->x(); double y = this->y();
   double ox; double oy;
-  if(other == nullptr && this->random == false){
+  if(other == nullptr ){
       // if no target is given, move randomly
 
-      this->last_ox = 1000*QRandomGenerator::global()->generateDouble();
-      this->last_oy = 1000*QRandomGenerator::global()->generateDouble();
-      this->random = true;
+      ox = 1000*QRandomGenerator::global()->generateDouble();
+      oy = 1000*QRandomGenerator::global()->generateDouble();
+    } else {
+      ox = other->x();
+      oy = other->y();
     }
-  else if (other == nullptr && random == true){
-      //nothing changes
-  }
-  else {
-     this->last_ox = other->x(); this->last_oy = other->y();
-     random = false;
-    }
-  double r = distance(x,y,this->last_ox,this->last_oy);
-  setX(x + (d/r)*(this->last_ox-x) );
-  setY(y + (d/r)*(this->last_oy-y) );
+  double r = distance(x,y,ox,oy);
+  setX(x + (d/r)*(ox-x) );
+  setY(y + (d/r)*(oy-y) );
   this->stay_in_bounds();
 }
 
@@ -555,8 +571,11 @@ std::vector<std::tuple<double,LivingBeing*>> Creature::get_closest(int n){
       LivingBeing *L = dynamic_cast<LivingBeing*>(item);
       // if item was possible to cast && if they don't have the same coordinates
 
-      if (L!=nullptr && L->get_family() != family){ // doesn't see it's own family (otherwise would just stay there)
-          if(i_eat_plants || L->get_type() != plant){ // predators don't see plants
+      if (L!=nullptr) {
+          bool family_ignore = !can_see_own_family && L->get_family() == family; // check if it's the same family to be ignored
+          bool plant_ignore = !preds_can_see_plants && i_eat_creatures && L->get_type() == plant; // check if it is a plant to be ignored
+          bool ignore = family_ignore || plant_ignore; // if one of the two ignore cases is achieved, ignore object
+          if(!ignore){ // predators don't see plants
             double d = distance(this,L);
             if(d > 0.001){
               distances.push_back(d);
