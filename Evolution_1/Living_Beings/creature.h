@@ -47,6 +47,10 @@ class Creature : public LivingBeing {
 
 public:
 
+    //oskar
+    double last_ox = 0;
+    double last_oy = 0;
+    bool random = false;
     static int n_families;
 
     // positive double, positive double, positive double, [0, 1], Bool, Bool, positive double, positive double

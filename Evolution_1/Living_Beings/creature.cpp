@@ -16,10 +16,10 @@
 
 const int repro_cost_predator = 40;// cost of reproduction of predators (20 = 1x food)
 const int repro_cost_prey = 20; // cost of reproduction of predators (20 = 1x food)
-const int food_value_plant = 40;
-const int food_value_animal = 60;
+const int food_value_plant = 30;
+const int food_value_animal = 30;
 const double seeing_rect = 500; // size of rectangle in which creatures see
-const int repro_cool_down = 20; // how many steps between reproductions
+const int repro_cool_down = 30; // how many steps between reproductions
 const double _predator_speed_bonus = -0.1; // gives predators more / less speed
 const float _ddistance = 2; //base value of the change of the distance
 
@@ -37,19 +37,19 @@ void Creature::stay_in_bounds(){
   //PACMAN, when touching a border, the creature is Teleported to the other side
   if (this->x()<0){
       setX(500+x());
-      setY(500-y());
+      setY(y());
   }
   if (this->y()<0){
-      setX(500-x());
+      setX(x());
       setY(500+y());
   }
   if (this->x()>500){
-      setX(500-x());
-      setY(500-y());
+      setX(x()-500);
+      setY(y());
   }
   if (this->y()>500){
-      setX(500-x());
-      setY(500-y());
+      setX(x());
+      setY(y()-500);
 
   }
 }
@@ -348,7 +348,8 @@ void Creature::decision(std::vector<double> input_vector,LivingBeing* c){
         // takes action based on decision vector
 
         double towards = input_vector[0];
-        double speed = _ddistance *(1 + _predator_speed_bonus* (int)(i_eat_creatures));
+        double x = 3.25-2.5/(pow(M_E, -double(this->get_size())/40) + 1);
+        double speed = _ddistance *(1 + _predator_speed_bonus* (int)(i_eat_creatures))*x;//oskar
         if(towards > 0.5){
             move_to(c,speed);
           } else {
@@ -493,16 +494,23 @@ void Creature::move_to(LivingBeing* other, double d){
   // move the distance d towards the living being "other"
   double x = this->x(); double y = this->y();
   double ox; double oy;
-  if(other == nullptr){
+  if(other == nullptr && this->random == false){
       // if no target is given, move randomly
-      ox = 1000*QRandomGenerator::global()->generateDouble();
-      oy = 1000*QRandomGenerator::global()->generateDouble();
-    } else {
-     ox = other->x(); oy = other->y();
+
+      this->last_ox = 1000*QRandomGenerator::global()->generateDouble();
+      this->last_oy = 1000*QRandomGenerator::global()->generateDouble();
+      this->random = true;
     }
-  double r = distance(x,y,ox,oy);
-  setX(x + (d/r)*(ox-x) );
-  setY(y + (d/r)*(oy-y) );
+  else if (other == nullptr && random == true){
+      //nothing changes
+  }
+  else {
+     this->last_ox = other->x(); this->last_oy = other->y();
+     random = false;
+    }
+  double r = distance(x,y,this->last_ox,this->last_oy);
+  setX(x + (d/r)*(this->last_ox-x) );
+  setY(y + (d/r)*(this->last_oy-y) );
   this->stay_in_bounds();
 }
 
@@ -519,7 +527,7 @@ std::vector<std::tuple<double,LivingBeing*>> Creature::get_closest(int n){
       LivingBeing *L = dynamic_cast<LivingBeing*>(item);
       // if item was possible to cast && if they don't have the same coordinates
 
-      if (L!=nullptr ){ //&& L->get_family() != family){ // doesn't see it's own family (otherwise would just stay there)
+      if (L!=nullptr && L->get_family() != family){ // doesn't see it's own family (otherwise would just stay there)
           if(i_eat_plants || L->get_type() != plant){ // predators don't see plants
             double d = distance(this,L);
             if(d > 0.001){
