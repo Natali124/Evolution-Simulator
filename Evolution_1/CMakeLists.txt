@@ -16,11 +16,30 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
 
 set(TS_FILES Evolution_1_en_GB.ts)
 
+#python trying
+#find_package(PythonLibs REQUIRED)
+#include_directories(${PYTHON_INCLUDE_DIRS})
+#find_package (Python COMPONENTS Interpreter Development)
+#set(Python_INCLUDE_DIRS "/opt/anaconda3/envs/python37/include/python3.7m")
+#set(Python_LIBRARY "/opt/anaconda3/envs/python37/lib/python3.7")
+
+find_package(PythonLibs REQUIRED)
+include_directories(${PYTHON_INCLUDE_DIRS})
+
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        omni_win.h
+        omni_win.cpp
+        omni_win.ui
+        herb_win.h
+        herb_win.cpp
+        herb_win.ui
+        plant_win.h
+        plant_win.cpp
+        plant_win.ui
         environment.h
         environment.cpp
         Living_Beings/living_being.h
@@ -38,6 +57,9 @@ set(PROJECT_SOURCES
         Neural_Network/neuron.cpp
         Neural_Network/neuron.hpp
         Neural_Network/utils.cpp
+        Neural_Network/test_python_integration.cpp
+        Neural_Network/test
+        results.txt
         Frontend/Widgets/simulationViewWidgets.h
         Frontend/Widgets/creatureDisplay.cpp
         Frontend/Widgets/simulationView.h
@@ -54,6 +76,8 @@ set(PROJECT_SOURCES
         Frontend/Widgets/statView.h
         Frontend/Widgets/statView.cpp
         barrier.h barrier.cpp
+        Frontend/startscreen.h Frontend/startscreen.cpp Frontend/startscreen.ui
+        Frontend/startscreen/propertyslider.h Frontend/startscreen/propertyslider.cpp Frontend/startscreen/propertyslider.ui
         ${TS_FILES}
 )
 

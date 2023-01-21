@@ -2,7 +2,7 @@
 #include "math.h"
 #include <QtGui>
 
-Environment::Environment() : QGraphicsScene(0, 0, 30, 30) {
+Environment::Environment() : QGraphicsScene(0, 0, 500, 500) {
     previousRect = nullptr;
     click_in_bounding_rect = false;
     last_touched = nullptr;
@@ -51,3 +51,6 @@ void PaintScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
     this->addItem(barrier);
     this->removeItem(previousRect);
 };*/
+int Environment::nr_beings(){
+    return items().size();
+}
