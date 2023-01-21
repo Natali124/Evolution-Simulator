@@ -3,6 +3,8 @@
 #include "ui_propertyslider.h"
 #include <QRandomGenerator>
 
+// In the two following, we are separating the situation cases where we click on a plant or on a creature in creature_list.
+
 PropertySlider::PropertySlider(QString text, Creature* being, void (Creature::*setterFunc)(float), float init_value, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::PropertySlider),
@@ -31,6 +33,9 @@ PropertySlider::~PropertySlider()
 }
 
 void PropertySlider::init(QString text, float init_value){
+
+    // Display details of the slider, connecting spinbox and slider, color and name
+
     setObjectName("Property Slider");
     ui->label->setText(text);
     ui->spinBox->setValue((int)init_value);
@@ -44,6 +49,9 @@ void PropertySlider::init(QString text, float init_value){
 }
 
 void PropertySlider::update(){
+
+    // Updates the slider according to the creature/plant
+
     switch(being->type){
         case LivingBeing::Type_LB::creature:{
             auto creature = dynamic_cast<Creature*>(being);
@@ -63,9 +71,15 @@ void PropertySlider::update(){
 }
 
 void PropertySlider::randomise() {
+
+   // Function that randomises the slider when clicking on the random button in mainwindow
+
    ui->horizontalSlider->setValue(QRandomGenerator::global()->bounded(200));
 }
 
 void PropertySlider::reset() {
+
+   // Function that resets the slider value to 0 when clicking on the reset button in mainwindow
+
    ui->horizontalSlider->setValue(0);
 }
