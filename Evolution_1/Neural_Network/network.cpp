@@ -362,20 +362,35 @@ void Network::network_to_file(string filename){
      vector_to_file(network_vect, filename);}
 
 
+// Functions for reproduction
+double _p_cut_off = 0.5; // cut_off (chance of a single edge being changed)
+const double _norm_var = 5; // variance of normal distr. used for reproduction
+
 double norm_distr_random(double x){
-  double p = (double) QRandomGenerator64::global()->generateDouble();
-  if(p<0.5){
-    std::random_device rd;
-    std:mt19937 gen(rd());
-    std::normal_distribution<double> d(x,0.2);
-    x = d(gen);
-    }
+  //takes a value x and has a _p_cut_off chance to modify x according to the normal distribuition.
+  double p =QRandomGenerator::global()->generateDouble();
+  if (p < _p_cut_off){
+      std::random_device rd;
+      std::mt19937 gen(rd());
+      std::normal_distribution<double> d(x, _norm_var);
+      x = d(gen);
+  }
   return x;
+
 }
 
+// reproduction of the Neural Network
 
 Network* Network::reproduce(){
   Network* nn = this->copy();
+
+  // set chance of single edge being changed according to exponential distribution
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std:exponential_distribution<double> e(10);
+  _p_cut_off = e(gen);
+
   nn->apply_on_all_weights(norm_distr_random);
   return nn;
 }
+
