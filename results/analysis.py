@@ -31,6 +31,6 @@ def plot(filename):
     info, generation, loss = readresults(filename)
     
     plt.plot(generation, loss)
-    plt.title(str(info))
+    plt.title(f'Number of networks: {info[0]}, number of inputs: {info[3]}')
     plt.xlabel('Generation')
     plt.ylabel('Average loss')
