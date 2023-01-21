@@ -31,6 +31,15 @@ def plot(filename):
     info, generation, loss = readresults(filename)
     
     plt.plot(generation, loss)
-    plt.title(f'Number of networks: {info[0]}, number of inputs: {info[3]}')
+    plt.title(f'Rate of reproduction: {info[1]}, number of inputs: {info[3]}')
     plt.xlabel('Generation')
     plt.ylabel('Average loss')
+    plt.savefig(filename[:-4] + ".png")
+    plt.close()
+    
+    
+path = ""
+filenames = ["results100.txt","results100_1.txt", "results50.txt","results50_1.txt"]
+
+for f in filenames:
+    plot(path + f)
