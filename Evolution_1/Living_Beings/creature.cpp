@@ -17,6 +17,7 @@
 const int repro_cost_predator = 40;// cost of reproduction of predators (20 = 1x food)
 const int repro_cost_prey = 20; // cost of reproduction of predators (20 = 1x food)
 const int food_value_plant = 20; // value of a plant to be added to repro_factor upon consumption
+const int food_value_animal = 40; // value of a creature to be added to repro_factor upon consumption
 const double seeing_rect = 500; // size of rectangle in which creatures see
 const int repro_cool_down = 50; // how many steps between reproductions
 const double _predator_speed_bonus = 0; // gives predators more / less speed
@@ -27,7 +28,7 @@ const int repro_factor_decrease = 4; // decrease of repro_factor per step
 
 const bool allow_cannibalism = false; // allow creatures of same family to eat each other?
 const bool can_see_own_family = false; // can creatures see their own family?
-const bool preds_can_see_plants = true; // can predators see plants?
+const bool preds_can_see_plants = false; // can predators see plants?
 const bool kill_overlapping = false; // kill overlapping preys?
 
 const int _n_closest_visible = 2; //number of closest visible beings
