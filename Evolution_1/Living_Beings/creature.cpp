@@ -15,10 +15,12 @@
 //using namespace std;
 
 const int repro_cost_predator = 40;// cost of reproduction of predators (20 = 1x food)
-const int repro_cost_prey = 40; // cost of reproduction of predators (20 = 1x food)
+const int repro_cost_prey = 20; // cost of reproduction of predators (20 = 1x food)
+const int food_value_plant = 40;
+const int food_value_animal = 60;
 const double seeing_rect = 500; // size of rectangle in which creatures see
-const int repro_cool_down = 50; // how many steps between reproductions
-const double _predator_speed_bonus = 0.001; // gives predators 50% more speed
+const int repro_cool_down = 20; // how many steps between reproductions
+const double _predator_speed_bonus = -0.1; // gives predators more / less speed
 const float _ddistance = 2; //base value of the change of the distance
 
 int Creature::n_families = 0;
@@ -254,7 +256,7 @@ void Creature::die() {
     bool starved = false; // see if starved to death (random)
 
     // probability of starving after not eating for s steps, for s=0: approx. 0, for s = 400: approx 0.5, for s = 800: approx 1, follows sigmoid function
-    double x = ((get_counter_no_eat()/40) -10);
+    double x = ((get_counter_no_eat()/50) -10);
     x = 1/(pow(M_E, -x) + 1);
     double p = QRandomGenerator::global()->generateDouble();
     if(p < x){
@@ -366,42 +368,46 @@ void Creature::Eat(){
         if (j != nullptr && this->get_eat_plants()){
             // j is plant and this can eat plants
             ate = true;
+            repro_factor += food_value_plant;
             j->set_alive(false);
             j->die();
         }
         if ( k != nullptr && this->get_eat_creature()){
             // if this is a predator and k is a creature
-
+            double r = (double) QRandomGenerator::global()->generateDouble(); //random variable to decide who wins fight
+            double size_quotient = (k->get_size())/(get_size());
             if(k->get_eat_creature()){ // if creature k is a predator
                 if( k->family == this->family){
                     // if same family, nothing happens (no cannibalism)
                    return;
                   }
 
-                if (k->get_size() <= this->get_size()){
+                if (r > size_quotient - 0.5 ){
                     // this wins and eats k
                     ate = true;
+                    repro_factor += food_value_animal;
                     k->set_alive(false);
                     k->die();
                 } else {
                     // creature k wins and eats this
                     this->set_alive(false);
-                    k->repro_factor += 20;
+                    k->repro_factor += food_value_animal;
                     k->set_counter_no_eat(0);
                     die();
                   }
               } else { // creature k is a prey
-                double r = (double) QRandomGenerator::global()->generateDouble();
-                r*=4;//Creature can at most eat something 4 times bigger
-                if (r>(k->get_size())/(get_size())){
+
+                //Creature can at most eat something 4 times bigger
+                if (4*r>size_quotient){
+                    // this wins and eats k
                     ate = true;
+                    repro_factor += food_value_animal;
                     k->set_alive(false);
                     k->die();
                 }
               }
         }
         if(ate ){
-          repro_factor+=20; //increase reproduction factor (can only reproduce if eats)
           set_counter_no_eat(0);
           }
     }
@@ -513,8 +519,8 @@ std::vector<std::tuple<double,LivingBeing*>> Creature::get_closest(int n){
       LivingBeing *L = dynamic_cast<LivingBeing*>(item);
       // if item was possible to cast && if they don't have the same coordinates
 
-      if (L!=nullptr && L->get_family() != family){ // doesn't see it's own family (otherwise would just stay there)
-          if(i_eat_plants || L->get_type() != plant){
+      if (L!=nullptr ){ //&& L->get_family() != family){ // doesn't see it's own family (otherwise would just stay there)
+          if(i_eat_plants || L->get_type() != plant){ // predators don't see plants
             double d = distance(this,L);
             if(d > 0.001){
               distances.push_back(d);
