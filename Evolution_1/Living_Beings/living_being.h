@@ -21,7 +21,7 @@ public:
   QColor color;
 
   QRectF boundingRect() const;
-  QPainterPath shape() const;
+//  QPainterPath shape() const;
   virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
              QWidget *widget);
   enum Type_LB{
@@ -38,6 +38,8 @@ public:
   virtual void take_dmg(double dmg);
   //common attributes to plants and creatures
   virtual double get_size() const;
+  double get_size_nonconst(){return get_size();}//just need it for displaying, to not create another template
+  std::string get_name(){return objectName().toStdString();}
   virtual void set_size(double s);
   virtual double get_hp();
   virtual void set_hp(double h);
@@ -62,6 +64,9 @@ public:
 
   Environment *environment;
   int number_of_steps_since_beginning = 0;
+
+  //event handling for frontend
+  virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 protected:
   int alive_time = 0;
 };
