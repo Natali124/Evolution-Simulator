@@ -8,16 +8,23 @@
 
 #include <QRandomGenerator>
 
+// Counters for creatures and plants. (Here they are called pred for omnivorous, prey for herbivore.)
+
 int num_pred = 0;
 int num_prey = 0;
 int num_plant = 0;
-int active_creature;
 
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
+
+    /*This function is a constructor for the MainWindow class, it creates an instance of the MainWindow
+     class and sets up the user interface. It sets the background image, sets the palette for various buttons
+    and widgets, and sets the style sheet for the buttons and widgets. It also makes certain buttons and widgets
+    invisible and connects the 'creature_list' widget with the 'create_proper_sliders' function. */
+
     setAttribute(Qt::WA_DeleteOnClose); // very important - delete the object from memory when the window is closed
-    // only the start button is visible.
+
     QString back(":/backgrounds/images/nature-outdoor-forest-background_1308-54338.jpg");
     ui->setupUi(this);
     setBackgroundImage(back);
@@ -51,9 +58,13 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->button_rdm->setStyleSheet("color: white; background-color: grey; font-weight:bold");
     ui->simBut->setStyleSheet("color: white; background-color: grey; font-weight:bold");
 
+    // The simulation button and random and reset buttons are obviously not visible as no creatures are created, so there's nothing to radnomise/reset and you can't launch an empty simulation.
+
     ui->simBut->setVisible(false);
     ui->button_rdm->setVisible(false);
     ui->button_reset->setVisible(false);
+
+    // When you click on an item (creature/plant) of creature_list, the appropriate custom sliders show (and the button random and reset are set visible in the create_proper_sliders() function).
 
     connect(ui->creature_list, &QListWidget::itemClicked, this, &MainWindow::create_proper_sliders);
 
@@ -73,6 +84,8 @@ MainWindow::~MainWindow()
 
 
 void MainWindow::setBackgroundImage(QString filePath){
+
+    //Sets the background image on the window.
     QPixmap bkgnd = QPixmap(filePath);
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
@@ -83,6 +96,9 @@ void MainWindow::setBackgroundImage(QString filePath){
 
 void MainWindow::resizeEvent(QResizeEvent *evt)
 {
+
+    //Stretches background when resizing window.
+
     stretchBackground();
     //fitDisplay();
 
@@ -91,6 +107,9 @@ void MainWindow::resizeEvent(QResizeEvent *evt)
 
 
 void MainWindow::stretchBackground(){
+
+    //This functions make sure the background stretches when you resize the mainwindow.
+
     QString back(":/backgrounds/images/nature-outdoor-forest-background_1308-54338.jpg");
     QPixmap bkgnd(back);
     bkgnd = bkgnd.scaled(size(), Qt::IgnoreAspectRatio);
@@ -195,6 +214,7 @@ void MainWindow::on_button_plant_clicked()
     if ((ui->simBut->isVisible() == false) and (ui->creature_list->count() != 0))  {
         ui->simBut->setVisible(true);
     };
+
 }
 
 
@@ -210,6 +230,8 @@ void MainWindow::on_button_delete_all_clicked()
 
     // Hide the Simulation button, called "simbut" for short, as you can't launch the simulation with no creatures.
     ui->simBut->setVisible(false);
+
+    // CLear all sliders and hide the random and reset buttons as there are no more creatures so no more properties to custom/randomise/reset.
     clearsliders();
     ui->button_rdm->setVisible(false);
     ui->button_reset->setVisible(false);
@@ -240,24 +262,29 @@ void MainWindow::on_button_delete_creature_clicked()
 
 
 void MainWindow::create_proper_sliders(QListWidgetItem* item) {
+
+    // Creates custom property sliders depending on the type of the creature/plant "added". It also saves the value by actually creating that creature/plant, so that you can recover it when clicking on one creature to another in creature_list.
+    // Again we differentiate the cases where we are dealing with a creature or a plant.
+    // Here the button random and reset become visible and are connected to the functions in propertyslider which randomise or reset the inputs of the sliders.
+
     auto being = dynamic_cast<BeingItem*>(item)->being;
     clearsliders();
     ui->groupBox->setTitle("Change properties for " + being->objectName());
     if (being->type == LivingBeing::Type_LB::creature) {
         auto creature = dynamic_cast<Creature*>(being);
-        ui->verticalLayout_2->addWidget(new PropertySlider("Size", creature, &Creature::set_size, creature->get_size(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Max Energy", creature, &Creature::set_Max_energy, creature->get_Max_energy(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Max HP", creature, &Creature::set_Max_hp, creature->get_Max_hp(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Eye Sight", creature, &Creature::set_eye_sight, creature->get_eye_sight(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Visibility", creature, &Creature::set_visibility, creature->get_visibility(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Physical Strength", creature, &Creature::set_physical_strength, creature->get_physical_strength(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Size ", creature, &Creature::set_size, creature->get_size(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Max Energy ", creature, &Creature::set_Max_energy, creature->get_Max_energy(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Max HP ", creature, &Creature::set_Max_hp, creature->get_Max_hp(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Eye Sight ", creature, &Creature::set_eye_sight, creature->get_eye_sight(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Visibility ", creature, &Creature::set_visibility, creature->get_visibility(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Physical Strength ", creature, &Creature::set_physical_strength, creature->get_physical_strength(), ui->groupBox));
         // ui->verticalLayout_2->addWidget(new PropertySlider("Digest time", creature, &Creature::set_digest_time, creature->get_digest_time(), ui->groupBox));
     }
     if (being->type == LivingBeing::Type_LB::plant) {
         auto plant = dynamic_cast<Plant*>(being);
-        ui->verticalLayout_2->addWidget(new PropertySlider("Size", plant, &Plant::set_size, plant->get_size(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Max HP", plant, &Plant::set_Max_hp, plant->get_Max_hp(), ui->groupBox));
-        ui->verticalLayout_2->addWidget(new PropertySlider("Reproduction Rate", plant, &Plant::set_reproduction_rate, plant->get_reproduction_rate(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Size ", plant, &Plant::set_size, plant->get_size(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Max HP ", plant, &Plant::set_Max_hp, plant->get_Max_hp(), ui->groupBox));
+        ui->verticalLayout_2->addWidget(new PropertySlider(" Reproduction Rate ", plant, &Plant::set_reproduction_rate, plant->get_reproduction_rate(), ui->groupBox));
     }
     auto list = findChildren<QWidget*>("Property Slider");
     for (auto i = list.begin(); i != list.end(); i++) {
@@ -271,6 +298,8 @@ void MainWindow::create_proper_sliders(QListWidgetItem* item) {
 
 void MainWindow::on_simBut_clicked()
 {
+    // When you click on the simulation button (called SimBut), it launches the simulation with the creatures/plants defined in the window and closes the mainwindow (this is on the signal/slots on mainwindow.ui)
+
     auto environment = new Environment();
 
     int n = ui->creature_list->count();
@@ -292,6 +321,8 @@ void MainWindow::on_simBut_clicked()
 
 void MainWindow::clearsliders()
 {
+    // to remove the property sliders of the creature
+
     auto list = findChildren<PropertySlider*>("Property Slider");
     for (auto i = list.begin(); i != list.end(); i++) {
         (*i)->deleteLater();

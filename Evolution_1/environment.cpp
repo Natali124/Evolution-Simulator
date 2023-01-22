@@ -7,7 +7,7 @@ Environment::Environment() : QGraphicsScene(0, 0, 500, 500) {
     click_in_bounding_rect = false;
     last_touched = nullptr;
 }
-Environment::Environment(float height, float width) : QGraphicsScene(0, 0, width, height){ }
+Environment::Environment(double height, double width) : QGraphicsScene(0, 0, width, height){ }
 
 void Environment::advance(){
     emit updated();

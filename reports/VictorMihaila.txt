@@ -1,3 +1,6 @@
+Week 1:
+The team was formed this week 
+
 Week 2:
 This week I researched the different elements necessary for building a C++ GUI and I implemented menu with a toolbar and some buttons for simple tasks such as closing a window or displaying a message to get familiar with these elements.
 Next week I plan to start working on the GUI of the project.   
@@ -14,7 +17,16 @@ This week I studied the QPixmap so that I will be able to replace the current de
 Next week I plan on creating these designs in some other way that I am yet to figure out and the implement them in the simulation.
 
 Week 6:
-This week I edited some pictures make their background transparent anmd changed their colour to keep visual clarity between preys and predators and then I replaced the old designs with these photos. I also modified the bounding rectangles of the living beings to better fit these new designs so they will move properly during the animation (not leave trails). Next week I will probably work with the rest of the team on combining all teh different parts of the project.
+This week I edited some pictures make their background transparent anmd changed their colour to keep visual clarity between preys and predators and then I replaced the old designs with these photos. I also modified the bounding rectangles of the living beings to better fit these new designs so they will move properly during the animation (not leave trails). Next week I will probably work with the rest of the team on combining all the different parts of the project.
 
 Week 7:
 This week I added 2 more models for both preys and predators and edited them to add transparent backgrounds and edit some colors to improve visual clarity. I also added an attribute to randomize which model is displayed for testing purposes. Next week I will do whatever is necessary to finalize the project. 
+
+Week 8:
+This week I used a QGraphicsColorizeEffect to make creatures have specific colors depending on their families and implemented it the "current_simple_version" branch.
+
+Credit for the edited images:
+-wolf:https://pixabay.com/illustrations/wolf-wolves-dog-lupine-canine-1247882/
+-lion:https://www.pinclipart.com/pindetail/iTbmwxw_lion-black-clipart-shadow-of-a-lion-png/
+-deer:https://pngtree.com/free-png-vectors/deer-silhouette
+-gazelle:https://www.cleanpng.com/free/gazelle.html

@@ -14,8 +14,8 @@ class PropertySlider : public QWidget
     Q_OBJECT
 
 public:
-    explicit PropertySlider(QString label, Creature*, void (Creature::*)(float), float init_value, QWidget *parent = nullptr);
-    explicit PropertySlider(QString lable, Plant*, void (Plant::*)(float), float init_value, QWidget *parent = nullptr);
+    explicit PropertySlider(QString label, Creature*, void (Creature::*)(double), double init_value, QWidget *parent = nullptr);
+    explicit PropertySlider(QString lable, Plant*, void (Plant::*)(double), double init_value, QWidget *parent = nullptr);
 
     ~PropertySlider();
 
@@ -26,9 +26,9 @@ public:
 private:
     Ui::PropertySlider *ui;
     LivingBeing* being;
-    void (Creature::*creatureSetterFunc)(float);
-    void (Plant   ::   *plantSetterFunc)(float);
-    void init(QString text, float init_value);
+    void (Creature::*creatureSetterFunc)(double);
+    void (Plant   ::   *plantSetterFunc)(double);
+    void init(QString text, double init_value);
 };
 
 #endif // PROPERTYSLIDER_H
