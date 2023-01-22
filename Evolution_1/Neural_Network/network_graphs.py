@@ -49,8 +49,9 @@ def matrix_to_graph(matrix):
                 net_graph.add_edge(layers[k][i],layers[k+1][j], weight = crnt_layer[2*(next_num_neurons*i+j)+1], activation = crnt_layer[2*(next_num_neurons*i+j)+2] )
         bias_name = f'B({k}): {matrix[n+k+1][num_neurons]}'
         net_graph.add_node(bias_name, layer = k)
-        for node in layers[k+1]:
-            net_graph.add_edge(bias_name, node, weight = crnt_layer[num_neurons*next_num_neurons+1+2*j], activation = crnt_layer[num_neurons*next_num_neurons+1+2*j+1])
+        for j in range(len(layers[k+1])):
+            node = layers[k+1][j]
+            net_graph.add_edge(bias_name, node, weight = crnt_layer[num_neurons*next_num_neurons*2+2*j+1], activation = crnt_layer[num_neurons*next_num_neurons*2+2*j+2])
     return net_graph
 
 
@@ -70,7 +71,7 @@ def print_graph(G, filename = None):
     labels = nx.get_edge_attributes(G,'weight')
     nx.draw_networkx_edge_labels(G, pos, edge_labels = labels)
     nx.draw(G, pos, node_color = nodes_color, edge_color=edges_color, with_labels = True, node_size = 500)
-    plt.axis("equal")
+    #plt.axis("equal")
     if filename is not None:
         plt.savefig(filename)
     plt.show()
@@ -88,5 +89,8 @@ def inpt_to_graph(filename, output = None):
                 
     
     
-    
+path = "C:/Users/titar/Desktop/gen999/"
+files = ["worst.txt", "medium.txt", "best.txt"]
+for f in files:
+    inpt_to_graph(path + f, path + f[:-4] + ".png")
     

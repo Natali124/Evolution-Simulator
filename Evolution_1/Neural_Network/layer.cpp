@@ -177,7 +177,7 @@ vector<double> Layer::value_vector(){
       for(Neuron* neuron: neurons){
           output.push_back(round(neuron->get_value()*100));}
       if(bias_neuron != nullptr){
-          output.push_back(bias_neuron->get_value());}
+          output.push_back(round(bias_neuron->get_value()*100));}
       return output;
 }
 
