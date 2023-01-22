@@ -10,6 +10,7 @@ Preys and predators have neural networks that allow them to take decisions.
 - We used Qt graphics library in order to have a "visual" simulation. 
 
 
+
 ## How to run it
 - The project can be simply run by opening QtCreator, opening the CMakeList.txt file and clicking on "Run". 
 
@@ -21,6 +22,13 @@ Creatures can have different diets and they are either herbivores, carnivores, o
 Each creature has a neural network as a brain, and a size parameter that controls the size. The neural network takes information form the environment to make the decision of going towards or run away from the closest thing that it sees. 
 This way the neural networks and the parameters are selected in order to have the best response to the environment. 
 The project provides a start screen which allows the user to customize the simulation. Once in the simulation, the user still has some possibility to modifiy the current simulation by adding beings, restart the simulation, or speeding it up. 
+
+
+### Changing the Simulation
+In the file /Evolution_1/Living_Beings/creature.cpp, you will find some parameters in the first few lines. Change them around and see how the simulation changes. 
+
+## Project Description (detailed) [TO DO]
+
 
 ## Members
 Format: Name, Trello, Git.
