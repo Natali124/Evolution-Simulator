@@ -16,12 +16,12 @@ StatView::StatView(LivingBeing* being, QWidget* parent) : QWidget(parent),
     auto type = new ParameterDisplay("Being type:", being, &LivingBeing::get_type_string, this);
     auto test_thingie = new ParameterDisplay("Environment simulation step:", being->environment, &Environment::get_simulation_step, this, being->environment);
     auto hp = new ParameterDisplay("Health points:", being, &LivingBeing::get_hp, this, being->environment);
-    auto size = new ParameterDisplay("Size:", being, &LivingBeing::get_size, this);
+    //auto size = new ParameterDisplay("Size:", being, &LivingBeing::get_size, this);
 
     layout->addWidget(type);
     layout->addWidget(test_thingie);
     layout->addWidget(hp);
-    layout->addWidget(size);
+//    layout->addWidget(size);
 
     switch(being->type){
         case LivingBeing::Type_LB::plant:{

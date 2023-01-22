@@ -133,11 +133,11 @@ public:
 
 
     void set_energy(double e);
-    double get_energy() const;
+    double get_energy();
     void set_physical_strength(double ps);
     double get_physical_strength() const;
     void set_eye_sight(double es);
-    double get_eye_sight() const;
+    double get_eye_sight();
     void set_visibility(double v);
     double get_visibility() const;
     void set_Max_energy(double me);

@@ -39,7 +39,7 @@ public:
   //common attributes to plants and creatures
   virtual double get_size() const;
   virtual void set_size(double s);
-  virtual double get_hp() const;
+  virtual double get_hp();
   virtual void set_hp(double h);
   virtual void set_family(int fam);
   virtual int get_family();
@@ -50,6 +50,7 @@ public:
   void increase_alive_time();
   Environment* get_scene();
   Type_LB get_type() {return type;};
+  std::string get_type_string();
 
   double normal_distrib(double parameter, double variance){ //takes a value and randomly returns a value like the normal distribution does with a given variance.
       std::random_device rd;
@@ -63,7 +64,6 @@ public:
   int number_of_steps_since_beginning = 0;
 protected:
   int alive_time = 0;
-  Environment *scene;
 };
 
 #endif

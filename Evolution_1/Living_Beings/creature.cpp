@@ -295,11 +295,11 @@ void Creature::die() {
 
 
 void Creature::set_energy(double e){this->energy = e;}
-double Creature::get_energy() const{return this->energy;}
+double Creature::get_energy() {return this->energy;}
 void Creature::set_physical_strength(double ps){this->parameters[physical_strength] = ps;}
 double Creature::get_physical_strength() const{return this->parameters.at(physical_strength);}
 void Creature::set_eye_sight(double es){this->parameters[eye_sight] = es;}
-double Creature::get_eye_sight() const{return  this->parameters.at(eye_sight);}
+double Creature::get_eye_sight(){return  this->parameters.at(eye_sight);}
 void Creature::set_visibility(double v){this->parameters[visibility] = v;}
 double Creature::get_visibility() const{return this->parameters.at(visibility);}
 void Creature::set_Max_energy(double me){this->parameters[Max_energy] = me;}

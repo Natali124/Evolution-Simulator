@@ -1,4 +1,3 @@
-#pragma once
 #include "nn_evolution.hpp"
 #include "network.hpp"
 #include <fstream>
