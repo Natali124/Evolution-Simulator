@@ -5,7 +5,7 @@ There are three types of beings: plants, preys and predators.
 Preys and predators have neural networks that allow them to take decisions. 
 
 
-## Dependencies [TO DO]:
+## Dependencies:
 [Write any Dependencies that you used in here!]
 - We used Qt graphics library in order to have a "visual" simulation. 
 
@@ -27,7 +27,6 @@ The project provides a start screen which allows the user to customize the simul
 ### Changing the Simulation
 In the file /Evolution_1/Living_Beings/creature.cpp, you will find some parameters in the first few lines. Change them around and see how the simulation changes. 
 
-## Project Description (detailed) [TO DO]
 
 
 ## Members
