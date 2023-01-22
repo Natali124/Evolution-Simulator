@@ -24,3 +24,9 @@ This week I added 2 more models for both preys and predators and edited them to 
 
 Week 8:
 This week I used a QGraphicsColorizeEffect to make creatures have specific colors depending on their families and implemented it the "current_simple_version" branch.
+
+Credit for the edited images:
+-wolf:https://pixabay.com/illustrations/wolf-wolves-dog-lupine-canine-1247882/
+-lion:https://www.pinclipart.com/pindetail/iTbmwxw_lion-black-clipart-shadow-of-a-lion-png/
+-deer:https://pngtree.com/free-png-vectors/deer-silhouette
+-gazelle:https://www.cleanpng.com/free/gazelle.html
