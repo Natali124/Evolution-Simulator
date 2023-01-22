@@ -7,11 +7,20 @@ Preys and predators have neural networks that allow them to take decisions.
 
 ## Dependencies [TO DO]:
 [Write any Dependencies that you used in here!]
-- 
+- We used Qt graphics library in order to have a "visual" simulation. 
 
-## How to run it [TO DO]
 
-## Project Description (detailed) [TO DO]
+## How to run it
+- The project can be simply run by opening QtCreator, opening the CMakeList.txt file and clicking on "Run". 
+
+## Project Description (detailed)
+The project aims to simulate evolution. 
+In order to do this, we created what we called "Living Beings", which 
+differentiate themselves in "Plants" and "Creatures".
+Creatures can have different diets and they are either herbivores, carnivores, or onmivore. 
+Each creature has a neural network as a brain, and a size parameter that controls the size. The neural network takes information form the environment to make the decision of going towards or run away from the closest thing that it sees. 
+This way the neural networks and the parameters are selected in order to have the best response to the environment. 
+The project provides a start screen which allows the user to customize the simulation. Once in the simulation, the user still has some possibility to modifiy the current simulation by adding beings, restart the simulation, or speeding it up. 
 
 ## Members
 Format: Name, Trello, Git.
@@ -47,23 +56,38 @@ Vincenzo Politelli
 ## Teams
 
 ### Backend
+
 #### Neural Network Team
 Tita Rosemeyer
 Anja Matic 
 Natali Gogishvili
-### Other Teams [TO DO]
+
+### Other Teams 
+simulation step:
+Ruben Bueno
+Oskar Dąbkowski
+
+simulation step + stats/graphs:
 Flavia Grasso
 Garance Perrot
-laurentiu lazar
-Lorenzo De Giovanni
-Oskar Dąbkowski
 Pablo Bertaud-Velten
 
-### Frontend [TO DO: Teams]
+### Frontend
+Buttons:
 Arjun Bommadevara
-Atodiresei Matei
-laurentiu lazar
 Lorenzo De Giovanni
-Victor Mihaila
-Vincenzo Politelli
 Mathilde Cros
+
+Reproduction + stats/graphs:
+Atodiresei Matei
+Tudor Cardas
+
+Windows:
+laurentiu lazar
+
+Aspect of creatures:
+Victor Mihaila
+
+Barrier:
+Vincenzo Politelli
+
