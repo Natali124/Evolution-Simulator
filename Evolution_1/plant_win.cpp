@@ -5,9 +5,9 @@
 #include "Frontend/Widgets/simulationView.h"
 #include "mainwindow.h"
 //these variables allow us to save the values of the sliders to a specific being
-float p_size = 0;
-float max_hp = 0;
-float reproduction = 0;
+double p_size = 0;
+double max_hp = 0;
+double reproduction = 0;
 /*This function is a constructor for a class "plant_win" that inherits from QDialog.
 It sets up connections between UI elements, sets the stylesheet for various UI elements and sets the background image for the dialog.*/
 Plant_win::Plant_win(Environment *environment, QWidget *parent) :

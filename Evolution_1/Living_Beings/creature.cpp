@@ -21,7 +21,7 @@ const int food_value_animal = 40; // value of a creature to be added to repro_fa
 const double seeing_rect = 500; // size of rectangle in which creatures see
 const int repro_cool_down = 20; // how many steps between reproductions
 const double _predator_speed_bonus = 0; // gives predators more / less speed
-const float _ddistance = 2; //base value of the change of the distance
+const double _ddistance = 2; //base value of the change of the distance
 const double starving_rate = 0.6; // rate of starving, 0 = no starving, 1 = starving very quickly
 const int repro_factor_decrease = 4; // decrease of repro_factor per step
 const int max_repro_factor_prey = 50;
@@ -41,10 +41,10 @@ int Creature::n_families = 0;
 
 // not used right now
 bool Show_Sight = false;
-const float _dtheta = 20; //base value of the change of rotation - to set maximal rotation range to 10 degrees
-const float _ener_rotcoeff = 0.2; //base value for energy consumption while rotating
-const float _ener_movecoeff = 0.5; //base value for energy consumption while moving
-const float _sizecoeff = 0.1; //base value for energy punishment connected with the size;
+const double _dtheta = 20; //base value of the change of rotation - to set maximal rotation range to 10 degrees
+const double _ener_rotcoeff = 0.2; //base value for energy consumption while rotating
+const double _ener_movecoeff = 0.5; //base value for energy consumption while moving
+const double _sizecoeff = 0.1; //base value for energy punishment connected with the size;
 
 
 void Creature::stay_in_bounds(){
@@ -545,10 +545,10 @@ double distance(double ax, double ay, double bx, double by){
 }
 double distance(LivingBeing* a, LivingBeing* b){
   // distance between Living beings a and b
-  float ax = a->x();
-  float ay = a->y();
-  float bx = b->x();
-  float by = b->y();
+  double ax = a->x();
+  double ay = a->y();
+  double bx = b->x();
+  double by = b->y();
   return distance(ax,ay,bx,by);
 }
 

@@ -5,7 +5,7 @@
 
 // In the two following, we are separating the situation cases where we click on a plant or on a creature in creature_list.
 
-PropertySlider::PropertySlider(QString text, Creature* being, void (Creature::*setterFunc)(float), float init_value, QWidget *parent) :
+PropertySlider::PropertySlider(QString text, Creature* being, void (Creature::*setterFunc)(double), double init_value, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::PropertySlider),
     being(being),
@@ -16,7 +16,7 @@ PropertySlider::PropertySlider(QString text, Creature* being, void (Creature::*s
     show();
 }
 
-PropertySlider::PropertySlider(QString text, Plant* being, void (Plant::*setterFunc)(float), float init_value, QWidget *parent) :
+PropertySlider::PropertySlider(QString text, Plant* being, void (Plant::*setterFunc)(double), double init_value, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::PropertySlider),
     being(being),
@@ -32,7 +32,7 @@ PropertySlider::~PropertySlider()
     delete ui;
 }
 
-void PropertySlider::init(QString text, float init_value){
+void PropertySlider::init(QString text, double init_value){
 
     // Display details of the slider, connecting spinbox and slider, color and name
 

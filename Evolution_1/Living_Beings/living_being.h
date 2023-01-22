@@ -12,7 +12,7 @@
 //extern int number_LBs;
 //extern int number_LBs_alive;
 //extern int number_LBs_dead;
-class LivingBeing : public QGraphicsItem {
+class LivingBeing : public QGraphicsObject{
 public:
   LivingBeing(); // initializes a living being with alive = true
   ~LivingBeing();
@@ -48,7 +48,7 @@ public:
   void set_scene(Environment *s);
   int get_alive_time();
   void increase_alive_time();
-  Environment* get_scene() const;
+  Environment* get_scene();
   Type_LB get_type() {return type;};
 
   double normal_distrib(double parameter, double variance){ //takes a value and randomly returns a value like the normal distribution does with a given variance.
@@ -59,6 +59,7 @@ public:
   }
   virtual void advance(int);
 
+  Environment *environment;
   int number_of_steps_since_beginning = 0;
 protected:
   int alive_time = 0;

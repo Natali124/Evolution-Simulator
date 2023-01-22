@@ -72,8 +72,8 @@ double LivingBeing::get_size() const{return -1;};
 void LivingBeing::set_size(double s){};
 double LivingBeing::get_hp() const{return -1;};
 void LivingBeing::set_hp(double h){};
-void LivingBeing::set_scene(Environment *s){scene=s;};
-Environment* LivingBeing::get_scene() const {return scene;};
+void LivingBeing::set_scene(Environment *s){scene=s;environment = s;};
+Environment* LivingBeing::get_scene() {return scene;};
 
 void LivingBeing::set_family(int fam){};
 int LivingBeing::get_family(){return -1;};

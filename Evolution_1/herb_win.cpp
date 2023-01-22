@@ -3,12 +3,12 @@
 #include "ui_herb_win.h"
 #include <QRandomGenerator>
 //these variables allow us to save the values of the sliders to a specific being
-float c_size = 0;
-float energy = 0;
-float health = 0;
-float eyesight = 0;
-float visibility = 0;
-float strength = 0;
+double c_size = 0;
+double energy = 0;
+double health = 0;
+double eyesight = 0;
+double visibility = 0;
+double strength = 0;
 /*This function is a constructor for a class "herb_win" that inherits from QDialog.
 It sets up connections between UI elements, sets the stylesheet for various UI elements and sets the background image for the dialog.*/
 herb_win::herb_win(Environment *environment, QWidget *parent) :

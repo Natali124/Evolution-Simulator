@@ -10,7 +10,7 @@ class Environment : public QGraphicsScene
 
     public:
         Environment(); // Creates a 30x30 grid
-        Environment(float width, float height); // creates a widthxheight grid
+        Environment(double width, double height); // creates a widthxheight grid
 
         virtual void advance();
 //        void clear();

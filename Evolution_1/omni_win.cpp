@@ -3,12 +3,12 @@
 #include "ui_omni_win.h"
 #include <QRandomGenerator>
 //these variables allow us to save the values of the sliders to a specific being
-float c_size_omni = 0;
-float energy_omni = 0;
-float health_omni = 0;
-float eyesight_omni = 0;
-float visibility_omni = 0;
-float strength_omni = 0;
+double c_size_omni = 0;
+double energy_omni = 0;
+double health_omni = 0;
+double eyesight_omni = 0;
+double visibility_omni = 0;
+double strength_omni = 0;
 /*This function is a constructor for a class "omni_win" that inherits from QDialog.
 It sets up connections between UI elements, sets the stylesheet for various UI elements and sets the background image for the dialog.*/
 omni_win::omni_win(Environment *environment, QWidget *parent) :
