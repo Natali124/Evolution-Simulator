@@ -176,19 +176,19 @@ Creature::~Creature() {
   //delete this->brain;
 }
 
-//QPainterPath Creature::shape() const
-//{
-//    double K = this->get_size()/1000; //size coefficient
-//    QPainterPath path;
-//    if(!get_eat_creature()){
-//        path.addRect(-15*K, -22*K, 30*K, 60*K);
-//    }
-//    else {
-//        path.addRect(-12*K, -12*K, 24*K, 24*K);
-//    }
-//    return path;
+QPainterPath Creature::shape() const
+{
+    double K = this->get_size()/1000; //size coefficient
+    QPainterPath path;
+    if(!get_eat_creature()){
+        path.addRect(-15*K, -22*K, 30*K, 60*K);
+    }
+    else {
+        path.addRect(-12*K, -12*K, 24*K, 24*K);
+    }
+    return path;
 
-//}
+}
 
 void Creature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     if (Show_Sight){

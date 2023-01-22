@@ -17,15 +17,13 @@ class EnvironmentTimer : public QObject
         QTimer *timer;
         void start();
         void stop();
-        void setStep(int percent);
         Environment* environment;
 
     public slots:
         void Slot();
 
     private:
-        double baseStep = 1000/33;
-        double timeStep = baseStep;
+        double timeStep = 1000/33;
 };
 
 //The physical 'window' that displays the given environment, and everything it contains
@@ -52,7 +50,7 @@ class SimulationSpeedSlider : public QGroupBox{
         QSlider* slider;
 
         //0 - 100, last value slider had before pausing by pushing button
-        int prev_step = 100;
+        int prev_step = 50;
         bool paused_by_button = true;
 
         void updateInterval(int);

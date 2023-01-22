@@ -77,7 +77,7 @@ public:
 
     void Eat();
 
-//    QPainterPath shape() const;
+    QPainterPath shape() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
 
@@ -158,7 +158,6 @@ public:
     void set_found_food(bool b);
     int get_counter_no_sleep();
     int get_counter_no_eat();
-    int get_counter_no_reproduction(){ return counter_no_reproduction; }
     void set_counter_no_eat(int i);
     void set_counter_no_sleep(int j);
     Network* get_brain();
