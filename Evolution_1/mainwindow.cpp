@@ -303,6 +303,7 @@ void MainWindow::on_simBut_clicked()
     auto environment = new Environment();
 
     int n = ui->creature_list->count();
+    environment->current_nr_beings = n;
     for(int i = 0; i < n; i++){
         auto beingitem = dynamic_cast<BeingItem*>(ui->creature_list->item(i));
         auto being = beingitem->being;
