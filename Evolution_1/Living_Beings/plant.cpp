@@ -56,7 +56,7 @@ void Plant::set_family(int i){};
 int Plant::get_family(){return -1;};
 void Plant::die() {
     if ((!this->get_alive()) || (this->get_hp() <= 0) ) {
-
+        this->environment->current_nr_beings -=1;
         set_alive(false);
         //here we chose to kill and destroy everything which is dead
         Plant::~Plant();
@@ -273,7 +273,8 @@ void Plant::playstep() {    // random values for increasing hp, random weight of
 
     if (repro_factor>=500){
         repro_factor -= 500;
-        if (N_Plants<200 && QRandomGenerator::global()->generateDouble() <0.6){
+        if (N_Plants<200 && QRandomGenerator::global()->generateDouble() <0.6 && this->environment->nr_beings() < this->environment->max_nr_beings){
+            this->environment->current_nr_beings += 1;
             Plant* p = reproduction();
             this->get_scene()->addItem(p);
         }

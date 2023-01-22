@@ -20,6 +20,8 @@ class Environment : public QGraphicsScene
         qreal get_max_step();
         void  set_simulation_step(qreal);
         int nr_beings();
+        int current_nr_beings;
+        int max_nr_beings;
     private:
         qreal simulation_step = 7;
         qreal min_step = 0.3, max_step = 10;

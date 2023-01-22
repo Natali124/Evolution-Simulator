@@ -6,6 +6,8 @@ Environment::Environment() : QGraphicsScene(0, 0, 500, 500) {
     previousRect = nullptr;
     click_in_bounding_rect = false;
     last_touched = nullptr;
+    current_nr_beings = 0;
+    max_nr_beings = 300;
 }
 Environment::Environment(double height, double width) : QGraphicsScene(0, 0, width, height){ }
 

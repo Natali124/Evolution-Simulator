@@ -172,6 +172,7 @@ Creature::Creature(std::map<Enum_parameters, double> parameters, Network *brain,
 }
 
 Creature::~Creature() {
+
   //delete this->brain;
 }
 
@@ -345,7 +346,7 @@ void Creature::bound_energy_hp() {
 void Creature::try_reproduce(){
     // reproduces if possible
 
-    if(counter_no_reproduction <repro_cool_down){
+    if(counter_no_reproduction <repro_cool_down && this->environment->current_nr_beings >= this->environment->max_nr_beings){
         // if still in cooldown, return
         return;}
     // check if can reproduce
@@ -364,6 +365,7 @@ void Creature::try_reproduce(){
     if(reproduce){
         Creature* c = this->reproduction();
         this->get_scene()->addItem(c);
+        this->environment->current_nr_beings += 1;
         counter_no_reproduction = 0;
       }
 }
@@ -504,6 +506,7 @@ void Creature::playstep() {
         set_counter_no_eat(get_counter_no_eat()+1);
         Eat(); // if colliding with something, eat or die
     ;} else {
+        this->environment->current_nr_beings -= 1;
         delete this; // deletes itself if dead
       }
 };
