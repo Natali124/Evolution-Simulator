@@ -14,16 +14,18 @@
 #include <QRandomGenerator>
 //using namespace std;
 
-const int repro_cost_predator = 40;// cost of reproduction of predators (20 = 1x food)
+const int repro_cost_predator = 60;// cost of reproduction of predators (20 = 1x food)
 const int repro_cost_prey = 20; // cost of reproduction of predators (20 = 1x food)
-const int food_value_plant = 20; // value of a plant to be added to repro_factor upon consumption
+const int food_value_plant = 40; // value of a plant to be added to repro_factor upon consumption
 const int food_value_animal = 40; // value of a creature to be added to repro_factor upon consumption
 const double seeing_rect = 500; // size of rectangle in which creatures see
-const int repro_cool_down = 50; // how many steps between reproductions
+const int repro_cool_down = 20; // how many steps between reproductions
 const double _predator_speed_bonus = 0; // gives predators more / less speed
 const float _ddistance = 2; //base value of the change of the distance
-const double starving_rate = 0.2; // rate of starving, 0 = no starving, 1 = starving very quickly
+const double starving_rate = 0.6; // rate of starving, 0 = no starving, 1 = starving very quickly
 const int repro_factor_decrease = 4; // decrease of repro_factor per step
+const int max_repro_factor_prey = 50;
+const int max_repro_factor_pred = 60;
 
 
 const bool allow_cannibalism = false; // allow creatures of same family to eat each other?
@@ -31,7 +33,7 @@ const bool can_see_own_family = false; // can creatures see their own family?
 const bool preds_can_see_plants = false; // can predators see plants?
 const bool kill_overlapping = false; // kill overlapping preys?
 
-const int _n_closest_visible = 2; //number of closest visible beings
+const int _n_closest_visible = 1; //number of closest visible beings
 const int n_input = 4*_n_closest_visible; //size of input vector to neural network
 const int n_output = _n_closest_visible; // size of output vector of neural network
 
@@ -64,6 +66,16 @@ void Creature::stay_in_bounds(){
       setY(1000-y());
 
   }
+}
+
+
+void Creature::bound_repro_factor(){
+  repro_factor = max(0.0, repro_factor);
+   if(i_eat_plants){
+       repro_factor = min((double)max_repro_factor_pred,repro_factor);
+     } else {
+       repro_factor = min((double)max_repro_factor_prey,repro_factor);
+     }
 }
 
 
@@ -463,8 +475,9 @@ void Creature::playstep() {
     if (get_alive()){
         try_reproduce(); // reproduce if possible
 
-        //bouding energy and hp to the max bcse in case of modifications in the previous playstep
+        //bouding energy and hp and repro_factor to the max bcse in case of modifications in the previous playstep
         bound_energy_hp();
+        bound_repro_factor();
 
         // get closest being (for now only very closest one)
         std::vector<std::tuple<double,LivingBeing*>> closest = get_closest(_n_closest_visible);

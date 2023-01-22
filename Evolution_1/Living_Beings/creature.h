@@ -129,6 +129,8 @@ public:
     vector<double> get_params(LivingBeing* l);
     void move_to(LivingBeing* other, double d);
     std::vector<std::tuple<double,LivingBeing*>> get_closest(int n); // get the closest n things to the creature (distance, size, type, family)
+    void bound_repro_factor();
+
 
     void set_energy(double e);
     double get_energy() const;
