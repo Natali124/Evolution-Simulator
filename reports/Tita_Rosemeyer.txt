@@ -78,3 +78,16 @@ Next week I plan to work on the following:
 - improve reproduction and decision making of creatures by varying parameters
 - work on presentation of results of the NN team (evolution of network, ...)
 - create a variation of the main application with simplified decision making to see if evolution improves
+
+Week 7:
+This last week I worked on the following:
+- finishing presentation of network
+- testing networks through run_evolution function and creating graphs showing the progress
+- created a simple evolution version (mostly in creature.cpp)
+	-> implemented get_closest() function
+	-> adapted decision function
+	-> implemented get_params() function
+	-> changed parameters of evolution
+	-> cleaned up and simplified code
+	-> simplified simulation mechanics
+	-> implemented family
