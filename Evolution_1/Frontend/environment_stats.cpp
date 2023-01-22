@@ -30,7 +30,7 @@ Energy_perc::Energy_perc(SimulationView* menu, QWidget *parent): QChartView(pare
 
     QValueAxis* axisX = new QValueAxis();
     set_x_axis(axisX);
-    axisX->setMax(50);
+    axisX->setMax(100);
     chart->addAxis(axisX, Qt::AlignBottom);
     series_prey_min->attachAxis(axisX);
     series_prey_plus->attachAxis(axisX);
@@ -79,7 +79,15 @@ void Energy_perc::update_chart(){
     update();
 };
 
-Energy_perc::~Energy_perc() {};
+Energy_perc::~Energy_perc() {
+    delete x_axis;
+    delete y_axis;
+    delete series_prey_min ;
+    delete series_prey_plus;
+    delete series_predator_min;
+    delete series_predator_plus;
+    delete chart;
+};
 
 std::vector<double> Energy_perc::creature_energy_ratio() {
     std::vector<double> v;
@@ -154,7 +162,7 @@ Average_size::Average_size(SimulationView* menu, QWidget *parent): QChartView(pa
 
     QValueAxis* axisX = new QValueAxis();
     set_x_axis(axisX);
-    axisX->setMax(50);
+    axisX->setMax(100);
     chart->addAxis(axisX, Qt::AlignBottom);
     series_prey->attachAxis(axisX);
     series_predator->attachAxis(axisX);
@@ -219,7 +227,14 @@ std::vector<double> Average_size::get_size_avg(){ //returns a vector of doubles:
 }
 
 
-Average_size::~Average_size() {};
+Average_size::~Average_size() {
+    delete x_axis;
+    delete y_axis;
+    delete series_prey ;
+    delete series_predator;
+    delete series_plant;
+    delete chart;
+};
 
 void Average_size::timerEvent(QTimerEvent *event) {
     //std::cout << "timer event received" <<std::endl;
@@ -265,7 +280,7 @@ Alive_perc::Alive_perc(SimulationView* menu, QWidget *parent): QChartView(parent
 
     QValueAxis* axisX = new QValueAxis();
     set_x_axis(axisX);
-    axisX->setMax(50);
+    axisX->setMax(100);
     chart->addAxis(axisX, Qt::AlignBottom);
     series_prey->attachAxis(axisX);
     series_predator->attachAxis(axisX);
@@ -326,7 +341,14 @@ std::vector<double> Alive_perc::get_alive_perc(){ //returns a vector of doubles:
 }
 
 
-Alive_perc::~Alive_perc() {};
+Alive_perc::~Alive_perc() {
+    delete x_axis;
+    delete y_axis;
+    delete series_prey ;
+    delete series_predator ;
+    delete series_plant;
+    delete chart;
+};
 
 void Alive_perc::timerEvent(QTimerEvent *event) {
     //std::cout << "timer event received" <<std::endl;
@@ -520,7 +542,14 @@ void Lifetime::update_chart(){
     update();
 }
 
-Lifetime::~Lifetime() {};
+Lifetime::~Lifetime() {
+    delete x_axis;
+    delete y_axis;
+    delete Predator_series;
+    delete Prey_series;
+    delete Plant_series;
+    delete chart;
+};
 
 
 

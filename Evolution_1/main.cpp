@@ -19,9 +19,9 @@ int main(int argc, char *argv[])
     //new Energy_perc(menu_ptr);  //predators and preys are treated as independent groups. Plots the percentage of preys/predators
     //having less/more than or equal to  half of their max energy (of preys among preys, of predators among predators)
 
-    //new Average_size(menu_ptr); //Plots the average size of plants, preys and predators
+    new Average_size(menu_ptr); //Plots the average size of plants, preys and predators
 
     //new Alive_perc(menu_ptr);  //plots the percentage of alive preys/predators/plants among all LBs.
-    new Lifetime(menu_ptr);
+    //new Lifetime(menu_ptr);
     return a.exec();
 }
