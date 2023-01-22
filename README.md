@@ -11,6 +11,10 @@ Preys and predators have neural networks that allow them to take decisions.
 
 ## How to run it [TO DO]
 
+
+### Changing the Simulation
+In the file /Evolution_1/Living_Beings/creature.cpp, you will find some parameters in the first few lines. Change them around and see how the simulation changes. 
+
 ## Project Description (detailed) [TO DO]
 
 ## Members
