@@ -32,4 +32,5 @@ Devise a new system to make creatures move,\
 in order to speed up the learning process and simplify the simulation.\
 Next week I will perfection this system and conclude the project.\
 Week 7:\
-Experimented with the decision-making process in the branches spanning_living_being and easy_living_being.\}
+Experimented with the decision-making process in the branches spanning_living_being and easy_living_being.\
+I also capped the number of creatures in the simulations and fixed some bugs.\}
