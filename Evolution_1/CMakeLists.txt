@@ -51,8 +51,6 @@ set(PROJECT_SOURCES
         Neural_Network/test_python_integration.cpp
         Neural_Network/test
         results.txt
-        Frontend/mouse.h
-        Frontend/mouse.cpp
         Frontend/Widgets/simulationViewWidgets.h
         Frontend/Widgets/creatureDisplay.cpp
         Frontend/Widgets/simulationView.h
@@ -62,11 +60,15 @@ set(PROJECT_SOURCES
         Neural_Network/nn_evolution.hpp
         Neural_Network/reading.hpp
         Neural_Network/reading.cpp
+        Frontend/CreatureDesigns.qrc
         Frontend/resources.h
         Frontend/Widgets/SimulationSpeedSlider.cpp
         Frontend/Widgets/environmentTimer.cpp
         Frontend/Widgets/statView.h
         Frontend/Widgets/statView.cpp
+        barrier.h barrier.cpp
+        Frontend/startscreen.h Frontend/startscreen.cpp Frontend/startscreen.ui
+        Frontend/startscreen/propertyslider.h Frontend/startscreen/propertyslider.cpp Frontend/startscreen/propertyslider.ui
         ${TS_FILES}
 )
 
