@@ -27,6 +27,6 @@ void EnvironmentTimer::setStep(int percent){
     percent = std::min(percent, 200);
 
     timeStep = baseStep * ( 200 - percent) / 100;
-    qDebug() << timeStep;
+    //qDebug() << timeStep;
     timer->setInterval(timeStep);
 }
