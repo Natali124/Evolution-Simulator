@@ -3,8 +3,6 @@
         <file>wolf.png</file>
         <file>deer.png</file>
         <file>lion.png</file>
-        <file>rabbit.png</file>
-        <file>tiger.png</file>
         <file>gazelle.png</file>
     </qresource>
 </RCC>

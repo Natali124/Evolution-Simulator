@@ -4,11 +4,20 @@ The project aims to simulate evolution.
 There are three types of beings: plants, preys and predators. 
 Preys and predators have neural networks that allow them to take decisions. 
 
+
+## Dependencies [TO DO]:
+[Write any Dependencies that you used in here!]
+- 
+
+## How to run it [TO DO]
+
+## Project Description (detailed) [TO DO]
+
 ## Members
 Format: Name, Trello, Git.
 Anja Matic 
 @anjamatic02
-Arjun B
+Arjun Bommadevara
 @arjun_b03
 Atodiresei Matei
 @atodireseimatei
@@ -38,21 +47,23 @@ Vincenzo Politelli
 ## Teams
 
 ### Backend
+#### Neural Network Team
+Tita Rosemeyer
 Anja Matic 
+Natali Gogishvili
+### Other Teams [TO DO]
 Flavia Grasso
 Garance Perrot
 laurentiu lazar
 Lorenzo De Giovanni
-Mathilde Cros
-Natali Gogishvili
 Oskar Dąbkowski
 Pablo Bertaud-Velten
-Tita Rosemeyer
 
-### Frontend
-Arjun B
+### Frontend [TO DO: Teams]
+Arjun Bommadevara
 Atodiresei Matei
 laurentiu lazar
 Lorenzo De Giovanni
 Victor Mihaila
 Vincenzo Politelli
+Mathilde Cros

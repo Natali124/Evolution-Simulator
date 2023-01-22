@@ -1,0 +1,42 @@
+Week 1:
+Me and Lorenzo worked on familiarizing ourselves with QT GUI that we will use to develop the frontend of the project. We worked on understanding 
+the class QPushButton that will be used for making the initial start button, as well as buttons that add plants, predators and prey to the 
+environment. We implemented a simple, large start button that, when clicked, dissapears and makes 3 buttons (for adding predators, prey and plants)
+appear on the window, as well as counters that appear next to them (To allow user to decide number of predators, prey or plants to add). We added a
+background by adding an image to a widget dedicated to being a background. Next week, I will be focusing on layering the widgets, such that the
+background appears behind all other widgets, as well as connecting counter to  buttons.
+
+Week 2:
+We worked on redesigning the layout of the start screen, by separating them into 3 parts: One for adding the creatures (you can choose how many),
+one part representing all the creatures you have already added, and one part for altering the charecteristics of each creature. We managed to link
+the counter to each button, as well as making use of a QListWidget to add number of creatures that was on the counter (2nd part of the screen).
+This week, we will focus on background, by trying to make the screen visually pleasing, as well as incorporating the sliders for the
+characteristics of the creatures into the 3rd part of screen, working alongside Mathilde.
+
+Week 3: 
+This week, I worked on merging the sliders that mathilde created to the mainwindow. I also worked on connecting the sliders to the spinboxes. 
+In addition, i worked on making sure that the buttons scaled with the window when the window was resized. I implemented this scaling for one of 
+the buttons, and next week I will work on implementing the scaling for all the other buttons, sliders and couters.
+
+Week 4: 
+This week, I managed to implement the scaling for most of the buttons, except the initial start button. Since this button was placed behind the
+list when the mainwindow was created, there were problems with the scaling of the start button. I met with the group leader vincenzo, and we
+discussed the possibility of adding a toolbar to the simulation window, that allows us to add a creature or plant while the simulation was 
+running. 
+
+Week 5 (Holidays):
+Over the holidays, I worked on fixing the scaling of the buttons, and the scaling of the start button was interfering with the scaling of all 
+other buttons, so I decided to redo the scaling from scratch. After fixing all scaling issues, I still had a problem where the start button was not centered. I then merged my branch with the main frontend branch, and there were many conflicts, which I had to resolve manually. Next week, I will make sure the start button is centered and fix some bugs we have. 
+
+Week 6: 
+This week, I fixed the issue of the start button being not centered. I then worked on fixing the bug we had with the ordering of our list of 
+creatures. The bug was that the creatures were not ordered numerically, but lexigraphically. I solved this by defining a new list with the order 
+function redefined to order numerically. In addition, I worked on adding backgrounds and making sure the backgrounds stretched properly when 
+the window was resized. Next week, I will work on the toolbar for simulation view that I discussed with vincenzo. 
+
+Week 7: 
+I made some small ui changes to make sure that the sizes of buttons were correct. I then added buttons for adding omnivore, herbivores and plants
+to the simulationview window, and worked on connecting these buttons to open windows that allow you to adjust parameters for the creature / plant
+you want to add. For all three of these windows, I worked on actually connecting the "add omnivore", "add herbivore" and "add plant" button 
+to adding a omnivore, herbivore and plant to the environment respectively. By next week, I will finish defining the functions that add the creature / plant directly to the environment. 
+

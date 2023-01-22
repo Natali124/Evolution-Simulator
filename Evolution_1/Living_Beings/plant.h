@@ -4,37 +4,49 @@
 #include <map>
 #include "creature.h"
 
+//extern int number_plants;
+//extern int number_plants_alive;
+//extern int number_plants_dead;
+
 class Plant : public LivingBeing
 {
 public:
     // the enum_parameters is the enumeration that lists the parameters
     // (we overwrite if for the different creatures)
-    enum Enum_parameters{reproduction_rate, size, Max_hp, last};
+    enum Enum_parameters{reproduction_rate, size, Max_hp, Max_size, last};
     // the 'last' parameter is  just there in order to make iteration easier, it has no actual purpuse
     // see https://stackoverflow.com/questions/261963/how-can-i-iterate-over-an-enum
 
     // CONSTRUCTORS
-    // the defaul constructor initialises parameters with some random values
-    Plant(Environment* environment = nullptr);
-    // this constructor take a std::map<Enum_parameters, float> and creates a creature with such parameters.
-    Plant(std::map<Enum_parameters, float> parameters);
+    // the defaul constructor initialises parameters with some random values and initializes the size at 1 and hp at max_hp
+    Plant();
+    Plant(Environment *e);
+
+    // this constructor take a std::map<Enum_parameters, double> and creates a creature with such parameters,
+    //initializes the size at 1 and hp at max_hp
+    Plant(std::map<Enum_parameters, double> parameters, Environment *e);
+
     ~Plant();
 
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     // DATA MEMBERS
-    std::map<Enum_parameters, float> parameters;
-    std::map<Enum_parameters, float> base_parameters; //Those are the parameters we use for reproduction
+    std::map<Enum_parameters, double> parameters;
+    std::map<Enum_parameters, double> base_parameters; //Those are the parameters we use for reproduction
 
     void playstep(); //increases size and hp, should add reproduction
-    float get_reproduction_rate();
-    void set_reproduction_rate(float rr);
-    float get_size();
-    void set_size(float s);
-    float get_Max_hp();
-    void set_Max_hp(float hp);
-    float get_hp();
-    void set_hp(float hp);
+
+    double get_reproduction_rate();
+    void set_reproduction_rate(double rr);
+    double get_size() const;
+    void set_size(double s);
+    double get_Max_hp() const;
+    void set_Max_hp(double hp);
+    double get_Max_size() const;
+    void set_Max_size(double s);
+    double get_hp() const;
+    void set_hp(double hp);
+
 
     enum Type_Plant{
     Carbs = 0, Protein = 1 , Slimming = 2 , Allergenic = 3 , Allergenic_Protein = 4 , Allergenic_Carbs = 5 ,
@@ -44,7 +56,7 @@ public:
     Type_Plant type_plant;
 
     // MEMBER FUNCTIONS
-    void reproduction();
+    Plant* reproduction();
 
     //functions about a creature eating a plant:impact on physical_strength, energy, visibility and eye_sight.
     //variables are incremented/ decremented by a coefficient alpha which depends on the
@@ -54,10 +66,11 @@ public:
     // ++ or -- means + or - 2*alpha
     void is_eaten(Creature &c);
 
+    void die();
 
-    void take_dmg(float dmg);
+    void take_dmg(double dmg);
 //to update using the future get and set functions for c.parameters
-    float get_alpha(Creature &c);
+    double get_alpha(Creature &c);
     void carbs(Creature &c);   // + energy , - strength (c becomes heavier)
     void protein(Creature &c); // + strength, - energy (hard to digest)
     void slimming_effect(Creature &c);// + eye_sight, - visibility (c becomes slimmer,easier to move the head)
@@ -66,9 +79,13 @@ public:
     void allergenic_carbs(Creature &c);// ++ energy, - strength and - eye_sight
     void slimming_protein(Creature &c);//++ strength , - energy and - visibility
     void slimming_carbs(Creature &c);// ++ energy, - strength and - visibility
+    int get_family();
+    void set_family(int i);
+    QRectF boundingRect() const;
 
 protected:
-    float hp;
+    int repro_factor = 0;
+    double hp;
 
 };
 

@@ -23,7 +23,7 @@ class EnvironmentTimer : public QObject
         void Slot();
 
     private:
-        float timeStep = 1000/33;
+        double timeStep = 1000/33;
 };
 
 //The physical 'window' that displays the given environment, and everything it contains
