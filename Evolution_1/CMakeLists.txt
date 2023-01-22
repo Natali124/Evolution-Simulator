@@ -31,6 +31,15 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        omni_win.h
+        omni_win.cpp
+        omni_win.ui
+        herb_win.h
+        herb_win.cpp
+        herb_win.ui
+        plant_win.h
+        plant_win.cpp
+        plant_win.ui
         environment.h
         environment.cpp
         Living_Beings/living_being.h
@@ -51,8 +60,6 @@ set(PROJECT_SOURCES
         Neural_Network/test_python_integration.cpp
         Neural_Network/test
         results.txt
-        Frontend/mouse.h
-        Frontend/mouse.cpp
         Frontend/Widgets/simulationViewWidgets.h
         Frontend/Widgets/creatureDisplay.cpp
         Frontend/Widgets/simulationView.h
@@ -62,11 +69,15 @@ set(PROJECT_SOURCES
         Neural_Network/nn_evolution.hpp
         Neural_Network/reading.hpp
         Neural_Network/reading.cpp
+        Frontend/CreatureDesigns.qrc
         Frontend/resources.h
         Frontend/Widgets/SimulationSpeedSlider.cpp
         Frontend/Widgets/environmentTimer.cpp
         Frontend/Widgets/statView.h
         Frontend/Widgets/statView.cpp
+        barrier.h barrier.cpp
+        Frontend/startscreen.h Frontend/startscreen.cpp Frontend/startscreen.ui
+        Frontend/startscreen/propertyslider.h Frontend/startscreen/propertyslider.cpp Frontend/startscreen/propertyslider.ui
         ${TS_FILES}
 )
 
@@ -98,7 +109,6 @@ else()
 endif()
 
 target_link_libraries(Evolution_1 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
-#target_link_libraries(Evolution_1 PRIVATE Qt${PYTHON_INCLUDE_DIRS})
 
 set_target_properties(Evolution_1 PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
