@@ -16,16 +16,6 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools Cha
 
 set(TS_FILES Evolution_1_en_GB.ts)
 
-#python trying
-#find_package(PythonLibs REQUIRED)
-#include_directories(${PYTHON_INCLUDE_DIRS})
-#find_package (Python COMPONENTS Interpreter Development)
-#set(Python_INCLUDE_DIRS "/opt/anaconda3/envs/python37/include/python3.7m")
-#set(Python_LIBRARY "/opt/anaconda3/envs/python37/lib/python3.7")
-
-find_package(PythonLibs REQUIRED)
-include_directories(${PYTHON_INCLUDE_DIRS})
-
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
