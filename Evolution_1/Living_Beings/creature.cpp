@@ -18,8 +18,7 @@
 // Parameters: Change to try different simulations!
 
 // the more, the smarter the creatures can get, but the longer they will take to evolve
-const int _n_closest_visible = 1; //number of closest visible beings
-
+const int _n_closest_visible = 3; //number of closest visible beings
 
 //constrolling visibility of beings to other beings
 const bool allow_cannibalism = false; // allow creatures of same family to eat each other?
@@ -34,12 +33,13 @@ const int repro_cost_predator = 60;// cost of reproduction of predators (20 = 1x
 const int repro_cost_prey = 20; // cost of reproduction of predators (20 = 1x food)
 const int food_value_plant = 40; // value of a plant to be added to repro_factor upon consumption
 const int food_value_animal = 40; // value of a creature to be added to repro_factor upon consumption
-const int repro_cool_down = 20; // how many steps between reproductions
+const int repro_cool_down = 40; // how many steps between reproductions
 const int repro_factor_decrease = 4; // decrease of repro_factor per step
 const int max_repro_factor_prey = 50; // caps the repro factor of the prey
 const int max_repro_factor_pred = 60; // caps the repro factor of the predator
 const double _predator_speed_bonus = 0; // gives predators more / less speed
 const double _ddistance = 2; //base value of the change of the distance
+
 
 // END OF PARAMETERS
 
@@ -142,6 +142,7 @@ Creature::Creature(bool newfamily):LivingBeing() {
         effect->setColor(Qt::transparent);
         this->setGraphicsEffect(effect);
     }
+    this->counter_no_reproduction = 0;
 }
 
 
@@ -356,7 +357,7 @@ void Creature::bound_energy_hp() {
 void Creature::try_reproduce(){
     // reproduces if possible
 
-    if(counter_no_reproduction <repro_cool_down && this->environment->current_nr_beings >= this->environment->max_nr_beings){
+    if(counter_no_reproduction <repro_cool_down || this->environment->current_nr_beings >= this->environment->max_nr_beings){
         // if still in cooldown, return
         return;}
     // check if can reproduce
@@ -580,8 +581,8 @@ void Creature::move_to(LivingBeing* other, double d){
       oy = other->y();
     }
   double r = distance(x,y,ox,oy);
-  setX(x + (d/r)*(ox-x) );
-  setY(y + (d/r)*(oy-y) );
+  setX(x + min(1.0,(d/r))*(ox-x) );
+  setY(y + min(1.0,(d/r))*(oy-y) );
   this->stay_in_bounds();
 }
 
