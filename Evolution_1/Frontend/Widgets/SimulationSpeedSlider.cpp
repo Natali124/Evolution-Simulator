@@ -15,7 +15,7 @@ SimulationSpeedSlider::SimulationSpeedSlider(EnvironmentTimer* timer, QWidget* p
 
     button->setText("⏵");
     slider->setMinimum(0);
-    slider->setMaximum(100);   
+    slider->setMaximum(200);
     connect(slider, &QSlider::valueChanged, this, &SimulationSpeedSlider::updateInterval);
     connect(button, &QToolButton::clicked, this, &SimulationSpeedSlider::handleToggle);
 
@@ -36,11 +36,12 @@ void SimulationSpeedSlider::updateInterval(int value){
     paused_by_button = false;
     button->setText("⏸");
 
-    qreal minstep = timer->environment->get_min_step();
-    qreal maxstep = timer->environment->get_max_step();
-    qreal step = minstep + (maxstep - minstep) * (value - 0) / 100;
+//    qreal minstep = timer->environment->get_min_step();
+//    qreal maxstep = timer->environment->get_max_step();
+//    qreal step = minstep + (maxstep - minstep) * (value - 0) / 100;
 
-    timer->environment->set_simulation_step(step);
+//    timer->environment->set_simulation_step(step);
+    timer->setStep(slider->value());
     timer->start();
 }
 
@@ -52,7 +53,7 @@ void SimulationSpeedSlider::handleToggle(){
 
         slider->setValue(0);
     } else {
-        if(!paused_by_button) slider->setValue(50);
+        if(!paused_by_button) slider->setValue(100);
         else slider->setValue(prev_step);
     }
 }

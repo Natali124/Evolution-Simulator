@@ -1,6 +1,8 @@
+#include "Frontend/Widgets/statView.h"
 #include "Living_Beings/creature.h"
 #include "environment.h"
 #include "living_being.h"
+#include "qpainter.h"
 
 #include <QGraphicsItem>
 #include <cmath>
@@ -28,13 +30,13 @@ QRectF LivingBeing::boundingRect() const
                   (36 + adjust)*get_size()/200, (60 + adjust)*get_size()/200);
 }
 
-QPainterPath LivingBeing::shape() const
-{
-    QPainterPath path;
-    //I divided by 200 since random the random constructor gives a size between 0 and 200, this might be temprorary values;
-    path.addRect(-5*get_size()/400, -10*get_size()/400, 10*get_size()/400, 20*get_size()/400);
-    return path;
-}
+//QPainterPath LivingBeing::shape() const
+//{
+//    QPainterPath path;
+//    //I divided by 200 since random the random constructor gives a size between 0 and 200, this might be temprorary values;
+//    path.addRect(-5*get_size()/400, -10*get_size()/400, 10*get_size()/400, 20*get_size()/400);
+//    return path;
+//}
 
 
 void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -42,6 +44,8 @@ void LivingBeing::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     /*painter->setBrush(color);
     //I divided by 200 since random the random constructor gives a size between 0 and 200, this might be temprorary values;
     painter->drawEllipse(-5*get_size()/400, -10*get_size()/400, 10*get_size()/400, 20*get_size()/400);*/
+//    painter->drawRect(boundingRect());
+//    painter->drawPath(shape());
 }
 
 
@@ -87,4 +91,8 @@ std::string LivingBeing::get_type_string(){
     }
 
     return "";
+}
+
+void LivingBeing::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
+    new StatView(this);
 }
