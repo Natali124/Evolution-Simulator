@@ -49,7 +49,7 @@ void SimulationView::init_layout(){
     leftGroupBox->setStyleSheet("color: black");
 
     auto btn = new QPushButton(leftGroupBox);
-    btn->setText("Test - Spawn 20 creatures");
+    btn->setText("Test - Spawn 200 creatures");
     connect(btn, &QPushButton::clicked, this, &SimulationView::randomize_scene);
     btn->setStyleSheet("color: black; background-color: white");
     layout->addWidget(btn);
